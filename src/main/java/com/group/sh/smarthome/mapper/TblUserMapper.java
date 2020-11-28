@@ -19,7 +19,7 @@ public interface TblUserMapper extends BaseMapper<TblUser> {
 
     public List<TblUser> getUserInfoList(TblUser tblUser);
 
-    public String addUserInfo(List<TblUser> tblUserList);
+    public Integer addUserInfo(TblUser tblUser);
 
     public Boolean updateUserInfo(TblUser tblUser);
 

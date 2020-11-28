@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group.sh.smarthome.mapper.TblUserMapper">
-    <select id="getUserInfoList" parameterType="com.group.sh.smarthome.entity.TblUser">
-        select * from tbl_user
+    <select id="getUserInfoList" resultType="com.group.sh.smarthome.entity.TblUser" parameterType="com.group.sh.smarthome.entity.TblUser">
+        select USER_ACCOUNT,USER_NAME from tbl_user
+        <where>
+            <if test="userAccount != '' and userAccount != null ">
+                and USER_ACCOUNT = #{userAccount}
+            </if>
+        </where>
     </select>
 
-    <insert id="addUserInfo" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="userId">
+    <insert id="addUserInfo" parameterType="com.group.sh.smarthome.entity.TblUser" useGeneratedKeys="true" keyProperty="userId">
         insert into
-        tbl_user(USER_ID,USER_ACCOUNT,USER_PWD,USER_NAME,USER_SEX,USER_AGE,USER_PHONE,USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS,USER_QQ,USER_WECHAT,USER_IDCARDTYPE,USER_IDCARDNUM,USER_HEADURL,USER_RESUME,USER_EDDGRCD,USER_DGRCD,USER_GRDT_SCHCD,USER_MJR,USER_GRDTM,USER_STATUS,CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,USER_ROLE)
+        tbl_user(USER_ACCOUNT,USER_PWD,USER_NAME,USER_SEX,USER_AGE,USER_PHONE,
+                 USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS,USER_QQ,USER_WECHAT,
+                 USER_IDCARDTYPE,USER_IDCARDNUM,USER_HEADURL,USER_RESUME,USER_EDDGRCD,
+                 USER_DGRCD,USER_GRDT_SCHCD,USER_MJR,USER_GRDTM,USER_STATUS,
+                 CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,USER_ROLE)
         values
-        <foreach collection="list" item="i" index="index" separator=",">
-            (#{i.userAccount},#{i.userPwd},#{i.userName},#{i.userSex},#{i.userAge},#{i.userPhone},
-             #{i.userWorkphone},#{i.userJob},#{i.userMail},#{i.userAddress},#{i.userQq},#{i.userWechat},
-             #{i.userIdcardtype},#{i.userIdcardnum},#{i.userHeadurl},#{i.userResume},#{i.userEddgrcd},
-             #{i.userDgrcd},#{i.userGrdtSchcd},#{i.userMjr},#{i.userGrdtm},#{i.userStatus},
-             #{i.crtPsnId},#{now()},#{i.modPsnId},#{i.modTm},#{i.delId},#{i.userRole})
-        </foreach>
+            (#{userAccount},#{userPwd},#{userName},#{userSex},#{userAge},#{userPhone},
+             #{userWorkphone},#{userJob},#{userMail},#{userAddress},#{userQq},#{userWechat},
+             #{userIdcardtype},#{userIdcardnum},#{userHeadurl},#{userResume},#{userEddgrcd},
+             #{userDgrcd},#{userGrdtSchcd},#{userMjr},#{userGrdtm},#{userStatus},
+             #{crtPsnId},now(),#{modPsnId},#{modTm},'0',#{userRole})
     </insert>
 
-    <update id="updateUserInfo">
+    <update id="updateUserInfo" parameterType="com.group.sh.smarthome.entity.TblUser">
         update tbl_user
         <set>
-            DEL_ID = '1',
+            DEL_ID = '0',
             MOD_TM = now(),
-            <if test="userAccount != '' and userAccount != null">
-                USER_ACCOUNT = #{userAccount},
-            </if>
             <if test="userPwd != '' and userPwd != null">
                 USER_PWD = #{userPwd},
             </if>
@@ -74,7 +78,6 @@
                 USER_RESUME = #{userResume},
             </if>
 
-
             <if test="userEddgrcd != '' and userEddgrcd != null">
                 USER_EDDGRCD = #{userEddgrcd},
             </if>
@@ -94,7 +97,7 @@
         where USER_ID = #{userId}
     </update>
 
-    <update id="deleteUserInfo">
+    <update id="deleteUserInfo" parameterType="com.group.sh.smarthome.entity.TblUser">
         update tbl_user
         <set>
             DEL_ID = '1',

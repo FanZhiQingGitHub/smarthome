@@ -1,16 +1,19 @@
 package com.group.sh.smarthome.service;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.sh.smarthome.entity.TblRole;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.group.sh.smarthome.mapper.TblRoleMapper;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务类
+ *  服务实现类
  * </p>
  *
  * @author fzq
  * @since 2020-11-26
  */
-public interface TblRoleService extends IService<TblRole> {
+@Service
+public class TblRoleService extends ServiceImpl<TblRoleMapper, TblRole> {
 
 }

@@ -1,7 +1,5 @@
 server:
   port: 10010
-  servlet:
-    context-path: /smarthome
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,32 +8,32 @@ spring:
     password: 690097FZQ
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      initial-size: 20 #³õÊ¼»¯Ê±½¨Á¢ÎïÀíÁ¬½ÓµÄ¸öÊı
-      min-idle: 1  #×îĞ¡Á¬½Ó³ØÊıÁ¿
-      max-active: 200 #×î´óÁ¬½Ó³ØÊıÁ¿
-      max-wait: 60000 #»ñÈ¡Á¬½ÓÊ±×î´óµÈ´ıÊ±¼ä£¬µ¥Î»ºÁÃë
-      time-between-eviction-runsMillis: 60000 #1) DestroyÏß³Ì»á¼ì²âÁ¬½ÓµÄ¼ä¸ôÊ±¼ä2) testWhileIdleµÄÅĞ¶ÏÒÀ¾İ
-      min-evictable-idle-timeMillis: 300000 #DestoryÏß³ÌÖĞÈç¹û¼ì²âµ½µ±Ç°Á¬½ÓµÄ×îºó»îÔ¾Ê±¼äºÍµ±Ç°Ê±¼äµÄ²îÖµ´óÓÚminEvictableIdleTimeMillis£¬Ôò¹Ø±Õµ±Ç°Á¬½Ó¡£
+      initial-size: 20 #åˆå§‹åŒ–æ—¶å»ºç«‹ç‰©ç†è¿æ¥çš„ä¸ªæ•°
+      min-idle: 1  #æœ€å°è¿æ¥æ± æ•°é‡
+      max-active: 200 #æœ€å¤§è¿æ¥æ± æ•°é‡
+      max-wait: 60000 #è·å–è¿æ¥æ—¶æœ€å¤§ç­‰å¾…æ—¶é—´ï¼Œå•ä½æ¯«ç§’
+      time-between-eviction-runsMillis: 60000 #1) Destroyçº¿ç¨‹ä¼šæ£€æµ‹è¿æ¥çš„é—´éš”æ—¶é—´2) testWhileIdleçš„åˆ¤æ–­ä¾æ®
+      min-evictable-idle-timeMillis: 300000 #Destoryçº¿ç¨‹ä¸­å¦‚æœæ£€æµ‹åˆ°å½“å‰è¿æ¥çš„æœ€åæ´»è·ƒæ—¶é—´å’Œå½“å‰æ—¶é—´çš„å·®å€¼å¤§äºminEvictableIdleTimeMillisï¼Œåˆ™å…³é—­å½“å‰è¿æ¥ã€‚
       validation-query: select 'x' FROM DUAL
-      test-while-idle: true #ÉêÇëÁ¬½ÓµÄÊ±ºò¼ì²â£¬Èç¹û¿ÕÏĞÊ±¼ä´óÓÚtimeBetweenEvictionRunsMillis£¬Ö´ĞĞvalidationQuery¼ì²âÁ¬½ÓÊÇ·ñÓĞĞ§¡£
-      test-on-borrow: false #ÉêÇëÁ¬½ÓÊ±Ö´ĞĞvalidationQuery¼ì²âÁ¬½ÓÊÇ·ñÓĞĞ§£¬×öÁËÕâ¸öÅäÖÃ»á½µµÍĞÔÄÜ¡£
-      test-on-return: false #¹é»¹Á¬½ÓÊ±Ö´ĞĞvalidationQuery¼ì²âÁ¬½ÓÊÇ·ñÓĞĞ§£¬×öÁËÕâ¸öÅäÖÃ»á½µµÍĞÔÄÜ
-      pool-prepared-statements: true #ÊÇ·ñ»º´æpreparedStatement
-      max-open-prepared-statements: 20 #ÒªÆôÓÃPSCache£¬±ØĞëÅäÖÃ´óÓÚ0
+      test-while-idle: true #ç”³è¯·è¿æ¥çš„æ—¶å€™æ£€æµ‹ï¼Œå¦‚æœç©ºé—²æ—¶é—´å¤§äºtimeBetweenEvictionRunsMillisï¼Œæ‰§è¡ŒvalidationQueryæ£€æµ‹è¿æ¥æ˜¯å¦æœ‰æ•ˆã€‚
+      test-on-borrow: false #ç”³è¯·è¿æ¥æ—¶æ‰§è¡ŒvalidationQueryæ£€æµ‹è¿æ¥æ˜¯å¦æœ‰æ•ˆï¼Œåšäº†è¿™ä¸ªé…ç½®ä¼šé™ä½æ€§èƒ½ã€‚
+      test-on-return: false #å½’è¿˜è¿æ¥æ—¶æ‰§è¡ŒvalidationQueryæ£€æµ‹è¿æ¥æ˜¯å¦æœ‰æ•ˆï¼Œåšäº†è¿™ä¸ªé…ç½®ä¼šé™ä½æ€§èƒ½
+      pool-prepared-statements: true #æ˜¯å¦ç¼“å­˜preparedStatement
+      max-open-prepared-statements: 20 #è¦å¯ç”¨PSCacheï¼Œå¿…é¡»é…ç½®å¤§äº0
       max-pool-prepared-statement-per-connection-size: 20
-      filters: stat #ÊôĞÔÀàĞÍÊÇ×Ö·û´®£¬Í¨¹ı±ğÃûµÄ·½Ê½ÅäÖÃÀ©Õ¹²å¼ş£¬³£ÓÃµÄ²å¼şÓĞ£º
-      #¼à¿ØÍ³¼ÆÓÃµÄfilter:stat
-      #ÈÕÖ¾ÓÃµÄfilter:log4j
-      #·ÀÓùsql×¢ÈëµÄfilter:wall
-      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #Í¨¹ıconnectPropertiesÊôĞÔÀ´´ò¿ªmergeSql¹¦ÄÜ£»ÂıSQL¼ÇÂ¼
-      use-global-data-source-stat: true #ºÏ²¢¶à¸öDruidDataSourceµÄ¼à¿ØÊı¾İ
+      filters: stat #å±æ€§ç±»å‹æ˜¯å­—ç¬¦ä¸²ï¼Œé€šè¿‡åˆ«åçš„æ–¹å¼é…ç½®æ‰©å±•æ’ä»¶ï¼Œå¸¸ç”¨çš„æ’ä»¶æœ‰ï¼š
+      #ç›‘æ§ç»Ÿè®¡ç”¨çš„filter:stat
+      #æ—¥å¿—ç”¨çš„filter:log4j
+      #é˜²å¾¡sqlæ³¨å…¥çš„filter:wall
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #é€šè¿‡connectPropertieså±æ€§æ¥æ‰“å¼€mergeSqlåŠŸèƒ½ï¼›æ…¢SQLè®°å½•
+      use-global-data-source-stat: true #åˆå¹¶å¤šä¸ªDruidDataSourceçš„ç›‘æ§æ•°æ®
 
 
   servlet:
     multipart:
-      enabled: true #¿ªÆô
-      max-file-size: 100GB #µ¥¸öÎÄ¼ş´óĞ¡
-      max-request-size: 1000GB #×ÜÉÏ´«µÄÊı¾İ´óĞ¡
+      enabled: true #å¼€å¯
+      max-file-size: 100GB #å•ä¸ªæ–‡ä»¶å¤§å°
+      max-request-size: 1000GB #æ€»ä¸Šä¼ çš„æ•°æ®å¤§å°
 
   mvc:
     view:
@@ -46,12 +44,15 @@ spring:
     time-zone: GMT+8
 
 mybatis-plus:
-  # xmlÉ¨Ãè£¬¶à¸öÄ¿Â¼ÓÃ¶ººÅ»òÕß·ÖºÅ·Ö¸ô£¨¸æËß Mapper Ëù¶ÔÓ¦µÄ XML ÎÄ¼şÎ»ÖÃ£©
-  #mapper-locations: classpath:/mapper/*/**.xml
+  # xmlæ‰«æï¼Œå¤šä¸ªç›®å½•ç”¨é€—å·æˆ–è€…åˆ†å·åˆ†éš”ï¼ˆå‘Šè¯‰ Mapper æ‰€å¯¹åº”çš„ XML æ–‡ä»¶ä½ç½®ï¼‰
+  mapper-locations:
+   - classpath*:com/group/sh/smarthome/mapper/xml/*.xml
   type-aliases-package: com.group.sh.smarthome.entity
   global-config:
-    #×Ö¶Î²ßÂÔ 0:"ºöÂÔÅĞ¶Ï",1:"·Ç NULL ÅĞ¶Ï"),2:"·Ç¿ÕÅĞ¶Ï"
+    #å­—æ®µç­–ç•¥ 0:"å¿½ç•¥åˆ¤æ–­",1:"é NULL åˆ¤æ–­"),2:"éç©ºåˆ¤æ–­"
     field-strategy: 1
   configuration:
-    # ÊÇ·ñ½«sql´òÓ¡µ½¿ØÖÆÃæ°å(¸ÃÅäÖÃ»á½«sqlÓï¾äºÍ²éÑ¯µÄ½á¹û¶¼´òÓ¡µ½¿ØÖÆÌ¨)
+    # æ˜¯å¦å°†sqlæ‰“å°åˆ°æ§åˆ¶é¢æ¿(è¯¥é…ç½®ä¼šå°†sqlè¯­å¥å’ŒæŸ¥è¯¢çš„ç»“æœéƒ½æ‰“å°åˆ°æ§åˆ¶å°)
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
