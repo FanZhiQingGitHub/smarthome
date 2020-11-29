@@ -2,6 +2,7 @@ package com.group.sh.smarthome.controller;
 
 
 import com.group.sh.smarthome.entity.TblUser;
+import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.service.TblUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +30,15 @@ public class TblUserController {
     private TblUserService tblUserService;
 
     @GetMapping(value = "/getUserInfoList")
-    public List<TblUser> getUserInfoList(TblUser tblUser){
-        //tblUser.setUserAccount("545690097");
+    public CommonResult getUserInfoList(TblUser tblUser){
+        tblUser.setUserAccount("545690097");
         List<TblUser> tblUserList = tblUserService.getUserInfoList(tblUser);
         log.info("******查询的结果是: "+tblUserList);
-        return tblUserList;
+        if(0 != tblUserList.size()){
+            return new CommonResult(200,"查询数据成功",null,tblUserList);
+        }else{
+            return new CommonResult(404,"查询数据失败",null,tblUserList);
+        }
     }
 
     @PostMapping(value = "/addUserInfo")
