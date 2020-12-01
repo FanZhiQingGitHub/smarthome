@@ -13,7 +13,11 @@
     <link rel="stylesheet" th:href="@{/css/usercss/userLogin.css}" media="all">
 </head>
 <body>
-<form class="layui-form" method="post">
+<form class="layui-form" method="post" lay-filter="userLoginForm">
+    <div class="layui-input-inline">
+        <h1>欢迎使用智慧家庭信息管理系统</h1>
+    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">用户账号</label>
         <div class="layui-input-inline">
@@ -31,23 +35,33 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">验证码</label>
-        <div class="layui-input-inline">
-            <input type="text" name="userCode" lay-verify="code" placeholder="请输入验证码"
-                   autocomplete="off" class="layui-input verity" value="">
-        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">验证码:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="userCode" lay-verify="code" placeholder="请输入验证码"
+                       autocomplete="off" class="layui-input verity" value="">
+            </div>
 
-        <div id="codediv">
-            <img src="/smarthome/tbl-user/loginCode" id="userCodeImg">
-            <a href="javascript:void(0);" id="userUpdateCode" >看不清？换一张</a>
+            <div class="layui-inline">
+                <img src="/smarthome/tbl-user/loginCode" id="userCodeImg">
+                <a href="javascript:void(0);" id="userUpdateCode" >看不清？换一张</a>
+            </div>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button type="button" class="layui-btn layui-btn-normal" id="userLoginSubmit" lay-submit lay-filter="userLoginSubmit">
-                立即登录
-            </button>
+        <div class="layui-input-inline">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn layui-btn-normal" id="userLoginSubmit" lay-submit lay-filter="userLoginSubmit">
+                    立即登录
+                </button>
+            </div>
+        </div>
+
+        <div class="layui-input-inline" style="width: 20%">
+            <div class="layui-input-block">
+                <a href="javascript:void(0);" id="userReg" >还没有账号？立即注册</a>
+            </div>
         </div>
     </div>
 </form>

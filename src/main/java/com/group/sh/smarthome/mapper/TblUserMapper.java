@@ -17,6 +17,8 @@ import java.util.List;
 @Mapper
 public interface TblUserMapper extends BaseMapper<TblUser> {
 
+    public String getNextUserID();
+
     public List<TblUser> getUserInfoList(TblUser tblUser);
 
     public Integer addUserInfo(TblUser tblUser);

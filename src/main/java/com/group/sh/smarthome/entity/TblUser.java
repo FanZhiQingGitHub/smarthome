@@ -3,9 +3,11 @@ package com.group.sh.smarthome.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -155,6 +157,8 @@ public class TblUser implements Serializable {
      * 用户毕业时间
      */
     @TableField("USER_GRDTM")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date userGrdtm;
 
     /**
@@ -173,6 +177,8 @@ public class TblUser implements Serializable {
      * 创建时间
      */
     @TableField("CRT_TM")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date crtTm;
 
     /**
@@ -185,6 +191,8 @@ public class TblUser implements Serializable {
      * 修改时间
      */
     @TableField("MOD_TM")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date modTm;
 
     /**

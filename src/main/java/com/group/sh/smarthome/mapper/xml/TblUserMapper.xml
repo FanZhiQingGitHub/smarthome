@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group.sh.smarthome.mapper.TblUserMapper">
+
+    <select id="getNextUserID" resultType="java.lang.String">
+        SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA. TABLES WHERE TABLE_NAME = 'tbl_user'
+    </select>
+
     <select id="getUserInfoList" resultType="com.group.sh.smarthome.entity.TblUser" parameterType="com.group.sh.smarthome.entity.TblUser">
         select USER_ACCOUNT,USER_NAME from tbl_user
         <where>

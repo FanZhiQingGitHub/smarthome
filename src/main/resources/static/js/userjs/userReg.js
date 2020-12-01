@@ -25,22 +25,22 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
 
     });
 
-    form.on('submit(userLoginSubmit)', function (data) {
+    form.on('submit(userRegSubmit)', function (data) {
         $.ajax({
-            url: "/smarthome/tbl-user/getUserInfoList",
+            url: "/smarthome/tbl-user/addUserInfo",
             async: true,
             type: "get",
             data: data.field,
             datatype: "text",
             success: function (msg) {
                 if (msg.code == "200") {
-                    layer.msg("欢迎您，登录成功！", {icon: 6});
+                    layer.msg("恭喜您，登录成功！", {icon: 6});
                     var timer = setInterval(function () {
-                        location.href = "/smarthome/tbl-user/path/userMain";
+                        location.href = "/smarthome/tbl-user/path/userLogin";
                         clearInterval(timer);
                     }, 1500);
                 }else if(msg.code == "404"){
-                    layer.msg("账号或密码错误！", {icon: 2});
+                    layer.msg("注册失败！", {icon: 2});
                 }else if(msg.code == "501"){
                     layer.msg(msg.message, {icon: 2});
                 }else if(msg.code == "500"){
@@ -56,7 +56,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
     $(function () {
         $(document).on('keydown', function (event) {
             if (event.keyCode == 13) {
-                $("#userLoginSubmit").trigger("click");
+                $("#userRegSubmit").trigger("click");
             }
         }),$("#userCodeImg").click(function () {
             var codeImg = document.getElementById("userCodeImg");
@@ -64,9 +64,15 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
         }),$("#userUpdateCode").click(function () {
             var codeBut = document.getElementById("userCodeImg");
             codeBut.src = "/smarthome/tbl-user/loginCode?"+Math.random();
-        }),$("#userReg").click(function () {
-            location.href = "/smarthome/tbl-user/path/userReg";
+        }),$("#returnLogin").click(function () {
+            location.href = "/smarthome/tbl-user/path/userLogin";
         })
+    });
+
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#userGrdtm' //指定元素
     });
 
 });

@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -99,30 +101,50 @@ public class TblUserController {
                 List<TblUser> tblUserList = tblUserService.getUserInfoList(tblUser);
                 log.info("******查询的结果是: "+tblUserList);
                 if(0 != tblUserList.size()){
-                    return new CommonResult(200,"查询数据成功",null,tblUserList);
+                    return new CommonResult(200,"查询数据成功",tblUser,tblUserList);
                 }else{
-                    return new CommonResult(404,"查询数据失败",null,tblUserList);
+                    return new CommonResult(404,"账号或密码错误",tblUser,tblUserList);
                 }
             }else{
-                return new CommonResult(501,"验证码错误，请重新输入！",null,null);
+                return new CommonResult(501,"验证码错误，请重新输入！",tblUser,null);
             }
         }else {
-            return new CommonResult(500,"请求参数为null",null,null);
+            return new CommonResult(500,"请求参数为null",tblUser,null);
         }
 
     }
 
     @PostMapping(value = "/addUserInfo")
-    public Integer addUserInfo(TblUser tblUser){
-        tblUser.setUserAccount("3152398656");
-        tblUser.setUserPwd("123456");
-        tblUser.setUserName("王五");
-        Integer userId = tblUserService.addUserInfo(tblUser);
-        log.info("******新增的用户ID是: "+tblUser.getUserId());
-        return userId;
+    @ResponseBody
+    public CommonResult addUserInfo(TblUser tblUser){
+        Integer num = null;
+        if(null != tblUser){
+            if(userCode.equals(tblUser.getUserCode())){
+                SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+                tblUser.setUserAccount(date.format(new Date())+tblUserService.getNextUserID());
+                tblUser.setUserStatus("0");
+                tblUser.setCrtPsnId(tblUserService.getNextUserID());
+                tblUser.setCrtTm(new Date());
+                tblUser.setDelId("0");
+                tblUser.setUserCode("0");//0--用户，1--管理员，2--超级管理员
+                System.out.println(tblUser);
+                num = tblUserService.addUserInfo(tblUser);
+                log.info("******新增的用户ID是: "+tblUser.getUserId());
+                if(num > 0){
+                    return new CommonResult(200,"新增数据成功",tblUser,null);
+                }else {
+                    return new CommonResult(404,"新增数据失败",tblUser,null);
+                }
+            }else{
+                return new CommonResult(501,"验证码错误，请重新输入！",tblUser,null);
+            }
+        }else{
+            return new CommonResult(500,"请求参数为null",tblUser,null);
+        }
     }
 
     @PostMapping(value = "/updateUserInfo")
+    @ResponseBody
     public Boolean updateUserInfo(TblUser tblUser){
         tblUser.setUserId(1);
         Boolean flag = tblUserService.updateUserInfo(tblUser);
@@ -130,6 +152,7 @@ public class TblUserController {
     }
 
     @PostMapping(value = "/deleteUserInfo")
+    @ResponseBody
     public Boolean deleteUserInfo(TblUser tblUser){
         tblUser.setUserId(1);
         Boolean flag = tblUserService.deleteUserInfo(tblUser);

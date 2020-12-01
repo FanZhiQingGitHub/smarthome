@@ -13,7 +13,7 @@ public class CommonResult<T> {
 
     private Integer code;
     private String message;
-    private T      entitudata;
+    private T      entitydata;
     private List<?> data;
 
     public CommonResult(Integer code, String message) {

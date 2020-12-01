@@ -23,6 +23,10 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
     @Resource
     private TblUserMapper tblUserMapper;
 
+    public String getNextUserID() {
+        return tblUserMapper.getNextUserID();
+    }
+
     public List<TblUser> getUserInfoList(TblUser tblUser) {
         return tblUserMapper.getUserInfoList(tblUser);
     }
