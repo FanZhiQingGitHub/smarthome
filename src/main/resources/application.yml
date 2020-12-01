@@ -35,13 +35,23 @@ spring:
       max-file-size: 100GB #单个文件大小
       max-request-size: 1000GB #总上传的数据大小
 
-  mvc:
-    view:
-      suffix: .html
-      prefix: /WEB-INF/
+#  mvc:
+#    view:
+#      suffix: .html
+#      prefix: /WEB-INF/templates/
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
+  #thymeleaf模版前缀
+  thymeleaf:
+    prefix: classpath:/templates/
+    mode: HTML
+    cache: false
+    encoding: UTF-8
+    # 新版本不支持content-type: text/html，故新写法
+    servlet:
+      content-type: text/html
 
 mybatis-plus:
   # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）

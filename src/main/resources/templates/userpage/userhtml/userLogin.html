@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户登录页面</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script th:src="@{/js/userjs/userLogin.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/usercss/userLogin.css}" media="all">
+</head>
+<body>
+<form class="layui-form" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户账号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userAccount" required lay-verify="required" placeholder="请输入用户名" value="545690097"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">密 &nbsp;&nbsp;码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="userPwd" required lay-verify="pass" placeholder="请输入6-12位密码" value="123456"
+                   autocomplete="off" class="layui-input ">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">验证码</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userCode" lay-verify="code" placeholder="请输入验证码"
+                   autocomplete="off" class="layui-input verity" value="">
+        </div>
+
+        <div id="codediv">
+            <img src="/smarthome/tbl-user/loginCode" id="userCodeImg">
+            <a href="javascript:void(0);" id="userUpdateCode" >看不清？换一张</a>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn layui-btn-normal" id="userLoginSubmit" lay-submit lay-filter="userLoginSubmit">
+                立即登录
+            </button>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>
