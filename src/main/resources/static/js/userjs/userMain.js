@@ -6,6 +6,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
         , element = layui.element;
     $ = layui.jquery;
 
+    $("#userName").text( window.sessionStorage.getItem("userName"));
+
     $(function () {
         $("#exitPage").click(function () {
             layer.confirm('您确定要退出到登录界面吗?', {icon: 3, title: '温馨提示'}, function (index) {

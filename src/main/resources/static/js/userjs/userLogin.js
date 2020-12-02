@@ -34,37 +34,36 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
                 layero.find('.layui-layer-content').css({
                     'padding-top': '39px',
                     'width': '150px',
-                    'color': '#eb7350'
+                    'color': '#ee0a0a'
                 });
             }
         });
         $.ajax({
-            url: "/smarthome/tbl-user/getUserInfoList",
+            url: "/smarthome/tbl-user/userLogin",
             async: true,
             type: "get",
             data: data.field,
             datatype: "text",
             success: function (msg) {
+                console.log(msg);
                 if (msg.code == "200") {
                     layer.close(loadingIndex);
-                    layer.msg("欢迎您，登录成功！", {icon: 6});
+                    layer.msg(msg.message, {icon: 6});
+                    window.sessionStorage.setItem("userName",msg.entityData.userName);
                     var timer = setInterval(function () {
                         location.href = "/smarthome/tbl-user/path/userMain";
                         clearInterval(timer);
-                    }, 1600);
-                }else if(msg.code == "404"){
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
-                }else if(msg.code == "405") {
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
-                }else if(msg.code == "406") {
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
-                }else if(msg.code == "501"){
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
+                    }, 1800);
                 }else if(msg.code == "500"){
+                    layer.close(loadingIndex);
+                    layer.msg(msg.message, {icon: 2});
+                }else if(msg.code == "501") {
+                    layer.close(loadingIndex);
+                    layer.msg(msg.message, {icon: 2});
+                }else if(msg.code == "502") {
+                    layer.close(loadingIndex);
+                    layer.msg(msg.message, {icon: 2});
+                }else if(msg.code == "503"){
                     layer.close(loadingIndex);
                     layer.msg(msg.message, {icon: 2});
                 }

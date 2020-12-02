@@ -27,6 +27,10 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         return tblUserMapper.getNextUserID();
     }
 
+    public TblUser userLogin(TblUser tblUser){
+        return tblUserMapper.userLogin(tblUser);
+    }
+
     public List<TblUser> getUserInfoList(TblUser tblUser) {
         return tblUserMapper.getUserInfoList(tblUser);
     }

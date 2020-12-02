@@ -6,7 +6,7 @@
         SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA. TABLES WHERE TABLE_NAME = 'tbl_user'
     </select>
 
-    <select id="getUserInfoList" resultType="com.group.sh.smarthome.entity.TblUser" parameterType="com.group.sh.smarthome.entity.TblUser">
+    <select id="userLogin" resultType="com.group.sh.smarthome.entity.TblUser" parameterType="com.group.sh.smarthome.entity.TblUser">
         select
             USER_ACCOUNT,USER_PWD,USER_NAME,USER_SEX,USER_AGE,USER_PHONE,
             USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS,USER_QQ,USER_WECHAT,
@@ -18,7 +18,28 @@
             <if test="userAccount != '' and userAccount != null ">
                 and USER_ACCOUNT = #{userAccount}
             </if>
+            <if test="userPwd != '' and userPwd != null ">
+                and USER_PWD = #{userPwd}
+            </if>
         </where>
+
+    </select>
+
+    <select id="getUserInfoList" resultType="com.group.sh.smarthome.entity.TblUser" parameterType="com.group.sh.smarthome.entity.TblUser">
+        select
+            USER_ACCOUNT,USER_PWD,USER_NAME,USER_SEX,USER_AGE,USER_PHONE,
+            USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS,USER_QQ,USER_WECHAT,
+            USER_IDCARDTYPE,USER_IDCARDNUM,USER_HEADURL,USER_RESUME,USER_EDDGRCD,
+            USER_DGRCD,USER_GRDT_SCHCD,USER_MJR,USER_GRDTM,USER_STATUS,
+            CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,USER_ROLE
+        from tbl_user
+        <where>
+            and DEL_ID = '0'
+            <if test="userAccount != '' and userAccount != null ">
+                and USER_ACCOUNT = #{userAccount}
+            </if>
+        </where>
+        order by CRT_TM desc ,MOD_TM desc
     </select>
 
     <insert id="addUserInfo" parameterType="com.group.sh.smarthome.entity.TblUser" useGeneratedKeys="true" keyProperty="userId">

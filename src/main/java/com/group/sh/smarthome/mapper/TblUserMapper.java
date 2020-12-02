@@ -19,6 +19,8 @@ public interface TblUserMapper extends BaseMapper<TblUser> {
 
     public String getNextUserID();
 
+    public TblUser userLogin(TblUser tblUser);
+
     public List<TblUser> getUserInfoList(TblUser tblUser);
 
     public Integer addUserInfo(TblUser tblUser);

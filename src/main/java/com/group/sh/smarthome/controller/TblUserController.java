@@ -4,6 +4,7 @@ package com.group.sh.smarthome.controller;
 import com.group.sh.smarthome.entity.TblUser;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.service.TblUserService;
+import com.group.sh.smarthome.util.ConstantEnum;
 import com.group.sh.smarthome.util.EntryrionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -111,6 +112,32 @@ public class TblUserController {
 
     /**
      *
+     * 方法描述 用户登录方法
+     * @date 2020-11-26
+     * @param tblUser
+     */
+    @GetMapping(value = "/userLogin")
+    @ResponseBody
+    public CommonResult userLogin(TblUser tblUser){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser) {
+            return new CommonResult(500, "请求参数为null", tblUser, null);
+        }
+        if(!userCode.equals(tblUser.getUserCode())){
+            return new CommonResult(501, "验证码错误，请重新输入！", tblUser, null);
+        }
+        TblUser User = tblUserService.userLogin(tblUser);
+        log.info("******查询的结果是: " + User);
+        if(ConstantEnum.ConstantEnumType.STATUSNUM.getValue().equals(User.getUserStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getUserStatus()){
+            return new CommonResult(502, "该用户禁止登录，请联系管理员处理！", User, null);
+        }
+        if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(User.getUserStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getDelId()){
+            return new CommonResult(503, "该用户不存在，请先进行注册！", User, null);
+        }
+        return new CommonResult(200, "欢迎您："+User.getUserName()+" ，登录成功！", User, null);
+    }
+
+    /**
+     *
      * 方法描述 用户查询列表方法
      * @date 2020-11-26
      * @param tblUser
@@ -118,32 +145,15 @@ public class TblUserController {
     @GetMapping(value = "/getUserInfoList")
     @ResponseBody
     public CommonResult getUserInfoList(TblUser tblUser){
-        if(null != tblUser){
-            if(userCode.equals(tblUser.getUserCode())){
-                List<TblUser> tblUserList = tblUserService.getUserInfoList(tblUser);
-                for (TblUser user :tblUserList) {
-                    userStatus = user.getUserStatus();
-                    dellId = user.getDelId();
-                }
-                log.info("******查询的结果是: "+tblUserList);
-                if("1".equals(userStatus)){
-                    return new CommonResult(405,"该用户被禁止登录",tblUser,tblUserList);
-                }
-                if("1".equals(dellId)){
-                    return new CommonResult(406,"该用户不存在",tblUser,tblUserList);
-                }
-                if(0 != tblUserList.size()){
-                    return new CommonResult(200,"查询数据成功",tblUser,tblUserList);
-                }else{
-                    return new CommonResult(404,"账号或密码错误",tblUser,tblUserList);
-                }
-            }else{
-                return new CommonResult(501,"验证码错误，请重新输入！",tblUser,null);
-            }
-        }else {
-            return new CommonResult(500,"请求参数为null",tblUser,null);
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser) {
+            return new CommonResult(500, "请求参数为null", tblUser, null);
         }
-
+        List<TblUser> tblUserList = tblUserService.getUserInfoList(tblUser);
+        log.info("******查询的结果是: " + tblUserList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblUserList.size()) {
+            return new CommonResult(501, "查询数据失败", tblUser, tblUserList);
+        }
+        return new CommonResult(200, "查询数据成功", tblUser, tblUserList);
     }
 
 
@@ -157,29 +167,26 @@ public class TblUserController {
     @ResponseBody
     public CommonResult addUserInfo(TblUser tblUser){
         Integer num = null;
-        if(null != tblUser){
-            if(userCode.equals(tblUser.getUserCode())){
-                SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-                tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));//密码加密
-                tblUser.setUserAccount(date.format(new Date())+tblUserService.getNextUserID());
-                tblUser.setUserStatus("0");
-                tblUser.setCrtPsnId(tblUserService.getNextUserID());
-                tblUser.setCrtTm(new Date());
-                tblUser.setDelId("0");
-                tblUser.setUserCode("0");//0--用户，1--管理员，2--超级管理员
-                num = tblUserService.addUserInfo(tblUser);
-                log.info("******新增的用户ID是: "+tblUser.getUserId());
-                if(num > 0){
-                    return new CommonResult(200,"新增数据成功",tblUser,null);
-                }else {
-                    return new CommonResult(404,"新增数据失败",tblUser,null);
-                }
-            }else{
-                return new CommonResult(501,"验证码错误，请重新输入！",tblUser,null);
-            }
-        }else{
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblUser){
             return new CommonResult(500,"请求参数为null",tblUser,null);
         }
+        if(!userCode.equals(tblUser.getUserCode())){
+            return new CommonResult(501,"验证码错误，请重新输入！",tblUser,null);
+        }
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+        tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));//密码加密
+        tblUser.setUserAccount(date.format(new Date())+tblUserService.getNextUserID());
+        tblUser.setUserStatus("0");
+        tblUser.setCrtPsnId(tblUserService.getNextUserID());
+        tblUser.setCrtTm(new Date());
+        tblUser.setDelId("0");
+        tblUser.setUserCode("0");//0--用户，1--管理员，2--超级管理员
+        num = tblUserService.addUserInfo(tblUser);
+        log.info("******新增的用户ID是: "+tblUser.getUserId());
+        if(num < Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue())){
+            return new CommonResult(404,"新增数据失败",tblUser,null);
+        }
+        return new CommonResult(200,"新增数据成功",tblUser,null);
     }
 
     /**
