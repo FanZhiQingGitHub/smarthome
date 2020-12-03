@@ -1,15 +1,90 @@
-layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function () {
+layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel'], function () {
     var form = layui.form
         , layer = layui.layer
         , layedit = layui.layedit
         , laydate = layui.laydate
-        , element = layui.element;
-    $ = layui.jquery;
+        , element = layui.element
+        , carousel = layui.carousel;
+    var $ = layui.jquery;
+    var verCode = '';
+
+    //设置轮播主体高度
+    var zyl_login_height = $(window).height()/1.3;
+    var zyl_car_height = $(".zyl_login_height").css("cssText","height:" + zyl_login_height + "px!important");
+
+
+    //Login轮播主体
+    carousel.render({
+        elem: '#zyllogin'//指向容器选择器
+        ,width: '100%' //设置容器宽度
+        ,height:'zyl_car_height'
+        ,arrow: 'always' //始终显示箭头
+        ,anim: 'fade' //切换动画方式
+        ,autoplay: true //是否自动切换false true
+        ,arrow: 'hover' //切换箭头默认显示状态||不显示：none||悬停显示：hover||始终显示：always
+        ,indicator: 'none' //指示器位置||外部：outside||内部：inside||不显示：none
+        ,interval: '5000' //自动切换时间:单位：ms（毫秒）
+    });
+
+    //监听轮播--案例暂未使用
+    carousel.on('change(zyllogin)', function(obj){
+        var loginCarousel = obj.index;
+    });
+
+    $(function () {
+        $(document).on('keydown', function (event) {
+            if (event.keyCode == 13) {
+                $("#userLoginSubmit").trigger("click");
+            }
+        }),$("#userCodeImg").click(function () {
+            creatVerCode();
+        }),$("#userReg").click(function () {
+            location.href = "/smarthome/tbl-user/path/userReg";
+        }),$("#a1").click(function () {
+            layer.open({
+                title: '使用条款'
+                ,
+                content: '本应用深知个人信息对您的重要性，并会尽全力保护您的个人信息安全可靠。我们致力于维持您对我们的信任，恪守以下原则，保护您的个人信息：权责一致原则、目的明确原则、选择同意原则、最少够用原则、确保安全原则、主体参与原则、公开透明原则等。同时，我们承诺，我们将按业界成熟的安全标准，采取相应的安全保护措施来保护您的个人信息。 请在使用我们的产品（或服务）前，仔细阅读并了解本《隐私权政策》。\n' +
+                    '\n' +
+                    '作者：Mr.Fan\n' +
+                    '著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。'
+            });
+        }), $("#a2").click(function () {
+            layer.open({
+                title: '隐私保护'
+                , content: '' +
+                    '感谢您的支持，我们会重视您在体验中的个人隐私。同时您在使用我们的产品时，我们可能会收集和使用您的相关信息。我们希望通过本《隐私政策》向您说明，在使用我们的服务时，我们如何收集、使用、储存这些信息，以及我们为您提供的访问、更新、控制和保护这些信息的方式。本《隐私政策》与您所使用的本产品服务息息相关，希望您仔细阅读，在需要时，按照本《隐私政策》的指引，作出您认为适当的选择。本《隐私政策》中涉及的相关技术词汇，我们尽量以简明扼要的表述，以便您的理解。\n' +
+                    '\n' +
+                    '如对本《隐私政策》或相关事宜有任何问题，请通过smarthome@outlook.com与我们联系。\n' +
+                    '\n' +
+                    '作者：最后#的小组\n' +
+                    '著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。'
+            });
+        })
+    });
+
+    creatVerCode();//初始化生成随机数
+
+    //生成随机数
+    function creatVerCode(len){
+        len = len || 4;
+        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';//默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+        var maxPos = $chars.length;
+        for (i = 0; i < len; i++) {
+            verCode += $chars.charAt(Math.floor(Math.random() * maxPos));
+        }
+        $("#userCodeImg").html(verCode);
+    }
+
 
     form.verify({
-        required: function (value) {
+        Account: function (value) {
+            var reg = /^[0-9]*$/;
+            if(!reg.test(value)){
+                return '您好，账号为数字！';
+            }
             if (value.length < 2) {
-                return '您好，用户名至少得2个字符！';
+                return '您好，账号至少得2个字符！';
             }
         },
         code :function (value) {
@@ -38,56 +113,36 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
                 });
             }
         });
-        $.ajax({
-            url: "/smarthome/tbl-user/userLogin",
-            async: true,
-            type: "get",
-            data: data.field,
-            datatype: "text",
-            success: function (msg) {
-                console.log(msg);
-                if (msg.code == "200") {
+        if(data.field.userCode.toLowerCase() != verCode.toLowerCase()){
+            layer.close(loadingIndex);
+            layer.msg("验证码错误，请重新输入！", {icon: 2});
+        }else{
+            $.ajax({
+                url: "/smarthome/tbl-user/userLogin",
+                async: true,
+                type: "get",
+                data: data.field,
+                datatype: "text",
+                success: function (msg) {
+                    if (msg.code == "200") {
+                        layer.close(loadingIndex);
+                        layer.msg(msg.message, {icon: 6});
+                        window.sessionStorage.setItem("userName",msg.entityData.userName);
+                        var timer = setInterval(function () {
+                            location.href = "/smarthome/tbl-user/path/userMain";
+                            clearInterval(timer);
+                        }, 1800);
+                    }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" ){
+                        layer.close(loadingIndex);
+                        layer.msg(msg.message, {icon: 2});
+                    }
+                }, error: function (msg) {
                     layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 6});
-                    window.sessionStorage.setItem("userName",msg.entityData.userName);
-                    var timer = setInterval(function () {
-                        location.href = "/smarthome/tbl-user/path/userMain";
-                        clearInterval(timer);
-                    }, 1800);
-                }else if(msg.code == "500"){
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
-                }else if(msg.code == "501") {
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
-                }else if(msg.code == "502") {
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
-                }else if(msg.code == "503"){
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
+                    layer.msg("网络繁忙！", {icon: 2});
                 }
-            }, error: function (msg) {
-                layer.close(loadingIndex);
-                layer.msg("网络繁忙！", {icon: 2});
-            }
-        });
-    });
-
-    $(function () {
-        $(document).on('keydown', function (event) {
-            if (event.keyCode == 13) {
-                $("#userLoginSubmit").trigger("click");
-            }
-        }),$("#userCodeImg").click(function () {
-            var codeImg = document.getElementById("userCodeImg");
-            codeImg.src = "/smarthome/tbl-user/loginCode?"+Math.random();
-        }),$("#userUpdateCode").click(function () {
-            var codeBut = document.getElementById("userCodeImg");
-            codeBut.src = "/smarthome/tbl-user/loginCode?"+Math.random();
-        }),$("#userReg").click(function () {
-            location.href = "/smarthome/tbl-user/path/userReg";
-        })
+            });
+        }
     });
 
 });
+

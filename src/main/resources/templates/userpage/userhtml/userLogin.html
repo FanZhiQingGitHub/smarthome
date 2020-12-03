@@ -4,67 +4,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>用户登录页面</title>
-    <script th:src="@{/layui/layui.js}"></script>
+    <title>智慧家庭信息管理系统登陆首页</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/usercss/userLogin.css}" media="all">
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script th:src="@{/js/userjs/userLogin.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/usercss/userLogin.css}" media="all">
+<!--    <script type="text/javascript" th:src="@{/js/userjs/zylVerificationCode.js}"></script>-->
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/userjs/userLogin.js}"></script>
+    <style>
+        /* 覆盖原框架样式 */
+        .layui-elem-quote{background-color: inherit!important;}
+        .layui-input, .layui-select, .layui-textarea{background-color: inherit; padding-left: 30px;}
+    </style>
 </head>
 <body>
-<form class="layui-form" method="post" lay-filter="userLoginForm">
-    <div class="layui-input-inline">
-        <h1>欢迎使用智慧家庭信息管理系统</h1>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">用户账号</label>
-        <div class="layui-input-inline">
-            <input type="text" name="userAccount" required lay-verify="required" placeholder="请输入用户名" value="545690097"
-                   autocomplete="off" class="layui-input">
+<!-- Head -->
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 zyl_mar_01">
+            <blockquote class="layui-elem-quote" style="font-size: 20px">Smart Home </blockquote>
         </div>
     </div>
+</div>
+<!-- Head End -->
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">密 &nbsp;&nbsp;码</label>
-        <div class="layui-input-inline">
-            <input type="password" name="userPwd" required lay-verify="pass" placeholder="请输入6-12位密码" value="123456"
-                   autocomplete="off" class="layui-input ">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">验证码:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="userCode" lay-verify="code" placeholder="请输入验证码"
-                       autocomplete="off" class="layui-input verity" value="">
-            </div>
-
-            <div class="layui-inline">
-                <img src="/smarthome/tbl-user/loginCode" id="userCodeImg">
-                <a href="javascript:void(0);" id="userUpdateCode" >看不清？换一张</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-input-inline">
-            <div class="layui-input-block">
-                <button type="button" class="layui-btn layui-btn-normal" id="userLoginSubmit" lay-submit lay-filter="userLoginSubmit">
-                    立即登录
-                </button>
-            </div>
-        </div>
-
-        <div class="layui-input-inline" style="width: 20%">
-            <div class="layui-input-block">
-                <a href="javascript:void(0);" id="userReg" >还没有账号？立即注册</a>
+<!-- Carousel -->
+<div class="layui-row">
+    <div class="layui-col-sm12 layui-col-md12">
+        <div class="layui-carousel zyl_login_height" id="zyllogin" lay-filter="zyllogin">
+            <div carousel-item="">
+                <div>
+<!--                    <div class="zyl_login_cont"></div>-->
+                    <div class="background">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div>
+                    <img th:src="@{/image/userimg/01.jpg}" />
+                </div>
+                <div>
+                    <img th:src="@{/image/userimg/02.jpg}" />
+                </div>
+                <div>
+                    <img th:src="@{/image/userimg/03.jpg}" />
+                </div>
             </div>
         </div>
     </div>
-</form>
+</div>
+<!-- Carousel End -->
+
+<!-- Footer -->
+<div class="layui-row">
+    <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
+        © 2020 - smarthome系统后台登陆界面 || Mr.Fan 版权所有
+    </div>
+    <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
+        <a href="javascript:void(0);" id="a1">使用条款</a> | <a href="javascript:void(0);"
+                                                            id="a2">隐私保护</a>
+    </div>
+</div>
+<!-- Footer End -->
+
+<!-- LoginForm -->
+<div class="zyl_lofo_main">
+    <fieldset class="layui-elem-field layui-field-title zyl_mar_02">
+        <legend>欢迎登陆 - 智慧家庭信息管理平台</legend>
+    </fieldset>
+    <div class="layui-row layui-col-space15">
+        <form class="layui-form zyl_pad_01" action="" method="post" lay-filter="userLoginForm">
+            <div class="layui-col-sm12 layui-col-md12">
+                <div class="layui-form-item">
+                    <input type="text" name="userAccount" lay-verify="Account" autocomplete="off" placeholder="用户账号" class="layui-input" value="545690097">
+                    <i class="layui-icon layui-icon-username zyl_lofo_icon"></i>
+                </div>
+            </div>
+            <div class="layui-col-sm12 layui-col-md12">
+                <div class="layui-form-item">
+                    <input type="password" name="userPwd" lay-verify="required|pass" autocomplete="off" placeholder="6~12位密码" class="layui-input" value="123456">
+                    <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
+                </div>
+            </div>
+            <div class="layui-col-sm12 layui-col-md12">
+                <div class="layui-row">
+                    <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                        <div class="layui-form-item">
+                            <input type="text" name="userCode" id="userCode" lay-verify="required|vercodes" autocomplete="off" placeholder="验证码" class="layui-input" maxlength="4">
+                            <i class="layui-icon layui-icon-vercode zyl_lofo_icon"></i>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                            <div class="zyl_lofo_vercode zylVerCode"  id="userCodeImg"/>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-sm12 layui-col-md12">
+                <button type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="userLoginSubmit" id="userLoginSubmit">立即登录</button>
+            </div>
+            <div class="layui-col-sm12 layui-col-md12">
+                <a href="javascript:void(0);" id="userReg">还没有账号？立即注册</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+<!-- LoginForm End -->
 
 </body>
 </html>

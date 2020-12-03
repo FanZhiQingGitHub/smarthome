@@ -37,8 +37,6 @@ import java.util.Random;
 public class TblUserController {
 
     private String userCode = null;
-    private String userStatus = null;
-    private String dellId = null;
 
     @Resource
     private TblUserService tblUserService;
@@ -122,16 +120,14 @@ public class TblUserController {
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser) {
             return new CommonResult(500, "请求参数为null", tblUser, null);
         }
-        if(!userCode.equals(tblUser.getUserCode())){
-            return new CommonResult(501, "验证码错误，请重新输入！", tblUser, null);
-        }
+        tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));
         TblUser User = tblUserService.userLogin(tblUser);
         log.info("******查询的结果是: " + User);
         if(ConstantEnum.ConstantEnumType.STATUSNUM.getValue().equals(User.getUserStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getUserStatus()){
-            return new CommonResult(502, "该用户禁止登录，请联系管理员处理！", User, null);
+            return new CommonResult(501, "该用户禁止登录，请联系管理员处理！", User, null);
         }
         if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(User.getUserStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getDelId()){
-            return new CommonResult(503, "该用户不存在，请先进行注册！", User, null);
+            return new CommonResult(502, "该用户不存在，请先进行注册！", User, null);
         }
         return new CommonResult(200, "欢迎您："+User.getUserName()+" ，登录成功！", User, null);
     }

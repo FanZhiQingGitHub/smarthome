@@ -111,11 +111,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
                     form.render();
                 }else if(msg.code == "404"){
                     layer.close(loadingIndex);
-                    layer.msg("注册失败！", {icon: 2});
-                }else if(msg.code == "501"){
-                    layer.close(loadingIndex);
-                    layer.msg(msg.message, {icon: 2});
-                }else if(msg.code == "500"){
+                    layer.msg("很遗憾，注册失败！", {icon: 2});
+                }else if(msg.code == "500" || msg.code == "501"){
                     layer.close(loadingIndex);
                     layer.msg(msg.message, {icon: 2});
                 }
