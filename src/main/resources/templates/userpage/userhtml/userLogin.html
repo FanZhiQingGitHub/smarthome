@@ -21,8 +21,8 @@
 <!-- Head -->
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-sm12 layui-col-md12 zyl_mar_01">
-            <blockquote class="layui-elem-quote" style="font-size: 20px">Smart Home </blockquote>
+        <div class="layui-col-sm12 layui-col-md12 mar_01">
+            <blockquote class="layui-elem-quote" style="font-size: 30px;font-weight:bold;color: black">Smart Home </blockquote>
         </div>
     </div>
 </div>
@@ -31,10 +31,10 @@
 <!-- Carousel -->
 <div class="layui-row">
     <div class="layui-col-sm12 layui-col-md12">
-        <div class="layui-carousel zyl_login_height" id="zyllogin" lay-filter="zyllogin">
+        <div class="layui-carousel login_height" id="login" lay-filter="login">
             <div carousel-item="">
                 <div>
-<!--                    <div class="zyl_login_cont"></div>-->
+<!--                    <div class="login_cont"></div>-->
                     <div class="background">
                         <span></span><span></span><span></span>
                         <span></span><span></span><span></span>
@@ -43,13 +43,16 @@
                     </div>
                 </div>
                 <div>
-                    <img th:src="@{/image/userimg/01.jpg}" />
+                    <img th:src="@{/img/01.jpg}" />
                 </div>
                 <div>
-                    <img th:src="@{/image/userimg/02.jpg}" />
+                    <img th:src="@{/img/02.jpg}" />
                 </div>
                 <div>
-                    <img th:src="@{/image/userimg/03.jpg}" />
+                    <img th:src="@{/img/03.jpg}" />
+                </div>
+                <div>
+                    <img th:src="@{/img/04.jpg}" />
                 </div>
             </div>
         </div>
@@ -57,35 +60,25 @@
 </div>
 <!-- Carousel End -->
 
-<!-- Footer -->
-<div class="layui-row">
-    <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
-        © 2020 - 智慧家庭信息管理平台登陆界面 || Mr.Fan 版权所有
-    </div>
-    <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
-        <a href="javascript:void(0);" id="a1">使用条款</a> | <a href="javascript:void(0);"
-                                                            id="a2">隐私保护</a>
-    </div>
-</div>
-<!-- Footer End -->
+
 
 <!-- LoginForm -->
-<div class="zyl_lofo_main">
-    <fieldset class="layui-elem-field layui-field-title zyl_mar_02">
-        <legend>欢迎登陆 - 智慧家庭信息管理平台</legend>
+<div class="lofo_main">
+    <fieldset class="layui-elem-field layui-field-title mar_02">
+        <legend style="font-weight:bold;color: black">欢迎登录 - 智慧家庭信息管理平台</legend>
     </fieldset>
     <div class="layui-row layui-col-space15">
-        <form class="layui-form zyl_pad_01" action="" method="post" lay-filter="userLoginForm">
+        <form class="layui-form pad_01" action="" method="post" lay-filter="userLoginForm">
             <div class="layui-col-sm12 layui-col-md12">
                 <div class="layui-form-item">
                     <input type="text" name="userAccount" lay-verify="Account" autocomplete="off" placeholder="请输入用户账号" class="layui-input" value="">
-                    <i class="layui-icon layui-icon-username zyl_lofo_icon"></i>
+                    <i class="layui-icon layui-icon-username lofo_icon"></i>
                 </div>
             </div>
             <div class="layui-col-sm12 layui-col-md12">
                 <div class="layui-form-item">
                     <input type="password" name="userPwd" lay-verify="required|pass" autocomplete="off" placeholder="请输入6~12位密码" class="layui-input" value="">
-                    <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
+                    <i class="layui-icon layui-icon-password lofo_icon"></i>
                 </div>
             </div>
             <div class="layui-col-sm12 layui-col-md12">
@@ -93,11 +86,11 @@
                     <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
                         <div class="layui-form-item">
                             <input type="text" name="userCode" id="userCode" lay-verify="code" autocomplete="off" placeholder="请输入验证码" class="layui-input" maxlength="4">
-                            <i class="layui-icon layui-icon-vercode zyl_lofo_icon"></i>
+                            <i class="layui-icon layui-icon-vercode lofo_icon"></i>
                         </div>
                     </div>
                     <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
-                        <button type="button" class="zyl_lofo_vercode zylVerCode"  style="background-color: transparent;border: none" id="userCodeImg"></button>
+                        <button type="button" class="lofo_vercode VerCode"  style="background-color: transparent;border: none;font-family: DialogInput;font-size: 18px;font-weight:bold;color: #666;" id="userCodeImg"></button>
                     </div>
                 </div>
             </div>
@@ -112,6 +105,18 @@
     </div>
 </div>
 <!-- LoginForm End -->
+
+<!-- Footer -->
+<div class="layui-row">
+    <div class="layui-col-sm12 layui-col-md12 center mar_01">
+        © 2020 - 智慧家庭信息管理平台登录界面 || Mr.Fan 版权所有
+    </div>
+    <div class="layui-col-sm12 layui-col-md12 center mar_01">
+        <a href="javascript:void(0);" id="a1">使用条款</a> | <a href="javascript:void(0);"
+                                                            id="a2">隐私保护</a>
+    </div>
+</div>
+<!-- Footer End -->
 
 </body>
 </html>

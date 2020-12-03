@@ -9,13 +9,13 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     var verCode = '';
 
     //设置轮播主体高度
-    var zyl_login_height = $(window).height()/1.3;
-    var zyl_car_height = $(".zyl_login_height").css("cssText","height:" + zyl_login_height + "px!important");
+    var login_height = $(window).height()/1.3;
+    var zyl_car_height = $(".login_height").css("cssText","height:" + login_height + "px!important");
 
 
     //Login轮播主体
     carousel.render({
-        elem: '#zyllogin'//指向容器选择器
+        elem: '#login'//指向容器选择器
         ,width: '100%' //设置容器宽度
         ,height:'zyl_car_height'
         ,arrow: 'always' //始终显示箭头
@@ -27,7 +27,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     //监听轮播--案例暂未使用
-    carousel.on('change(zyllogin)', function(obj){
+    carousel.on('change(login)', function(obj){
         var loginCarousel = obj.index;
     });
 
@@ -39,7 +39,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         }),$("#userCodeImg").click(function () {
             creatVerCode();
         }),$("#returnLogin").click(function () {
-            location.href = "/smarthome/tbl-user/path/userLogin";
+            location.href = "/smarthome/path/userLogin";
         }),$("#a1").click(function () {
             layer.open({
                 title: '使用条款'
@@ -166,7 +166,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             layer.msg("验证码错误，请重新输入！", {icon: 2});
         }else {
             $.ajax({
-                url: "/smarthome/tbl-user/addUserInfo",
+                url: "/smarthome/addUserInfo",
                 async: true,
                 type: "post",
                 data: data.field,
@@ -176,13 +176,13 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     var timer;
                     if (msg.code == "200") {
                         timer = setInterval(function () {
-                            location.href = "/smarthome/tbl-user/path/userLogin";
+                            location.href = "/smarthome/path/userLogin";
                             clearInterval(timer);
                         }, 10000);
                         layer.alert("恭喜您，注册成功！系统将在10s后跳转至登录界面，请记好您的账号："+msg.entityData.userAccount+"   点击确定可直接跳转至登录界面。",{icon:6,title:['温馨提示','font-size:100%'],skin:'demo'},function (index) {
                             layer.close(index);
                             clearInterval(timer);
-                            location.href = "/smarthome/tbl-user/path/userLogin";
+                            location.href = "/smarthome/path/userLogin";
                         });
                         $("#userRegForm")[0].reset();
                         form.render();

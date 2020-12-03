@@ -25,7 +25,7 @@ import java.util.List;
  * @since 创建日期：2020-11-26
  */
 @Controller
-@RequestMapping("/smarthome/tbl-user")
+@RequestMapping("/smarthome")
 @Slf4j
 public class TblUserController {
 
