@@ -60,20 +60,21 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     '作者：最后#的小组\n' +
                     '著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。'
             });
-        })
+        });
     });
 
     creatVerCode();//初始化生成随机数
-
     //生成随机数
-    function creatVerCode(len){
-        len = len || 4;
-        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';//默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
-        var maxPos = $chars.length;
-        for (i = 0; i < len; i++) {
-            verCode += $chars.charAt(Math.floor(Math.random() * maxPos));
+    function creatVerCode(){
+        verCode = '';
+        var codeLength = 4;//设置长度，这里看需求，我这里设置了4
+        //设置随机字符
+        var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R', 'S','T','U','V','W','X','Y','Z');
+        for(var i = 0; i < codeLength; i++){ //循环codeLength 我设置的4就是循环4次
+            var index = Math.floor(Math.random()*36); //设置随机数范围,这设置为0 ~ 36
+            verCode += random[index]; //字符串拼接 将每次随机的字符 进行拼接
         }
-        $("#userCodeImg").html(verCode);
+        $("#userCodeImg").text(verCode);//将拼接好的字符串赋值给展示的Value
     }
 
 
@@ -86,13 +87,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             if (value.length < 2) {
                 return '您好，账号至少得2个字符！';
             }
-        },
-        code :function (value) {
+        }, code :function (value) {
             if (value.length != 4) {
                 return '您好，验证码是4位数！';
             }
-        },
-        pass: [
+        }, pass: [
             /^[\S]{6,12}$/
             , '您好，密码必须6~12位，且不能出现空格！'
         ], content: function (value) {

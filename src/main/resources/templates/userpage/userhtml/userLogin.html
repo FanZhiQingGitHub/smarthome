@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>智慧家庭信息管理系统登陆首页</title>
+    <title>智慧家庭信息管理平台登陆首页</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
     <link rel="stylesheet" th:href="@{/css/usercss/userLogin.css}" media="all">
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-<!--    <script type="text/javascript" th:src="@{/js/userjs/zylVerificationCode.js}"></script>-->
     <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/js/userjs/userLogin.js}"></script>
     <style>
@@ -61,7 +60,7 @@
 <!-- Footer -->
 <div class="layui-row">
     <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
-        © 2020 - smarthome系统后台登陆界面 || Mr.Fan 版权所有
+        © 2020 - 智慧家庭信息管理平台登陆界面 || Mr.Fan 版权所有
     </div>
     <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
         <a href="javascript:void(0);" id="a1">使用条款</a> | <a href="javascript:void(0);"
@@ -79,13 +78,13 @@
         <form class="layui-form zyl_pad_01" action="" method="post" lay-filter="userLoginForm">
             <div class="layui-col-sm12 layui-col-md12">
                 <div class="layui-form-item">
-                    <input type="text" name="userAccount" lay-verify="Account" autocomplete="off" placeholder="用户账号" class="layui-input" value="545690097">
+                    <input type="text" name="userAccount" lay-verify="Account" autocomplete="off" placeholder="请输入用户账号" class="layui-input" value="">
                     <i class="layui-icon layui-icon-username zyl_lofo_icon"></i>
                 </div>
             </div>
             <div class="layui-col-sm12 layui-col-md12">
                 <div class="layui-form-item">
-                    <input type="password" name="userPwd" lay-verify="required|pass" autocomplete="off" placeholder="6~12位密码" class="layui-input" value="123456">
+                    <input type="password" name="userPwd" lay-verify="required|pass" autocomplete="off" placeholder="请输入6~12位密码" class="layui-input" value="">
                     <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
                 </div>
             </div>
@@ -93,23 +92,23 @@
                 <div class="layui-row">
                     <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
                         <div class="layui-form-item">
-                            <input type="text" name="userCode" id="userCode" lay-verify="required|vercodes" autocomplete="off" placeholder="验证码" class="layui-input" maxlength="4">
+                            <input type="text" name="userCode" id="userCode" lay-verify="code" autocomplete="off" placeholder="请输入验证码" class="layui-input" maxlength="4">
                             <i class="layui-icon layui-icon-vercode zyl_lofo_icon"></i>
                         </div>
                     </div>
                     <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
-                            <div class="zyl_lofo_vercode zylVerCode"  id="userCodeImg"/>
+                        <button type="button" class="zyl_lofo_vercode zylVerCode"  style="background-color: transparent;border: none" id="userCodeImg"></button>
                     </div>
                 </div>
             </div>
             <div class="layui-col-sm12 layui-col-md12">
-                <button type="button" class="layui-btn layui-btn-fluid" lay-submit lay-filter="userLoginSubmit" id="userLoginSubmit">立即登录</button>
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-fluid" lay-submit lay-filter="userLoginSubmit" id="userLoginSubmit">立即登录</button>
             </div>
             <div class="layui-col-sm12 layui-col-md12">
-                <a href="javascript:void(0);" id="userReg">还没有账号？立即注册</a>
+                <a href="javascript:void(0);" class="layui-btn layui-btn-fluid" style="background-color: transparent;border: none;text-align: center;color: #666" id="userReg">还没有账号？立即注册</a>
             </div>
-
         </form>
+
     </div>
 </div>
 <!-- LoginForm End -->
