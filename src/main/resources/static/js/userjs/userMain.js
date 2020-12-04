@@ -13,7 +13,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
             layer.confirm('您确定要退出到登录界面吗?', {icon: 3, title: '温馨提示'}, function (index) {
                 layer.close(index);
                 sessionStorage.clear();//清除session信息
-                location.href = "/smarthome/tbl-user/path/userLogin";
+                location.href = "/smarthome/path/userLogin";
             });
         });
     });
