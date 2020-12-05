@@ -86,11 +86,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             if (value.length < 2) {
                 return '您好，账号至少得2个字符！';
             }
-        }, code :function (value) {
+        }
+       /*, code :function (value) {
             if (value.length != 4) {
                 return '您好，验证码是4位数！';
             }
-        }, pass: [
+        }*/, pass: [
             /^[\S]{6,12}$/
             , '您好，密码必须6~12位，且不能出现空格！'
         ], content: function (value) {
@@ -111,10 +112,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                 });
             }
         });
-        if(data.field.adminCode.toLowerCase() != verCode.toLowerCase()){
+        /*if(data.field.adminCode.toLowerCase() != verCode.toLowerCase()){
             layer.close(loadingIndex);
             layer.msg("验证码错误，请重新输入！", {icon: 2});
-        }else{
+        }else{*/
             $.ajax({
                 url: "/smarthome/admin/adminLogin",
                 async: true,
@@ -127,7 +128,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                         layer.msg(msg.message, {icon: 6});
                         window.sessionStorage.setItem("adminName",msg.entityData.adminName);
                         var timer = setInterval(function () {
-                            location.href = "/smarthome/admin/path/adminMain";
+                            location.href = "/smarthome/admin/path/adminNavigation";
                             clearInterval(timer);
                         }, 1800);
                     }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" ){
@@ -139,7 +140,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     layer.msg("网络繁忙！", {icon: 2});
                 }
             });
-        }
+       // }
     });
 
 });
