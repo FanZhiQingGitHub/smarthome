@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>智慧家庭信息后台管理系统登陆首页</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/admincss/adminLogin.css}" media="all">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/adminjs/adminLogin.js}"></script>
+    <style>
+        /* 覆盖原框架样式 */
+        .layui-elem-quote{background-color: inherit!important;}
+        .layui-input, .layui-select, .layui-textarea{background-color: inherit; padding-left: 30px;}
+    </style>
+</head>
+<body>
+<!-- Head -->
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 mar_01">
+            <blockquote class="layui-elem-quote" style="font-size: 30px;font-weight:bold;color: black">Welcome To Smart Home </blockquote>
+        </div>
+    </div>
+</div>
+<!-- Head End -->
+
+<!-- Carousel -->
+<div class="layui-row">
+    <div class="layui-col-sm12 layui-col-md12">
+        <div class="layui-carousel login_height" id="login" lay-filter="login">
+            <div carousel-item="">
+                <div>
+<!--                    <div class="login_cont"></div>-->
+                    <div class="background">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+
+
+
+<!-- LoginForm -->
+<div class="lofo_main">
+    <fieldset class="layui-elem-field layui-field-title mar_02">
+        <legend style="font-weight:bold;color: black">欢迎登录 - 智慧家庭信息后台管理系统</legend>
+    </fieldset>
+    <div class="layui-row layui-col-space15">
+        <form class="layui-form pad_01" action="" method="post" lay-filter="userLoginForm">
+            <div class="layui-col-sm12 layui-col-md12">
+                <div class="layui-form-item">
+                    <input type="text" name="adminAccount" lay-verify="Account" autocomplete="off" placeholder="请输入用户账号" class="layui-input" value="">
+                    <i class="layui-icon layui-icon-username lofo_icon"></i>
+                </div>
+            </div>
+            <div class="layui-col-sm12 layui-col-md12">
+                <div class="layui-form-item">
+                    <input type="password" name="adminPwd" lay-verify="required|pass" autocomplete="off" placeholder="请输入6~12位密码" class="layui-input" value="">
+                    <i class="layui-icon layui-icon-password lofo_icon"></i>
+                </div>
+            </div>
+            <div class="layui-col-sm12 layui-col-md12">
+                <div class="layui-row">
+                    <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                        <div class="layui-form-item">
+                            <input type="text" name="adminCode" id="adminCode" lay-verify="code" autocomplete="off" placeholder="请输入验证码" class="layui-input" maxlength="4">
+                            <i class="layui-icon layui-icon-vercode lofo_icon"></i>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                        <button type="button" class="lofo_vercode VerCode"  style="background-color: transparent;border: none;font-family: DialogInput;font-size: 18px;font-weight:bold;color: #666;" id="adminCodeImg"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-sm12 layui-col-md12">
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-fluid" lay-submit lay-filter="adminLoginSubmit" id="adminLoginSubmit">立即登录</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<!-- LoginForm End -->
+
+<!-- Footer -->
+<div class="layui-row">
+    <div class="layui-col-sm12 layui-col-md12 center mar_01">
+        © 2020 - 智慧家庭信息后台管理系统登录界面 || Mr.Fan 版权所有
+    </div>
+    <div class="layui-col-sm12 layui-col-md12 center mar_01">
+        <a href="javascript:void(0);" id="a1" style="color: #666;">使用条款</a> | <a href="javascript:void(0);"
+                                                            id="a2" style="color: #666;">隐私保护</a>
+    </div>
+</div>
+<!-- Footer End -->
+
+</body>
+</html>

@@ -13,7 +13,8 @@ public class ConstantEnum {
     public enum ConstantEnumType {
         STATUSNUM("1"),//用于状态判断
         DELETENUM("1"),//用于删除标识判断
-        LISTSIZENUM("0");//用于集合长度为0判断
+        LISTSIZENUM("0"),//用于集合长度为0判断
+        DATABASENUM("0");//用于增删改时数据库返回值得判断
         private String value;
         private String desc;
         public static final Object ENTITY = null;//用于对象为null判断

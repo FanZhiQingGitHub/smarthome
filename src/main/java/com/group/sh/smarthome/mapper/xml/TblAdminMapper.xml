@@ -2,4 +2,102 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group.sh.smarthome.mapper.TblAdminMapper">
 
+    <select id="getNextAdminID" resultType="java.lang.String">
+        SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA. TABLES WHERE TABLE_NAME = 'tbl_admin'
+    </select>
+
+    <select id="adminLogin" resultType="com.group.sh.smarthome.entity.TblAdmin" parameterType="com.group.sh.smarthome.entity.TblAdmin">
+        select
+        ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
+        ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,
+        CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE
+        from tbl_admin
+        <where>
+            <if test="adminAccount != '' and adminAccount != null ">
+                and ADMIN_ACCOUNT = #{adminAccount}
+            </if>
+            <if test="adminPwd != '' and adminPwd != null ">
+                and ADMIN_PWD = #{adminPwd}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getAdminInfoList" resultType="com.group.sh.smarthome.entity.TblAdmin" parameterType="com.group.sh.smarthome.entity.TblAdmin">
+        select
+        ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
+        ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,
+        CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE
+        from tbl_admin
+        <where>
+            and DEL_ID = '0'
+            <if test="adminAccount != '' and adminAccount != null ">
+                and ADMIN_ACCOUNT = #{adminAccount}
+            </if>
+        </where>
+        order by CRT_TM desc ,MOD_TM desc
+    </select>
+
+    <insert id="addAdminInfo" parameterType="com.group.sh.smarthome.entity.TblAdmin" useGeneratedKeys="true" keyProperty="adminId">
+        insert into
+        tbl_admin(ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
+                      ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,
+                      CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE)
+        values
+        (#{adminAccount},#{adminPwd},#{adminName},#{adminSex},#{adminPhone},#{adminWorkphone},
+         #{adminMail},#{adminAddress},#{adminHead},#{adminStatus},
+         #{crtPsnId},now(),#{modPsnId},#{modTm},'0',#{userRole})
+    </insert>
+
+    <update id="updateAdminInfo" parameterType="com.group.sh.smarthome.entity.TblAdmin">
+        update tbl_admin
+        <set>
+            DEL_ID = '0',
+            MOD_TM = now(),
+            <if test="adminPwd != '' and adminPwd != null">
+                ADMIN_PWD = #{adminPwd},
+            </if>
+            <if test="adminName != '' and adminName != null">
+                ADMIN_NAME = #{adminName},
+            </if>
+            <if test="adminSex != '' and adminSex != null">
+                ADMIN_SEX = #{adminSex},
+            </if>
+            <if test="adminPhone != '' and adminPhone != null">
+                ADMIN_PHONE = #{adminPhone},
+            </if>
+            <if test="adminWorkphone != '' and adminWorkphone != null">
+                ADMIN_WORKPHONE = #{adminWorkphone},
+            </if>
+            <if test="adminMail != '' and adminMail != null">
+                ADMIN_MAIL = #{adminMail},
+            </if>
+            <if test="adminAddress != '' and adminAddress != null">
+                ADMIN_ADDRESS = #{adminAddress},
+            </if>
+            <if test="adminHead != '' and adminHead != null">
+                ADMIN_HEAD = #{adminHead},
+            </if>
+            <if test="adminStatus != '' and adminStatus != null">
+                ADMIN_STATUS = #{adminStatus},
+            </if>
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where ADMIN_ID = #{adminId}
+    </update>
+
+    <update id="deleteAdminInfo" parameterType="com.group.sh.smarthome.entity.TblAdmin">
+        update tbl_admin
+        <set>
+            DEL_ID = '1',
+            MOD_TM = now(),
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where ADMIN_ID = #{adminId}
+    </update>
+
 </mapper>

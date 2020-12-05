@@ -25,7 +25,7 @@ import java.util.List;
  * @since 创建日期：2020-11-26
  */
 @Controller
-@RequestMapping("/smarthome")
+@RequestMapping("/smarthome/user")
 @Slf4j
 public class TblUserController {
 
@@ -66,7 +66,7 @@ public class TblUserController {
         if(ConstantEnum.ConstantEnumType.STATUSNUM.getValue().equals(User.getUserStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getUserStatus()){
             return new CommonResult(501, "该用户禁止登录，请联系管理员处理！", User, null);
         }
-        if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(User.getUserStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getDelId()){
+        if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(User.getDelId()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getDelId()){
             return new CommonResult(502, "该用户不存在，请先进行注册！", User, null);
         }
         return new CommonResult(200, "欢迎您："+User.getUserName()+" ，登录成功！", User, null);
@@ -85,7 +85,7 @@ public class TblUserController {
             return new CommonResult(500, "请求参数为null，请联系开发商！", tblUser, null);
         }
         List<TblUser> tblUserList = tblUserService.getUserInfoList(tblUser);
-        log.info("******查询的结果是: " + tblUserList);
+        log.info("******查询用户列表的结果是: " + tblUserList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblUserList.size()) {
             return new CommonResult(501, "查询数据失败", tblUser, tblUserList);
         }
@@ -113,10 +113,10 @@ public class TblUserController {
         tblUser.setCrtPsnId(tblUserService.getNextUserID());
         tblUser.setCrtTm(new Date());
         tblUser.setDelId("0");
-        tblUser.setUserCode("0");//0--用户，1--管理员，2--超级管理员
+        tblUser.setUserRole("0");//0--用户，1--管理员，2--超级管理员
         num = tblUserService.addUserInfo(tblUser);
         log.info("******新增的用户ID是: "+tblUser.getUserId());
-        if(Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == num){
+        if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
             return new CommonResult(501,"新增数据失败",tblUser,null);
         }
         return new CommonResult(200,"新增数据成功",tblUser,null);

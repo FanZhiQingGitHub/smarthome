@@ -1,13 +1,16 @@
 package com.group.sh.smarthome.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -64,6 +67,8 @@ public class TblSyslog implements Serializable {
      * 操作时间
      */
     @TableField("SYSLOG_TIME")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date syslogTime;
 
     /**
@@ -76,6 +81,8 @@ public class TblSyslog implements Serializable {
      * 创建时间
      */
     @TableField("CRT_TM")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date crtTm;
 
     /**
@@ -88,6 +95,8 @@ public class TblSyslog implements Serializable {
      * 修改时间
      */
     @TableField("MOD_TM")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date modTm;
 
     /**
