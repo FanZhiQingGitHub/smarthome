@@ -78,11 +78,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
 
     form.verify({
         Account: function (value) {
-            /*
             var reg = /^[0-9]*$/;
             if(!reg.test(value)){
                 return '您好，账号为数字！';
-            }*/
+            }
             if (value.length < 2) {
                 return '您好，账号至少得2个字符！';
             }
@@ -130,7 +129,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                         var timer = setInterval(function () {
                             location.href = "/smarthome/admin/path/adminNavigation";
                             clearInterval(timer);
-                        }, 1800);
+                        }, 100);
                     }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" ){
                         layer.close(loadingIndex);
                         layer.msg(msg.message, {icon: 2});

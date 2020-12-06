@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 
+ *      用户实体信息类
  * </p>
  *
  * @author fzq

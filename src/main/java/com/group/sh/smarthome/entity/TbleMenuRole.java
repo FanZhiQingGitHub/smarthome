@@ -15,33 +15,45 @@ import java.util.List;
 
 /**
  * <p>
- *      角色信息类
+ *      角色菜单关系信息类
  * </p>
  *
  * @author fzq
- * @since 2020-11-26
+ * @since 2020-12-6
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class TblRole implements Serializable {
+public class TbleMenuRole implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     /**
+     * 角色菜单id
+     */
+    @TableId(value = "ROLE_MENU_ID", type = IdType.AUTO)
+    private Integer roleMenuId;
+
+    /**
      * 角色id
      */
-    @TableId(value = "ROLE_ID", type = IdType.AUTO)
+    @TableField("ROLE_ID")
     private Integer roleId;
 
     /**
-     * 角色名称
+     * 菜单id
      */
-    @TableField("ROLE_NAME")
-    private String roleName;
+    @TableField("MENU_ID")
+    private Integer menuId;
 
     /**
-     * 创建人
+     * 菜单子id
+     */
+    @TableField("MENUSUB_ID")
+    private Integer menuSubId;
+
+    /**
+     * 创建人id
      */
     @TableField("CRT_PSN_ID")
     private String crtPsnId;
@@ -55,7 +67,7 @@ public class TblRole implements Serializable {
     private Date crtTm;
 
     /**
-     * 修改人
+     * 修改人id
      */
     @TableField("MOD_PSN_ID")
     private String modPsnId;
@@ -74,7 +86,6 @@ public class TblRole implements Serializable {
     @TableField("DEL_ID")
     private String delId;
 
+    private List<TblRole> roleList;
     private List<TblMenu> menuList;
-
-
 }
