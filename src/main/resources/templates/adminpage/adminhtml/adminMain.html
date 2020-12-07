@@ -13,79 +13,85 @@
     <link rel="stylesheet" th:href="@{/css/admincss/adminMain.css}" media="all">
     <link rel="icon" th:href="@{/publicimage/logo.png}">
 </head>
-<body>
-<body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo">智慧家庭信息后台管理系统</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="javascript:void(0);">控制台</a></li>
-            <li class="layui-nav-item"><a href="javascript:void(0);">商品管理</a></li>
-            <li class="layui-nav-item"><a href="javascript:void(0);">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:void(0);">邮件管理</a></dd>
-                    <dd><a href="javascript:void(0);">消息管理</a></dd>
-                    <dd><a href="javascript:void(0);">授权管理</a></dd>
-                </dl>
-            </li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <img th:src="@{/publicimage/face.jpg}" class="layui-nav-img">
-            </li>
-            <li class="layui-nav-item">
-                <a href="javascript:;" id="adminName"></a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:void(0);">基本资料</a></dd>
-                    <dd><a href="javascript:void(0);">安全设置</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a id="exitPage">退了</a></li>
-        </ul>
-    </div>
 
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">所有商品</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="javascript:;">列表三</a></dd>
-                        <dd><a href="javascript:void(0);">超链接</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">解决方案</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="javascript:void(0);">超链接</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="javascript:void(0);">云市场</a></li>
-                <li class="layui-nav-item"><a href="javascript:void(0);">发布商品</a></li>
-            </ul>
+<body class="childrenBody">
+
+    <blockquote class="layui-elem-quote">
+        <p>本模板基于Layui实现，支持除LayIM外所有的Layui组件。<a href="#"  class="layui-btn layui-btn-mini">前往获取LayIM授权</a>　　<span style="color:#1E9FFF;">郑重提示：网站所有数据均为静态数据，无数据库，除打开的窗口和部分小改动外所有操作刷新后无效，关闭窗口或清除缓存后，所有操作无效，请知悉</span></p>
+        <p style="margin-top:5px;">开发文档地址：<a class="layui-btn layui-btn-mini"  href="#">点此跳转</a> <a class="layui-btn layui-btn-mini layui-btn-danger"  href="#">我要点赞</a>　　技术交流QQ群：<a  href="#"><img border="0" src="" alt="layui后台管理模版" title="layui后台管理模版"></a>（添加时请注明来自本框架） <span style="color:#f00;"> 注：本框架未引入任何第三方组件（天气信息除外），单纯的layui+js实现的各种功能【本框架仅作为学习交流使用，如需用作商业用途，请联系作者授权，谢谢】</span></p>
+    </blockquote>
+    <div class="row">
+        <div class="sysNotice col">
+            <blockquote class="layui-elem-quote title">更新日志</blockquote>
+            <div class="layui-elem-quote layui-quote-nm">
+                <h3># 1.0.9_rls （发行版） - 2017-03-01</h3>
+                <p>* checkbox复选框原始风格支持不显示文字（之前会默认显示：勾选）</p>
+                <p>* 进度条超出100%情况下的自动处理</p>
+                <p>* 修复Tab选项卡在出现下拉按钮时，点击最后的几个选项卡未能正常切换的bug</p>
+                <p>* 修复select组件搜索选择时会先显示之前的值再替换新的值的不良体验</p>
+                <p>* 修复默认进度条0%时，文本出现太过于左侧的问题</p>
+                <br />
+                <p># 1.0.9</p>
+                <p>* 新增“折叠面板”页面元素及相关事件监听</p>
+                <p>* select组件增加搜索匹配功能，通过参数 lay-search 开启</p>
+                <p>* checkbox组件增加原始风格样式，通过设置 lay-skin="primary" 开启（跟系统自带的类似样貌）</p>
+                <p>* 升级 layer弹层组件到 3.0.2 （ layer3.0.2更新日志 ）</p>
+                <p>* 表单元素增加属性 lay-ignore ,设置后，将不会对该标签进行美化渲染，即保留系统风格</p>
+                <p>* 开关增加两种状态的自定义文本，通过参数 lay-text="ON|OFF" 开启</p>
+                <p>* 修复Tab选项卡嵌套的Tab没有对应的内容结构时，切换到了父级内容的bug</p>
+                <p>* 修复Tab选项卡容器中使用下拉框时，被溢出隐藏的问题</p>
+                <p>* 修复Tab选项卡溢满情况下，点击展开按钮，再在外部添加一个选项卡出现异常的bug</p>
+                <p>* Tab选项卡部分UI细节优化</p>
+                <p>* Tab选项卡的tabAdd增加id参数，用于在删除和切换时，以id作为匹配媒介</p>
+            </div>
+        </div>
+        <div class="sysNotice col">
+            <blockquote class="layui-elem-quote title">系统基本参数</blockquote>
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td>当前版本</td>
+                    <td class="version"></td>
+                </tr>
+                <tr>
+                    <td>开发作者</td>
+                    <td class="author"></td>
+                </tr>
+                <tr>
+                    <td>网站首页</td>
+                    <td class="homePage"></td>
+                </tr>
+                <tr>
+                    <td>服务器环境</td>
+                    <td class="server"></td>
+                </tr>
+                <tr>
+                    <td>数据库版本</td>
+                    <td class="dataBase"></td>
+                </tr>
+                <tr>
+                    <td>最大上传限制</td>
+                    <td class="maxUpload"></td>
+                </tr>
+                <tr>
+                    <td>当前用户权限</td>
+                    <td class="userRights"></td>
+                </tr>
+                </tbody>
+            </table>
+            <blockquote class="layui-elem-quote title">最新文章<i class="iconfont icon-new1"></i></blockquote>
+            <table class="layui-table" lay-skin="line">
+                <colgroup>
+                    <col>
+                    <col width="110">
+                </colgroup>
+                <tbody class="hot_news"></tbody>
+            </table>
         </div>
     </div>
-
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
-    </div>
-
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
-    </div>
-</div>
-
-</body>
-
 </body>
 </html>

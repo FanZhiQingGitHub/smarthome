@@ -6,8 +6,4 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
         , element = layui.element;
     $ = layui.jquery;
 
-    $("#adminName").text( window.sessionStorage.getItem("adminName"));
-
-
-
 });
