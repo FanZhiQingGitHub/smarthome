@@ -158,8 +158,39 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
             layer.msg("暂未开放！", {icon: 2});
         }),$("#updateAdminPwdPc").click(function () {
             layer.msg("暂未开放！", {icon: 2});
+        }),$("#systemInfo").click(function () {
+            showSystemInfo();
         });
     });
+
+    //公告层
+    function showSystemInfo(){
+        layer.open({
+            type: 1,
+            title: "系统公告", //不显示标题栏
+            closeBtn: false,
+            area: '310px',
+            shade: 0.8,
+            id: 'LAY_layuipro', //设定一个id，防止重复弹出
+            btn: ['火速围观'],
+            moveType: 1, //拖拽模式，0或者1
+            content: '<div style="padding:15px 20px; text-align:justify; line-height: 22px; text-indent:2em;border-bottom:1px solid #e2e2e2;"><p>欢迎使用smart home！</p></div>',
+            success: function(layero){
+                var btn = layero.find('.layui-layer-btn');
+                btn.css('text-align', 'center');
+                btn.on("click",function(){
+                    window.sessionStorage.setItem("showNotice","true");
+                })
+                if($(window).width() > 432){  //如果页面宽度不足以显示顶部“系统公告”按钮，则不提示
+                    btn.on("click",function(){
+                        layer.tips('系统公告躲在了这里', '#showNotice', {
+                            tips: 3
+                        });
+                    })
+                }
+            }
+        });
+    }
 
 
 
