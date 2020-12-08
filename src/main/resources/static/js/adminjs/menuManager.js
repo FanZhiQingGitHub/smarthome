@@ -21,14 +21,22 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , id: 'searchTable'
         ,height: 'full-200'
         , cellMinWidth: 80
-        , limit: 5
-        , limits: [5, 10, 15, 20]
+        , limit: 10
+        , limits: [5,10, 15, 20]
         ,cols: [[
             {type: 'checkbox', fixed: 'left'}
             ,{field:'menuId', title:'菜单编号', fixed: 'left', unresize: true, sort: true,align: 'center',}
             ,{field:'menuName', title:'菜单名称', align: 'center'}
-            ,{field:'menuUrl', title:'菜单URL', width:300,align: 'center'}
-            ,{field:'menuType', title:'菜单类型', align: 'center'}
+            ,{field:'menuUrl', title:'菜单URL', width:300,align: 'center',
+                templet:function(d){
+                    return d.menuUrl == "" || d.menuUrl == null || d.menuUrl == undefined ? '无':d.menuUrl;
+                }
+            }
+            ,{field:'menuType', title:'菜单类型', align: 'center',
+                templet:function(d){
+                    return d.menuType == "" || d.menuType == null || d.menuType == undefined ? '无':d.menuType;
+                }
+            }
             ,{field:'crtPsnId', title:'创建人', align: 'center'}
             ,{field:'crtTm', title:'创建时间',align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
             ,{field:'modPsnId', title:'修改人', align: 'center'}
