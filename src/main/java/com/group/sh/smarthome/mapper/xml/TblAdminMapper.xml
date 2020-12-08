@@ -153,6 +153,57 @@
 
     <!--查找所有的父级菜单,不区分角色(菜单权限管理)    -->
     <!--    select * from menutable m where m.menuid in (select r.mid from rolemenutable r,menutable m ) and m.menusonid = 0-->
+
+    <resultMap type="com.group.sh.smarthome.entity.TblMenu" id="MenuListMap">
+        <result column="menuId" property="menuId"></result>
+        <result column="menuName" property="menuName"></result>
+        <result column="menuUrl" property="menuUrl"></result>
+        <result column="menuType" property="menuType"></result>
+        <result column="adminName1" property="crtPsnId"></result>
+        <result column="crtTm" property="crtTm"></result>
+        <result column="adminName2" property="modPsnId"></result>
+        <result column="modTm" property="modTm"></result>
+    </resultMap>
+
+    <!--    查找菜单信息列表-->
+    <select id="findALLMenuList" resultMap="MenuListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        SELECT
+        menu.MENU_ID as menuId,
+        menu.MENU_NAME as menuName,
+        menu.MENU_URL as menuUrl,
+        menu.MENU_TYPE as menuType,
+        admin1.ADMIN_NAME as adminName1,
+        menu.CRT_TM as crtTm,
+        admin2.ADMIN_NAME as adminName2,
+        menu.MOD_TM as modTm
+        FROM tbl_menu menu
+        left join tbl_admin admin1 on menu.CRT_PSN_ID = admin1.ADMIN_ACCOUNT and menu.MOD_PSN_ID = admin1.ADMIN_ACCOUNT
+        left join tbl_admin admin2 on menu.CRT_PSN_ID = admin2.ADMIN_ACCOUNT and menu.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
+        <where>
+            <if test="objectOne != '' and objectOne != null ">
+                and  menu.MENU_NAME = #{objectOne}
+            </if>
+        </where>
+        order by menu.CRT_TM desc,menu.MOD_TM desc limit #{page},#{limit}
+
+    </select>
+
+    <!--    查找菜单信息列表记录条数-->
+    <select id="findALLMenuListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        select count(1)
+        FROM tbl_menu menu left join tbl_admin admin
+        on menu.CRT_PSN_ID = admin.ADMIN_ACCOUNT and menu.MOD_PSN_ID = admin.ADMIN_ACCOUNT
+        <where>
+            <if test="objectOne != '' and objectOne != null ">
+                and  menu.MENU_NAME = #{objectOne}
+            </if>
+        </where>
+    </select>
+
+
+
+
+
     <select id="findAllMenu" resultMap="TreeMap1">
         select
             menu.MENU_ID as menuId,

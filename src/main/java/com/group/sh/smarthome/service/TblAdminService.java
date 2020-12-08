@@ -3,7 +3,9 @@ package com.group.sh.smarthome.service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblAdmin;
+import com.group.sh.smarthome.entity.TblMenu;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
+import com.group.sh.smarthome.resultbean.PageListEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +55,14 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
 
     public List<MenuTreeInfo> findMenuIDByRoleId(Integer roleId){
         return tblAdminMapper.findMenuIDByRoleId(roleId);
+    }
+
+    public List<TblMenu> findALLMenuList(PageListEntity pageListEntity){
+        return tblAdminMapper.findALLMenuList(pageListEntity);
+    }
+
+    public Long findALLMenuListCount(PageListEntity pageListEntity){
+        return tblAdminMapper.findALLMenuListCount(pageListEntity);
     }
 
 }

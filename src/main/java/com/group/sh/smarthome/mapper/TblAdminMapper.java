@@ -3,6 +3,8 @@ package com.group.sh.smarthome.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblAdmin;
+import com.group.sh.smarthome.entity.TblMenu;
+import com.group.sh.smarthome.resultbean.PageListEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -31,5 +33,9 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
     public Boolean deleteAdminInfo(TblAdmin tblAdmin);
 
     public List<MenuTreeInfo> findMenuIDByRoleId(Integer roleId);
+
+    public List<TblMenu> findALLMenuList(PageListEntity pageListEntity);
+
+    public Long findALLMenuListCount(PageListEntity pageListEntity);
 
 }
