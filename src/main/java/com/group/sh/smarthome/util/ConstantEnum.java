@@ -17,6 +17,7 @@ public class ConstantEnum {
         DATABASENUM("0");//用于增删改时数据库返回值得判断
         private String value;
         private String desc;
+        public static Integer roleId = null;
         public static final Object ENTITY = null;//用于对象为null判断
         public static final Object CONSTANT = null;//用于常量为null判断
 

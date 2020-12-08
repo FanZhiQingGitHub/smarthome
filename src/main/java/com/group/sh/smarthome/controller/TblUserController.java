@@ -113,7 +113,7 @@ public class TblUserController {
         tblUser.setCrtPsnId(tblUserService.getNextUserID());
         tblUser.setCrtTm(new Date());
         tblUser.setDelId("0");
-        tblUser.setUserRole("0");//0--用户，1--管理员，2--超级管理员
+        tblUser.setUserRole(0);//1--超级管理员，2--管理员，3--用户
         num = tblUserService.addUserInfo(tblUser);
         log.info("******新增的用户ID是: "+tblUser.getUserId());
         if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){

@@ -1,6 +1,7 @@
 package com.group.sh.smarthome.controller;
 
 
+import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblAdmin;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.service.TblAdminService;
@@ -69,6 +70,7 @@ public class TblAdminController {
         if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(Admin.getDelId()) || ConstantEnum.ConstantEnumType.CONSTANT == Admin.getDelId()){
             return new CommonResult(502, "该用户不存在，请先进行注册！", Admin, null);
         }
+        ConstantEnum.ConstantEnumType.roleId = Integer.valueOf(Admin.getAdminRole());
         return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", Admin, null);
     }
 
@@ -113,7 +115,7 @@ public class TblAdminController {
         tblAdmin.setCrtPsnId(tblAdminService.getNextAdminID());
         tblAdmin.setCrtTm(new Date());
         tblAdmin.setDelId("0");
-        tblAdmin.setAdminRole("0");//0--用户，1--管理员，2--超级管理员
+        tblAdmin.setAdminRole(0);//0--用户，1--管理员，2--超级管理员
         num = tblAdminService.addAdminInfo(tblAdmin);
         log.info("******新增的管理员ID是: "+tblAdmin.getAdminId());
         if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
@@ -146,6 +148,26 @@ public class TblAdminController {
     public Boolean deleteAdminInfo(TblAdmin tblAdmin){
         Boolean flag = tblAdminService.deleteAdminInfo(tblAdmin);
         return flag;
+    }
+
+    /**
+     *
+     * 方法描述 管理员登录后查询菜单方法
+     * @date 2020-12-8
+     * @param
+     */
+    @GetMapping(value = "/findMenuIDByRoleId")
+    @ResponseBody
+    public CommonResult findMenuIDByRoleId(TblAdmin tblAdmin){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",tblAdmin,null);
+        }
+        List<MenuTreeInfo> tblMenuList = tblAdminService.findMenuIDByRoleId(1);
+        log.info("******查询的菜单是: "+tblMenuList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
+            return new CommonResult(501, "查询数据失败", null, tblMenuList);
+        }
+        return new CommonResult(200, "查询数据成功", null, tblMenuList);
     }
 
 

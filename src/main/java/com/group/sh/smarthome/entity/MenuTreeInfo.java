@@ -1,4 +1,4 @@
-package com.group.sh.smarthome.resultbean;
+package com.group.sh.smarthome.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,15 +8,22 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 菜单配置实体信息类
+ * <p>
+ *      菜单返回前端json格式实体信息类
+ * </p>
+ *
+ * @author fzq
+ * @since 2020-12-6
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class MenuTreeInfo implements Serializable {
 
-    private  String title;
-    private  Integer id;
+    private String dataUrl;
+    private String dataTitle;
+    private String dataId;
+    private String dataType;
     private List<MenuTreeInfo> children;
 
 }

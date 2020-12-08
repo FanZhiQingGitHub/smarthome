@@ -7,7 +7,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
         , element = layui.element;
     $ = layui.jquery;
 
-    $("#adminName").text( window.sessionStorage.getItem("adminName"));
+    $("#adminName").text(window.sessionStorage.getItem("adminName"));
     //手机设备的简单适配
     var treeMobile = $('.site-tree-mobile'),
         shadeMobile = $('.site-mobile-shade')
@@ -19,131 +19,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
     shadeMobile.on('click', function(){
         $('body').removeClass('site-mobile');
     });
-
-
-    // var nvas = [{
-    //     "title" : "后台首页",
-    //     "icon" : "icon-computer",
-    //     "href" : "page/main.html",
-    //     "spread" : false
-    // },{
-    //     "title" : "文章列表",
-    //     "icon" : "icon-text",
-    //     "href" : "page/news/newsList.html",
-    //     "spread" : false
-    // },{
-    //     "title" : "友情链接",
-    //     "icon" : "icon-text",
-    //     "href" : "page/links/linksList.html",
-    //     "spread" : false
-    // },{
-    //     "title" : "404页面",
-    //     "icon" : "&#xe61c;",
-    //     "href" : "page/404.html",
-    //     "spread" : false
-    // },{
-    //     "title" : "系统基本参数",
-    //     "icon" : "&#xe631;",
-    //     "href" : "page/systemParameter/systemParam.html",
-    //     "spread" : false
-    // },{
-    //     "title" : "二级菜单演示",
-    //     "icon" : "&#xe61c;",
-    //     "href" : "",
-    //     "spread" : false,
-    //     "children" : [
-    //         {
-    //             "title" : "二级菜单1",
-    //             "icon" : "&#xe631;",
-    //             "href" : "",
-    //             "spread" : false
-    //         },
-    //         {
-    //             "title" : "二级菜单2",
-    //             "icon" : "&#xe631;",
-    //             "href" : "",
-    //             "spread" : false
-    //         }
-    //     ]
-    // }];
-    //
-    //
-    //
-    // function navBar(data){
-    //     var ulHtml = '<ul class="layui-nav layui-nav-tree">';
-    //     for(var i=0;i<data.length;i++){
-    //         if(data[i].spread){
-    //             ulHtml += '<li class="layui-nav-item layui-nav-itemed">';
-    //         }else{
-    //             ulHtml += '<li class="layui-nav-item">';
-    //         }
-    //         if(data[i].children != undefined && data[i].children.length > 0){
-    //             ulHtml += '<a href="javascript:;">';
-    //             if(data[i].icon != undefined && data[i].icon != ''){
-    //                 if(data[i].icon.indexOf("icon-") != -1){
-    //                     ulHtml += '<i class="iconfont '+data[i].icon+'" data-icon="'+data[i].icon+'"></i>';
-    //                 }else{
-    //                     ulHtml += '<i class="layui-icon" data-icon="'+data[i].icon+'">'+data[i].icon+'</i>';
-    //                 }
-    //             }
-    //             ulHtml += '<cite>'+data[i].title+'</cite>';
-    //             ulHtml += '<span class="layui-nav-more"></span>';
-    //             ulHtml += '</a>'
-    //             ulHtml += '<dl class="layui-nav-child">';
-    //             for(var j=0;j<data[i].children.length;j++){
-    //                 ulHtml += '<dd><a href="javascript:;" data-url="'+data[i].children[j].href+'">';
-    //                 if(data[i].children[j].icon != undefined && data[i].children[j].icon != ''){
-    //                     if(data[i].children[j].icon.indexOf("icon-") != -1){
-    //                         ulHtml += '<i class="iconfont '+data[i].children[j].icon+'" data-icon="'+data[i].children[j].icon+'"></i>';
-    //                     }else{
-    //                         ulHtml += '<i class="layui-icon" data-icon="'+data[i].children[j].icon+'">'+data[i].children[j].icon+'</i>';
-    //                     }
-    //                 }
-    //                 ulHtml += '<cite>'+data[i].children[j].title+'</cite></a></dd>';
-    //             }
-    //             ulHtml += "</dl>"
-    //         }else{
-    //             ulHtml += '<a href="javascript:;" data-url="'+data[i].href+'">';
-    //             if(data[i].icon != undefined && data[i].icon != ''){
-    //                 if(data[i].icon.indexOf("icon-") != -1){
-    //                     ulHtml += '<i class="iconfont '+data[i].icon+'" data-icon="'+data[i].icon+'"></i>';
-    //                 }else{
-    //                     ulHtml += '<i class="layui-icon" data-icon="'+data[i].icon+'">'+data[i].icon+'</i>';
-    //                 }
-    //             }
-    //             ulHtml += '<cite>'+data[i].title+'</cite></a>';
-    //         }
-    //         ulHtml += '</li>'
-    //     }
-    //     ulHtml += '</ul>';
-    //     return ulHtml;
-    // }
-
-
-    $(function () {
-        $("#exitPageMobile").click(function () {
-            layer.confirm('您确定要退出到登录界面吗?', {icon: 3, title: '温馨提示'}, function (index) {
-                layer.close(index);
-                sessionStorage.clear();//清除session信息
-                location.href = "/smarthome/admin/path/adminLogin";
-            });
-        }),$("#exitPagePc").click(function () {
-            layer.confirm('您确定要退出到登录界面吗?', {icon: 3, title: '温馨提示'}, function (index) {
-                layer.close(index);
-                sessionStorage.clear();//清除session信息
-                location.href = "/smarthome/admin/path/adminLogin";
-            });
-        }),$("#personalDataMobile").click(function () {
-            layer.msg("暂未开放！", {icon: 2});
-        }),$("#personalDataPc").click(function () {
-            layer.msg("暂未开放！", {icon: 2});
-        }),$("#updateAdminPwdMobile").click(function () {
-            layer.msg("暂未开放！", {icon: 2});
-        }),$("#updateAdminPwdPc").click(function () {
-            layer.msg("暂未开放！", {icon: 2});
-        });
-    });
-
 
 
     //触发事件
@@ -175,28 +50,30 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
 
 
     //当点击有site-demo-active属性的标签时，即左侧菜单栏中内容 ，触发点击事件
-    $('.site-admin-active').on('click', function() {
-        var dataid = $(this);
-        //这时会判断右侧.layui-tab-title属性下的有lay-id属性的li的数目，即已经打开的tab项数目
-        if ($(".layui-tab-title li[lay-id]").length <= 0) {
-            //如果比零小，则直接打开新的tab项
-            active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"),dataid.attr("data-title"));
-        } else {
-            //否则判断该tab项是否以及存在
-            var isData = false; //初始化一个标志，为false说明未打开该tab项 为true则说明已有
-            $.each($(".layui-tab-title li[lay-id]"), function () {
-                //如果点击左侧菜单栏所传入的id 在右侧tab项中的lay-id属性可以找到，则说明该tab项已经打开
-                if ($(this).attr("lay-id") == dataid.attr("data-id")) {
-                    isData = true;
-                }
-            })
-            if (isData == false) {
-                //标志为false 新增一个tab项
+    $(function () {
+        $("body").on('click','.site-admin-active', function() {
+            var dataid = $(this);
+            //这时会判断右侧.layui-tab-title属性下的有lay-id属性的li的数目，即已经打开的tab项数目
+            if ($(".layui-tab-title li[lay-id]").length <= 0) {
+                //如果比零小，则直接打开新的tab项
                 active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"),dataid.attr("data-title"));
+            } else {
+                //否则判断该tab项是否以及存在
+                var isData = false; //初始化一个标志，为false说明未打开该tab项 为true则说明已有
+                $.each($(".layui-tab-title li[lay-id]"), function () {
+                    //如果点击左侧菜单栏所传入的id 在右侧tab项中的lay-id属性可以找到，则说明该tab项已经打开
+                    if ($(this).attr("lay-id") == dataid.attr("data-id")) {
+                        isData = true;
+                    }
+                })
+                if (isData == false) {
+                    //标志为false 新增一个tab项
+                    active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"),dataid.attr("data-title"));
+                }
             }
-        }
-        //最后不管是否新增tab，最后都转到要打开的选项页面上
-        active.tabChange(dataid.attr("data-id"));
+            //最后不管是否新增tab，最后都转到要打开的选项页面上
+            active.tabChange(dataid.attr("data-id"));
+        });
     });
 
 
@@ -209,6 +86,83 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
         var h = $(window).height() -41- 10 - 60 -10-44 -10;
         $("iframe").css("height",h+"px");
     }
+
+    //根据角色ID查询菜单请求
+    $.ajax({
+        url: "/smarthome/admin/findMenuIDByRoleId",
+        async: true,
+        type: "get",
+        data: {"adminRole":window.sessionStorage.getItem("adminRole")},
+        datatype: "text",
+        success: function (msg) {
+            if (msg.code == "200") {
+                var html = pointMenu(msg.data);
+                for(var i = 0;i<msg.data.length;i++){
+                    if(msg.data[i].dataId == '1'){
+                        var rightHtmlLi = '<li class="layui-this" lay-id="'+msg.data[i].dataId+'"><i class="iconfont icon-computer"></i><cite>后台首页</cite></li>';
+                        var rightHtmlIframe = '<iframe data-frameid="'+msg.data[i].dataId+'" scrolling="auto" frameborder="0" src="/smarthome/admin/path/adminMain" style="width:100%;height:100%;"></iframe>';
+                        break;
+                    }
+                }
+                $(".top_tab").html(rightHtmlLi);
+                $(".layui-show").html(rightHtmlIframe);
+                $(".backMenu").html(html);
+                element.init(); //一定初始化一次
+            }else if(msg.code == "500" || msg.code == "501"){
+                layer.msg(msg.message, {icon: 2});
+            }
+        }, error: function (msg) {
+            layer.close(loadingIndex);
+            layer.msg("网络繁忙！", {icon: 2});
+        }
+    });
+    function pointMenu(data){
+        var ulHtml = '<ul class="layui-nav layui-nav-tree" lay-filter="left-menu">';
+        for(var i = 0;i<data.length;i++){
+            ulHtml += '<li class="layui-nav-item">';
+            if(data[i].children != undefined && data[i].children.length > 0){
+                ulHtml += '<a href="javascript:;">'+data[i].dataTitle+'</a>';
+                ulHtml += '<dl class="layui-nav-child">';
+                for(var j=0;j<data[i].children.length;j++){
+                    ulHtml += '<dd><a href="#" data-url="'+data[i].children[j].dataUrl+'" data-title="'+data[i].children[j].dataTitle+'" data-id="'+data[i].children[j].dataId+'" class="site-admin-active" data-type="'+data[i].children[j].dataType+'">'+data[i].children[j].dataTitle+'</a></dd>';
+                }
+                ulHtml += '</dl>';
+            }else {
+                ulHtml += '<a href="#" data-url="'+data[i].dataUrl+'" data-title="'+data[i].dataTitle+'" data-id="'+data[i].dataId+'" class="site-admin-active" data-type="'+data[i].dataType+'">'+data[i].dataTitle+'</a>';
+            }
+            ulHtml += '</li>';
+        }
+        ulHtml += '</ul>';
+        return ulHtml
+    }
+
+
+    $(function () {
+        $("#exitPageMobile").click(function () {
+            layer.confirm('您确定要退出到登录界面吗?', {icon: 3, title: '温馨提示'}, function (index) {
+                layer.close(index);
+                sessionStorage.clear();//清除session信息
+                location.href = "/smarthome/admin/path/adminLogin";
+            });
+        }),$("#exitPagePc").click(function () {
+            layer.confirm('您确定要退出到登录界面吗?', {icon: 3, title: '温馨提示'}, function (index) {
+                layer.close(index);
+                sessionStorage.clear();//清除session信息
+                location.href = "/smarthome/admin/path/adminLogin";
+            });
+        }),$("#personalDataMobile").click(function () {
+            layer.msg("暂未开放！", {icon: 2});
+        }),$("#personalDataPc").click(function () {
+            layer.msg("暂未开放！", {icon: 2});
+        }),$("#updateAdminPwdMobile").click(function () {
+            layer.msg("暂未开放！", {icon: 2});
+        }),$("#updateAdminPwdPc").click(function () {
+            layer.msg("暂未开放！", {icon: 2});
+        });
+    });
+
+
+
     function timeTimer() {
         var d = new Date();//实例化日期对象
         var a = d.toLocaleTimeString();//获取日期
@@ -257,4 +211,102 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
 //
 //     $('.rightmenu').hide(); //最后再隐藏右键菜单
 // })
+
+// var nvas = [{
+//     "title" : "后台首页",
+//     "icon" : "icon-computer",
+//     "href" : "page/main.html",
+//     "spread" : false
+// },{
+//     "title" : "文章列表",
+//     "icon" : "icon-text",
+//     "href" : "page/news/newsList.html",
+//     "spread" : false
+// },{
+//     "title" : "友情链接",
+//     "icon" : "icon-text",
+//     "href" : "page/links/linksList.html",
+//     "spread" : false
+// },{
+//     "title" : "404页面",
+//     "icon" : "&#xe61c;",
+//     "href" : "page/404.html",
+//     "spread" : false
+// },{
+//     "title" : "系统基本参数",
+//     "icon" : "&#xe631;",
+//     "href" : "page/systemParameter/systemParam.html",
+//     "spread" : false
+// },{
+//     "title" : "二级菜单演示",
+//     "icon" : "&#xe61c;",
+//     "href" : "",
+//     "spread" : false,
+//     "children" : [
+//         {
+//             "title" : "二级菜单1",
+//             "icon" : "&#xe631;",
+//             "href" : "",
+//             "spread" : false
+//         },
+//         {
+//             "title" : "二级菜单2",
+//             "icon" : "&#xe631;",
+//             "href" : "",
+//             "spread" : false
+//         }
+//     ]
+// }];
+//
+//
+//
+// function navBar(data){
+//     var ulHtml = '<ul class="layui-nav layui-nav-tree" lay-filter="left-menu">';
+//     for(var i=0;i<data.length;i++){
+//         if(data[i].menuType == '0'){
+//             ulHtml += '<li class="layui-nav-item layui-nav-itemed">';
+//         }else if(data[i].menuType == '1'){
+//             ulHtml += '<li class="layui-nav-item">';
+//         }
+//         if(data[i].children != undefined && data[i].children.length > 0){
+//             ulHtml += '<a href="javascript:;">';
+//             if(data[i].icon != undefined && data[i].icon != ''){
+//                 if(data[i].icon.indexOf("icon-") != -1){
+//                     ulHtml += '<i class="iconfont '+data[i].icon+'" data-icon="'+data[i].icon+'"></i>';
+//                 }else{
+//                     ulHtml += '<i class="layui-icon" data-icon="'+data[i].icon+'">'+data[i].icon+'</i>';
+//                 }
+//             }
+//             ulHtml += '<cite>'+data[i].title+'</cite>';
+//             ulHtml += '<span class="layui-nav-more"></span>';
+//             ulHtml += '</a>'
+//             ulHtml += '<dl class="layui-nav-child">';
+//             for(var j=0;j<data[i].children.length;j++){
+//                 ulHtml += '<dd><a href="javascript:;" data-url="'+data[i].children[j].href+'">';
+//                 if(data[i].children[j].icon != undefined && data[i].children[j].icon != ''){
+//                     if(data[i].children[j].icon.indexOf("icon-") != -1){
+//                         ulHtml += '<i class="iconfont '+data[i].children[j].icon+'" data-icon="'+data[i].children[j].icon+'"></i>';
+//                     }else{
+//                         ulHtml += '<i class="layui-icon" data-icon="'+data[i].children[j].icon+'">'+data[i].children[j].icon+'</i>';
+//                     }
+//                 }
+//                 ulHtml += '<cite>'+data[i].children[j].title+'</cite></a></dd>';
+//             }
+//             ulHtml += "</dl>"
+//         }else{
+//             ulHtml += '<a href="javascript:;" data-url="'+data[i].href+'">';
+//             if(data[i].icon != undefined && data[i].icon != ''){
+//                 if(data[i].icon.indexOf("icon-") != -1){
+//                     ulHtml += '<i class="iconfont '+data[i].icon+'" data-icon="'+data[i].icon+'"></i>';
+//                 }else{
+//                     ulHtml += '<i class="layui-icon" data-icon="'+data[i].icon+'">'+data[i].icon+'</i>';
+//                 }
+//             }
+//             ulHtml += '<cite>'+data[i].title+'</cite></a>';
+//         }
+//         ulHtml += '</li>'
+//     }
+//     ulHtml += '</ul>';
+//     return ulHtml;
+// }
 

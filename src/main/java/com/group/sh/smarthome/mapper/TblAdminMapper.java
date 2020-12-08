@@ -1,8 +1,10 @@
 package com.group.sh.smarthome.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblAdmin;
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
 /**
@@ -27,5 +29,7 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
     public Boolean updateAdminInfo(TblAdmin tblAdmin);
 
     public Boolean deleteAdminInfo(TblAdmin tblAdmin);
+
+    public List<MenuTreeInfo> findMenuIDByRoleId(Integer roleId);
 
 }

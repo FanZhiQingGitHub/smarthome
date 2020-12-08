@@ -70,35 +70,35 @@
                 <a class="img" title="我的头像" ><img th:src="@{/publicimage/face.jpg}"></a>
                 <p>你好！<span id="adminName"></span>, 欢迎登录</p>
             </div>
-            <div class="layui-side-scroll">
+            <div class="layui-side-scroll backMenu">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <ul class="layui-nav layui-nav-tree"  lay-filter="left-menu">
-                    <li class="layui-nav-item">
-                        <a href="#" data-url="/smarthome/admin/path/adminMain" data-title="后台首页" data-id="11" class="site-admin-active" data-type="tabChange">后台首页</a>
-                    </li>
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;">账户管理</a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="#" data-url="/smarthome/admin/path/userManager" data-title="用户管理" data-id="22" class="site-admin-active" data-type="tabAdd">用户管理</a>
-                            </dd>
-                            <dd>
-                                <a href="#" data-url="/smarthome/admin/path/adminManager" data-title="管理员管理" data-id="33" class="site-admin-active" data-type="tabAdd">管理员管理</a>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;">统计数据</a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="#" data-url="/smarthome/admin/path/userStatistics" data-title="用户注册统计" data-id="44" class="site-admin-active" data-type="tabAdd">用户注册统计</a>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="#" data-url="/smarthome/admin/path/systemParam" data-title="系统基本参数"  data-id="55" class="site-admin-active" data-type="tabAdd">系统基本参数</a>
-                    </li>
-                </ul>
+<!--                <ul class="layui-nav layui-nav-tree"  lay-filter="left-menu">-->
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a href="#" data-url="/smarthome/admin/path/adminMain" data-title="后台首页" data-id="11" class="site-admin-active" data-type="tabChange">后台首页</a>-->
+<!--                    </li>-->
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a href="javascript:;">账户管理</a>-->
+<!--                        <dl class="layui-nav-child">-->
+<!--                            <dd>-->
+<!--                                <a href="#" data-url="/smarthome/admin/path/userManager" data-title="用户管理" data-id="22" class="site-admin-active" data-type="tabAdd">用户管理</a>-->
+<!--                            </dd>-->
+<!--                            <dd>-->
+<!--                                <a href="#" data-url="/smarthome/admin/path/adminManager" data-title="管理员管理" data-id="33" class="site-admin-active" data-type="tabAdd">管理员管理</a>-->
+<!--                            </dd>-->
+<!--                        </dl>-->
+<!--                    </li>-->
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a href="javascript:;">统计数据</a>-->
+<!--                        <dl class="layui-nav-child">-->
+<!--                            <dd>-->
+<!--                                <a href="#" data-url="/smarthome/admin/path/userStatistics" data-title="用户注册统计" data-id="44" class="site-admin-active" data-type="tabAdd">用户注册统计</a>-->
+<!--                            </dd>-->
+<!--                        </dl>-->
+<!--                    </li>-->
+<!--                    <li class="layui-nav-item">-->
+<!--                        <a href="#" data-url="/smarthome/admin/path/systemParam" data-title="系统基本参数"  data-id="55" class="site-admin-active" data-type="tabAdd">系统基本参数</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
             </div>
 
         </div>
@@ -106,11 +106,11 @@
         <div class="layui-body layui-form">
             <div class="layui-tab marg0" lay-filter="adminBodyTab" lay-allowclose="true" >
                 <ul class="layui-tab-title top_tab">
-                    <li class="layui-this" lay-id="11"><i class="iconfont icon-computer"></i><cite>后台首页</cite></li>
+<!--                    <li id="backMainLi" class="layui-this" lay-id="1"><i class="iconfont icon-computer"></i><cite>后台首页</cite></li>-->
                 </ul>
                 <div class="layui-tab-content clildFrame" style="height: 150px;">
                     <div class="layui-tab-item layui-show">
-                        <iframe data-frameid="11" scrolling="auto" frameborder="0" src="/smarthome/admin/path/adminMain" style="width:100%;height:100%;"></iframe>
+<!--                        <iframe id="backMainIframe" data-frameid="1" scrolling="auto" frameborder="0" src="/smarthome/admin/path/adminMain" style="width:100%;height:100%;"></iframe>-->
                     </div>
                 </div>
             </div>

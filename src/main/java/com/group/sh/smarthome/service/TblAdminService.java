@@ -1,6 +1,7 @@
 package com.group.sh.smarthome.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblAdmin;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,10 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
     @Transactional
     public Boolean deleteAdminInfo(TblAdmin tblAdmin) {
         return tblAdminMapper.deleteAdminInfo(tblAdmin);
+    }
+
+    public List<MenuTreeInfo> findMenuIDByRoleId(Integer roleId){
+        return tblAdminMapper.findMenuIDByRoleId(roleId);
     }
 
 }

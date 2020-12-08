@@ -11,7 +11,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -46,11 +45,6 @@ public class TbleMenuRole implements Serializable {
     @TableField("MENU_ID")
     private Integer menuId;
 
-    /**
-     * 菜单子id
-     */
-    @TableField("MENUSUB_ID")
-    private Integer menuSubId;
 
     /**
      * 创建人id
@@ -86,6 +80,4 @@ public class TbleMenuRole implements Serializable {
     @TableField("DEL_ID")
     private String delId;
 
-    private List<TblRole> roleList;
-    private List<TblMenu> menuList;
 }

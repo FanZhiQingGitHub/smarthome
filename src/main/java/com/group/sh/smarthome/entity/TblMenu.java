@@ -40,11 +40,6 @@ public class TblMenu implements Serializable {
     @TableField("MENU_NAME")
     private String menuName;//对应前端的Title
 
-    /**
-     * 菜单类型
-     */
-    @TableField("MENU_ICON")
-    private String menuIcon;//默认值：icon-text
 
     /**
      * 菜单跳转地址
@@ -53,10 +48,16 @@ public class TblMenu implements Serializable {
     private String menuUrl;
 
     /**
-     * 菜单状态
+     * 菜单类型，用于区分默认显示的选项卡还是新增选项卡
      */
-    @TableField("MENU_SPREAD")
-    private String menuSpread;//默认 false
+    @TableField("MENU_TYPE")
+    private String menuType;
+
+    /**
+     * 菜单子id
+     */
+    @TableField("MENUSUB_ID")
+    private Integer menuSubId;
 
 
     /**
@@ -91,9 +92,8 @@ public class TblMenu implements Serializable {
      * 删除标识
      */
     @TableField("DEL_ID")
-    private String delId;
+    private Integer delId;
 
     private List<TblMenu> children;
-
 
 }

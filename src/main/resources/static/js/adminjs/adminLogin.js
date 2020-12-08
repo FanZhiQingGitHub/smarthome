@@ -126,6 +126,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                         layer.close(loadingIndex);
                         layer.msg(msg.message, {icon: 6});
                         window.sessionStorage.setItem("adminName",msg.entityData.adminName);
+                        window.sessionStorage.setItem("adminRole",msg.entityData.adminRole);
                         var timer = setInterval(function () {
                             location.href = "/smarthome/admin/path/adminNavigation";
                             clearInterval(timer);
