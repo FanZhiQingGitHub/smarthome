@@ -181,7 +181,7 @@
         left join tbl_admin admin2 on menu.CRT_PSN_ID = admin2.ADMIN_ACCOUNT and menu.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
         <where>
             <if test="objectOne != '' and objectOne != null ">
-                and  menu.MENU_NAME = #{objectOne}
+                and  menu.MENU_NAME like concat('%',#{objectOne},'%')
             </if>
         </where>
         order by menu.CRT_TM desc,menu.MOD_TM desc limit #{page},#{limit}

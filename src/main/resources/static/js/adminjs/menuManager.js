@@ -92,7 +92,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    key: $("#menuName").val(),
+                    menuName: $("#menuName").val(),
                 }
             });
         }
