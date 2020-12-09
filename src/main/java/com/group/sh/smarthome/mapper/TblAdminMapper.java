@@ -38,4 +38,6 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
 
     public Long findALLMenuListCount(PageListEntity pageListEntity);
 
+    public List<TblMenu> findParentMenu();
+
 }

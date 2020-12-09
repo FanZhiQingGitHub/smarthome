@@ -59,6 +59,12 @@ public class TblMenu implements Serializable {
     @TableField("MENUSUB_ID")
     private Integer menuSubId;
 
+    /**
+     * 用于区分菜单是否为父级菜单
+     */
+    @TableField("MENU_LEVEL")
+    private String menuLevel;
+
 
     /**
      * 创建人id
@@ -95,6 +101,8 @@ public class TblMenu implements Serializable {
     private Integer delId;
 
     private List<TblMenu> children;
+
+    private String method;//用于区分查询菜单是查询列表还是下拉框
 
 
 

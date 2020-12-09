@@ -11,6 +11,7 @@ package com.group.sh.smarthome.util;
 public class ConstantEnum {
 
     public enum ConstantEnumType {
+        FINDMENUSELECT("1"),//查询菜单下拉框
         STATUSNUM("1"),//用于状态判断
         DELETENUM("1"),//用于删除标识判断
         LISTSIZENUM("0"),//用于集合长度为0判断

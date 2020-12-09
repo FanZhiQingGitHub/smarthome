@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>菜单新增页面</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script th:src="@{/js/adminjs/addMenu.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/admincss/addMenu.css}" media="all">
+</head>
+<body class="childrenBody">
+<form class="layui-form" style="width:80%;top: 3%">
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="menuName" class="layui-input " lay-verify="required" autocomplete="off" placeholder="请输入网站名称">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="menuUrl" class="layui-input" lay-verify="menuUrl" autocomplete="off" placeholder="请输入菜单地址(例：您只需要填写菜单名称所对应的英文名称即可)">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否为父级</label>
+        <div class="layui-input-block">
+            <input type="radio" name="menuLevel" lay-filter= "menuLevel" value="0" title="是">
+            <input type="radio" name="menuLevel" lay-filter= "menuLevel" value="1" title="否" checked>
+        </div>
+    </div>
+    <div class="layui-form-item" id="selectDiv" style="display: none">
+        <label class="layui-form-label">父级菜单</label>
+        <div class="layui-input-block">
+            <select name="menuId" id="menuSelect" lay-verify="required">
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="adminMenuSubmit" id="adminMenuSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -178,23 +178,31 @@ public class TblAdminController {
      * @date 2020-12-8
      * @param
      */
-    @GetMapping(value = "/findMenuListInfo")
+    @GetMapping(value = "/findALLMenuList")
     @ResponseBody
-    public CommonResult findMenuListInfo(TblMenu tblMenu, PageListEntity pageListEntity){
-        if(ConstantEnum.ConstantEnumType.getENTITY() == tblMenu || ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity){
+    public CommonResult findALLMenuList(TblMenu tblMenu, PageListEntity pageListEntity){
+        if(ConstantEnum.ConstantEnumType.FINDMENUSELECT.getValue().equals(tblMenu.getMethod())){
+            List<TblMenu> tblMenuList = tblAdminService.findParentMenu();
+            if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
+                return new CommonResult(501, "亲，暂无相关数据", null,null, tblMenuList);
+            }
+            return new CommonResult(200, null, null,null, tblMenuList);
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
             return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblMenu,null);
         }
         Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
         Integer maxpage = pageListEntity.getLimit();
-        if (null != tblMenu.getMenuName()) {
-            pageListEntity.setObjectOne(tblMenu.getMenuName());
-        }
         pageListEntity.setPage(minpage);
         pageListEntity.setLimit(maxpage);
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblMenu.getMenuName()){
+            pageListEntity.setObjectOne(tblMenu.getMenuName());
+        }
+        pageListEntity.setObjectTwo(ConstantEnum.ConstantEnumType.roleId.toString());
         List<TblMenu> tblMenuList = tblAdminService.findALLMenuList(pageListEntity);
         log.info("******查询的菜单列表是: "+tblMenuList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
-            return new CommonResult(null, "亲，暂无相关数据", null,null, tblMenuList);
+            return new CommonResult(501, "亲，暂无相关数据", null,null, tblMenuList);
         }
         Integer count = tblAdminService.findALLMenuListCount(pageListEntity).intValue();
         return new CommonResult(0, null, count,null, tblMenuList);

@@ -65,4 +65,8 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
         return tblAdminMapper.findALLMenuListCount(pageListEntity);
     }
 
+    public List<TblMenu> findParentMenu(){
+        return tblAdminMapper.findParentMenu();
+    }
+
 }
