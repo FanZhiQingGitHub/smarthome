@@ -14,21 +14,28 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script th:src="@{/js/adminjs/addMenu.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/admincss/addMenu.css}" media="all">
+    <script th:src="@{/js/adminjs/protectMenu.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/admincss/protectMenu.css}" media="all">
 </head>
 <body class="childrenBody">
-<form class="layui-form" style="width:80%;top: 3%">
+<form class="layui-form" style="width:80%;margin-top: 2%">
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="method" name="method" value="">
+    </div>
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="menuId" name="menuId" value="">
+    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">菜单名称</label>
         <div class="layui-input-block">
-            <input type="text" name="menuName" class="layui-input " lay-verify="required" autocomplete="off" placeholder="请输入网站名称">
+            <input type="text" id="menuName" name="menuName" class="layui-input " lay-verify="menuName" autocomplete="off" placeholder="请输入菜单名称">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">菜单地址</label>
         <div class="layui-input-block">
-            <input type="text" name="menuUrl" class="layui-input" lay-verify="menuUrl" autocomplete="off" placeholder="请输入菜单地址(例：您只需要填写菜单名称所对应的英文名称即可)">
+            <input type="text" id="menuUrl" name="menuUrl" class="layui-input" lay-verify="menuUrl" autocomplete="off" placeholder="请输入菜单地址(例：您只需要填写菜单名称所对应的英文名称即可)">
         </div>
     </div>
 
@@ -39,18 +46,18 @@
             <input type="radio" name="menuLevel" lay-filter= "menuLevel" value="1" title="否" checked>
         </div>
     </div>
-    <div class="layui-form-item" id="selectDiv" style="display: none">
-        <label class="layui-form-label">父级菜单</label>
+    <div class="layui-form-item" id="selectDiv">
+        <label class="layui-form-label">所属父菜单</label>
         <div class="layui-input-block">
-            <select name="menuId" id="menuSelect" lay-verify="required">
+            <select name="menuSubId" id="menuSubId" lay-verify="menuSubId">
             </select>
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="adminMenuSubmit" id="adminMenuSubmit">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button type="button" class="layui-btn" lay-submit lay-filter="adminMenuSubmit" id="adminMenuSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary" id="adminMenureset">重置</button>
         </div>
     </div>
 </form>

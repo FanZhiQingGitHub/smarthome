@@ -33,6 +33,7 @@ import java.util.List;
 public class TblAdminController {
 
     private String adminCode = null;
+    private String adminAccount = null;
 
     @Resource
     private TblAdminService tblAdminService;
@@ -73,6 +74,7 @@ public class TblAdminController {
             return new CommonResult(502, "该用户不存在，请先进行注册！", null,Admin, null);
         }
         ConstantEnum.ConstantEnumType.roleId = Integer.valueOf(Admin.getAdminRole());
+        adminAccount = Admin.getAdminAccount();
         return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null);
     }
 
@@ -174,13 +176,14 @@ public class TblAdminController {
 
     /**
      *
-     * 方法描述 管理员登录后查询菜单方法
+     * 方法描述 管理员登录后查询菜单方法及维护菜单维护详情页面的父级菜单下拉框查询
      * @date 2020-12-8
      * @param
      */
     @GetMapping(value = "/findALLMenuList")
     @ResponseBody
     public CommonResult findALLMenuList(TblMenu tblMenu, PageListEntity pageListEntity){
+        //查询父级菜单
         if(ConstantEnum.ConstantEnumType.FINDMENUSELECT.getValue().equals(tblMenu.getMethod())){
             List<TblMenu> tblMenuList = tblAdminService.findParentMenu();
             if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
@@ -188,6 +191,7 @@ public class TblAdminController {
             }
             return new CommonResult(200, null, null,null, tblMenuList);
         }
+        //查询菜单列表
         if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
             return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblMenu,null);
         }
@@ -198,7 +202,7 @@ public class TblAdminController {
         if(ConstantEnum.ConstantEnumType.getENTITY() != tblMenu.getMenuName()){
             pageListEntity.setObjectOne(tblMenu.getMenuName());
         }
-        pageListEntity.setObjectTwo(ConstantEnum.ConstantEnumType.roleId.toString());
+        //pageListEntity.setObjectTwo(ConstantEnum.ConstantEnumType.roleId.toString());
         List<TblMenu> tblMenuList = tblAdminService.findALLMenuList(pageListEntity);
         log.info("******查询的菜单列表是: "+tblMenuList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
@@ -207,6 +211,64 @@ public class TblAdminController {
         Integer count = tblAdminService.findALLMenuListCount(pageListEntity).intValue();
         return new CommonResult(0, null, count,null, tblMenuList);
     }
+
+
+    /**
+     *
+     * 方法描述 菜单信息维护方法
+     * @date 2020-12-9
+     * @param
+     */
+    @PostMapping(value = "/protectMenuList")
+    @ResponseBody
+    public CommonResult protectMenuList(TblMenu tblMenu){
+
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblMenu.getMethod()){
+            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null);
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblMenu.getMenuUrl()){
+            String url = "/smarthome/admin/path/";
+            tblMenu.setMenuUrl(url+tblMenu.getMenuUrl());
+        }
+        if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblMenu.getMethod())){
+            tblMenu.setCrtPsnId(adminAccount);
+            tblMenu.setModPsnId(adminAccount);
+            //是否父级菜单
+            if(!"0".equals(tblMenu.getMenuLevel())){
+                tblMenu.setMenuType("tabAdd");
+            }
+            Integer count = tblAdminService.addMenuInfo(tblMenu);
+            if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == count) {
+                return new CommonResult(500, "新增菜单失败", count,null, null);
+            }
+            return new CommonResult(200, "新增菜单成功", count,null, null);
+        }
+
+        if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblMenu.getMethod())){
+            tblMenu.setModPsnId(adminAccount);
+            Boolean flag = tblAdminService.updateMenuInfo(tblMenu);
+            if (flag == false) {
+                return new CommonResult(500, "更新菜单失败", null,null, null);
+            }
+            return new CommonResult(200, "更新菜单成功", null,null, null);
+        }
+
+        if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblMenu.getMethod())){
+            tblMenu.setModPsnId(adminAccount);
+            Boolean flag = tblAdminService.deleteMenuInfo(tblMenu);
+            if (flag == false) {
+                return new CommonResult(500, "删除菜单失败", null,null, null);
+            }
+            return new CommonResult(200, "删除菜单成功", null,null, null);
+        }
+
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null);
+    }
+
+
+
+
+
 
 }
 

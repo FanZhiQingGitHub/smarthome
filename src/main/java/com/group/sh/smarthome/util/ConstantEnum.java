@@ -15,7 +15,10 @@ public class ConstantEnum {
         STATUSNUM("1"),//用于状态判断
         DELETENUM("1"),//用于删除标识判断
         LISTSIZENUM("0"),//用于集合长度为0判断
-        DATABASENUM("0");//用于增删改时数据库返回值得判断
+        DATABASENUM("0"),//用于增删改时数据库返回值得判断
+        INSERT("0"),//用于增删改方法值区分
+        UPDATE("1"),//用于增删改方法值区分
+        DELETE("2");//用于增删改方法值区分
         private String value;
         private String desc;
         public static Integer roleId = null;

@@ -7,6 +7,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , tree = layui.tree
         , table = layui.table
         , $ = layui.jquery;
+    var method = '';
 
     table.render({
         elem: '#menuTable'
@@ -32,11 +33,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     return d.menuUrl == "" || d.menuUrl == null || d.menuUrl == undefined ? '无':d.menuUrl;
                 }
             }
+            /*
             ,{field:'menuType', title:'菜单类型', align: 'center',
                 templet:function(d){
                     return d.menuType == "" || d.menuType == null || d.menuType == undefined ? '无':d.menuType;
                 }
-            }
+            }*/
             ,{field:'menuLevel', title:'是否父级', align: 'center',
                 templet:function(d){
                     return d.menuLevel == '0' ? '是':'否';
@@ -59,25 +61,48 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 var index = layer.open({
                     title : "添加菜单信息",
                     type : 2,
-                    content : "/smarthome/admin/path/addMenu",
+                    content : "/smarthome/admin/path/protectMenu",
                     success : function(layero, index){
-                        layui.layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
-                            tips: 3
-                        });
+                        var body = layer.getChildFrame("body", index);
+                        var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                        body.find("#method").val('0');
                     }
                 })
                 //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
                 $(window).resize(function(){
                     layer.full(index);
                 })
+                table.reload();
                 layer.full(index);
                 break;
             case 'findMenuDetailInfo':
-                var data = checkStatus.data;
-                if(data.length == 0){
+                var arr = checkStatus.data;
+                if(arr.length == 0){
                     layer.msg('请选择一条数据');
                 }else{
-                    layer.alert(JSON.stringify(data));
+                    var data = new Function("return" + JSON.stringify(arr))();//转换后的JSON对象
+                    var index = layer.open({
+                        title : "查看菜单信息",
+                        type : 2,
+                        content : "/smarthome/admin/path/protectMenu",
+                        success : function(layero, index){
+                            var body = layer.getChildFrame("body", index);
+                            var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                            var arr = data[0].menuUrl.split("/");
+                            var url = arr[arr.length-1];
+                            body.find("#method").val('3');
+                            body.find("#menuId").val(data[0].menuId);
+                            body.find("#menuName").val(data[0].menuName);
+                            body.find("#menuUrl").val(url);
+                            body.find("#menuSubId").val(data[0].menuSubId);
+                            body.find('input[name=menuLevel][value='+data[0].menuLevel+']').attr("checked",data[0].menuLevel==data[0].menuLevel ? true : false);
+                        }
+                    })
+                    //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+                    $(window).resize(function(){
+                        layer.full(index);
+                    })
+                    layer.full(index);
                 }
                 break;
 
@@ -88,36 +113,83 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         };
     });
 
-
+    layer.tips('您可以通过双击一条数据查看详情哦！', '#findMenuDetailInfo', {
+        tips: 2
+    });
 
     //监听行工具事件
     table.on('tool(menuTable)', function(obj){
         var data = obj.data;
-        //console.log(obj)
         if(obj.event === 'del'){
             layer.confirm('真的删除行么', function(index){
-                obj.del();
+                $.ajax({
+                    url: "/smarthome/admin/protectMenuList",
+                    async: true,
+                    type: "post",
+                    data: {"menuId":data.menuId,"method":'2'},
+                    datatype: "text",
+                    success: function (msg) {
+                        if (msg.code == "200") {
+                            layer.msg(msg.message, {icon: 6});
+                        }else if(msg.code == "500" || msg.code == "501"){
+                            layer.msg(msg.message, {icon: 2});
+                        }
+                    }, error: function (msg) {
+                        layer.msg("网络繁忙！", {icon: 2});
+                    }
+                });
+                table.reload();
                 layer.close(index);
             });
         } else if(obj.event === 'edit'){
-            layer.prompt({
-                formType: 2
-                ,value: data.email
-            }, function(value, index){
-                obj.update({
-                    email: value
-                });
-                layer.close(index);
-            });
+            var index = layer.open({
+                title : "修改菜单信息",
+                type : 2,
+                content : "/smarthome/admin/path/protectMenu",
+                success : function(layero, index){
+                    var body = layer.getChildFrame("body", index);
+                    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                    var arr = data.menuUrl.split("/");
+                    var url = arr[arr.length-1];
+                    body.find("#method").val('1');
+                    body.find("#menuId").val(data.menuId);
+                    body.find("#menuName").val(data.menuName);
+                    body.find("#menuUrl").val(url);
+                    body.find("#menuSubId").val(data.menuSubId);
+                    body.find('input[name=menuLevel][value='+data.menuLevel+']').attr("checked",data.menuLevel==data.menuLevel ? true : false);
+                }
+            })
+            //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+            $(window).resize(function(){
+                layer.full(index);
+            })
+            layer.full(index);
         }
     });
 
     //监听行单击事件（双击事件为：rowDouble）
     table.on('rowDouble(menuTable)', function(obj){
         var data = obj.data;
-        layer.alert(JSON.stringify(data), {
-            title: '当前行数据：'
-        });
+        var index = layer.open({
+            title : "查看菜单信息",
+            type : 2,
+            content : "/smarthome/admin/path/protectMenu",
+            success : function(layero, index){
+                var body = layer.getChildFrame("body", index);
+                var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                body.find("#method").val('3');
+                body.find("#menuId").val(data.menuId);
+                body.find("#menuName").val(data.menuName);
+                body.find("#menuUrl").val(data.menuUrl);
+                body.find("#menuSubId").val(data.menuSubId);
+                body.find('input[name=menuLevel][value='+data.menuLevel+']').attr("checked",data.menuLevel==data.menuLevel ? true : false);
+            }
+        })
+        //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+        $(window).resize(function(){
+            layer.full(index);
+        })
+        layer.full(index);
         //标注选中样式
         obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
     });
@@ -136,7 +208,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             });
         }
     });
-
 
 });
 

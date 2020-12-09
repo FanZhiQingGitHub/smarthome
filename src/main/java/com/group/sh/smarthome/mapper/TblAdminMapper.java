@@ -40,4 +40,10 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
 
     public List<TblMenu> findParentMenu();
 
+    public Integer addMenuInfo(TblMenu tblMenu);
+
+    public Boolean updateMenuInfo(TblMenu tblMenu);
+
+    public Boolean deleteMenuInfo(TblMenu tblMenu);
+
 }

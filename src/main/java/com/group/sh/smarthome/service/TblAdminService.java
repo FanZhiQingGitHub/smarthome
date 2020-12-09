@@ -69,4 +69,19 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
         return tblAdminMapper.findParentMenu();
     }
 
+    @Transactional
+    public Integer addMenuInfo(TblMenu tblMenu) {
+        return tblAdminMapper.addMenuInfo(tblMenu);
+    }
+
+    @Transactional
+    public  Boolean updateMenuInfo(TblMenu tblMenu) {
+        return tblAdminMapper.updateMenuInfo(tblMenu);
+    }
+
+    @Transactional
+    public  Boolean deleteMenuInfo(TblMenu tblMenu) {
+        return tblAdminMapper.deleteMenuInfo(tblMenu);
+    }
+
 }

@@ -8,7 +8,7 @@
 
     <select id="adminLogin" resultType="com.group.sh.smarthome.entity.TblAdmin" parameterType="com.group.sh.smarthome.entity.TblAdmin">
         select
-        ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
+        ADMIN_ID,ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
         ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,
         CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE
         from tbl_admin
@@ -169,8 +169,8 @@
         menu.MOD_TM as modTm,
         menu.MENU_LEVEL as menuLevel
         FROM tbl_menu menu
-        left join tbl_admin admin1 on menu.CRT_PSN_ID = admin1.ADMIN_ACCOUNT and menu.MOD_PSN_ID = admin1.ADMIN_ACCOUNT
-        left join tbl_admin admin2 on menu.CRT_PSN_ID = admin2.ADMIN_ACCOUNT and menu.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
+        left join tbl_admin admin1 on menu.CRT_PSN_ID = admin1.ADMIN_ACCOUNT
+        left join tbl_admin admin2 on menu.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
         <where>
             <if test="objectOne != '' and objectOne != null ">
                 and  menu.MENU_NAME like concat('%',#{objectOne},'%')
@@ -186,11 +186,15 @@
     <!--    查找菜单信息列表记录条数-->
     <select id="findALLMenuListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
         select count(1)
-        FROM tbl_menu menu left join tbl_admin admin
-        on menu.CRT_PSN_ID = admin.ADMIN_ACCOUNT and menu.MOD_PSN_ID = admin.ADMIN_ACCOUNT
+        FROM tbl_menu menu
+        left join tbl_admin admin1 on menu.CRT_PSN_ID = admin1.ADMIN_ACCOUNT
+        left join tbl_admin admin2 on menu.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
         <where>
             <if test="objectOne != '' and objectOne != null ">
-                and  menu.MENU_NAME = #{objectOne}
+                and  menu.MENU_NAME like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  admin1.ADMIN_ROLE = #{objectTwo}
             </if>
         </where>
     </select>
@@ -300,16 +304,53 @@
     </select>
 
     <!-- 新增菜单信息-->
-    <insert id="addMenuInfo" parameterType="com.group.sh.smarthome.entity.TblAdmin" useGeneratedKeys="true" keyProperty="adminId">
+    <insert id="addMenuInfo" parameterType="com.group.sh.smarthome.entity.TblMenu" useGeneratedKeys="true" keyProperty="menuId">
         insert into
-            tbl_admin(ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
-                      ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,
-                      CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE)
+            tbl_menu(MENU_NAME,MENU_URL,MENU_TYPE,MENUSUB_ID,MENU_LEVEL,
+                      CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)
         values
-        (#{adminAccount},#{adminPwd},#{adminName},#{adminSex},#{adminPhone},#{adminWorkphone},
-         #{adminMail},#{adminAddress},#{adminHead},#{adminStatus},
-         #{crtPsnId},now(),#{modPsnId},#{modTm},'0',#{adminRole})
+        (#{menuName},#{menuUrl},#{menuType},#{menuSubId},#{menuLevel},
+         #{crtPsnId},now(),#{modPsnId},#{modTm},'0')
     </insert>
+
+    <update id="updateMenuInfo" parameterType="com.group.sh.smarthome.entity.TblMenu">
+        update tbl_menu
+        <set>
+            DEL_ID = '0',
+            MOD_TM = now(),
+            <if test="menuName != '' and menuName != null">
+                MENU_NAME = #{menuName},
+            </if>
+            <if test="menuUrl != '' and menuUrl != null">
+                MENU_URL = #{menuUrl},
+            </if>
+            <if test="menuType != '' and menuType != null">
+                MENU_TYPE = #{menuType},
+            </if>
+            <if test="menuSubId != '' and menuSubId != null">
+                MENUSUB_ID = #{menuSubId},
+            </if>
+            <if test="menuLevel != '' and menuLevel != null">
+                MENU_LEVEL = #{menuLevel},
+            </if>
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where MENU_ID = #{menuId}
+    </update>
+
+    <update id="deleteMenuInfo" parameterType="com.group.sh.smarthome.entity.TblMenu">
+        update tbl_menu
+        <set>
+            DEL_ID = '1',
+            MOD_TM = now(),
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where MENU_ID = #{menuId}
+    </update>
 
 
 </mapper>
