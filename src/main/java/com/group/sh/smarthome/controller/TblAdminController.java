@@ -12,11 +12,16 @@ import com.group.sh.smarthome.util.EntryrionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <pre>
@@ -33,10 +38,19 @@ import java.util.List;
 public class TblAdminController {
 
     private String adminCode = null;
-    private String adminAccount = null;
 
     @Resource
     private TblAdminService tblAdminService;
+
+    private HttpServletRequest getRequest() {
+        return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+    }
+
+    public String getAccount() {
+        HttpSession session = getRequest().getSession();
+        return (String) session.getAttribute("adminAccount");
+    }
+
 
     /**
      *
@@ -74,7 +88,9 @@ public class TblAdminController {
             return new CommonResult(502, "该用户不存在，请先进行注册！", null,Admin, null);
         }
         ConstantEnum.ConstantEnumType.roleId = Integer.valueOf(Admin.getAdminRole());
-        adminAccount = Admin.getAdminAccount();
+        HttpSession session = getRequest().getSession();
+        session.setAttribute("adminAccount",Admin.getAdminAccount());
+        session.setMaxInactiveInterval(30 * 60);//session过期时间设置，以秒为单位，即在没有活动30分钟后，session将失效
         return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null);
     }
 
@@ -231,8 +247,8 @@ public class TblAdminController {
             tblMenu.setMenuUrl(url+tblMenu.getMenuUrl());
         }
         if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblMenu.getMethod())){
-            tblMenu.setCrtPsnId(adminAccount);
-            tblMenu.setModPsnId(adminAccount);
+            tblMenu.setCrtPsnId(getAccount());
+            tblMenu.setModPsnId(getAccount());
             //是否父级菜单
             if(!"0".equals(tblMenu.getMenuLevel())){
                 tblMenu.setMenuType("tabAdd");
@@ -241,11 +257,12 @@ public class TblAdminController {
             if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == count) {
                 return new CommonResult(500, "新增菜单失败", count,null, null);
             }
-            return new CommonResult(200, "新增菜单成功", count,null, null);
+            tblMenu.setMenuId(tblMenu.getMenuId());
+            return new CommonResult(200, "新增菜单成功", count,tblMenu, null);
         }
 
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblMenu.getMethod())){
-            tblMenu.setModPsnId(adminAccount);
+            tblMenu.setModPsnId(getAccount());
             Boolean flag = tblAdminService.updateMenuInfo(tblMenu);
             if (flag == false) {
                 return new CommonResult(500, "更新菜单失败", null,null, null);
@@ -254,7 +271,7 @@ public class TblAdminController {
         }
 
         if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblMenu.getMethod())){
-            tblMenu.setModPsnId(adminAccount);
+            tblMenu.setModPsnId(getAccount());
             Boolean flag = tblAdminService.deleteMenuInfo(tblMenu);
             if (flag == false) {
                 return new CommonResult(500, "删除菜单失败", null,null, null);

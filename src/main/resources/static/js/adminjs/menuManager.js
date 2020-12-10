@@ -110,6 +110,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     $(window).resize(function(){
                         layer.full(index);
                     })
+                    table.reload();
                     layer.full(index);
                 }
                 break;
@@ -139,6 +140,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     success: function (msg) {
                         if (msg.code == "200") {
                             layer.msg(msg.message, {icon: 6});
+                            obj.del();
+                            layer.close(index);
                         }else if(msg.code == "500" || msg.code == "501"){
                             layer.msg(msg.message, {icon: 2});
                         }
@@ -146,8 +149,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                         layer.msg("网络繁忙！", {icon: 2});
                     }
                 });
-                table.reload();
-                layer.close(index);
             });
         } else if(obj.event === 'edit'){
             var index = layer.open({
@@ -171,6 +172,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             $(window).resize(function(){
                 layer.full(index);
             })
+            table.reload();
             layer.full(index);
         }
     });
@@ -185,10 +187,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             success : function(layero, index){
                 var body = layer.getChildFrame('body', index);
                 var iframeWin = layero.find('iframe')[0].contentWindow;//得到iframe页的窗口对象
+                var arr = data.menuUrl.split("/");
+                var url = arr[arr.length-1];
                 body.find("#method").val('3');
                 body.find("#menuId").val(data.menuId);
                 body.find("#menuName").val(data.menuName);
-                body.find("#menuUrl").val(data.menuUrl);
+                body.find("#menuUrl").val(url);
                 body.find("#selectVal").val(data.menuSubId);
                 body.find('input[name=menuLevel][value='+data.menuLevel+']').attr("checked",data.menuLevel==data.menuLevel ? true : false);
             }
@@ -197,6 +201,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         $(window).resize(function(){
             layer.full(index);
         })
+        table.reload();
         layer.full(index);
         //标注选中样式
         obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
