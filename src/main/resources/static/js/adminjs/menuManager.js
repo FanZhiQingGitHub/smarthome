@@ -44,9 +44,17 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     return d.menuLevel == '0' ? '是':'否';
                 }
             }
-            ,{field:'crtPsnId', title:'创建人', align: 'center'}
+            ,{field:'crtPsnId', title:'创建人', align: 'center',
+                templet:function(d){
+                    return d.crtPsnId == "" || d.crtPsnId == null || d.crtPsnId == undefined ? '无':d.crtPsnId;
+                }
+            }
             ,{field:'crtTm', title:'创建时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
-            ,{field:'modPsnId', title:'修改人', align: 'center'}
+            ,{field:'modPsnId', title:'修改人', align: 'center',
+                templet:function(d){
+                    return d.modPsnId == "" || d.modPsnId == null || d.modPsnId == undefined ? '无':d.modPsnId;
+                }
+            }
             ,{field:'modTm', title:'修改时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', align: 'center'}
         ]]
@@ -86,15 +94,15 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                         type : 2,
                         content : "/smarthome/admin/path/protectMenu",
                         success : function(layero, index){
-                            var body = layer.getChildFrame("body", index);
-                            var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                            var body = layer.getChildFrame('body', index);
+                            var iframeWin = layero.find('iframe')[0].contentWindow;//得到iframe页的窗口对象
                             var arr = data[0].menuUrl.split("/");
                             var url = arr[arr.length-1];
                             body.find("#method").val('3');
                             body.find("#menuId").val(data[0].menuId);
                             body.find("#menuName").val(data[0].menuName);
                             body.find("#menuUrl").val(url);
-                            body.find("#menuSubId").val(data[0].menuSubId);
+                            body.find("#selectVal").val(data[0].menuSubId);
                             body.find('input[name=menuLevel][value='+data[0].menuLevel+']').attr("checked",data[0].menuLevel==data[0].menuLevel ? true : false);
                         }
                     })
@@ -147,15 +155,15 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 type : 2,
                 content : "/smarthome/admin/path/protectMenu",
                 success : function(layero, index){
-                    var body = layer.getChildFrame("body", index);
-                    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                    var body = layer.getChildFrame('body', index);
+                    var iframeWin = layero.find('iframe')[0].contentWindow;//得到iframe页的窗口对象
                     var arr = data.menuUrl.split("/");
                     var url = arr[arr.length-1];
                     body.find("#method").val('1');
                     body.find("#menuId").val(data.menuId);
                     body.find("#menuName").val(data.menuName);
                     body.find("#menuUrl").val(url);
-                    body.find("#menuSubId").val(data.menuSubId);
+                    body.find("#selectVal").val(data.menuSubId);
                     body.find('input[name=menuLevel][value='+data.menuLevel+']').attr("checked",data.menuLevel==data.menuLevel ? true : false);
                 }
             })
@@ -175,13 +183,13 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             type : 2,
             content : "/smarthome/admin/path/protectMenu",
             success : function(layero, index){
-                var body = layer.getChildFrame("body", index);
-                var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象
+                var body = layer.getChildFrame('body', index);
+                var iframeWin = layero.find('iframe')[0].contentWindow;//得到iframe页的窗口对象
                 body.find("#method").val('3');
                 body.find("#menuId").val(data.menuId);
                 body.find("#menuName").val(data.menuName);
                 body.find("#menuUrl").val(data.menuUrl);
-                body.find("#menuSubId").val(data.menuSubId);
+                body.find("#selectVal").val(data.menuSubId);
                 body.find('input[name=menuLevel][value='+data.menuLevel+']').attr("checked",data.menuLevel==data.menuLevel ? true : false);
             }
         })

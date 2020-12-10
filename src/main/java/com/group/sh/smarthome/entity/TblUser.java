@@ -212,5 +212,15 @@ public class TblUser implements Serializable {
      */
     private String userCode;
 
+    /*
+     *用于区分查询菜单是查询列表还是下拉框
+     * 0--新增
+     * 1--修改
+     * 2--删除
+     * 3--查看详情
+     * 未发送method值的为查列表
+     */
+    private String method;
+
 
 }

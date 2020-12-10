@@ -26,6 +26,10 @@
         <input type="hidden" id="menuId" name="menuId" value="">
     </div>
 
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="selectVal" name="selectVal" value="">
+    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">菜单名称</label>
         <div class="layui-input-block">
@@ -46,11 +50,10 @@
             <input type="radio" name="menuLevel" lay-filter= "menuLevel" value="1" title="否" checked>
         </div>
     </div>
-    <div class="layui-form-item" id="selectDiv">
+    <div class="layui-form-item">
         <label class="layui-form-label">所属父菜单</label>
         <div class="layui-input-block">
-            <select name="menuSubId" id="menuSubId" lay-verify="menuSubId">
-            </select>
+            <select name="menuSubId" id="menuSubId" ></select>
         </div>
     </div>
 

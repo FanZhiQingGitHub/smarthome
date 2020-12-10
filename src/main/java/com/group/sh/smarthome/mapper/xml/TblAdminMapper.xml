@@ -151,6 +151,7 @@
         <result column="menuName" property="menuName"></result>
         <result column="menuUrl" property="menuUrl"></result>
         <result column="menuType" property="menuType"></result>
+        <result column="menuSubId" property="menuSubId"></result>
         <result column="adminName1" property="crtPsnId"></result>
         <result column="crtTm" property="crtTm"></result>
         <result column="adminName2" property="modPsnId"></result>
@@ -163,6 +164,7 @@
         menu.MENU_NAME as menuName,
         menu.MENU_URL as menuUrl,
         menu.MENU_TYPE as menuType,
+        menu.MENUSUB_ID as menuSubId,
         admin1.ADMIN_NAME as adminName1,
         menu.CRT_TM as crtTm,
         admin2.ADMIN_NAME as adminName2,
