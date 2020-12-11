@@ -10,7 +10,7 @@ layui.use(['tree', 'util','jquery','layer','layedit','laydate'], function () {
         roleid = $("#adminRole").val();
         var MenuId = [];
         $.ajax({
-            url: '/smarthome/admin/findAllMenu',
+            url: '/smarthome/admin/findMenuPwr',
             async:true,
             type: 'get',
             data: {'adminRole':roleid},

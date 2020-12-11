@@ -365,7 +365,7 @@
             <result column="menuName" property="title"></result>
         </collection>
     </resultMap>
-    <select id="findAllMenu" resultMap="TreeMap1">
+    <select id="findMenuPwr" resultMap="TreeMap1">
         select
             menu.MENU_ID as menuId,
             menu.MENU_NAME as menuName

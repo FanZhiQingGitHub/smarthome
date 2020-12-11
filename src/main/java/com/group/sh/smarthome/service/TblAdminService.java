@@ -105,8 +105,8 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
         return tblAdminMapper.deleteRoleInfo(tblRole);
     }
 
-    public List<MenuTreeInfo> findAllMenu(){
-        return tblAdminMapper.findAllMenu();
+    public List<MenuTreeInfo> findMenuPwr(){
+        return tblAdminMapper.findMenuPwr();
     }
 
     public List<MenuTreeInfo> findTreeMenuByRoleID(TblAdmin tblAdmin){

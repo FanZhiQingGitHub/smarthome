@@ -368,25 +368,31 @@ public class TblAdminController {
      * @date 2020-12-11
      * @param
      */
-    @GetMapping(value = "/findAllMenu")
+    @GetMapping(value = "/findMenuPwr")
     @ResponseBody
-    public CommonResult findAllMenu(TblAdmin tblAdmin){
-
+    public CommonResult findMenuPwr(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin.getAdminRole() && ConstantEnum.ConstantEnumType.getENTITY() ==  tblAdmin.getAdminRole()){
             return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
         }
-        List<MenuTreeInfo> menuTreeInfoList1 = tblAdminService.findAllMenu();
+        List<MenuTreeInfo> menuTreeInfoList1 = tblAdminService.findMenuPwr();
         List<MenuTreeInfo> menuTreeInfoList2 = tblAdminService.findTreeMenuByRoleID(tblAdmin);
-//        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == menuTreeInfoList1.size()) {
-//            return new CommonResult(501, "亲，暂无菜单相关数据", null,null, menuTreeInfoList1,null);
-//        }
-//        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == menuTreeInfoList2.size()) {
-//            return new CommonResult(501, "亲，暂无子菜单相关数据", null,null, menuTreeInfoList2,null);
-//        }
         Map menuMap = new LinkedHashMap();
         menuMap.put("menu", menuTreeInfoList1);
         menuMap.put("mid", menuTreeInfoList2);
         return new CommonResult(200, "查询菜单成功", null,null,null,menuMap);
+    }
+
+    /**
+     *
+     * 方法描述 查找所有菜单列表--权限配置维护
+     * @date 2020-12-11
+     * @param
+     */
+    @GetMapping(value = "/protectMenuPwr")
+    @ResponseBody
+    public CommonResult findAllMenu(TblAdmin tblAdmin){
+
+        return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
     }
 
 }

@@ -57,7 +57,7 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
 
     public Boolean deleteRoleInfo(TblRole tblRole);
 
-    public List<MenuTreeInfo> findAllMenu();
+    public List<MenuTreeInfo> findMenuPwr();
 
     public List<MenuTreeInfo> findTreeMenuByRoleID(TblAdmin tblAdmin);
 
