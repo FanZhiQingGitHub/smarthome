@@ -24,7 +24,7 @@
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-sm12 layui-col-md12 mar_01">
-            <blockquote class="layui-elem-quote" style="font-size: 30px;font-weight:bold;color: black">Welcome To Smart Home </blockquote>
+            <blockquote class="layui-elem-quote" style="font-size: 30px;font-weight:bold;color: black">Welcome To Smart Home <span id="adminName"></span></blockquote>
         </div>
     </div>
 </div>
@@ -36,13 +36,16 @@
         <div class="layui-carousel login_height" id="login" lay-filter="login">
             <div carousel-item="">
                 <div>
-                    <!--                    <div class="login_cont"></div>-->
-                    <div class="background">
-                        <span></span><span></span><span></span>
-                        <span></span><span></span><span></span>
-                        <span></span><span></span><span></span>
-                        <span></span><span></span><span></span>
-                    </div>
+                    <img th:src="@{/publicimage/01.jpg}" />
+                </div>
+                <div>
+                    <img th:src="@{/publicimage/02.jpg}" />
+                </div>
+                <div>
+                    <img th:src="@{/publicimage/03.jpg}" />
+                </div>
+                <div>
+                    <img th:src="@{/publicimage/04.jpg}" />
                 </div>
             </div>
         </div>

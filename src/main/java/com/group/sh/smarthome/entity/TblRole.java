@@ -41,6 +41,12 @@ public class TblRole implements Serializable {
     private String roleName;
 
     /**
+     * 角色类型（用于区分是超级管理员还是普通管理员）
+     */
+    @TableField("ROLE_TYPE")
+    private String roleType;
+
+    /**
      * 创建人
      */
     @TableField("CRT_PSN_ID")

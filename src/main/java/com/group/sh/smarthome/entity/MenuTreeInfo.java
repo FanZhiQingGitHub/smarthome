@@ -24,6 +24,10 @@ public class MenuTreeInfo implements Serializable {
     private String dataTitle;
     private String dataId;
     private String dataType;
+
+    private String title;
+    private Integer id;
+
     private List<MenuTreeInfo> children;
 
 }

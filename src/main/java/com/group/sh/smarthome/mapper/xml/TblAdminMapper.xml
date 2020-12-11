@@ -100,13 +100,26 @@
         where ADMIN_ID = #{adminId}
     </update>
 
+    <!-- 查询出所有的父级菜单，用做下拉框-->
+    <select id="findParentMenu" resultType="com.group.sh.smarthome.entity.TblMenu">
+        select
+            menu.MENU_ID as menuId,
+            menu.MENU_NAME as menuName,
+            menu.MENU_URL as menuUrl,
+            menu.MENU_TYPE as menuType,
+            menu.MENUSUB_ID as menuSubId,
+            menu.MENU_LEVEL as menuLevel
+        from tbl_menu menu
+        where menu.DEL_ID = 0 and menu.MENU_LEVEL = 0
+    </select>
+
     <!--    查找用户登录后角色查询对应的菜单-->
     <resultMap type="com.group.sh.smarthome.entity.MenuTreeInfo" id="loginMenuTree">
         <result column="MENU_NAME" property="dataTitle"></result>
         <result column="MENU_URL" property="dataUrl"></result>
         <result column="MENU_ID" property="dataId"></result>
         <result column="MENU_TYPE" property="dataType"></result>
-        <collection property="children" select="childrenMenuByMenuId" column="MENU_ID" ofType="com.group.sh.smarthome.entity.MenuTreeInfo"
+        <collection property="children" select="childrenMenuByMenuId" column="{MENU_ID=MENU_ID,ROLE_ID=ROLE_ID}" ofType="com.group.sh.smarthome.entity.MenuTreeInfo"
                     javaType="list">
             <result column="MENU_NAME" property="dataTitle"></result>
             <result column="MENU_URL" property="dataUrl"></result>
@@ -120,7 +133,8 @@
             menu.MENU_NAME as MENU_NAME,
             menu.MENU_URL as MENU_URL,
             menu.MENU_TYPE as MENU_TYPE,
-            menu.MENUSUB_ID as MENUSUB_ID
+            menu.MENUSUB_ID as MENUSUB_ID,
+            rolemenu.ROLE_ID as ROLE_ID
         from
             tbl_role_menu rolemenu
                 left join tbl_menu menu on rolemenu.MENU_ID = menu.MENU_ID
@@ -134,14 +148,18 @@
         <result column="MENU_ID" property="dataId"></result>
         <result column="MENU_TYPE" property="dataType"></result>
     </resultMap>
-    <select id="childrenMenuByMenuId" resultMap="loginMenuSubTree" parameterType="java.lang.Integer">
+    <select id="childrenMenuByMenuId" resultMap="loginMenuSubTree" parameterType="java.util.Map">
         select
             menu.MENU_ID as MENU_ID,
             menu.MENU_NAME as MENU_NAME,
             menu.MENU_URL as MENU_URL,
             menu.MENU_TYPE as MENU_TYPE,
             menu.MENUSUB_ID as MENUSUB_ID
-        from tbl_menu menu where menu.MENUSUB_ID = #{menuId} and menu.DEL_ID = 0
+        from
+            tbl_role_menu rolemenu
+                left join tbl_menu menu on rolemenu.MENU_ID = menu.MENU_ID
+                left join tbl_role role on rolemenu.ROLE_ID = role.ROLE_ID
+        where menu.MENUSUB_ID = #{MENU_ID} and menu.DEL_ID = 0 and rolemenu.ROLE_ID = #{ROLE_ID}
     </select>
 
 
@@ -181,6 +199,9 @@
             <if test="objectTwo != '' and objectTwo != null ">
                 and  admin1.ADMIN_ROLE = #{objectTwo}
             </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  admin2.ADMIN_ROLE = #{objectTwo}
+            </if>
         </where>
         order by menu.CRT_TM desc,menu.MOD_TM desc limit #{page},#{limit}
 
@@ -200,118 +221,17 @@
             <if test="objectTwo != '' and objectTwo != null ">
                 and  admin1.ADMIN_ROLE = #{objectTwo}
             </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  admin2.ADMIN_ROLE = #{objectTwo}
+            </if>
         </where>
-    </select>
-
-
-
-
-    <!--查找所有的父级菜单,不区分角色(菜单权限管理)    -->
-    <!--    select * from menutable m where m.menuid in (select r.mid from rolemenutable r,menutable m ) and m.menusonid = 0-->
-    <!--根据父id查找到对应的子id的结果集,相当于说给children的结果集在进行封装,和数据库表的字段在关联，才不会null-->
-    <resultMap type="com.group.sh.smarthome.entity.TblMenu" id="TreeMap1">
-        <result column="menuId" property="menuId"></result>
-        <result column="menuName" property="menuName"></result>
-        <result column="menuUrl" property="menuUrl"></result>
-        <result column="menuType" property="menuType"></result>
-        <result column="menuSubId" property="menuSubId"></result>
-        <result column="menuLevel" property="menuLevel"></result>
-        <collection property="children" select="childrenMenuByPid" column="menuId" ofType="TblMenu"
-                    javaType="list">
-            <result column="menuId" property="menuId"></result>
-            <result column="menuName" property="menuName"></result>
-            <result column="menuUrl" property="menuUrl"></result>
-            <result column="menuType" property="menuType"></result>
-            <result column="menuSubId" property="menuSubId"></result>
-            <result column="menuLevel" property="menuLevel"></result>
-        </collection>
-    </resultMap>
-    <select id="findAllMenu" resultMap="TreeMap1">
-        select
-            menu.MENU_ID as menuId,
-            menu.MENU_NAME as menuName,
-            menu.MENU_URL as menuUrl,
-            menu.MENU_TYPE as menuType,
-            menu.MENUSUB_ID as menuSubId,
-            menu.MENU_LEVEL as menuLevel
-        from tbl_menu menu where  menu.MENUSUB_ID = 0 and menu.DEL_ID = 0
-    </select>
-
-
-    <!--根据父id查找到对应的子id -->
-    <resultMap type="com.group.sh.smarthome.entity.TblMenu" id="Tree1">
-        <result column="menuId" property="menuId"></result>
-        <result column="menuName" property="menuName"></result>
-        <result column="menuUrl" property="menuUrl"></result>
-        <result column="menuType" property="menuType"></result>
-        <result column="menuSubId" property="menuSubId"></result>
-        <result column="menuLevel" property="menuLevel"></result>
-    </resultMap>
-    <select id="childrenMenuByPid" resultMap="Tree1" parameterType="java.lang.Integer">
-        select
-            menu.MENU_ID as menuId,
-            menu.MENU_NAME as menuName,
-            menu.MENU_URL as menuUrl,
-            menu.MENU_TYPE as menuType,
-            menu.MENUSUB_ID as menuSubId,
-            menu.MENU_LEVEL as menuLevel
-        from tbl_menu menu where MENUSUB_ID = #{menuPid} and menu.DEL_ID = 0
-    </select>
-
-
-    <!--    根据角色id查找出他所对应的菜单id-->
-    <resultMap id="TreeMap2" type="com.group.sh.smarthome.entity.TblMenu">
-        <result column="menuId" property="menuId"></result>
-        <result column="menuName" property="menuName"></result>
-        <result column="menuUrl" property="menuUrl"></result>
-        <result column="menuType" property="menuType"></result>
-        <result column="menuSubId" property="menuSubId"></result>
-        <result column="menuLevel" property="menuLevel"></result>
-    </resultMap>
-    <select id="findMenuByRoleID" resultMap="TreeMap2" parameterType="java.lang.Integer">
-        select
-            menu.MENU_ID as menuId,
-            menu.MENU_NAME as menuName,
-            menu.MENU_URL as menuUrl,
-            menu.MENU_TYPE as menuType,
-            menu.MENUSUB_ID as menuSubId,
-            menu.MENU_LEVEL as menuLevel
-        from tbl_menu menu
-                 left join tbl_role_menu rolemenu on menu.MENU_ID = rolemenu.MENU_ID
-            and menu.MENUSUB_ID != 0 and rolemenu.DEL_ID = 0 and rolemenu.ROLE_ID = #{roleId};
-    </select>
-
-
-    <!--    更新权限ID-->
-    <update id="updateMenuId" parameterType="java.lang.Integer">
-        update tbl_role_menu set DEL_ID = 1 where ROLE_ID = #{roleId}
-    </update>
-
-<!--    <insert id="updateMenu" parameterType="java.util.List">-->
-<!--        insert into rolemenutable(rid, mid) values-->
-<!--        <foreach item="i" index="index" collection="list" separator=",">-->
-<!--            (#{i.rid},#{i.mid})-->
-<!--        </foreach>-->
-<!--    </insert>-->
-
-    <!-- 查询出所有的父级菜单，用做下拉框-->
-    <select id="findParentMenu" resultType="com.group.sh.smarthome.entity.TblMenu">
-        select
-            menu.MENU_ID as menuId,
-            menu.MENU_NAME as menuName,
-            menu.MENU_URL as menuUrl,
-            menu.MENU_TYPE as menuType,
-            menu.MENUSUB_ID as menuSubId,
-            menu.MENU_LEVEL as menuLevel
-        from tbl_menu menu
-        where menu.DEL_ID = 0 and menu.MENU_LEVEL = 0
     </select>
 
     <!-- 新增菜单信息-->
     <insert id="addMenuInfo" parameterType="com.group.sh.smarthome.entity.TblMenu" useGeneratedKeys="true" keyProperty="menuId">
         insert into
             tbl_menu(MENU_NAME,MENU_URL,MENU_TYPE,MENUSUB_ID,MENU_LEVEL,
-                      CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)
+                     CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)
         values
         (#{menuName},#{menuUrl},#{menuType},#{menuSubId},#{menuLevel},
          #{crtPsnId},now(),#{modPsnId},#{modTm},'0')
@@ -322,6 +242,7 @@
         <set>
             DEL_ID = '0',
             MOD_TM = now(),
+            MENUSUB_ID = #{menuSubId},
             <if test="menuName != '' and menuName != null">
                 MENU_NAME = #{menuName},
             </if>
@@ -330,9 +251,6 @@
             </if>
             <if test="menuType != '' and menuType != null">
                 MENU_TYPE = #{menuType},
-            </if>
-            <if test="menuSubId != '' and menuSubId != null">
-                MENUSUB_ID = #{menuSubId},
             </if>
             <if test="menuLevel != '' and menuLevel != null">
                 MENU_LEVEL = #{menuLevel},
@@ -355,6 +273,144 @@
         </set>
         where MENU_ID = #{menuId}
     </update>
+
+
+
+    <!--    查找角色信息列表-->
+    <resultMap type="com.group.sh.smarthome.entity.TblRole" id="RoleListMap">
+        <result column="roleId" property="roleId"></result>
+        <result column="roleName" property="roleName"></result>
+        <result column="roleType" property="roleType"></result>
+        <result column="adminName1" property="crtPsnId"></result>
+        <result column="crtTm" property="crtTm"></result>
+        <result column="adminName2" property="modPsnId"></result>
+        <result column="modTm" property="modTm"></result>
+    </resultMap>
+    <select id="findALLRoleList" resultMap="RoleListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        SELECT
+        role.ROLE_ID as roleId,
+        role.ROLE_NAME as roleName,
+        role.ROLE_TYPE as roleType,
+        admin1.ADMIN_NAME as adminName1,
+        role.CRT_TM as crtTm,
+        admin2.ADMIN_NAME as adminName2,
+        role.MOD_TM as modTm
+        FROM tbl_role role
+        left join tbl_admin admin1 on role.CRT_PSN_ID = admin1.ADMIN_ACCOUNT
+        left join tbl_admin admin2 on role.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
+        <where>
+            and role.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  role.ROLE_NAME like concat('%',#{objectOne},'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <!--    查找角色信息列表记录条数-->
+    <select id="findALLRoleListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        select count(1)
+        FROM tbl_role role
+        <where>
+            and role.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  role.ROLE_NAME like concat('%',#{objectOne},'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增角色信息-->
+    <insert id="addRoleInfo" parameterType="com.group.sh.smarthome.entity.TblRole" useGeneratedKeys="true" keyProperty="roleId">
+        insert into
+            tbl_role(ROLE_NAME,ROLE_TYPE,CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)values
+            (#{roleName},#{roleType},#{crtPsnId},now(),#{modPsnId},#{modTm},'0')
+    </insert>
+
+    <update id="updateRoleInfo" parameterType="com.group.sh.smarthome.entity.TblRole">
+        update tbl_role
+        <set>
+            DEL_ID = '0',
+            MOD_TM = now(),
+            <if test="roleName != '' and roleName != null">
+                ROLE_NAME = #{roleName},
+            </if>
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where ROLE_ID = #{roleId}
+    </update>
+
+    <update id="deleteRoleInfo" parameterType="com.group.sh.smarthome.entity.TblRole">
+        update tbl_role
+        <set>
+            DEL_ID = '1',
+            MOD_TM = now(),
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where ROLE_ID = #{roleId}
+    </update>
+
+    <!--查找所有的父级菜单,不区分角色(菜单权限管理)    -->
+    <!--    select * from menutable m where m.menuid in (select r.mid from rolemenutable r,menutable m ) and m.menusonid = 0-->
+    <!--根据父id查找到对应的子id的结果集,相当于说给children的结果集在进行封装,和数据库表的字段在关联，才不会null-->
+    <resultMap type="com.group.sh.smarthome.entity.MenuTreeInfo" id="TreeMap1">
+        <result column="menuId" property="id"></result>
+        <result column="menuName" property="title"></result>
+        <collection property="children" select="treeChildrenMenuByMenuId" column="menuId" ofType="MenuTreeInfo"
+                    javaType="list">
+            <result column="menuId" property="id"></result>
+            <result column="menuName" property="title"></result>
+        </collection>
+    </resultMap>
+    <select id="findAllMenu" resultMap="TreeMap1">
+        select
+            menu.MENU_ID as menuId,
+            menu.MENU_NAME as menuName
+        from tbl_menu menu where menu.DEL_ID = 0 and menu.MENUSUB_ID = 0
+    </select>
+
+
+    <!--根据父id查找到对应的子id菜单 -->
+    <resultMap type="com.group.sh.smarthome.entity.MenuTreeInfo" id="Tree1">
+        <result column="menuId" property="id"></result>
+        <result column="menuName" property="title"></result>
+    </resultMap>
+    <select id="treeChildrenMenuByMenuId" resultMap="Tree1" parameterType="java.lang.Integer">
+        select
+            menu.MENU_ID as menuId,
+            menu.MENU_NAME as menuName
+        from tbl_menu menu where MENUSUB_ID = #{menuId} and menu.DEL_ID = 0
+    </select>
+
+
+    <!--    根据角色id查找出他所对应的菜单id-->
+    <resultMap id="TreeMap2" type="com.group.sh.smarthome.entity.MenuTreeInfo">
+        <result column="menuId" property="id"></result>
+    </resultMap>
+    <select id="findTreeMenuByRoleID" resultMap="TreeMap2" parameterType="com.group.sh.smarthome.entity.TblAdmin">
+        select
+            rolemenu.MENU_ID as menuId
+        from tbl_menu menu
+                 left join tbl_role_menu rolemenu on menu.MENU_ID = rolemenu.MENU_ID
+        where rolemenu.ROLE_ID = #{adminRole} and menu.MENUSUB_ID != 0 and rolemenu.DEL_ID = 0 ;
+    </select>
+
+
+    <!--    更新权限ID-->
+    <update id="updateMenuId" parameterType="java.lang.Integer">
+        update tbl_role_menu set DEL_ID = 1 where ROLE_ID = #{roleId}
+    </update>
+
+<!--    <insert id="updateMenu" parameterType="java.util.List">-->
+<!--        insert into rolemenutable(rid, mid) values-->
+<!--        <foreach item="i" index="index" collection="list" separator=",">-->
+<!--            (#{i.rid},#{i.mid})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
 
 
 </mapper>

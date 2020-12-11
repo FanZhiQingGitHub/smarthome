@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblAdmin;
 import com.group.sh.smarthome.entity.TblMenu;
+import com.group.sh.smarthome.entity.TblRole;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,34 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
     public  Boolean deleteMenuInfo(TblMenu tblMenu) {
         return tblAdminMapper.deleteMenuInfo(tblMenu);
     }
+
+    public List<TblRole> findALLRoleList(PageListEntity pageListEntity){
+        return tblAdminMapper.findALLRoleList(pageListEntity);
+    }
+
+    public Long findALLRoleListCount(PageListEntity pageListEntity){
+        return tblAdminMapper.findALLRoleListCount(pageListEntity);
+    }
+    @Transactional
+    public Integer addRoleInfo(TblRole tblRole){
+        return tblAdminMapper.addRoleInfo(tblRole);
+    }
+    @Transactional
+    public Boolean updateRoleInfo(TblRole tblRole){
+        return tblAdminMapper.updateRoleInfo(tblRole);
+    }
+    @Transactional
+    public Boolean deleteRoleInfo(TblRole tblRole){
+        return tblAdminMapper.deleteRoleInfo(tblRole);
+    }
+
+    public List<MenuTreeInfo> findAllMenu(){
+        return tblAdminMapper.findAllMenu();
+    }
+
+    public List<MenuTreeInfo> findTreeMenuByRoleID(TblAdmin tblAdmin){
+        return tblAdminMapper.findTreeMenuByRoleID(tblAdmin);
+    }
+
 
 }

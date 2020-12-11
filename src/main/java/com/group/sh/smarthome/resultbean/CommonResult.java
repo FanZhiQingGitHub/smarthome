@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -16,8 +17,9 @@ public class CommonResult<T> {
     private Integer count;
     private T      entityData;
     private List<?> data;
+    private Map<?,?> mapData;
 
     public CommonResult(Integer code, String message,Integer count) {
-        this(code,message,count,null,null);
+        this(code,message,count,null,null,null);
     }
 }

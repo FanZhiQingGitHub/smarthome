@@ -55,21 +55,21 @@ public class TblUserController {
     @ResponseBody
     public CommonResult userLogin(TblUser tblUser){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser) {
-            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblUser, null);
+            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblUser, null,null);
         }
         tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));
         TblUser User = tblUserService.userLogin(tblUser);
         log.info("******查询的结果是: " + User);
         if(ConstantEnum.ConstantEnumType.getENTITY() == User) {
-            return new CommonResult(500, "账号或密码错误，请重新输入！多次输入不正确，请联系管理员处理！", null,tblUser, null);
+            return new CommonResult(500, "账号或密码错误，请重新输入！多次输入不正确，请联系管理员处理！", null,tblUser, null,null);
         }
         if(ConstantEnum.ConstantEnumType.STATUSNUM.getValue().equals(User.getUserStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getUserStatus()){
-            return new CommonResult(501, "该用户禁止登录，请联系管理员处理！", null,User, null);
+            return new CommonResult(501, "该用户禁止登录，请联系管理员处理！", null,User, null,null);
         }
         if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(User.getDelId()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getDelId()){
-            return new CommonResult(502, "该用户不存在，请先进行注册！", null,User, null);
+            return new CommonResult(502, "该用户不存在，请先进行注册！", null,User, null,null);
         }
-        return new CommonResult(200, "欢迎您："+User.getUserName()+" ，登录成功！", null,User, null);
+        return new CommonResult(200, "欢迎您："+User.getUserName()+" ，登录成功！", null,User, null,null);
     }
 
     /**
@@ -82,14 +82,14 @@ public class TblUserController {
     @ResponseBody
     public CommonResult getUserInfoList(TblUser tblUser){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser) {
-            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblUser, null);
+            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblUser, null,null);
         }
         List<TblUser> tblUserList = tblUserService.getUserInfoList(tblUser);
         log.info("******查询用户列表的结果是: " + tblUserList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblUserList.size()) {
-            return new CommonResult(501, "查询数据失败", null,tblUser, tblUserList);
+            return new CommonResult(501, "查询数据失败", null,tblUser, tblUserList,null);
         }
-        return new CommonResult(200, "查询数据成功", null,tblUser, tblUserList);
+        return new CommonResult(200, "查询数据成功", null,tblUser, tblUserList,null);
     }
 
 
@@ -104,7 +104,7 @@ public class TblUserController {
     public CommonResult addUserInfo(TblUser tblUser){
         Integer num = null;
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblUser,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblUser,null,null);
         }
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
         tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));//密码加密
@@ -117,9 +117,9 @@ public class TblUserController {
         num = tblUserService.addUserInfo(tblUser);
         log.info("******新增的用户ID是: "+tblUser.getUserId());
         if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
-            return new CommonResult(501,"新增数据失败",null,tblUser,null);
+            return new CommonResult(501,"新增数据失败",null,tblUser,null,null);
         }
-        return new CommonResult(200,"新增数据成功",null,tblUser,null);
+        return new CommonResult(200,"新增数据成功",null,tblUser,null,null);
     }
 
     /**

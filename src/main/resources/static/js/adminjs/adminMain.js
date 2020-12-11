@@ -6,12 +6,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         , element = layui.element
         , carousel = layui.carousel;
     var $ = layui.jquery;
-    var verCode = '';
 
+    $("#adminName").text(window.sessionStorage.getItem("adminName"));
     //设置轮播主体高度
-    var login_height = $(window).height()/1.3;
+    var login_height = $(window).height()/1.2;
     var zyl_car_height = $(".login_height").css("cssText","height:" + login_height + "px!important");
-
 
     //Login轮播主体
     carousel.render({

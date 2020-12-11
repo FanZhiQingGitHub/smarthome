@@ -4,6 +4,7 @@ package com.group.sh.smarthome.controller;
 import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblAdmin;
 import com.group.sh.smarthome.entity.TblMenu;
+import com.group.sh.smarthome.entity.TblRole;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.TblAdminService;
@@ -19,9 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * <pre>
@@ -73,25 +72,25 @@ public class TblAdminController {
     @ResponseBody
     public CommonResult adminLogin(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin) {
-            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblAdmin, null);
+            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblAdmin, null,null);
         }
         tblAdmin.setAdminPwd(EntryrionUtil.getHash3(tblAdmin.getAdminPwd(),"SHA"));
         TblAdmin Admin = tblAdminService.adminLogin(tblAdmin);
         log.info("******查询的结果是: " + Admin);
         if(ConstantEnum.ConstantEnumType.getENTITY() == Admin) {
-            return new CommonResult(500, "账号或密码错误，请重新输入！多次输入不正确，请联系管理员处理！", null,tblAdmin, null);
+            return new CommonResult(500, "账号或密码错误，请重新输入！多次输入不正确，请联系管理员处理！", null,tblAdmin, null,null);
         }
         if(ConstantEnum.ConstantEnumType.STATUSNUM.getValue().equals(Admin.getAdminStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == Admin.getAdminStatus()){
-            return new CommonResult(501, "该用户禁止登录，请联系管理员处理！", null,Admin, null);
+            return new CommonResult(501, "该用户禁止登录，请联系管理员处理！", null,Admin, null,null);
         }
         if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(Admin.getDelId()) || ConstantEnum.ConstantEnumType.CONSTANT == Admin.getDelId()){
-            return new CommonResult(502, "该用户不存在，请先进行注册！", null,Admin, null);
+            return new CommonResult(502, "该用户不存在，请先进行注册！", null,Admin, null,null);
         }
         ConstantEnum.ConstantEnumType.roleId = Integer.valueOf(Admin.getAdminRole());
         HttpSession session = getRequest().getSession();
         session.setAttribute("adminAccount",Admin.getAdminAccount());
         session.setMaxInactiveInterval(30 * 60);//session过期时间设置，以秒为单位，即在没有活动30分钟后，session将失效
-        return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null);
+        return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null,null);
     }
 
     /**
@@ -104,14 +103,14 @@ public class TblAdminController {
     @ResponseBody
     public CommonResult getAdminInfoList(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin) {
-            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblAdmin, null);
+            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblAdmin, null,null);
         }
         List<TblAdmin> tblAdminList = tblAdminService.getAdminInfoList(tblAdmin);
         log.info("******查询管理员列表的结果是: " + tblAdminList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAdminList.size()) {
-            return new CommonResult(501, "查询数据失败", null,tblAdmin, tblAdminList);
+            return new CommonResult(501, "查询数据失败", null,tblAdmin, tblAdminList,null);
         }
-        return new CommonResult(200, "查询数据成功", null,tblAdmin, tblAdminList);
+        return new CommonResult(200, "查询数据成功", null,tblAdmin, tblAdminList,null);
     }
 
 
@@ -126,7 +125,7 @@ public class TblAdminController {
     public CommonResult addAdminInfo(TblAdmin tblAdmin){
         Integer num = null;
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
         }
         SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
         tblAdmin.setAdminPwd(EntryrionUtil.getHash3(tblAdmin.getAdminPwd(),"SHA"));//密码加密
@@ -139,9 +138,9 @@ public class TblAdminController {
         num = tblAdminService.addAdminInfo(tblAdmin);
         log.info("******新增的管理员ID是: "+tblAdmin.getAdminId());
         if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
-            return new CommonResult(501,"新增数据失败",null,tblAdmin,null);
+            return new CommonResult(501,"新增数据失败",null,tblAdmin,null,null);
         }
-        return new CommonResult(200,"新增数据成功",null,tblAdmin,null);
+        return new CommonResult(200,"新增数据成功",null,tblAdmin,null,null);
     }
 
     /**
@@ -180,14 +179,14 @@ public class TblAdminController {
     @ResponseBody
     public CommonResult findMenuIDByRoleId(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
         }
         List<MenuTreeInfo> tblMenuList = tblAdminService.findMenuIDByRoleId(1);
         log.info("******查询的菜单是: "+tblMenuList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
-            return new CommonResult(501, "查询数据失败", null,null, tblMenuList);
+            return new CommonResult(501, "查询数据失败", null,null, tblMenuList,null);
         }
-        return new CommonResult(200, "查询数据成功", null,null, tblMenuList);
+        return new CommonResult(200, "查询数据成功", null,null, tblMenuList,null);
     }
 
     /**
@@ -203,13 +202,13 @@ public class TblAdminController {
         if(ConstantEnum.ConstantEnumType.FINDMENUSELECT.getValue().equals(tblMenu.getMethod())){
             List<TblMenu> tblMenuList = tblAdminService.findParentMenu();
             if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
-                return new CommonResult(501, "亲，暂无相关数据", null,null, tblMenuList);
+                return new CommonResult(501, "亲，暂无相关数据", null,null, tblMenuList,null);
             }
-            return new CommonResult(200, null, null,null, tblMenuList);
+            return new CommonResult(200, null, null,null, tblMenuList,null);
         }
         //查询菜单列表
         if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblMenu,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblMenu,null,null);
         }
         Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
         Integer maxpage = pageListEntity.getLimit();
@@ -222,10 +221,10 @@ public class TblAdminController {
         List<TblMenu> tblMenuList = tblAdminService.findALLMenuList(pageListEntity);
         log.info("******查询的菜单列表是: "+tblMenuList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
-            return new CommonResult(501, "亲，暂无相关数据", null,null, tblMenuList);
+            return new CommonResult(501, "亲，暂无相关数据", null,null, tblMenuList,null);
         }
         Integer count = tblAdminService.findALLMenuListCount(pageListEntity).intValue();
-        return new CommonResult(0, null, count,null, tblMenuList);
+        return new CommonResult(0, null, count,null, tblMenuList,null);
     }
 
 
@@ -240,52 +239,155 @@ public class TblAdminController {
     public CommonResult protectMenuList(TblMenu tblMenu){
 
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblMenu.getMethod()){
-            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null);
+            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
         }
-        if(ConstantEnum.ConstantEnumType.getENTITY() != tblMenu.getMenuUrl()){
-            String url = "/smarthome/admin/path/";
-            tblMenu.setMenuUrl(url+tblMenu.getMenuUrl());
+        if(!"0".equals(tblMenu.getMenuLevel())){
+            if(ConstantEnum.ConstantEnumType.getENTITY() != tblMenu.getMenuUrl()){
+                String url = "/smarthome/admin/path/";
+                tblMenu.setMenuUrl(url+tblMenu.getMenuUrl());
+            }
+            tblMenu.setMenuType("tabAdd");
         }
         if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblMenu.getMethod())){
+            if("0".equals(tblMenu.getMenuLevel())){
+                tblMenu.setMenuSubId(0);//如果是父级菜单新增的时候，他的子id设置为0
+            }
             tblMenu.setCrtPsnId(getAccount());
             tblMenu.setModPsnId(getAccount());
-            //是否父级菜单
-            if(!"0".equals(tblMenu.getMenuLevel())){
-                tblMenu.setMenuType("tabAdd");
-            }
             Integer count = tblAdminService.addMenuInfo(tblMenu);
             if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == count) {
-                return new CommonResult(500, "新增菜单失败", count,null, null);
+                return new CommonResult(500, "新增菜单失败", count,null, null,null);
             }
             tblMenu.setMenuId(tblMenu.getMenuId());
-            return new CommonResult(200, "新增菜单成功", count,tblMenu, null);
+            return new CommonResult(200, "新增菜单成功,您需要重新登录生效！", count,tblMenu, null,null);
         }
 
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblMenu.getMethod())){
+            if("0".equals(tblMenu.getMenuLevel())){
+                tblMenu.setMenuSubId(0);//如果是父级菜单修改的时候，他的子id设置为0
+            }
             tblMenu.setModPsnId(getAccount());
             Boolean flag = tblAdminService.updateMenuInfo(tblMenu);
             if (flag == false) {
-                return new CommonResult(500, "更新菜单失败", null,null, null);
+                return new CommonResult(500, "更新菜单失败", null,null, null,null);
             }
-            return new CommonResult(200, "更新菜单成功", null,null, null);
+            return new CommonResult(200, "更新菜单成功,您需要重新登录生效！", null,null, null,null);
         }
 
         if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblMenu.getMethod())){
             tblMenu.setModPsnId(getAccount());
             Boolean flag = tblAdminService.deleteMenuInfo(tblMenu);
             if (flag == false) {
-                return new CommonResult(500, "删除菜单失败", null,null, null);
+                return new CommonResult(500, "删除菜单失败", null,null, null,null);
             }
-            return new CommonResult(200, "删除菜单成功", null,null, null);
+            return new CommonResult(200, "删除菜单成功", null,null, null,null);
         }
 
-        return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null);
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null,null);
+    }
+
+    /**
+     *
+     * 方法描述 查找角色列表
+     * @date 2020-12-11
+     * @param
+     */
+    @GetMapping(value = "/findALLRoleList")
+    @ResponseBody
+    public CommonResult findALLRoleList(TblRole tblRole, PageListEntity pageListEntity){
+        //查询角色列表
+        if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblRole,null,null);
+        }
+        Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
+        Integer maxpage = pageListEntity.getLimit();
+        pageListEntity.setPage(minpage);
+        pageListEntity.setLimit(maxpage);
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblRole.getRoleName()){
+            pageListEntity.setObjectOne(tblRole.getRoleName());
+        }
+        List<TblRole> tblRoleList = tblAdminService.findALLRoleList(pageListEntity);
+        log.info("******查询的菜单列表是: "+tblRoleList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblRoleList.size()) {
+            return new CommonResult(501, "亲，暂无相关数据", null,null, tblRoleList,null);
+        }
+        Integer count = tblAdminService.findALLRoleListCount(pageListEntity).intValue();
+        return new CommonResult(0, null, count,null, tblRoleList,null);
+    }
+
+    /**
+     *
+     * 方法描述 角色信息维护方法
+     * @date 2020-12-11
+     * @param
+     */
+    @PostMapping(value = "/protectRoleList")
+    @ResponseBody
+    public CommonResult protectRoleList(TblRole tblRole){
+
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblRole.getMethod()){
+            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
+        }
+
+        if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblRole.getMethod())){
+            tblRole.setCrtPsnId(getAccount());
+            tblRole.setModPsnId(getAccount());
+            Integer count = tblAdminService.addRoleInfo(tblRole);
+            if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == count) {
+                return new CommonResult(500, "新增角色失败", count,null, null,null);
+            }
+            tblRole.setRoleId(tblRole.getRoleId());
+            return new CommonResult(200, "新增角色成功！", count,tblRole, null,null);
+        }
+
+        if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblRole.getMethod())){
+            tblRole.setModPsnId(getAccount());
+            Boolean flag = tblAdminService.updateRoleInfo(tblRole);
+            if (flag == false) {
+                return new CommonResult(500, "更新角色失败", null,null, null,null);
+            }
+            return new CommonResult(200, "更新角色成功！", null,null, null,null);
+        }
+
+        if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblRole.getMethod())){
+            tblRole.setModPsnId(getAccount());
+            Boolean flag = tblAdminService.deleteRoleInfo(tblRole);
+            if (flag == false) {
+                return new CommonResult(500, "删除角色失败", null,null, null,null);
+            }
+            return new CommonResult(200, "删除角色成功", null,null, null,null);
+        }
+
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null,null);
     }
 
 
+    /**
+     *
+     * 方法描述 查找所有菜单列表--权限配置
+     * @date 2020-12-11
+     * @param
+     */
+    @GetMapping(value = "/findAllMenu")
+    @ResponseBody
+    public CommonResult findAllMenu(TblAdmin tblAdmin){
 
-
-
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin.getAdminRole() && ConstantEnum.ConstantEnumType.getENTITY() ==  tblAdmin.getAdminRole()){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
+        }
+        List<MenuTreeInfo> menuTreeInfoList1 = tblAdminService.findAllMenu();
+        List<MenuTreeInfo> menuTreeInfoList2 = tblAdminService.findTreeMenuByRoleID(tblAdmin);
+//        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == menuTreeInfoList1.size()) {
+//            return new CommonResult(501, "亲，暂无菜单相关数据", null,null, menuTreeInfoList1,null);
+//        }
+//        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == menuTreeInfoList2.size()) {
+//            return new CommonResult(501, "亲，暂无子菜单相关数据", null,null, menuTreeInfoList2,null);
+//        }
+        Map menuMap = new LinkedHashMap();
+        menuMap.put("menu", menuTreeInfoList1);
+        menuMap.put("mid", menuTreeInfoList2);
+        return new CommonResult(200, "查询菜单成功", null,null,null,menuMap);
+    }
 
 }
 

@@ -26,7 +26,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , limits: [5,10, 15, 20]
         , cols: [[
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
-            ,{field:'menuId', title:'菜单编号', width:120,fixed: 'left', unresize: true, sort: true,align: 'center',}
+            ,{field:'menuId', title:'菜单编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
             ,{field:'menuName', title:'菜单名称', align: 'center'}
             ,{field:'menuUrl', title:'菜单URL', width:300,align: 'center',
                 templet:function(d){
@@ -56,7 +56,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 }
             }
             ,{field:'modTm', title:'修改时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
-            ,{fixed: 'right', title:'操作', toolbar: '#barDemo', align: 'center'}
+            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:200,align: 'center'}
         ]]
         ,page: true
     });
@@ -80,7 +80,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 $(window).resize(function(){
                     layer.full(index);
                 })
-                table.reload();
+                table.reload('searchTable');
                 layer.full(index);
                 break;
             case 'findMenuDetailInfo':
@@ -102,7 +102,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                             body.find("#menuId").val(data[0].menuId);
                             body.find("#menuName").val(data[0].menuName);
                             body.find("#menuUrl").val(url);
-                            body.find("#selectVal").val(data[0].menuSubId);
+                            if(data[0].menuLevel == '0'){
+                                body.find("#selectVal").val(data[0].menuId);
+                            }else{
+                                body.find("#selectVal").val(data[0].menuSubId);
+                            }
                             body.find('input[name=menuLevel][value='+data[0].menuLevel+']').attr("checked",data[0].menuLevel==data[0].menuLevel ? true : false);
                         }
                     })
@@ -110,7 +114,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     $(window).resize(function(){
                         layer.full(index);
                     })
-                    table.reload();
+                    table.reload('searchTable');
                     layer.full(index);
                 }
                 break;
@@ -122,15 +126,19 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         };
     });
 
-    layer.tips('您可以通过双击一条数据查看详情哦！', '#findMenuDetailInfo', {
-        tips: 2
-    });
+    $(function () {
+        $("#findMenuDetailInfo").mouseover(function() {
+            layer.tips('您可以通过双击一条数据查看详情哦！', '#findMenuDetailInfo', {
+                tips: 2
+            });
+        });
+    })
 
     //监听行工具事件
     table.on('tool(menuTable)', function(obj){
         var data = obj.data;
         if(obj.event === 'del'){
-            layer.confirm('真的删除行么', function(index){
+            layer.confirm('真的要删除该菜单吗？', function(index){
                 $.ajax({
                     url: "/smarthome/admin/protectMenuList",
                     async: true,
@@ -164,7 +172,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     body.find("#menuId").val(data.menuId);
                     body.find("#menuName").val(data.menuName);
                     body.find("#menuUrl").val(url);
-                    body.find("#selectVal").val(data.menuSubId);
+                    if(data.menuLevel == '0'){
+                        body.find("#selectVal").val(data.menuId);
+                    }else{
+                        body.find("#selectVal").val(data.menuSubId);
+                    }
                     body.find('input[name=menuLevel][value='+data.menuLevel+']').attr("checked",data.menuLevel==data.menuLevel ? true : false);
                 }
             })
@@ -172,7 +184,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             $(window).resize(function(){
                 layer.full(index);
             })
-            table.reload();
+            table.reload('searchTable');
             layer.full(index);
         }
     });
@@ -193,7 +205,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 body.find("#menuId").val(data.menuId);
                 body.find("#menuName").val(data.menuName);
                 body.find("#menuUrl").val(url);
-                body.find("#selectVal").val(data.menuSubId);
+                if(data.menuLevel == '0'){
+                    body.find("#selectVal").val(data.menuId);
+                }else{
+                    body.find("#selectVal").val(data.menuSubId);
+                }
                 body.find('input[name=menuLevel][value='+data.menuLevel+']').attr("checked",data.menuLevel==data.menuLevel ? true : false);
             }
         })
@@ -201,7 +217,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         $(window).resize(function(){
             layer.full(index);
         })
-        table.reload();
+        table.reload('searchTable');
         layer.full(index);
         //标注选中样式
         obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
