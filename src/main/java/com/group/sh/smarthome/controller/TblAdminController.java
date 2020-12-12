@@ -341,18 +341,18 @@ public class TblAdminController {
             tblRole.setModPsnId(getAccount());
             Boolean flag = tblAdminService.updateRoleInfo(tblRole);
             if (flag == false) {
-                return new CommonResult(500, "更新角色失败", null,null, null,null);
+                return new CommonResult(500, "更新角色信息失败", null,null, null,null);
             }
-            return new CommonResult(200, "更新角色成功！", null,null, null,null);
+            return new CommonResult(200, "更新角色信息成功！", null,null, null,null);
         }
 
         if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblRole.getMethod())){
             tblRole.setModPsnId(getAccount());
             Boolean flag = tblAdminService.deleteRoleInfo(tblRole);
             if (flag == false) {
-                return new CommonResult(500, "删除角色失败", null,null, null,null);
+                return new CommonResult(500, "删除角色信息失败", null,null, null,null);
             }
-            return new CommonResult(200, "删除角色成功", null,null, null,null);
+            return new CommonResult(200, "删除角色信息成功", null,null, null,null);
         }
 
         return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null,null);
@@ -396,6 +396,31 @@ public class TblAdminController {
             return new CommonResult(501,"权限配置失败！",null,tbleMenuRole,null,null);
         }
         return new CommonResult(200,"权限配置成功，请重新登录系统后生效！",null,tbleMenuRole,null,null);
+    }
+
+
+    /**
+     *
+     * 方法描述 查找用户列表
+     * @date 2020-12-12
+     * @param
+     */
+    @GetMapping(value = "/findALLUserList")
+    @ResponseBody
+    public CommonResult findALLUserList(TblUser tblUser, PageListEntity pageListEntity){
+        return tblAdminService.findALLUserList(tblUser,pageListEntity);
+    }
+
+    /**
+     *
+     * 方法描述 用户信息维护方法
+     * @date 2020-12-12
+     * @param
+     */
+    @PostMapping(value = "/protectUserList")
+    @ResponseBody
+    public CommonResult protectUserList(TblUser tblUser,String adminAcount){
+        return tblAdminService.protectUserList(tblUser,getAccount());
     }
 
 }

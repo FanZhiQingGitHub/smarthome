@@ -3,7 +3,10 @@ package com.group.sh.smarthome.service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
+import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
+import com.group.sh.smarthome.util.ConstantEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +25,7 @@ import java.util.Map;
  * @since 2020-11-26
  */
 @Service
+@Slf4j
 public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
 
     @Resource
@@ -113,6 +117,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
         return tblAdminMapper.findTreeMenuByRoleID(tblAdmin);
     }
 
+    @Transactional
     public Boolean updateMenuPwr(TbleMenuRole tbleMenuRole,String adminAccount){
         Boolean flag = null;
         List fatherNodeId = tbleMenuRole.getFatherNodeId();//父菜单id
@@ -133,6 +138,68 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
         tblAdminMapper.updateMenuId(Integer.valueOf(tbleMenuRole.getAdminRole()));
         flag = tblAdminMapper.updateMenuPwr(list);
         return flag;
+    }
+
+
+    public CommonResult findALLUserList(TblUser tblUser, PageListEntity pageListEntity){
+        //查询角色列表
+        if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblUser,null,null);
+        }
+        Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
+        Integer maxpage = pageListEntity.getLimit();
+        pageListEntity.setPage(minpage);
+        pageListEntity.setLimit(maxpage);
+
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblUser.getUserAccount()){
+            pageListEntity.setObjectOne(tblUser.getUserAccount());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblUser.getUserName()){
+            pageListEntity.setObjectTwo(tblUser.getUserName());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblUser.getUserPhone()){
+            pageListEntity.setObjectThree(tblUser.getUserPhone());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblUser.getUserStatus()){
+            pageListEntity.setObjectFour(tblUser.getUserStatus());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblUser.getCrtTm()){
+//            pageListEntity.setObjectOne(tblUser.getCrtTm());
+        }
+
+        List<TblUser> tblUserList = tblAdminMapper.findALLUserList(pageListEntity);
+        log.info("******查询的用户列表是: "+tblUserList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblUserList.size()) {
+            return new CommonResult(501, "亲，暂无相关数据", null,null, tblUserList,null);
+        }
+        Integer count = tblAdminMapper.findALLUserListCount(pageListEntity).intValue();
+        return new CommonResult(0, null, count,null, tblUserList,null);
+    }
+
+    @Transactional
+    public CommonResult protectUserList(TblUser tblUser,String adminAcount){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser.getMethod()){
+            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
+        }
+        if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblUser.getMethod())){
+            tblUser.setModPsnId(adminAcount);
+            Boolean flag = tblAdminMapper.updateUserInfo(tblUser);
+            if (flag == false) {
+                return new CommonResult(500, "更新用户信息失败", null,null, null,null);
+            }
+            return new CommonResult(200, "更新用户信息成功！", null,null, null,null);
+        }
+
+        if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblUser.getMethod())){
+            tblUser.setModPsnId(adminAcount);
+            Boolean flag = tblAdminMapper.deleteUserInfo(tblUser);
+            if (flag == false) {
+                return new CommonResult(500, "删除用户信息失败", null,null, null,null);
+            }
+            return new CommonResult(200, "删除用户信息成功", null,null, null,null);
+        }
+
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null,null);
     }
 
 

@@ -19,6 +19,9 @@ public class PageListEntity {
     private String objectFive;
     private String objectSix;
 
+    private String startTime;
+    private String endTime;
+
     private Integer page;//从第几条开始
     private Integer limit;//显示几条数据
 

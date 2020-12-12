@@ -83,6 +83,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                             body.find("#method").val('3');
                             body.find("#roleId").val(data[0].roleId);
                             body.find("#roleName").val(data[0].roleName);
+                            body.find("#roleType").val(data.roleType);
                         }
                     })
                     //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -150,6 +151,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                         body.find("#method").val('1');
                         body.find("#roleId").val(data.roleId);
                         body.find("#roleName").val(data.roleName);
+                        body.find("#roleType").val(data.roleType);
                     }
                 })
                 //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -194,6 +196,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 body.find("#method").val('3');
                 body.find("#roleId").val(data.roleId);
                 body.find("#roleName").val(data.roleName);
+                body.find("#roleType").val(data.roleType);
             }
         })
         //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）

@@ -274,7 +274,7 @@
 
 
     <!--    查找角色信息列表-->
-    <resultMap type="com.group.sh.smarthome.entity.TblRole" id="RoleListMap">
+    <resultMap type="com.group.sh.smarthome.entity.TblRole" id="roleListMap">
         <result column="roleId" property="roleId"></result>
         <result column="roleName" property="roleName"></result>
         <result column="roleType" property="roleType"></result>
@@ -283,7 +283,7 @@
         <result column="adminName2" property="modPsnId"></result>
         <result column="modTm" property="modTm"></result>
     </resultMap>
-    <select id="findALLRoleList" resultMap="RoleListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+    <select id="findALLRoleList" resultMap="roleListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
         SELECT
         role.ROLE_ID as roleId,
         role.ROLE_NAME as roleName,
@@ -415,6 +415,122 @@
             (#{i.roleId},#{i.menuId},#{i.crtPsnId},now(),#{i.modPsnId},now(),'0')
         </foreach>
     </insert>
+
+
+    <!--    查找用户信息列表-->
+    <resultMap type="com.group.sh.smarthome.entity.TblUser" id="userListMap">
+        <result column="userId" property="userId"></result>
+        <result column="userAccount" property="userAccount"></result>
+        <result column="userName" property="userName"></result>
+        <result column="userSex" property="userSex"></result>
+        <result column="userPhone" property="userPhone"></result>
+        <result column="userQq" property="userQq"></result>
+        <result column="userWechat" property="userWechat"></result>
+        <result column="userStatus" property="userStatus"></result>
+        <result column="userRole" property="userRole"></result>
+        <result column="userRoleName" property="userRoleName"></result>
+        <result column="crtTm" property="crtTm"></result>
+        <result column="modPsnId" property="modPsnId"></result>
+        <result column="modTm" property="modTm"></result>
+    </resultMap>
+    <select id="findALLUserList" resultMap="userListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        SELECT
+        user.USER_ID as userId,
+        user.USER_ACCOUNT as userAccount,
+        user.USER_NAME as userName,
+        user.USER_SEX as userSex,
+        user.USER_PHONE as userPhone,
+        user.USER_QQ as userQq,
+        user.USER_WECHAT as userWechat,
+        user.USER_STATUS as userStatus,
+        user.USER_ROLE as userRole,
+        role.ROLE_NAME as userRoleName,
+        user.CRT_TM as crtTm,
+        admin.ADMIN_NAME as modPsnId,
+        user.CRT_TM as modTm
+        FROM tbl_user user
+        left join tbl_role role on user.USER_ROLE = role.ROLE_ID
+        left join tbl_admin admin on user.MOD_PSN_ID = admin.ADMIN_ID
+        <where>
+            and user.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  user.USER_ACCOUNT like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  user.USER_NAME like concat('%',#{objectTwo},'%')
+            </if>
+            <if test="objectThree != '' and objectThree != null ">
+                and  user.USER_PHONE like concat('%',#{objectThree},'%')
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  user.USER_STATUS = #{objectFour}
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(user.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(user.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+        order by user.CRT_TM desc limit #{page},#{limit}
+    </select>
+
+    <!--    查找用户信息列表记录条数-->
+    <select id="findALLUserListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        select count(1)
+        FROM tbl_user user
+        <where>
+            and user.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  user.USER_ACCOUNT like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  user.USER_NAME like concat('%',#{objectTwo},'%')
+            </if>
+            <if test="objectThree != '' and objectThree != null ">
+                and  user.USER_PHONE like concat('%',#{objectThree},'%')
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  user.USER_STATUS = #{objectFour}
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(user.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(user.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+    </select>
+
+    <!--    禁用用户-->
+    <update id="updateUserInfo" parameterType="com.group.sh.smarthome.entity.TblUser">
+        update tbl_user
+        <set>
+            DEL_ID = '0',
+            MOD_TM = now(),
+            USER_STATUS = '1',
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where USER_ID = #{userId}
+    </update>
+
+    <!--    逻辑删除用户-->
+    <update id="deleteUserInfo" parameterType="com.group.sh.smarthome.entity.TblUser">
+        update tbl_user
+        <set>
+            DEL_ID = '1',
+            MOD_TM = now(),
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where USER_ID = #{userId}
+    </update>
+
+
+
 
 
 

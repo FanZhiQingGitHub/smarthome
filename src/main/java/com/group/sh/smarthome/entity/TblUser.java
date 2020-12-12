@@ -207,6 +207,8 @@ public class TblUser implements Serializable {
     @TableField("USER_ROLE")
     private Integer userRole;
 
+    private String userRoleName;
+
     /**
      * 用户登录验证码
      */

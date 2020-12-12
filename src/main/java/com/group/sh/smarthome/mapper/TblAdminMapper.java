@@ -1,10 +1,7 @@
 package com.group.sh.smarthome.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.group.sh.smarthome.entity.MenuTreeInfo;
-import com.group.sh.smarthome.entity.TblAdmin;
-import com.group.sh.smarthome.entity.TblMenu;
-import com.group.sh.smarthome.entity.TblRole;
+import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -64,5 +61,14 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
     public Boolean updateMenuId(Integer adminRole);//根据角色ID逻辑删除其拥有的菜单ID
 
     public Boolean updateMenuPwr(List list);//根据前台用户所分配的菜单ID 进行重新插入
+
+    public List<TblUser> findALLUserList(PageListEntity pageListEntity);
+
+    public Long findALLUserListCount(PageListEntity pageListEntity);
+
+    public Boolean updateUserInfo(TblUser tblUser);
+
+    public Boolean deleteUserInfo(TblUser tblUser);
+
 
 }

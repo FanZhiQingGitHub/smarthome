@@ -29,6 +29,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         });
 
         form.on('submit(roleSubmit)', function (data) {
+            if(data.field.roleType == '0'){
+                layer.msg("您好，系统暂不支持新增超级管理员！",{icon: 2});
+                return;
+            }
             $.ajax({
                 url: "/smarthome/admin/protectRoleList",
                 async: true,
@@ -50,11 +54,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         });
     }else if(method == '3'){
         $('#roleName').attr("readonly",true);
+        $('#roleType').attr("disabled",true);
         $('#roleSubmit').css("display","none");
         $('#roleReset').css("display","none");
     }
-
-
-
+    layui.form.render("select");//重新渲染
 
 })
