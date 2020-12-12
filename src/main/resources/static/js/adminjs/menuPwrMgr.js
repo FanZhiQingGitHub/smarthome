@@ -160,9 +160,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 layer.full(index);
             }
         } else if(obj.event === 'allot'){
-            if(data.roleType == '0'){
-                layer.msg('此角色禁止配置权限！', {icon: 2});
-            }else{
+            // if(data.roleType == '0'){
+            //     layer.msg('此角色禁止配置权限！', {icon: 2});
+            // }else{
                 var index = layer.open({
                     title : "菜单权限配置",
                     type : 2,
@@ -177,7 +177,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     }
                 })
                 table.reload('searchTable');
-            }
+            // }
         }
     });
 

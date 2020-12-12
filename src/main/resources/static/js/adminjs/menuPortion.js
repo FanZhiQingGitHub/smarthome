@@ -33,7 +33,7 @@ layui.use(['tree', 'util','jquery','layer','layedit','laydate'], function () {
                         , id: 'checkId'
                         , checked:false
                     });
-                    // tree.setChecked('checkId', MenuId); //批量勾选节点
+                    tree.setChecked('checkId', MenuId); //批量勾选节点
                     $("#bu1").css("background","darkorange");
                     $("#bu1").css("color","white");
                     $("#bu1").attr("disabled", false);
