@@ -118,6 +118,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
     });
     function pointMenu(data){
         var ulHtml = '<ul class="layui-nav layui-nav-tree" lay-filter="left-menu">';
+        ulHtml+='<li class="layui-nav-item">';
+        ulHtml+='<a href="#" data-url="/smarthome/admin/path/adminMain" data-title="后台首页" data-id="1" class="site-admin-active" data-type="tabChange">后台首页</a>';
+        ulHtml+='</li>';
         for(var i = 0;i<data.length;i++){
             ulHtml += '<li class="layui-nav-item">';
             if(data[i].children != undefined && data[i].children.length > 0){

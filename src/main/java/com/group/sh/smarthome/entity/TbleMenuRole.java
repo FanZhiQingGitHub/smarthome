@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -89,5 +90,9 @@ public class TbleMenuRole implements Serializable {
      * 未发送method值的为查列表
      */
     private String method;
+
+    private List fatherNodeId;
+    private List sonNodeId;
+    private String adminRole;
 
 }

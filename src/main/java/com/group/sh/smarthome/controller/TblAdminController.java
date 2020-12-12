@@ -1,10 +1,7 @@
 package com.group.sh.smarthome.controller;
 
 
-import com.group.sh.smarthome.entity.MenuTreeInfo;
-import com.group.sh.smarthome.entity.TblAdmin;
-import com.group.sh.smarthome.entity.TblMenu;
-import com.group.sh.smarthome.entity.TblRole;
+import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.TblAdminService;
@@ -181,7 +178,7 @@ public class TblAdminController {
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin){
             return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
         }
-        List<MenuTreeInfo> tblMenuList = tblAdminService.findMenuIDByRoleId(1);
+        List<MenuTreeInfo> tblMenuList = tblAdminService.findMenuIDByRoleId(tblAdmin.getAdminRole());
         log.info("******查询的菜单是: "+tblMenuList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
             return new CommonResult(501, "查询数据失败", null,null, tblMenuList,null);
@@ -388,11 +385,17 @@ public class TblAdminController {
      * @date 2020-12-11
      * @param
      */
-    @GetMapping(value = "/protectMenuPwr")
+    @PostMapping(value = "/protectMenuPwr")
     @ResponseBody
-    public CommonResult findAllMenu(TblAdmin tblAdmin){
-
-        return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
+    public CommonResult protectMenuPwr(TbleMenuRole tbleMenuRole){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tbleMenuRole.getAdminRole() && ConstantEnum.ConstantEnumType.getENTITY() ==  tbleMenuRole.getAdminRole()){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tbleMenuRole,null,null);
+        }
+        Boolean flag = tblAdminService.updateMenuPwr(tbleMenuRole,getAccount());
+        if(!flag){
+            return new CommonResult(501,"权限配置失败！",null,tbleMenuRole,null,null);
+        }
+        return new CommonResult(200,"权限配置成功，请重新登录系统后生效！",null,tbleMenuRole,null,null);
     }
 
 }

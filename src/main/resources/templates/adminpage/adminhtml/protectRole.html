@@ -34,6 +34,18 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">角色类型</label>
+        <div class="layui-input-block">
+            <select name="roleType" id="roleType" lay-verify="required">
+                <option value=""></option>
+                <option value="1">管理员</option>
+                <option value="2">普通用户</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
         <div class="layui-input-block">
             <button type="button" class="layui-btn" lay-submit lay-filter="roleSubmit" id="roleSubmit">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary" id="roleReset">重置</button>

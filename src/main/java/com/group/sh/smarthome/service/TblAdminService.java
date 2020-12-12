@@ -1,17 +1,17 @@
 package com.group.sh.smarthome.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.group.sh.smarthome.entity.MenuTreeInfo;
-import com.group.sh.smarthome.entity.TblAdmin;
-import com.group.sh.smarthome.entity.TblMenu;
-import com.group.sh.smarthome.entity.TblRole;
+import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -111,6 +111,28 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
 
     public List<MenuTreeInfo> findTreeMenuByRoleID(TblAdmin tblAdmin){
         return tblAdminMapper.findTreeMenuByRoleID(tblAdmin);
+    }
+
+    public Boolean updateMenuPwr(TbleMenuRole tbleMenuRole,String adminAccount){
+        Boolean flag = null;
+        List fatherNodeId = tbleMenuRole.getFatherNodeId();//父菜单id
+        List sonNodeId = tbleMenuRole.getSonNodeId();//子菜单id
+        List roleMenuTableList = new ArrayList<>();
+        roleMenuTableList.addAll(fatherNodeId);
+        roleMenuTableList.addAll(sonNodeId);
+        List<Map<String, Integer>> list = new ArrayList();
+        for (int i = 0; i < roleMenuTableList.size(); i++) {
+            Map<String, Integer> menuMap = new LinkedHashMap();
+            Integer menuId = Double.valueOf(roleMenuTableList.get(i).toString()).intValue();
+            menuMap.put("roleId", Integer.valueOf(tbleMenuRole.getAdminRole()));
+            menuMap.put("menuId", menuId);
+            menuMap.put("crtPsnId", Integer.valueOf(adminAccount));
+            menuMap.put("modPsnId", Integer.valueOf(adminAccount));
+            list.add(menuMap);
+        }
+        tblAdminMapper.updateMenuId(Integer.valueOf(tbleMenuRole.getAdminRole()));
+        flag = tblAdminMapper.updateMenuPwr(list);
+        return flag;
     }
 
 

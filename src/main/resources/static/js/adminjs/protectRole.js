@@ -23,8 +23,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                 if (value.length < 2) {
                     return '您好，角色名称至少得2个字符！';
                 }
-            }
-            , content: function (value) {
+            }, content: function (value) {
                 layedit.sync(editIndex);
             }
         });

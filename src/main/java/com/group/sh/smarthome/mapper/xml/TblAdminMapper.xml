@@ -119,7 +119,7 @@
         <result column="MENU_URL" property="dataUrl"></result>
         <result column="MENU_ID" property="dataId"></result>
         <result column="MENU_TYPE" property="dataType"></result>
-        <collection property="children" select="childrenMenuByMenuId" column="{MENU_ID=MENU_ID,ROLE_ID=ROLE_ID}" ofType="com.group.sh.smarthome.entity.MenuTreeInfo"
+        <collection property="children" select="childrenMenuByMenuId" column="MENU_ID" ofType="com.group.sh.smarthome.entity.MenuTreeInfo"
                     javaType="list">
             <result column="MENU_NAME" property="dataTitle"></result>
             <result column="MENU_URL" property="dataUrl"></result>
@@ -136,9 +136,8 @@
             menu.MENUSUB_ID as MENUSUB_ID,
             rolemenu.ROLE_ID as ROLE_ID
         from
-            tbl_role_menu rolemenu
-                left join tbl_menu menu on rolemenu.MENU_ID = menu.MENU_ID
-                left join tbl_role role on rolemenu.ROLE_ID = role.ROLE_ID
+            tbl_menu menu
+                left join tbl_role_menu rolemenu on menu.MENU_ID = rolemenu.MENU_ID
         where rolemenu.ROLE_ID = #{roleId} and menu.MENUSUB_ID = 0 and rolemenu.DEL_ID = 0;
     </select>
 
@@ -148,7 +147,7 @@
         <result column="MENU_ID" property="dataId"></result>
         <result column="MENU_TYPE" property="dataType"></result>
     </resultMap>
-    <select id="childrenMenuByMenuId" resultMap="loginMenuSubTree" parameterType="java.util.Map">
+    <select id="childrenMenuByMenuId" resultMap="loginMenuSubTree" parameterType="java.lang.Integer">
         select
             menu.MENU_ID as MENU_ID,
             menu.MENU_NAME as MENU_NAME,
@@ -156,10 +155,8 @@
             menu.MENU_TYPE as MENU_TYPE,
             menu.MENUSUB_ID as MENUSUB_ID
         from
-            tbl_role_menu rolemenu
-                left join tbl_menu menu on rolemenu.MENU_ID = menu.MENU_ID
-                left join tbl_role role on rolemenu.ROLE_ID = role.ROLE_ID
-        where menu.MENUSUB_ID = #{MENU_ID} and menu.DEL_ID = 0 and rolemenu.ROLE_ID = #{ROLE_ID}
+            tbl_menu menu
+        where menu.MENUSUB_ID = #{MENU_ID} and menu.DEL_ID = 0
     </select>
 
 
@@ -400,16 +397,24 @@
 
 
     <!--    更新权限ID-->
+<!--    <delete id="deleteMenuId" parameterType="java.lang.Integer">-->
+<!--        delete from tbl_role_menu where ROLE_ID = #{roleId}-->
+<!--    </delete>-->
+
     <update id="updateMenuId" parameterType="java.lang.Integer">
-        update tbl_role_menu set DEL_ID = 1 where ROLE_ID = #{roleId}
+        update tbl_role_menu
+        set
+        DEL_ID = 1 ,MOD_TM = now(),
+        MOD_PSN_ID = #{roleId}
+        where ROLE_ID = #{roleId}
     </update>
 
-<!--    <insert id="updateMenu" parameterType="java.util.List">-->
-<!--        insert into rolemenutable(rid, mid) values-->
-<!--        <foreach item="i" index="index" collection="list" separator=",">-->
-<!--            (#{i.rid},#{i.mid})-->
-<!--        </foreach>-->
-<!--    </insert>-->
+    <insert id="updateMenuPwr" parameterType="java.util.List">
+        insert into tbl_role_menu(ROLE_ID, MENU_ID,CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID) values
+        <foreach item="i" index="index" collection="list" separator=",">
+            (#{i.roleId},#{i.menuId},#{i.crtPsnId},now(),#{i.modPsnId},now(),'0')
+        </foreach>
+    </insert>
 
 
 

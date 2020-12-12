@@ -61,4 +61,8 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
 
     public List<MenuTreeInfo> findTreeMenuByRoleID(TblAdmin tblAdmin);
 
+    public Boolean updateMenuId(Integer adminRole);//根据角色ID逻辑删除其拥有的菜单ID
+
+    public Boolean updateMenuPwr(List list);//根据前台用户所分配的菜单ID 进行重新插入
+
 }
