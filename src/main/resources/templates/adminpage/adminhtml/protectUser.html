@@ -18,6 +18,70 @@
     <link rel="stylesheet" th:href="@{/css/admincss/protectUser.css}" media="all">
 </head>
 <body>
+<form class="layui-form" style="width:80%;margin-top: 2%">
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="method" name="method" value="">
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户账号:</label>
+        <div class="layui-input-block">
+            <input type="text" id="userAccount" name="userAccount" class="layui-input" autocomplete="off" placeholder="请输入用户账号">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名称:</label>
+        <div class="layui-input-block">
+            <input type="text" id="userName" name="userName" class="layui-input" autocomplete="off" placeholder="请输入用户名称">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别:</label>
+        <div class="layui-input-block">
+            <input type="radio" name="userSex" lay-filter= "userSex" value="0" title="男">
+            <input type="radio" name="userSex" lay-filter= "userSex" value="1" title="女">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机:</label>
+        <div class="layui-input-block">
+            <input type="text" id="userPhone" name="userPhone" class="layui-input" autocomplete="off" placeholder="请输入用户手机">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">QQ号码:</label>
+        <div class="layui-input-block">
+            <input type="text" id="userQq" name="userQq" class="layui-input" autocomplete="off" placeholder="请输入QQ号码">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">微信号码:</label>
+        <div class="layui-input-block">
+            <input type="text" id="userWechat" name="userWechat" class="layui-input" autocomplete="off" placeholder="请输入微信号码">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户状态:</label>
+        <div class="layui-input-block">
+            <input type="radio" name="userStatus" lay-filter= "userStatus" value="0" title="启用">
+            <input type="radio" name="userStatus" lay-filter= "userStatus" value="1" title="禁用">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户角色:</label>
+        <div class="layui-input-block">
+            <input type="text" id="userRoleName" name="userRoleName" class="layui-input" autocomplete="off" placeholder="请输入用户角色">
+        </div>
+    </div>
+
+</form>
 
 </body>
 </html>

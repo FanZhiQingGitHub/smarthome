@@ -33,7 +33,13 @@
             <input type="text" class="layui-input search_input" name="userPhone" id="userPhone" placeholder="请输入用户手机">
         </div>
         <div class="layui-inline">
-            <input type="text" class="layui-input search_input" name="crtTm" id="crtTm"  placeholder="请选择日期">
+            <input type="text" class="layui-input search_input" name="startTime" id="startTime"  placeholder="请选择起始日期">
+        </div>
+        <div class="layui-inline">
+            至
+        </div>
+        <div class="layui-inline">
+            <input type="text" class="layui-input search_input" name="endTime" id="endTime"  placeholder="请选择结束日期">
         </div>
         <div class="layui-inline">
             用户状态:
@@ -60,7 +66,12 @@
     </script>
 
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-sm" lay-event="dbl">禁用</a>
+        {{#  if(d.userStatus == '0'){ }}
+            <a class="layui-btn layui-btn-sm" lay-event="disDbl" >禁用</a>
+        {{#  } }}
+        {{#  if(d.userStatus == '1'){ }}
+            <a class="layui-btn layui-btn-sm" lay-event="openDbl" >启用</a>
+        {{#  } }}
         <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
     </script>
 

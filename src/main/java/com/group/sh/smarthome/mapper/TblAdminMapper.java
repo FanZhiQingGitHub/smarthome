@@ -22,14 +22,6 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
 
     public TblAdmin adminLogin(TblAdmin tblAdmin);
 
-    public List<TblAdmin> getAdminInfoList(TblAdmin tblAdmin);
-
-    public Integer addAdminInfo(TblAdmin tblAdmin);
-
-    public Boolean updateAdminInfo(TblAdmin tblAdmin);
-
-    public Boolean deleteAdminInfo(TblAdmin tblAdmin);
-
     public List<MenuTreeInfo> findMenuIDByRoleId(Integer roleId);
 
     public List<TblMenu> findALLMenuList(PageListEntity pageListEntity);
@@ -69,6 +61,16 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
     public Boolean updateUserInfo(TblUser tblUser);
 
     public Boolean deleteUserInfo(TblUser tblUser);
+
+    public List<TblAdmin> findALLAdminList(PageListEntity pageListEntity);
+
+    public Long findALLAdminListCount(PageListEntity pageListEntity);
+
+    public Integer addAdminInfo(TblAdmin tblAdmin);
+
+    public Boolean updateAdminInfo(TblAdmin tblAdmin);
+
+    public Boolean deleteAdminInfo(TblAdmin tblAdmin);
 
 
 }

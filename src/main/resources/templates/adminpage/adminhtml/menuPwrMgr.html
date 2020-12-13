@@ -18,14 +18,18 @@
     <link rel="stylesheet" th:href="@{/css/admincss/menuPwrMgr.css}" media="all">
 </head>
 <body>
-    <blockquote class="layui-elem-quote news_search" id="searchTable">
-        <div class="layui-inline">
-            <div class="layui-input-inline">
+    <form class="layui-form" id="menuPwrForm">
+        <blockquote class="layui-elem-quote news_search" id="searchTable">
+            <div class="layui-inline">
+                查询条件:
+            </div>
+            <div class="layui-inline">
                 <input type="text" value="" id="roleName" placeholder="请输入角色名称" class="layui-input search_input">
             </div>
             <button type="button" class="layui-btn layui-btn-primary" data-type="reload"><i class="layui-icon">&#xe615;</i>查询</button>
-        </div>
-    </blockquote>
+            <button type="button" class="layui-btn layui-btn-normal" id="resetTable"><i class="layui-icon">&#xe669;</i>重置</button>
+        </blockquote>
+    </form>
 
     <table class="layui-hide" id="menuPwrMgrTable" lay-filter="menuPwrMgrTable"></table>
 

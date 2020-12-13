@@ -132,6 +132,7 @@ public class TblAdmin implements Serializable {
      */
     @TableField("ADMIN_ROLE")
     private Integer adminRole;
+    private String adminRoleName;
 
     /**
      * 管理员登录验证码

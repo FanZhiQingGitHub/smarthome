@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>维护管理员列表信息</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script th:src="@{/js/adminjs/protectAdmin.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/admincss/protectAdmin.css}" media="all">
+</head>
+<body>
+<form class="layui-form" style="width:80%;margin-top: 2%">
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="method" name="method" value="">
+    </div>
+
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="adminId" name="adminId" value="">
+    </div>
+
+    <div class="layui-form-item" id="adminAccountDiv">
+        <label class="layui-form-label">管理员账号:</label>
+        <div class="layui-input-block">
+            <input type="text" id="adminAccount" name="adminAccount" class="layui-input" autocomplete="off" placeholder="请输入管理员账号">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="adminNameDiv">
+        <label class="layui-form-label">管理员名称:</label>
+        <div class="layui-input-block">
+            <input type="text" id="adminName" name="adminName" lay-verify="adminName" class="layui-input" autocomplete="off" placeholder="请输入管理员名称">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="adminSexDiv">
+        <label class="layui-form-label">性别:</label>
+        <div class="layui-input-block">
+            <input type="radio" name="adminSex" lay-filter="adminSex" value="0" title="男">
+            <input type="radio" name="adminSex" lay-filter="adminSex" value="1" title="女">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="adminPhoneDiv">
+        <label class="layui-form-label">手机:</label>
+        <div class="layui-input-block">
+            <input type="text" id="adminPhone" name="adminPhone" class="layui-input" autocomplete="off" placeholder="请输入管理员手机">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item" id="adminStatusDiv">
+        <label class="layui-form-label">管理员状态:</label>
+        <div class="layui-input-block">
+            <input type="radio" name="adminStatus" lay-filter= "adminStatus" value="0" title="启用">
+            <input type="radio" name="adminStatus" lay-filter= "adminStatus" value="1" title="禁用">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="adminRoleNameDiv">
+        <label class="layui-form-label">管理员角色:</label>
+        <div class="layui-input-block">
+            <input type="text" id="adminRoleName" name="adminRoleName" class="layui-input" autocomplete="off" placeholder="请输入管理员角色">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="adminPwdDiv">
+        <label class="layui-form-label">管理员密码:</label>
+        <div class="layui-input-block">
+            <input type="password" id="adminPwd" name="adminPwd" lay-verify="pass" class="layui-input" autocomplete="off" placeholder="请输入管理员密码">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="adminRoleDiv">
+        <label class="layui-form-label">角色类型:</label>
+        <div class="layui-input-block">
+            <select name="adminRole" id="adminRole" lay-verify="required">
+                <option value=""></option>
+                <option value="1">超级管理员</option>
+                <option value="2">普通管理员</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit lay-filter="adminSubmit" id="adminSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary" id="adminReset">重置</button>
+        </div>
+    </div>
+
+
+</form>
+</body>
+</html>

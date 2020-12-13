@@ -224,5 +224,18 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         }
     });
 
+    $(function () {
+        $("#resetTable").click(function () {
+            document.getElementById("menuPwrForm").reset();
+            table.reload('searchTable', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }, where: {
+                    roleName: $("#roleName").val(),
+                }
+            });
+        });
+    })
+
 });
 

@@ -14,10 +14,68 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/admincss/adminManager.css}" media="all">
     <script type="text/javascript" th:src="@{/js/adminjs/adminManager.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/admincss/adminManager.css}" media="all">
 </head>
 <body>
-管理员管理
+    <form class="layui-form" id="adminForm">
+        <blockquote class="layui-elem-quote news_search" id="searchTable" >
+            <div class="layui-inline">
+                查询条件:
+            </div>
+            <div class="layui-inline">
+                <input type="text" class="layui-input search_input" name="adminAccount" id="adminAccount" placeholder="请输入管理员账号">
+            </div>
+            <div class="layui-inline">
+                <input type="text" class="layui-input search_input" name="adminName" id="adminName" placeholder="请输入管理员名称">
+            </div>
+            <div class="layui-inline">
+                <input type="text" class="layui-input search_input" name="adminPhone" id="adminPhone" placeholder="请输入管理员手机">
+            </div>
+            <div class="layui-inline">
+                <input type="text" class="layui-input search_input" name="startTime" id="startTime"  placeholder="请选择起始日期">
+            </div>
+            <div class="layui-inline">
+                至
+            </div>
+            <div class="layui-inline">
+                <input type="text" class="layui-input search_input" name="endTime" id="endTime"  placeholder="请选择结束日期">
+            </div>
+            <div class="layui-inline">
+                管理员状态:
+            </div>
+            <div class="layui-inline">
+                <select name="adminStatus" id="adminStatus">
+                    <option value="">请选择</option>
+                    <option value="0">启用</option>
+                    <option value="1">禁用</option>
+                </select>
+            </div>
+            <button type="button" class="layui-btn layui-btn-primary" data-type="reload"><i class="layui-icon">&#xe615;</i>查询</button>
+            <button type="button" class="layui-btn layui-btn-normal" id="resetTable"><i class="layui-icon">&#xe669;</i>重置</button>
+        </blockquote>
+    </form>
+
+
+    <table class="layui-hide" id="adminTable" lay-filter="adminTable"></table>
+
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addAdminInfo"><i class="layui-icon">&#xe624;</i>新增管理员</button>
+            <button class="layui-btn layui-btn-sm layui-btn-warm" id="findAdminDetailInfo" lay-event="findAdminDetailInfo"><i class="layui-icon">&#xe63c;</i>查看详情</button>
+        </div>
+    </script>
+
+    <script type="text/html" id="barDemo">
+        {{#  if(d.adminStatus == '0'){ }}
+        <a class="layui-btn layui-btn-sm" lay-event="disDbl" >禁用</a>
+        {{#  } }}
+        {{#  if(d.adminStatus == '1'){ }}
+        <a class="layui-btn layui-btn-sm" lay-event="openDbl" >启用</a>
+        {{#  } }}
+        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+    </script>
+
+</body>
 </body>
 </html>
