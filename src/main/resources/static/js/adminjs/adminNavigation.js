@@ -153,14 +153,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
                 sessionStorage.clear();//清除session信息
                 location.href = "/smarthome/admin/path/adminLogin";
             });
-        }),$("#personalDataMobile").click(function () {
-            layer.msg("暂未开放！", {icon: 2});
-        }),$("#personalDataPc").click(function () {
-            layer.msg("暂未开放！", {icon: 2});
-        }),$("#updateAdminPwdMobile").click(function () {
-            layer.msg("暂未开放！", {icon: 2});
-        }),$("#updateAdminPwdPc").click(function () {
-            layer.msg("暂未开放！", {icon: 2});
         }),$("#systemInfo").click(function () {
             showSystemInfo();
         });

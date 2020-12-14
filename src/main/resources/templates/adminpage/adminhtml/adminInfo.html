@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>用户基本信息页面</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+    <script th:src="@{/js/adminjs/adminInfo.js}"></script>
+    <script th:src="@{/publicjs/address/distpicker.data.js}"></script>
+    <script th:src="@{/publicjs/address/distpicker.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/admincss/adminInfo.css}" media="all">
+
+</head>
+<body class="childrenBody">
+<form class="layui-form">
+    <div class="user_left">
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理员账号:</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="adminAccount" id="adminAccount" autocomplete="off" placeholder="请输入管理员账号" disabled>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理员名称:</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="adminName" id="adminName" autocomplete="off" placeholder="请输入管理员名称">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理员真实姓名:</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="adminRealName" id="adminRealName" autocomplete="off" placeholder="请输入管理员真实姓名" lay-verify="adminRealName">
+            </div>
+        </div>
+        <div class="layui-form-item" pane="">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="adminSex" value="0" title="男" >
+                <input type="radio" name="adminSex" value="1" title="女">
+                <input type="radio" name="adminSex" value="2" title="保密" checked="">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号码:</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="adminPhone" id="adminPhone" autocomplete="off" placeholder="请输入管理员手机号码" lay-verify="required|phone">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">工作手机:</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="adminWorkphone" id="adminWorkphone" autocomplete="off" placeholder="请输入管理员工作手机" lay-verify="required|phone">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理员邮箱:</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="adminMail" id="adminMail" autocomplete="off" placeholder="请输入管理员邮箱" lay-verify="required|email">
+            </div>
+        </div>
+
+<!--        <div data-toggle="distpicker" id="target">-->
+<!--            <select id="province"></select>-->
+<!--            <select id="city"></select>-->
+<!--            <select id="district"></select>-->
+<!--        </div>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理员地址:</label>
+            <div class="layui-input-inline" id="target" data-toggle="distpicker">
+                <select name="province" id="province" lay-filter="province" data-province="---- 选择省 ----">
+                </select>
+                <select name="city" id="city" lay-filter="city" data-city="---- 选择市 ----">
+                </select>
+                <select name="district" id="district" lay-filter="district" data-district="---- 选择区 ----">
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item" id="adminStatusDiv">
+            <label class="layui-form-label">管理员状态:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="adminStatus" lay-filter= "adminStatus" value="0" title="启用" checked="">
+                <input type="radio" name="adminStatus" lay-filter= "adminStatus" value="1" title="禁用">
+            </div>
+        </div>
+
+        <div class="layui-form-item" id="adminRoleDiv">
+            <label class="layui-form-label">角色类型:</label>
+            <div class="layui-input-block">
+                <select name="adminRole" id="adminRole" lay-verify="required">
+                    <option value=""></option>
+                    <option value="1">超级管理员</option>
+                    <option value="2">普通管理员</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+    <div class="user_right">
+        <img src="" class="layui-circle" id="adminFace">
+        <button type="button" class="layui-btn layui-btn-normal" id="fileImport"><i class="layui-icon"></i>更换头像(只允许图片文件)</button>
+    </div>
+    <div class="layui-form-item" style="margin-left: 5%;">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit lay-filter="changeAdmin" id="changeAdmin">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -23,20 +23,20 @@
 
     </select>
 
-    <select id="getAdminInfoList" resultType="com.group.sh.smarthome.entity.TblAdmin" parameterType="com.group.sh.smarthome.entity.TblAdmin">
-        select
-            ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
-            ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,
-            CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE
-        from tbl_admin
-        <where>
-            and DEL_ID = '0'
-            <if test="adminAccount != '' and adminAccount != null ">
-                and ADMIN_ACCOUNT = #{adminAccount}
-            </if>
-        </where>
-        order by CRT_TM desc ,MOD_TM desc
-    </select>
+<!--    <select id="getAdminInfoList" resultType="com.group.sh.smarthome.entity.TblAdmin" parameterType="com.group.sh.smarthome.entity.TblAdmin">-->
+<!--        select-->
+<!--            ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,-->
+<!--            ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,-->
+<!--            CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE-->
+<!--        from tbl_admin-->
+<!--        <where>-->
+<!--            and DEL_ID = '0'-->
+<!--            <if test="adminAccount != '' and adminAccount != null ">-->
+<!--                and ADMIN_ACCOUNT = #{adminAccount}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        order by CRT_TM desc ,MOD_TM desc-->
+<!--    </select>-->
 
 
 <!--    <update id="updateAdminInfo" parameterType="com.group.sh.smarthome.entity.TblAdmin">-->
@@ -462,7 +462,7 @@
                 <![CDATA[   and DATE_FORMAT(user.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
             </if>
         </where>
-        order by user.MOD_TM desc limit #{page},#{limit}
+        order by user.CRT_TM desc limit #{page},#{limit}
     </select>
 
     <!--    查找用户信息列表记录条数-->
@@ -580,7 +580,7 @@
                 <![CDATA[   and DATE_FORMAT(admin.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
             </if>
         </where>
-        order by admin.MOD_TM desc limit #{page},#{limit}
+        order by admin.CRT_TM desc limit #{page},#{limit}
     </select>
 
     <!--    查找管理员信息列表记录条数-->

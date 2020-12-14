@@ -26,12 +26,15 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , limits: [5,10, 15, 20]
         , cols: [[
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
-            ,{field:'adminId', title:'管理员编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
+            // ,{field:'adminId', title:'管理员编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
             ,{field:'adminAccount', title:'管理员账号', align: 'center'}
             ,{field:'adminName', title:'管理员名称', width:150,align: 'center',}
             ,{field:'adminSex', title:'性别', width:150,align: 'center',
                 templet:function(d){
                     if(d.adminSex != null && d.adminSex !='' && d.adminSex !=undefined){
+                        if(d.adminSex == '2'){
+                            return '保密';
+                        }
                         return d.adminSex == '0' ? '男':'女';
                     }else{
                         return '无';

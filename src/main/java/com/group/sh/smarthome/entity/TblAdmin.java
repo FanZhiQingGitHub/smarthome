@@ -52,6 +52,12 @@ public class TblAdmin implements Serializable {
     private String adminName;
 
     /**
+     * 管理员真实名称
+     */
+    @TableField("ADMIN_REALNAME")
+    private String adminRealName;
+
+    /**
      * 管理员性别
      */
     @TableField("ADMIN_SEX")
