@@ -8,8 +8,8 @@
 
     <select id="adminLogin" resultType="com.group.sh.smarthome.entity.TblAdmin" parameterType="com.group.sh.smarthome.entity.TblAdmin">
         select
-        ADMIN_ID,ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
-        ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,
+        ADMIN_ID,ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_REAL_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
+        ADMIN_MAIL,ADMIN_ADDRESS_PROVINCE,ADMIN_ADDRESS_CITY,ADMIN_ADDRESS_AREA,ADMIN_HEAD,ADMIN_STATUS,
         CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE
         from tbl_admin
         <where>
@@ -524,16 +524,22 @@
 
     <!--    查找管理员信息列表-->
     <resultMap type="com.group.sh.smarthome.entity.TblAdmin" id="adminListMap">
-        <result column="userId" property="userId"></result>
-        <result column="userAccount" property="userAccount"></result>
-        <result column="userName" property="userName"></result>
-        <result column="userSex" property="userSex"></result>
-        <result column="userPhone" property="userPhone"></result>
-        <result column="userQq" property="userQq"></result>
-        <result column="userWechat" property="userWechat"></result>
-        <result column="userStatus" property="userStatus"></result>
-        <result column="userRole" property="userRole"></result>
-        <result column="userRoleName" property="userRoleName"></result>
+        <result column="adminId" property="adminId"></result>
+        <result column="adminAccount" property="adminAccount"></result>
+        <result column="adminPwd" property="adminPwd"></result>
+        <result column="adminName" property="adminName"></result>
+        <result column="adminRealName" property="adminRealName"></result>
+        <result column="adminSex" property="adminSex"></result>
+        <result column="adminPhone" property="adminPhone"></result>
+        <result column="adminWorkphone" property="adminWorkphone"></result>
+        <result column="adminMail" property="adminMail"></result>
+        <result column="adminAddressProvince" property="adminAddressProvince"></result>
+        <result column="adminAddressCity" property="adminAddressCity"></result>
+        <result column="adminAddressArea" property="adminAddressArea"></result>
+        <result column="adminHead" property="adminHead"></result>
+        <result column="adminStatus" property="adminStatus"></result>
+        <result column="adminRole" property="adminRole"></result>
+        <result column="adminRoleName" property="adminRoleName"></result>
         <result column="crtTm" property="crtTm"></result>
         <result column="modPsnId" property="modPsnId"></result>
         <result column="modTm" property="modTm"></result>
@@ -544,11 +550,14 @@
         admin.ADMIN_ACCOUNT as adminAccount,
         admin.ADMIN_PWD as adminPwd,
         admin.ADMIN_NAME as adminName,
+        admin.ADMIN_REAL_NAME as adminRealName,
         admin.ADMIN_SEX as adminSex,
         admin.ADMIN_PHONE as adminPhone,
         admin.ADMIN_WORKPHONE as adminWorkphone,
         admin.ADMIN_MAIL as adminMail,
-        admin.ADMIN_ADDRESS as adminAddress,
+        admin.ADMIN_ADDRESS_PROVINCE as adminAddressProvince,
+        admin.ADMIN_ADDRESS_CITY as adminAddressCity,
+        admin.ADMIN_ADDRESS_AREA as adminAddressArea,
         admin.ADMIN_HEAD as adminHead,
         admin.ADMIN_STATUS as adminStatus,
         admin.ADMIN_ROLE as adminRole,
@@ -613,12 +622,12 @@
 
         <insert id="addAdminInfo" parameterType="com.group.sh.smarthome.entity.TblAdmin" useGeneratedKeys="true" keyProperty="adminId">
             insert into
-            tbl_admin(ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
-                          ADMIN_MAIL,ADMIN_ADDRESS,ADMIN_HEAD,ADMIN_STATUS,
+            tbl_admin(ADMIN_ACCOUNT,ADMIN_PWD,ADMIN_NAME,ADMIN_REAL_NAME,ADMIN_SEX,ADMIN_PHONE,ADMIN_WORKPHONE,
+                          ADMIN_MAIL,ADMIN_ADDRESS_PROVINCE,ADMIN_ADDRESS_CITY,ADMIN_ADDRESS_AREA,ADMIN_HEAD,ADMIN_STATUS,
                           CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,ADMIN_ROLE)
             values
-            (#{adminAccount},#{adminPwd},#{adminName},#{adminSex},#{adminPhone},#{adminWorkphone},
-             #{adminMail},#{adminAddress},#{adminHead},#{adminStatus},
+            (#{adminAccount},#{adminPwd},#{adminName},#{adminRealName},#{adminSex},#{adminPhone},#{adminWorkphone},
+             #{adminMail},#{adminAddressProvince},#{adminAddressCity},#{adminAddressArea},#{adminHead},#{adminStatus},
              #{crtPsnId},now(),#{modPsnId},#{modTm},'0',#{adminRole})
         </insert>
 

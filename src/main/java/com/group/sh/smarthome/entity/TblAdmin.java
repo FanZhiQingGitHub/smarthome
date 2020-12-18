@@ -82,10 +82,22 @@ public class TblAdmin implements Serializable {
     private String adminMail;
 
     /**
-     * 管理员地址
+     * 管理员地址(省)
      */
-    @TableField("ADMIN_ADDRESS")
-    private String adminAddress;
+    @TableField("ADMIN_ADDRESS_PROVINCE")
+    private String adminAddressProvince;
+
+    /**
+     * 管理员地址(市)
+     */
+    @TableField("ADMIN_ADDRESS_CITY")
+    private String adminAddressCity;
+
+    /**
+     * 管理员地址(区)
+     */
+    @TableField("ADMIN_ADDRESS_AREA")
+    private String adminAddressArea;
 
     /**
      * 管理员头像

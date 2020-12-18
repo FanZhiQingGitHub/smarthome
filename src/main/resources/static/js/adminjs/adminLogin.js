@@ -125,6 +125,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     if (msg.code == "200") {
                         layer.close(loadingIndex);
                         layer.msg(msg.message, {icon: 6});
+                        window.sessionStorage.setItem("adminAccount",msg.entityData.adminAccount);
                         window.sessionStorage.setItem("adminName",msg.entityData.adminName);
                         window.sessionStorage.setItem("adminRole",msg.entityData.adminRole);
                         var timer = setInterval(function () {

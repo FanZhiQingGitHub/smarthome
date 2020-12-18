@@ -48,7 +48,9 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin) {
             return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblAdmin, null,null);
         }
-        tblAdmin.setAdminPwd(EntryrionUtil.getHash3(tblAdmin.getAdminPwd(),"SHA"));
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAdmin.getAdminPwd()) {
+            tblAdmin.setAdminPwd(EntryrionUtil.getHash3(tblAdmin.getAdminPwd(),"SHA"));
+        }
         TblAdmin Admin = tblAdminMapper.adminLogin(tblAdmin);
         log.info("******查询的结果是: " + Admin);
         if(ConstantEnum.ConstantEnumType.getENTITY() == Admin) {

@@ -35,21 +35,21 @@ public class PublicService {
         if(ConstantEnum.ConstantEnumType.PROVINCE.getValue().equals(tblArea.getMethod())){
             List<TblArea> tblAreaList = publicMapper.findAreaList(tblArea);
             if(Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAreaList.size()){
-                return new CommonResult(503, "查询结果为空", null,tblArea, tblAreaList,null);
+                return new CommonResult(503, "未查到该省级行政区划", null,tblArea, tblAreaList,null);
             }
             return new CommonResult(200, null, null,tblArea, tblAreaList,null);
         }
         if(ConstantEnum.ConstantEnumType.CITY.getValue().equals(tblArea.getMethod())){
             List<TblArea> tblAreaList = publicMapper.findAreaList(tblArea);
             if(Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAreaList.size()){
-                return new CommonResult(503, "查询结果为空", null,tblArea, tblAreaList,null);
+                return new CommonResult(503, "未查到该市级行政区划", null,tblArea, tblAreaList,null);
             }
             return new CommonResult(200, null, null,tblArea, tblAreaList,null);
         }
         if(ConstantEnum.ConstantEnumType.AREA.getValue().equals(tblArea.getMethod())){
             List<TblArea> tblAreaList = publicMapper.findAreaList(tblArea);
             if(Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAreaList.size()){
-                return new CommonResult(503, "查询结果为空", null,tblArea, tblAreaList,null);
+                return new CommonResult(503, "未查到该县/区级行政区划", null,tblArea, tblAreaList,null);
             }
             return new CommonResult(200, null, null,tblArea, tblAreaList,null);
         }

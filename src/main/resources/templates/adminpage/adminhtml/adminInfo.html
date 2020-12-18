@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <title>用户基本信息页面</title>
+    <title>管理员基本信息页面</title>
     <script th:src="@{/layui/layui.js}"></script>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -20,22 +20,22 @@
 
 </head>
 <body class="childrenBody">
-<form class="layui-form">
+<form class="layui-form" id="adminInfoFrom">
     <div class="user_left">
         <div class="layui-form-item">
             <label class="layui-form-label">管理员账号:</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="adminAccount" id="adminAccount" autocomplete="off" placeholder="请输入管理员账号" disabled>
+                <input type="text" class="layui-input" name="adminAccount" id="adminAccount" autocomplete="off" placeholder="请输入管理员账号">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">管理员名称:</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" name="adminName" id="adminName" autocomplete="off" placeholder="请输入管理员名称">
+                <input type="text" class="layui-input" name="adminName" id="adminName" autocomplete="off" placeholder="请输入管理员名称" lay-verify="adminName">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">管理员真实姓名:</label>
+            <label class="layui-form-label">真实姓名:</label>
             <div class="layui-input-block">
                 <input type="text" class="layui-input" name="adminRealName" id="adminRealName" autocomplete="off" placeholder="请输入管理员真实姓名" lay-verify="adminRealName">
             </div>
@@ -67,18 +67,25 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" id="adminAddressDiv">
+            <label class="layui-form-label">管理员地址:</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="adminAddress" id="adminAddress" autocomplete="off" placeholder="请输入管理员地址">
+            </div>
+        </div>
+
+        <div class="layui-form-item" id="adminAddressDivSelect">
             <label class="layui-form-label">管理员地址:</label>
             <div class="layui-input-inline">
-                <select name="province" id="province" lay-filter="province">
+                <select name="province" id="province" lay-filter="province" lay-verify="required">
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="city" id="city" lay-filter="city">
+                <select name="city" id="city" lay-filter="city" lay-verify="required">
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="area" id="area" lay-filter="area">
+                <select name="area" id="area" lay-filter="area" lay-verify="required">
                 </select>
             </div>
         </div>
@@ -104,13 +111,14 @@
 
     </div>
     <div class="user_right">
-        <img src="" class="layui-circle" id="adminFace">
+        <img th:src="@{/publicimage/face.jpg}" class="layui-circle" id="adminFace">
         <button type="button" class="layui-btn layui-btn-normal" id="fileImport"><i class="layui-icon"></i>更换头像(只允许图片文件)</button>
     </div>
     <div class="layui-form-item" style="margin-left: 5%;">
         <div class="layui-input-block">
+            <button type="button" class="layui-btn layui-btn-danger" id="changeAdminInfo">修改资料</button>
             <button type="button" class="layui-btn" lay-submit lay-filter="changeAdmin" id="changeAdmin">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button type="button" class="layui-btn layui-btn-primary" id="resetAdmin">重置</button>
         </div>
     </div>
 </form>
