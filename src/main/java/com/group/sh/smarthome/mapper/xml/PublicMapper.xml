@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.sh.smarthome.mapper.PublicMapper">
+
+    <!--    查找省市区信息-->
+    <resultMap type="com.group.sh.smarthome.entity.TblArea" id="areaListMap">
+        <result column="AREA_ID" property="areaId"></result>
+        <result column="AREA_CODE" property="areaCode"></result>
+        <result column="AREA_NAME" property="areaName"></result>
+        <result column="AREA_LVL" property="areaLvl"></result>
+        <result column="AREA_PARENT_CODE" property="areaParentCode"></result>
+    </resultMap>
+    <select id="findAreaList" resultMap="areaListMap" parameterType="com.group.sh.smarthome.entity.TblArea">
+        SELECT
+        AREA_ID,AREA_CODE,AREA_NAME,AREA_LVL,AREA_PARENT_CODE
+        FROM tbl_area
+        <where>
+            <if test="areaLvl != '' and areaLvl != null ">
+                and  AREA_LVL = #{areaLvl}
+            </if>
+            <if test="areaParentCode != '' and areaParentCode != null ">
+                and  AREA_PARENT_CODE = #{areaParentCode}
+            </if>
+        </where>
+    </select>
+
+</mapper>

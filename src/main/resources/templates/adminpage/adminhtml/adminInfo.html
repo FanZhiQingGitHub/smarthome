@@ -16,8 +16,6 @@
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
     <script th:src="@{/js/adminjs/adminInfo.js}"></script>
-    <script th:src="@{/publicjs/address/distpicker.data.js}"></script>
-    <script th:src="@{/publicjs/address/distpicker.js}"></script>
     <link rel="stylesheet" th:href="@{/css/admincss/adminInfo.css}" media="all">
 
 </head>
@@ -69,20 +67,18 @@
             </div>
         </div>
 
-<!--        <div data-toggle="distpicker" id="target">-->
-<!--            <select id="province"></select>-->
-<!--            <select id="city"></select>-->
-<!--            <select id="district"></select>-->
-<!--        </div>-->
-
         <div class="layui-form-item">
             <label class="layui-form-label">管理员地址:</label>
-            <div class="layui-input-inline" id="target" data-toggle="distpicker">
-                <select name="province" id="province" lay-filter="province" data-province="---- 选择省 ----">
+            <div class="layui-input-inline">
+                <select name="province" id="province" lay-filter="province">
                 </select>
-                <select name="city" id="city" lay-filter="city" data-city="---- 选择市 ----">
+            </div>
+            <div class="layui-input-inline">
+                <select name="city" id="city" lay-filter="city">
                 </select>
-                <select name="district" id="district" lay-filter="district" data-district="---- 选择区 ----">
+            </div>
+            <div class="layui-input-inline">
+                <select name="area" id="area" lay-filter="area">
                 </select>
             </div>
         </div>

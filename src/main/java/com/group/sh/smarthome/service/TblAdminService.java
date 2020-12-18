@@ -118,7 +118,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
     @Transactional
     public CommonResult protectMenuList(TblMenu tblMenu){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblMenu.getMethod()){
-            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
         }
         if(!"0".equals(tblMenu.getMenuLevel())){
             if(ConstantEnum.ConstantEnumType.getENTITY() != tblMenu.getMenuUrl()){
@@ -190,7 +190,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
     @Transactional
     public CommonResult protectRoleList(TblRole tblRole){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblRole.getMethod()){
-            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
         }
 
         if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblRole.getMethod())){
@@ -299,7 +299,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
     @Transactional
     public CommonResult protectUserList(TblUser tblUser){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser.getMethod()){
-            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
         }
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblUser.getMethod())){
             if("0".equals(tblUser.getUserStatus())){
@@ -361,7 +361,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
     @Transactional
     public CommonResult protectAdminList(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin.getMethod()){
-            new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblAdmin, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblAdmin, null,null);
         }
 
         if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblAdmin.getMethod())){
@@ -409,7 +409,5 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
 
         return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null);
     }
-
-
 
 }

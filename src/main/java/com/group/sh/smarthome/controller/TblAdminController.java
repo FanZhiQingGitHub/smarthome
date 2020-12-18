@@ -5,7 +5,6 @@ import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.TblAdminService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +21,6 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/smarthome/admin")
-@Slf4j
 public class TblAdminController {
 
     @Resource

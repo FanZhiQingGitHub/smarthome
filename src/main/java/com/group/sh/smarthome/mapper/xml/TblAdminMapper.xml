@@ -652,5 +652,4 @@
         where ADMIN_ID = #{adminId}
     </update>
 
-
 </mapper>

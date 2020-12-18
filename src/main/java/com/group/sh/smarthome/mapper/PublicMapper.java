@@ -1,8 +1,11 @@
 package com.group.sh.smarthome.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.group.sh.smarthome.entity.TblArea;
 import com.group.sh.smarthome.entity.TblSyslog;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -10,9 +13,11 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author fzq
- * @since 2020-11-26
+ * @since 2020-12-18
  */
 @Mapper
-public interface TblSyslogMapper extends BaseMapper<TblSyslog> {
+public interface PublicMapper extends BaseMapper<TblSyslog> {
+
+    public List<TblArea> findAreaList(TblArea tblArea);
 
 }

@@ -18,7 +18,10 @@ public class ConstantEnum {
         DATABASENUM("0"),//用于增删改时数据库返回值得判断
         INSERT("0"),//用于增删改方法值区分
         UPDATE("1"),//用于增删改方法值区分
-        DELETE("2");//用于增删改方法值区分
+        DELETE("2"),//用于增删改方法值区分
+        PROVINCE("0"),//省
+        CITY("1"),//市
+        AREA("2");//区
         private String value;
         private String desc;
         public static Integer roleId = null;
