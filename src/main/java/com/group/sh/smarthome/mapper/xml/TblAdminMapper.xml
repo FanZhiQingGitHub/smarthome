@@ -540,6 +540,7 @@
         <result column="adminStatus" property="adminStatus"></result>
         <result column="adminRole" property="adminRole"></result>
         <result column="adminRoleName" property="adminRoleName"></result>
+        <result column="crtPsnId" property="crtPsnId"></result>
         <result column="crtTm" property="crtTm"></result>
         <result column="modPsnId" property="modPsnId"></result>
         <result column="modTm" property="modTm"></result>
@@ -562,6 +563,7 @@
         admin.ADMIN_STATUS as adminStatus,
         admin.ADMIN_ROLE as adminRole,
         role.ROLE_NAME as adminRoleName,
+        admin1.ADMIN_NAME as crtPsnId,
         admin.CRT_TM as crtTm,
         admin1.ADMIN_NAME as modPsnId,
         admin.MOD_TM as modTm

@@ -26,7 +26,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , limits: [5,10, 15, 20]
         , cols: [[
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
-            // ,{field:'userId', title:'用户编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
+            ,{field:'userId', title:'用户编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
             ,{field:'userAccount', title:'用户账号', align: 'center'}
             ,{field:'userName', title:'用户名称', width:150,align: 'center',}
             ,{field:'userSex', title:'性别', width:150,align: 'center',
@@ -55,14 +55,14 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             //         return d.crtPsnId == "" || d.crtPsnId == null || d.crtPsnId == undefined ? '无':d.crtPsnId;
             //     }
             // }
-            ,{field:'crtTm', title:'创建时间',width:180,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
-            ,{field:'modPsnId', title:'修改人', align: 'center',
-                templet:function(d){
-                    return d.modPsnId == "" || d.modPsnId == null || d.modPsnId == undefined ? '无':d.modPsnId;
-                }
-            }
-            ,{field:'modTm', title:'修改时间',width:180,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
-            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:130,align: 'center'}
+            ,{field:'crtTm', title:'注册时间',width:180,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
+            // ,{field:'modPsnId', title:'修改人', align: 'center',
+            //     templet:function(d){
+            //         return d.modPsnId == "" || d.modPsnId == null || d.modPsnId == undefined ? '无':d.modPsnId;
+            //     }
+            // }
+            // ,{field:'modTm', title:'修改时间',width:180,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
+            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:200,align: 'center'}
         ]]
         ,page: true
     });
