@@ -70,6 +70,10 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
 
     public Boolean updateAdminInfo(TblAdmin tblAdmin);
 
+    public Boolean updateAdminProInfo(TblAdmin tblAdmin);
+
+    public Boolean uploadAdminHeadInfo(TblAdmin tblAdmin);
+
     public Boolean deleteAdminInfo(TblAdmin tblAdmin);
 
 

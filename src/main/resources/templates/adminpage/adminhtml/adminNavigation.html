@@ -40,8 +40,8 @@
                     <li class="layui-nav-item" mobile>
                         <a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:void(0);" id="personalDataMobile">个人资料</a></dd>
-                            <dd><a href="javascript:void(0);" id="updateAdminPwdMobile">修改密码</a></dd>
+                            <dd><a href="#" data-url="/smarthome/admin/path/adminInfo" data-title="个人资料" data-id="10001" class="site-admin-active" data-type="tabAdd">个人资料</a></dd>
+                            <dd><a href="#" data-url="/smarthome/admin/path/changeAdminPwd" data-title="修改密码" data-id="10002" class="site-admin-active" data-type="tabAdd">修改密码</a></dd>
                             <dd><a href="javascript:void(0);" id="exitPageMobile">退出</a></dd>
                         </dl>
                     </li>
@@ -50,11 +50,11 @@
                     </li>
                     <li class="layui-nav-item" pc>
                         <a href="javascript:;">
-                            <img th:src="@{/publicimage/face.jpg}" class="layui-circle" width="35" height="35">
+                            <img src="" class="layui-circle" width="35" height="35" id="adminFaceRight">
                         </a>
                         <dl class="layui-nav-child">
                             <dd><a href="#" data-url="/smarthome/admin/path/adminInfo" data-title="个人资料" data-id="10001" class="site-admin-active" data-type="tabAdd">个人资料</a></dd>
-                            <dd><a href="javascript:void(0);" id="updateAdminPwdPc">修改密码</a></dd>
+                            <dd><a href="#" data-url="/smarthome/admin/path/changeAdminPwd" data-title="修改密码" data-id="10002" class="site-admin-active" data-type="tabAdd">修改密码</a></dd>
                             <dd><a href="javascript:void(0);" id="exitPagePc">退出</a></dd>
                         </dl>
                     </li>
@@ -64,7 +64,7 @@
         <!-- 左侧导航 -->
         <div class="layui-side layui-bg-black">
             <div class="user-photo">
-                <a class="img" title="我的头像" ><img th:src="@{/publicimage/face.jpg}"></a>
+                <a class="img" title="我的头像" ><img src="" id="adminFaceLeft"></a>
                 <p>你好！<span id="adminName"></span>, 欢迎登录</p>
             </div>
             <div class="layui-side-scroll backMenu">

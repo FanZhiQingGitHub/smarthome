@@ -7,8 +7,10 @@ import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.TblAdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * <pre>
@@ -174,7 +176,7 @@ public class TblAdminController {
 
     /**
      *
-     * 方法描述 用户信息维护方法
+     * 方法描述 管理员信息维护方法
      * @date 2020-12-12
      * @param
      */
@@ -183,6 +185,31 @@ public class TblAdminController {
     public CommonResult protectAdminList(TblAdmin tblAdmin){
         return tblAdminService.protectAdminList(tblAdmin);
     }
+
+    /**
+     *
+     * 方法描述 管理员个人资料信息维护方法
+     * @date 2020-12-19
+     * @param
+     */
+    @PostMapping(value = "/protectAdminProInfo")
+    @ResponseBody
+    public CommonResult protectAdminProInfo(TblAdmin tblAdmin){
+        return tblAdminService.protectAdminProInfo(tblAdmin);
+    }
+
+    /**
+     *
+     * 方法描述 管理员个人资料信息维护头像上传
+     * @date 2020-12-19
+     * @param
+     */
+    @PostMapping(value = "/uploadAdminHeadInfo")
+    @ResponseBody
+    public CommonResult uploadAdminHeadInfo(TblAdmin tblAdmin,@RequestParam("file") MultipartFile file) throws IOException {
+        return tblAdminService.uploadAdminHeadInfo(tblAdmin,file);
+    }
+
 
 }
 

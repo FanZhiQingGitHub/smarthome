@@ -7,32 +7,39 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
         , upload = layui.upload
         , carousel = layui.carousel;
     var $ = layui.jquery;
-    var method = '';
-    var adminAccount = window.sessionStorage.getItem("adminAccount");
+    var adminAccount = window.sessionStorage.getItem("adminAccount");//获取session中当前登录的管理员用户
+    var adminAddressProvince = window.sessionStorage.getItem("adminAddressProvince");//获取session中当前登录的管理员用户
+    var adminAddressCity = window.sessionStorage.getItem("adminAddressCity");//获取session中当前登录的管理员用户
+
+    $(function () {
+        $(document).on('keydown', function (event) {
+            if (event.keyCode == 13) {
+                $("#changeAdmin").trigger("click");
+            }
+        });
+    });
 
     loadingProvince();//加载省市区下拉框
-    loadingAdminInfo();//加载个人信息
-    form.on('select(province)',function(data){
-        $('select[name=city]').attr("disabled",false);
+    form.on('select(adminAddressProvince)',function(data){
+        $('select[name=adminAddressCity]').attr("disabled",false);
         layui.form.render("select");
-        $('#city').empty();
-        $('#area').empty();
-        var info = data.value.split("&");
+        $('#adminAddressCity').empty();
+        $('#adminAddressArea').empty();
         $.ajax({
             url: "/smarthome/public/findAreaList",
             async: true,
             type: "get",
-            data: {"areaLvl":'2',"areaParentCode":info[0],"method":'0'},
+            data: {"areaLvl":'2',"areaParentCode":data.value,"method":'1'},
             datatype: "text",
             success: function (msg) {
                 if (msg.code == "200") {
-                    var html = '<option value="">---- 选择市 ----</option>';
+                    var html ;
                     for(var i = 0;i<msg.data.length;i++){
-                        html += '<option value="'+msg.data[i].areaCode+'&'+msg.data[i].areaLvl+'&'+msg.data[i].areaParentCode+'">'+msg.data[i].areaName+'</option>';
+                        html += '<option value="'+msg.data[i].areaCode+'">'+msg.data[i].areaName+'</option>';
                     }
-                    var htmlarea = '<option value="">---- 选择区/县 ----</option>';
-                    $("#city").append(html);
-                    $("#area").append(htmlarea);
+
+                    $("#adminAddressCity").append(html);
+
                     layui.form.render("select");
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
                     layer.msg(msg.message, {icon: 2});
@@ -44,24 +51,23 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
 
     });
 
-    form.on('select(city)',function(data){
-        $('select[name=area]').attr("disabled",false);
+    form.on('select(adminAddressCity)',function(data){
+        $('select[name=adminAddressArea]').attr("disabled",false);
         layui.form.render("select");
-        $('#area').empty();
-        var info = data.value.split("&");
+        $('#adminAddressArea').empty();
         $.ajax({
             url: "/smarthome/public/findAreaList",
             async: true,
             type: "get",
-            data: {"areaLvl":'3',"areaParentCode":info[0],"method":'0'},
+            data: {"areaLvl":'3',"areaParentCode":data.value,"method":'2'},
             datatype: "text",
             success: function (msg) {
                 if (msg.code == "200") {
                     var html;
                     for(var i = 0;i<msg.data.length;i++){
-                        html += '<option value="'+msg.data[i].areaCode+'&'+msg.data[i].areaLvl+'&'+msg.data[i].areaParentCode+'">'+msg.data[i].areaName+'</option>';
+                        html += '<option value="'+msg.data[i].areaCode+'">'+msg.data[i].areaName+'</option>';
                     }
-                    $("#area").append(html);
+                    $("#adminAddressArea").append(html);
                     layui.form.render("select");
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
                     layer.msg(msg.message, {icon: 2});
@@ -72,17 +78,32 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
         });
     });
 
-
-
-    upload.render({ //允许上传的文件后缀
-        elem: '#fileImport'
-        ,url: '' //改成您自己的上传接口
-        ,accept: 'file' //普通文件
-        ,exts: 'jpg|jpeg' //只允许上传压缩文件
+    var uploadInst = upload.render({
+        elem: '#fileImport' //绑定元素
+        ,url: '/smarthome/admin/uploadAdminHeadInfo' //上传接口
+        ,multiple: true
         ,size: 500 //限制文件大小，单位 KB
-        ,done: function(res){
-            layer.msg('上传成功');
-            console.log(res)
+        ,exts: 'jpg|jpeg' //只允许上传图片文件
+        ,accept: 'file'//设置成可以上传所有类型文件
+        ,progress:function(value){//上传进度回调 value进度值
+            $("#fileProgress").show();
+            element.progress('fileProcess', value+'%')//设置页面进度条
+        }
+        ,before: function () {
+
+        }
+        ,done: function (res) {
+            //上传完毕回调
+            if (res.code == "200") {
+                layer.alert(res.message, {icon: 6});
+                $("#fileProgress").hide();
+            } else if (res.code == '500' || res.code == '501') {
+                layer.msg(res.message, {icon: 2});
+            }
+        }
+        , error: function () {
+            //请求异常回调
+            layer.msg("系统错误！", {icon: 2});
         }
     });
 
@@ -103,11 +124,106 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
 
     });
 
-    //判断是否修改过头像，如果修改过则显示修改后的头像，否则显示默认头像
-    if(window.sessionStorage.getItem('userFace')){
-        $("#userFace").attr("src",window.sessionStorage.getItem('userFace'));
-    }else{
-        $("#userFace").attr("src","../../images/face.jpg");
+    form.on('submit(changeAdmin)', function (data) {
+        $.ajax({
+            url: "/smarthome/admin/protectAdminProInfo",
+            async: true,
+            type: "post",
+            data: data.field,
+            datatype: "text",
+            success: function (msg) {
+                if (msg.code == "200") {
+                    layer.msg(msg.message, {icon: 6});
+                    form.render();
+                }else if(msg.code == "500" || msg.code == "501"){
+                    layer.msg(msg.message, {icon: 2});
+                }
+            }, error: function (msg) {
+                layer.msg("网络繁忙！", {icon: 2});
+            }
+        });
+    });
+
+
+    function loadingProvince() {
+        $.ajax({
+            url: "/smarthome/public/findAreaList",
+            async: true,
+            type: "get",
+            data: {"areaLvl":'1',"method":'0'},
+            datatype: "text",
+            success: function (msg) {
+                if (msg.code == "200") {
+                    // var html = '<option value="">---- 选择省 ----</option>';
+                    var html ;
+                    for(var i = 0;i<msg.data.length;i++){
+                        html += '<option value="'+msg.data[i].areaCode+'">'+msg.data[i].areaName+'</option>';
+                    }
+                    $("#adminAddressProvince").append(html);
+                    $('select[name=adminAddressCity]').attr("disabled",false);
+                    loadingCity(adminAddressProvince);//加载城市
+                }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                    layer.msg(msg.message, {icon: 2});
+                }
+            }, error: function (msg) {
+                layer.msg("网络繁忙！", {icon: 2});
+            }
+        });
+    }
+
+    function loadingCity(areaCode) {
+        if(areaCode == null || areaCode == '' || areaCode == undefined){
+            areaCode = '110101';
+        }
+        $.ajax({
+            url: "/smarthome/public/findAreaList",
+            async: true,
+            type: "get",
+            data: {"areaLvl":'2',"areaParentCode":areaCode,"method":'1'},
+            datatype: "text",
+            success: function (msg) {
+                if (msg.code == "200") {
+                    var html ;
+                    for(var i = 0;i<msg.data.length;i++){
+                        html += '<option value="'+msg.data[i].areaCode+'">'+msg.data[i].areaName+'</option>';
+                    }
+                    $("#adminAddressCity").append(html);
+                    $('select[name=adminAddressArea]').attr("disabled",false);
+                    loadingArea(adminAddressCity);
+                }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                    layer.msg(msg.message, {icon: 2});
+                }
+            }, error: function (msg) {
+                layer.msg("网络繁忙！", {icon: 2});
+            }
+        });
+    }
+
+    function loadingArea(areaCode) {
+        if(areaCode == null || areaCode == '' || areaCode == undefined){
+            areaCode = '110101';
+        }
+        $.ajax({
+            url: "/smarthome/public/findAreaList",
+            async: true,
+            type: "get",
+            data: {"areaLvl":'3',"areaParentCode":areaCode,"method":'2'},
+            datatype: "text",
+            success: function (msg) {
+                if (msg.code == "200") {
+                    var html ;
+                    for(var i = 0;i<msg.data.length;i++){
+                        html += '<option value="'+msg.data[i].areaCode+'">'+msg.data[i].areaName+'</option>';
+                    }
+                    $("#adminAddressArea").append(html);
+                    loadingAdminInfo();//加载完省市区后加载个人信息
+                }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                    layer.msg(msg.message, {icon: 2});
+                }
+            }, error: function (msg) {
+                layer.msg("网络繁忙！", {icon: 2});
+            }
+        });
     }
 
     function loadingAdminInfo() {
@@ -126,9 +242,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $("#adminPhone").val(msg.entityData.adminPhone);
                     $("#adminWorkphone").val(msg.entityData.adminWorkphone);
                     $("#adminMail").val(msg.entityData.adminMail);
-                    $("#adminAddress").val(msg.entityData.adminAddressProvince+msg.entityData.adminAddressCity+msg.entityData.adminAddressArea);
-                    $("input[name=adminStatus][value='"+msg.entityData.adminStatus+"']").attr("checked", msg.entityData.adminStatus == msg.entityData.adminStatus ? true : false);
-                    $("#adminRole").val(msg.entityData.adminRole);
+                    $("#adminAddressProvince option[value='"+msg.entityData.adminAddressProvince+"']").attr("selected", true);
+                    $("#adminAddressCity option[value='"+msg.entityData.adminAddressCity+"']").attr("selected", true);
+                    $("#adminAddressArea option[value='"+msg.entityData.adminAddressArea+"']").attr("selected", true);
+                    // $("input[name=adminStatus][value='"+msg.entityData.adminStatus+"']").attr("checked", msg.entityData.adminStatus == msg.entityData.adminStatus ? true : false);
+                    // $("#adminRole").val(msg.entityData.adminRole);
 
                     $('#adminAccount').attr("readonly",true);
                     $('#adminName').attr("readonly",true);
@@ -137,40 +255,16 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $('#adminPhone').attr("readonly",true);
                     $('#adminWorkphone').attr("readonly",true);
                     $('#adminMail').attr("readonly",true);
-                    $('#adminAddress').attr("readonly",true);
-                    $("input[name='adminStatus']").attr("disabled",true);
-                    $("#adminRole").attr("disabled",true);
+                    // $("input[name='adminStatus']").attr("disabled",true);
+                    $("#adminAddressProvince").attr("disabled",true);
+                    $("#adminAddressCity").attr("disabled",true);
+                    $("#adminAddressArea").attr("disabled",true);
+                    // $("#adminRole").attr("disabled",true);
 
-                    $('#adminAddressDivSelect').css("display","none");
                     $('#changeAdmin').addClass("layui-btn-disabled").attr("disabled",true);
                     $('#resetAdmin').addClass("layui-btn-disabled").attr("disabled",true);
+                    $("#adminFace").attr("src",msg.entityData.adminHead);
                     form.render();
-                }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
-                    layer.msg(msg.message, {icon: 2});
-                }
-            }, error: function (msg) {
-                layer.msg("网络繁忙！", {icon: 2});
-            }
-        });
-    }
-
-    function loadingProvince() {
-        $.ajax({
-            url: "/smarthome/public/findAreaList",
-            async: true,
-            type: "get",
-            data: {"areaLvl":'1',"method":'0'},
-            datatype: "text",
-            success: function (msg) {
-                if (msg.code == "200") {
-                    var html = '<option value="">---- 选择省 ----</option>';
-                    for(var i = 0;i<msg.data.length;i++){
-                        html += '<option value="'+msg.data[i].areaCode+'&'+msg.data[i].areaLvl+'&'+msg.data[i].areaParentCode+'">'+msg.data[i].areaName+'</option>';
-                    }
-                    $("#province").append(html);
-                    $('select[name=city]').attr("disabled",true);
-                    $('select[name=area]').attr("disabled",true);
-                    layui.form.render("select");
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
                     layer.msg(msg.message, {icon: 2});
                 }
@@ -182,9 +276,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
 
     $(function () {
         $("#changeAdminInfo").click(function () {
-            layer.confirm('真的要修改个人资料吗？(注：需要重新选择地址)', function(index){
-                $('#adminAddressDivSelect').css("display","block");
-                $('#adminAddressDiv').css("display","none");
+            layer.confirm('真的要修改个人资料吗？', function(index){
                 $('#adminAccount').attr("readonly",true);
                 $('#adminName').attr("readonly",false);
                 $('#adminRealName').attr("readonly",false);
@@ -192,8 +284,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                 $('#adminPhone').attr("readonly",false);
                 $('#adminWorkphone').attr("readonly",false);
                 $('#adminMail').attr("readonly",false);
-                $("input[name='adminStatus']").removeAttr("disabled","disabled");
-                $("#adminRole").attr("disabled",false);
+                // $("input[name='adminStatus']").removeAttr("disabled","disabled");
+                $("#adminAddressProvince").attr("disabled",false);
+                $("#adminAddressCity").attr("disabled",false);
+                $("#adminAddressArea").attr("disabled",false);
+                // $("#adminRole").attr("disabled",false);
                 $('#changeAdminInfo').addClass("layui-btn-disabled").attr("disabled",true);
                 $('#changeAdmin').removeClass("layui-btn-disabled").attr("disabled",false);
                 $('#resetAdmin').removeClass("layui-btn-disabled").attr("disabled",false);
@@ -203,6 +298,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
         }),$("#resetAdmin").click(function () {
             $("#adminInfoFrom")[0].reset();
             $("#adminAccount").val(adminAccount);
+            $('#adminAddressProvince').val("110000");
+            $('#adminAddressCity').empty();
+            $('#adminAddressArea').empty();
+            $("#adminAddressCity").attr("disabled",true);
+            $("#adminAddressArea").attr("disabled",true);
             form.render();
         })
     });

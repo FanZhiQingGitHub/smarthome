@@ -18,6 +18,9 @@
             <if test="areaLvl != '' and areaLvl != null ">
                 and  AREA_LVL = #{areaLvl}
             </if>
+            <if test="areaCode != '' and areaCode != null ">
+                and  AREA_CODE = #{areaCode}
+            </if>
             <if test="areaParentCode != '' and areaParentCode != null ">
                 and  AREA_PARENT_CODE = #{areaParentCode}
             </if>

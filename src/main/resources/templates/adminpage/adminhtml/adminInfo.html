@@ -20,7 +20,7 @@
 
 </head>
 <body class="childrenBody">
-<form class="layui-form" id="adminInfoFrom">
+<form class="layui-form" id="adminInfoFrom" accept-charset="UTF-8" enctype="multipart/form-data" method="post">
     <div class="user_left">
         <div class="layui-form-item">
             <label class="layui-form-label">管理员账号:</label>
@@ -67,58 +67,54 @@
             </div>
         </div>
 
-        <div class="layui-form-item" id="adminAddressDiv">
-            <label class="layui-form-label">管理员地址:</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="adminAddress" id="adminAddress" autocomplete="off" placeholder="请输入管理员地址">
-            </div>
-        </div>
-
-        <div class="layui-form-item" id="adminAddressDivSelect">
+        <div class="layui-form-item">
             <label class="layui-form-label">管理员地址:</label>
             <div class="layui-input-inline">
-                <select name="province" id="province" lay-filter="province" lay-verify="required">
+                <select name="adminAddressProvince" id="adminAddressProvince" lay-filter="adminAddressProvince" lay-verify="required">
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="city" id="city" lay-filter="city" lay-verify="required">
+                <select name="adminAddressCity" id="adminAddressCity" lay-filter="adminAddressCity" lay-verify="required">
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="area" id="area" lay-filter="area" lay-verify="required">
+                <select name="adminAddressArea" id="adminAddressArea" lay-filter="adminAddressArea" lay-verify="required">
                 </select>
             </div>
         </div>
 
-        <div class="layui-form-item" id="adminStatusDiv">
-            <label class="layui-form-label">管理员状态:</label>
-            <div class="layui-input-block">
-                <input type="radio" name="adminStatus" lay-filter= "adminStatus" value="0" title="启用" checked="">
-                <input type="radio" name="adminStatus" lay-filter= "adminStatus" value="1" title="禁用">
-            </div>
-        </div>
+<!--        <div class="layui-form-item" id="adminStatusDiv">-->
+<!--            <label class="layui-form-label">管理员状态:</label>-->
+<!--            <div class="layui-input-block">-->
+<!--                <input type="radio" name="adminStatus" lay-filter= "adminStatus" value="0" title="启用" checked="">-->
+<!--                <input type="radio" name="adminStatus" lay-filter= "adminStatus" value="1" title="禁用">-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div class="layui-form-item" id="adminRoleDiv">
-            <label class="layui-form-label">角色类型:</label>
-            <div class="layui-input-block">
-                <select name="adminRole" id="adminRole" lay-verify="required">
-                    <option value=""></option>
-                    <option value="1">超级管理员</option>
-                    <option value="2">普通管理员</option>
-                </select>
-            </div>
-        </div>
+<!--        <div class="layui-form-item" id="adminRoleDiv">-->
+<!--            <label class="layui-form-label">角色类型:</label>-->
+<!--            <div class="layui-input-block">-->
+<!--                <select name="adminRole" id="adminRole" lay-verify="required">-->
+<!--                    <option value=""></option>-->
+<!--                    <option value="1">超级管理员</option>-->
+<!--                    <option value="2">普通管理员</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </div>-->
 
     </div>
     <div class="user_right">
-        <img th:src="@{/publicimage/face.jpg}" class="layui-circle" id="adminFace">
+        <img src="" class="layui-circle" id="adminFace">
         <button type="button" class="layui-btn layui-btn-normal" id="fileImport"><i class="layui-icon"></i>更换头像(只允许图片文件)</button>
+        <div class="layui-progress" id="fileProgress" lay-showpercent="true" lay-filter="fileProcess" style="margin-left: 28.5%;margin-top:5%;width:200px;display: none">
+            <div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
+        </div>
     </div>
     <div class="layui-form-item" style="margin-left: 5%;">
         <div class="layui-input-block">
-            <button type="button" class="layui-btn layui-btn-danger" id="changeAdminInfo">修改资料</button>
-            <button type="button" class="layui-btn" lay-submit lay-filter="changeAdmin" id="changeAdmin">立即提交</button>
-            <button type="button" class="layui-btn layui-btn-primary" id="resetAdmin">重置</button>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="changeAdminInfo">修改资料</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="changeAdmin" id="changeAdmin">立即提交</button>
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="resetAdmin">重置</button>
         </div>
     </div>
 </form>

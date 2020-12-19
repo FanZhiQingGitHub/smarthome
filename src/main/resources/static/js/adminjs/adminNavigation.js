@@ -8,6 +8,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
     $ = layui.jquery;
 
     $("#adminName").text(window.sessionStorage.getItem("adminName"));
+    $("#adminFaceRight").attr("src",window.sessionStorage.getItem("adminHead"));
+    $("#adminFaceLeft").attr("src",window.sessionStorage.getItem("adminHead"));
     //手机设备的简单适配
     var treeMobile = $('.site-tree-mobile'),
         shadeMobile = $('.site-mobile-shade')

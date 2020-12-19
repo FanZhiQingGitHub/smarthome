@@ -10,12 +10,16 @@ import com.group.sh.smarthome.util.EntryrionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -411,5 +415,44 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
 
         return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null);
     }
+
+    @Transactional
+    public CommonResult protectAdminProInfo(TblAdmin tblAdmin){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin.getAdminAccount()){
+            return new CommonResult(500, "更新条件不能为空，请联系开发商处理！", null,tblAdmin, null,null);
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAdmin.getAdminPwd()){
+            tblAdmin.setAdminPwd(EntryrionUtil.getHash3(tblAdmin.getAdminPwd(),"SHA"));//密码加密
+        }
+        tblAdmin.setModPsnId(getAdminAccount());
+        Boolean flag = tblAdminMapper.updateAdminProInfo(tblAdmin);
+        if (flag == true) {
+            return new CommonResult(200, "更新管理员信息成功", null,tblAdmin, null,null);
+        }
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null);
+    }
+
+    @Transactional
+    public CommonResult uploadAdminHeadInfo(TblAdmin tblAdmin,@RequestParam("file") MultipartFile file) throws IOException {
+
+        String filename = file.getOriginalFilename().toString();//得到上传时的文件名。
+        Long size = file.getSize();
+        Long maxsize = 512000L;
+        if(size > maxsize) {
+            return new CommonResult(500, "上传文件大小超过最大限制，请重新上传！", null,tblAdmin, null,null);
+        }
+        file.transferTo(new File("D:\\Java\\smarthome\\src\\main\\resources\\static\\userHeadImg\\" + filename));//文件存放位置
+        tblAdmin.setAdminHead("/userHeadImg/"+filename);
+        tblAdmin.setModPsnId(getAdminAccount());
+        tblAdmin.setAdminAccount(getAdminAccount());
+        Boolean flag = tblAdminMapper.uploadAdminHeadInfo(tblAdmin);
+        if(flag == true){
+            return new CommonResult(200, "上传成功,重新登录后生效！", null,tblAdmin, null,null);
+        }
+
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null);
+    }
+
+
 
 }

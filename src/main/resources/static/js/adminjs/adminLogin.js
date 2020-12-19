@@ -127,7 +127,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                         layer.msg(msg.message, {icon: 6});
                         window.sessionStorage.setItem("adminAccount",msg.entityData.adminAccount);
                         window.sessionStorage.setItem("adminName",msg.entityData.adminName);
+                        window.sessionStorage.setItem("adminPwd",msg.entityData.adminPwd);
                         window.sessionStorage.setItem("adminRole",msg.entityData.adminRole);
+                        window.sessionStorage.setItem("adminHead",msg.entityData.adminHead);
+                        window.sessionStorage.setItem("adminAddressProvince",msg.entityData.adminAddressProvince);
+                        window.sessionStorage.setItem("adminAddressCity",msg.entityData.adminAddressCity);
                         var timer = setInterval(function () {
                             location.href = "/smarthome/admin/path/adminNavigation";
                             clearInterval(timer);
