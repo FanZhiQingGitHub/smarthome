@@ -18,6 +18,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
             if (event.keyCode == 13) {
                 $("#changePwd").trigger("click");
             }
+        }),$("#resetChangePwd").click(function () {
+            $("#changePwdForm")[0].reset();
+            $("#adminName").val(adminName);
         });
     });
 

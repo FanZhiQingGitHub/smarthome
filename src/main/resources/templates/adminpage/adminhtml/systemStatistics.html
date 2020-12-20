@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>用户注册统计</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/admincss/systemStatistics.css}" media="all">
+    <script type="text/javascript" th:src="@{/js/adminjs/systemStatistics.js}"></script>
+</head>
+<body class="childrenBody">
+    <div style="padding: 15px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+                <div class="grid-demo">
+                    <a href="javascript:;">
+                        <div class="panel_icon" style="background-color: #1e9fff;">
+                            <i class="layui-icon">&#xe770;</i>
+                        </div>
+                        <div class="panel_word" style="color: #1e9fff">
+                            <span>30</span>
+                            <cite>用户数量</cite>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+                <div class="grid-demo">
+                    <a href="javascript:;">
+                        <div class="panel_icon" style="background-color: #d23711;">
+                            <i class="layui-icon">&#xe770;</i>
+                        </div>
+                        <div class="panel_word" style="color: #d92e17;">
+                            <span>30</span>
+                            <cite>管理员数量</cite>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+                <div class="grid-demo">
+                    <a href="javascript:;">
+                        <div class="panel_icon" style="background-color: #009688;">
+                            <i class="layui-icon">&#xe63c;</i>
+                        </div>
+                        <div class="panel_word" style="color: #009688;">
+                            <span>30</span>
+                            <cite>菜单数量</cite>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+                <div class="grid-demo">
+                    <a href="javascript:;">
+                        <div class="panel_icon" style="background-color: #ee660d;">
+                            <i class="layui-icon">&#xe705;</i>
+                        </div>
+                        <div class="panel_word" style="color: #ee660d;">
+                            <span>30</span>
+                            <cite>资讯数量</cite>
+                        </div>
+                    </a>
+                </div>
+            </div>
+    <!--        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">-->
+    <!--            <div class="grid-demo">-->
+    <!--                <a href="javascript:;">-->
+    <!--                    <div class="panel_icon" style="background-color: #393D49;">-->
+    <!--                        <i class="layui-icon">&#xe609;</i>-->
+    <!--                    </div>-->
+    <!--                    <div class="panel_word" style="color: #393D49;">-->
+    <!--                        <span>50</span>-->
+    <!--                        <cite>视频课程</cite>-->
+    <!--                    </div>-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">-->
+    <!--            <div class="grid-demo">-->
+    <!--                <a href="javascript:;">-->
+    <!--                    <div class="panel_icon" style="background-color: #393D49;">-->
+    <!--                        <i class="layui-icon">&#xe615;</i>-->
+    <!--                    </div>-->
+    <!--                    <div class="panel_word" style="color: #393D49;">-->
+    <!--                        <span>20</span>-->
+    <!--                        <cite>视频课程订单</cite>-->
+    <!--                    </div>-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">-->
+    <!--            <div class="grid-demo">-->
+    <!--                <a href="javascript:;">-->
+    <!--                    <div class="panel_icon" style="background-color: #FF5722;">-->
+    <!--                        <i class="layui-icon">&#xe653;</i>-->
+    <!--                    </div>-->
+    <!--                    <div class="panel_word" style="color: #FF5722;">-->
+    <!--                        <span>20</span>-->
+    <!--                        <cite>商品</cite>-->
+    <!--                    </div>-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">-->
+    <!--            <div class="grid-demo">-->
+    <!--                <a href="javascript:;">-->
+    <!--                    <div class="panel_icon" style="background-color: #FF5722;">-->
+    <!--                        <i class="layui-icon">&#xe656;</i>-->
+    <!--                    </div>-->
+    <!--                    <div class="panel_word" style="color: #FF5722;">-->
+    <!--                        <span>20</span>-->
+    <!--                        <cite>商品订单</cite>-->
+    <!--                    </div>-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">商品订单</div>
+                    <div class="layui-card-body">
+                        <div style="width: 100%; height: 300px;" id="Shopping">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-header">视频课程订单</div>
+                    <div class="layui-card-body">
+                        <div  class="layui-carousel" id="Notice_carousel" lay-filter="Notice_carousel">
+                            <div carousel-item>
+                                <div  id="Notice"></div>
+                                <div id="NoticeAll"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">用户数量</div>
+                    <div class="layui-card-body">
+                        <div style="width: 100%; height: 300px;" id="UserSum">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,24 +1,107 @@
-/* 公共属性 */
-body{font-size: 13px; color: #666;}
-.center{text-align: center;}
+/*公共样式*/
+.main_body{ min-width:320px; }
+.layui-elem-quote.title{ padding:10px 15px; margin-bottom:0; }
+
+/*main.html*/
+.row,.col{ box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box;}
+.row{ margin-left:-10px; overflow:hidden;}
+.col{ padding-left:10px;}
+
+.sysNotice{ width:50%; float: left; }
+.sysNotice .layui-elem-quote{ line-height:26px; position: relative;}
+.sysNotice .layui-table{ margin-top:0; border-left:5px solid #e2e2e2; }
+.sysNotice .title .icon-new1{ position: absolute; top:8px; margin-left: 10px; color:#f00; font-size:25px; }
 
 
-/* 间距 */
-.pad_01{padding: 5px 20px 5px 20px;}
-.mar_01{margin-top: 20px;}
-.mar_02{margin-top: 30px;}
 
+.grid-demo {
+    text-align: center;
+}
 
+.panel_icon {
+    width: 40%;
+    display: inline-block;
+    padding: 22px 0;
+    float: left;
+}
 
-/* 粒子背景 */
-.login_cont{width: 100%; height: 100%; background-color: #009688;}
+.panel_icon i {
+    font-size: 3em;
+    color: #fff;
+    /*旋转时间设置*/
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+}
+
+.grid-demo a:hover .panel_icon i {
+    display: inline-block;
+    /*旋转度数*/
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+}
+
+.panel_word {
+    width: 60%;
+    display: inline-block;
+    float: right;
+    margin-top: 22px;
+}
+
+.panel_word span {
+    font-size: 25px;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+}
+
+.grid-demo a cite {
+    font-size: 16px;
+    display: block;
+    font-style: normal;
+}
+
+.grid-demo a {
+    display: block;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/*卡片画板配合轮播使用的样式start*/
+.layui-card-body .layui-carousel-ind {
+    position: absolute;
+    top: -41px !important;
+    text-align: right;
+}
+
+.layui-carousel-ind ul {
+    background: 0 0 !important;
+}
+
+.layui-carousel-ind ul li.layui-this {
+    background-color: #999;
+}
+
+.layui-carousel-ind li {
+    background-color: #e2e2e2;
+}
+.layui-carousel[lay-indicator=outside] {
+    margin-bottom: 0px;
+}
+/*卡片画板配合轮播使用的样式end*/
 
 
 /* 背景虚影 -- 虚影样式源于网络  */
 .background {
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(-45deg, #c67a1c, #00CBFF, #ac21c4, #11eccb); background-size: 400% 400%; -webkit-animation: Gradient 15s ease infinite; -moz-animation: Gradient 15s ease infinite; animation: Gradient 15s ease infinite;
+    background: linear-gradient(-45deg, #e5db09, #14f30c, #f4f5f6, #ec1155); background-size: 400% 400%; -webkit-animation: Gradient 15s ease infinite; -moz-animation: Gradient 15s ease infinite; animation: Gradient 15s ease infinite;
 }
 @-webkit-keyframes Gradient {
     0% {
@@ -67,7 +150,7 @@ body{font-size: 13px; color: #666;}
     animation-iteration-count: infinite;
 }
 .background span:nth-child(1) {
-    color: #82a72c;
+    color: #FFACAC;
     top: 44%;
     left: 97%;
     animation-duration: 15s;
@@ -76,7 +159,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: 40vmin 0 10.12735945vmin currentColor;
 }
 .background span:nth-child(2) {
-    color: #18bf63;
+    color: #E45A84;
     top: 93%;
     left: 8%;
     animation-duration: 13.8s;
@@ -85,7 +168,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: 40vmin 0 12.7346672971vmin currentColor;
 }
 .background span:nth-child(3) {
-    color: #81228b;
+    color: #FFACAC;
     top: 14%;
     left: 41%;
     animation-duration: 15.9s;
@@ -112,7 +195,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: -40vmin 0 13.3942178273vmin currentColor;
 }
 .background span:nth-child(6) {
-    color: #14101c;
+    color: #FFACAC;
     top: 35%;
     left: 1%;
     animation-duration: 11.6s;
@@ -121,7 +204,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: -40vmin 0 7.6304875279vmin currentColor;
 }
 .background span:nth-child(7) {
-    color: #4ceecc;
+    color: #09d913;
     top: 42%;
     left: 84%;
     animation-duration: 11s;
@@ -139,7 +222,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: 40vmin 0 13.2849881717vmin currentColor;
 }
 .background span:nth-child(9) {
-    color: #e8170f;
+    color: #f0acff;
     top: 75%;
     left: 67%;
     animation-duration: 11.7s;
@@ -157,7 +240,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: -40vmin 0 7.4269772253vmin currentColor;
 }
 .background span:nth-child(11) {
-    color: #e2a91d;
+    color: #aa2554;
     top: 80%;
     left: 91%;
     animation-duration: 13.4s;
@@ -166,7 +249,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: 40vmin 0 11.2741559637vmin currentColor;
 }
 .background span:nth-child(12) {
-    color: #208958;
+    color: #FFACAC;
     top: 68%;
     left: 97%;
     animation-duration: 15.8s;
@@ -184,7 +267,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: -40vmin 0 6.2939412125vmin currentColor;
 }
 .background span:nth-child(14) {
-    color: #27d7c3;
+    color: #E45A84;
     top: 98%;
     left: 63%;
     animation-duration: 14.2s;
@@ -202,7 +285,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: 40vmin 0 10.924056322vmin currentColor;
 }
 .background span:nth-child(16) {
-    color: rgba(28, 137, 208, 0.9);
+    color: #E45A84;
     top: 29%;
     left: 20%;
     animation-duration: 11s;
@@ -211,7 +294,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: -40vmin 0 13.3859956789vmin currentColor;
 }
 .background span:nth-child(17) {
-    color: #142534;
+    color: #FFACAC;
     top: 88%;
     left: 87%;
     animation-duration: 10.7s;
@@ -220,7 +303,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: 40vmin 0 14.8726292689vmin currentColor;
 }
 .background span:nth-child(18) {
-    color: #650d29;
+    color: #583C87;
     top: 57%;
     left: 35%;
     animation-duration: 10.1s;
@@ -229,7 +312,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: 40vmin 0 8.5771411832vmin currentColor;
 }
 .background span:nth-child(19) {
-    color: #f12ed7;
+    color: #583C87;
     top: 11%;
     left: 37%;
     animation-duration: 11.5s;
@@ -238,7 +321,7 @@ body{font-size: 13px; color: #666;}
     box-shadow: 40vmin 0 8.1729042124vmin currentColor;
 }
 .background span:nth-child(20) {
-    color: #1d6a17;
+    color: #583C87;
     top: 53%;
     left: 60%;
     animation-duration: 12.3s;

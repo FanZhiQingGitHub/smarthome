@@ -11,13 +11,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
     var adminAddressProvince = window.sessionStorage.getItem("adminAddressProvince");//获取session中当前登录的管理员用户
     var adminAddressCity = window.sessionStorage.getItem("adminAddressCity");//获取session中当前登录的管理员用户
 
-    $(function () {
-        $(document).on('keydown', function (event) {
-            if (event.keyCode == 13) {
-                $("#changeAdmin").trigger("click");
-            }
-        });
-    });
 
     loadingProvince();//加载省市区下拉框
     form.on('select(adminAddressProvince)',function(data){
@@ -304,7 +297,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
             $("#adminAddressCity").attr("disabled",true);
             $("#adminAddressArea").attr("disabled",true);
             form.render();
-        })
+        }), $(document).on('keydown', function (event) {
+            if (event.keyCode == 13) {
+                $("#changeAdmin").trigger("click");
+            }
+        });
     });
 
 })

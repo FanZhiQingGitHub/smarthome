@@ -18,41 +18,149 @@
     <link rel="stylesheet" th:href="@{/css/admincss/adminMain.css}" media="all">
     <link rel="icon" th:href="@{/publicimage/logo.png}">
 </head>
-
-<body>
-<!-- Head -->
-<div class="layui-fluid">
+<body class="childrenBody">
+<div style="padding: 15px; background-color: #F2F2F2;">
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-sm12 layui-col-md12 mar_01">
-            <blockquote class="layui-elem-quote" style="font-size: 30px;font-weight:bold;color: black">Welcome To Smart Home <span id="adminName"></span></blockquote>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="grid-demo">
+                <a href="javascript:;">
+                    <div class="panel_icon" style="background-color: #1e9fff;">
+                        <i class="layui-icon">&#xe770;</i>
+                    </div>
+                    <div class="panel_word" style="color: #1e9fff">
+                        <span>30</span>
+                        <cite>用户数量</cite>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
-</div>
-<!-- Head End -->
-
-<!-- Carousel -->
-<div class="layui-row">
-    <div class="layui-col-sm12 layui-col-md12">
-        <div class="layui-carousel login_height" id="login" lay-filter="login">
-            <div carousel-item="">
-                <div>
-                    <img th:src="@{/publicimage/01.jpg}" />
-                </div>
-                <div>
-                    <img th:src="@{/publicimage/02.jpg}" />
-                </div>
-                <div>
-                    <img th:src="@{/publicimage/03.jpg}" />
-                </div>
-                <div>
-                    <img th:src="@{/publicimage/04.jpg}" />
-                </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="grid-demo">
+                <a href="javascript:;">
+                    <div class="panel_icon" style="background-color: #d23711;">
+                        <i class="layui-icon">&#xe770;</i>
+                    </div>
+                    <div class="panel_word" style="color: #d92e17;">
+                        <span>30</span>
+                        <cite>管理员数量</cite>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="grid-demo">
+                <a href="javascript:;">
+                    <div class="panel_icon" style="background-color: #009688;">
+                        <i class="layui-icon">&#xe63c;</i>
+                    </div>
+                    <div class="panel_word" style="color: #009688;">
+                        <span>30</span>
+                        <cite>菜单数量</cite>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg3">
+            <div class="grid-demo">
+                <a href="javascript:;">
+                    <div class="panel_icon" style="background-color: #ee660d;">
+                        <i class="layui-icon">&#xe705;</i>
+                    </div>
+                    <div class="panel_word" style="color: #ee660d;">
+                        <span>30</span>
+                        <cite>资讯数量</cite>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
+
+    <hr class="layui-bg-white">
+    <blockquote class="layui-elem-quote">
+        <p>欢迎使用智慧家庭信息管理系统，本系统提供用户管理、角色管理以及信息统计等功能</p>
+    </blockquote>
+    <hr class="layui-bg-white">
+    <div class="row">
+        <div class="sysNotice col">
+            <blockquote class="layui-elem-quote title">最新资讯</blockquote>
+            <div class="layui-elem-quote layui-quote-nm">
+                <h3># 1.0.9_rls （发行版） - 2017-03-01</h3>
+                <p>* checkbox复选框原始风格支持不显示文字（之前会默认显示：勾选）</p>
+                <p>* 进度条超出100%情况下的自动处理</p>
+                <p>* 修复Tab选项卡在出现下拉按钮时，点击最后的几个选项卡未能正常切换的bug</p>
+                <p>* 修复select组件搜索选择时会先显示之前的值再替换新的值的不良体验</p>
+                <p>* 修复默认进度条0%时，文本出现太过于左侧的问题</p>
+                <br />
+                <p># 1.0.9</p>
+                <p>* 新增“折叠面板”页面元素及相关事件监听</p>
+                <p>* select组件增加搜索匹配功能，通过参数 lay-search 开启</p>
+                <p>* checkbox组件增加原始风格样式，通过设置 lay-skin="primary" 开启（跟系统自带的类似样貌）</p>
+                <p>* 升级 layer弹层组件到 3.0.2 （ layer3.0.2更新日志 ）</p>
+                <p>* 表单元素增加属性 lay-ignore ,设置后，将不会对该标签进行美化渲染，即保留系统风格</p>
+                <p>* 开关增加两种状态的自定义文本，通过参数 lay-text="ON|OFF" 开启</p>
+                <p>* 修复Tab选项卡嵌套的Tab没有对应的内容结构时，切换到了父级内容的bug</p>
+                <p>* 修复Tab选项卡容器中使用下拉框时，被溢出隐藏的问题</p>
+                <p>* 修复Tab选项卡溢满情况下，点击展开按钮，再在外部添加一个选项卡出现异常的bug</p>
+                <p>* Tab选项卡部分UI细节优化</p>
+                <p>* Tab选项卡的tabAdd增加id参数，用于在删除和切换时，以id作为匹配媒介</p>
+            </div>
+        </div>
+        <div class="sysNotice col">
+                <div class="layui-carousel login_height" id="login" lay-filter="login">
+                    <div carousel-item="">
+                        <div>
+                            <!--                    <div class="login_cont"></div>-->
+                            <div class="background">
+                                <span></span><span></span><span></span>
+                                <span></span><span></span><span></span>
+                                <span></span><span></span><span></span>
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="sysNotice col">
+            <hr class="layui-bg-white">
+            <blockquote class="layui-elem-quote title">系统基本参数</blockquote>
+            <table class="layui-table" style="color: black">
+                <colgroup>
+                    <col width="150">
+                    <col>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td>当前版本:</td>
+                    <td class="version">V1.0.0</td>
+                </tr>
+                <tr>
+                    <td>开发作者:</td>
+                    <td class="author">Mr.Fan</td>
+                </tr>
+                <tr>
+                    <td>网站首页:</td>
+                    <td class="homePage">www.xxx.com</td>
+                </tr>
+                <tr>
+                    <td>服务器环境:</td>
+                    <td class="server">CentOS7</td>
+                </tr>
+                <tr>
+                    <td>数据库版本:</td>
+                    <td class="dataBase">MySQL 5.7.11.0</td>
+                </tr>
+                <tr>
+                    <td>客户端系统:</td>
+                    <td class="maxUpload">Windows10 64位 专业版</td>
+                </tr>
+                <tr>
+                    <td>当前时间:</td>
+                    <td class="userRights"><span id="sysTime"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<!-- Carousel End -->
-
-
 </body>
 </html>

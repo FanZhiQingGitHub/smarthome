@@ -188,17 +188,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
             }
         });
     }
-
-
-
-    function timeTimer() {
-        var d = new Date();//实例化日期对象
-        var a = d.toLocaleTimeString();//获取日期
-        var b = d.toLocaleDateString();//获取时间
-        document.getElementById("sysTime").innerHTML = "系统时间："+b+"&nbsp"+"&nbsp"+"&nbsp"+a;//.innerHTML是dom里面的方法（获取对象的内容  或  向对象插入内容，可以直接在网页上显示）
-    }
-    setInterval(function() {timeTimer()},1000);
-
 })
 
 //CustomRightClick(id); //给tab绑定右击事件

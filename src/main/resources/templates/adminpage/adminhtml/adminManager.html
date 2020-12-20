@@ -68,12 +68,12 @@
 
     <script type="text/html" id="barDemo">
         {{#  if(d.adminStatus == '0'){ }}
-        <a class="layui-btn layui-btn-sm" lay-event="disDbl" >禁用</a>
+        <a class="layui-btn layui-btn-sm" lay-event="disDbl" ><i class="layui-icon">&#xe642;</i>禁用</a>
         {{#  } }}
         {{#  if(d.adminStatus == '1'){ }}
-        <a class="layui-btn layui-btn-sm" lay-event="openDbl" >启用</a>
+        <a class="layui-btn layui-btn-sm" lay-event="openDbl" ><i class="layui-icon">&#xe642;</i>启用</a>
         {{#  } }}
-        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
     </script>
 
 </body>
