@@ -8,7 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -54,6 +56,20 @@ public class PublicService {
             return new CommonResult(200, null, null,tblArea, tblAreaList,null);
         }
         return new CommonResult(502, "系统未能正确执行操作方法！", null,tblArea, null,null);
+    }
+
+    public CommonResult findAllCount(){
+        Long userCount = publicMapper.findUserCount();
+        Long adminCount = publicMapper.findAdminCount();
+        Long menuCount = publicMapper.findMenuCount();
+        Long infoCount = publicMapper.findInfoCount();
+        Map<String,String> countMap = new LinkedHashMap<>();
+        countMap.put("userCount",userCount.toString());
+        countMap.put("adminCount",adminCount.toString());
+        countMap.put("menuCount",menuCount.toString());
+        countMap.put("infoCount",infoCount.toString());
+        log.info("所查到的个统计数量为="+countMap);
+        return new CommonResult(200, null, null,null, null,countMap);
     }
 
 }

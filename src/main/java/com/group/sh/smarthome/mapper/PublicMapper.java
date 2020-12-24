@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ *  Mapper 公共查询接口
  * </p>
  *
  * @author fzq
@@ -19,5 +19,13 @@ import java.util.List;
 public interface PublicMapper extends BaseMapper<TblSyslog> {
 
     public List<TblArea> findAreaList(TblArea tblArea);
+
+    public Long findUserCount();
+
+    public Long findAdminCount();
+
+    public Long findMenuCount();
+
+    public Long findInfoCount();
 
 }

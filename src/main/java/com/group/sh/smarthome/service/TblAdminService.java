@@ -453,6 +453,67 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
         return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null);
     }
 
+    public CommonResult findALLInfoList(TblInfo tblInfo, PageListEntity pageListEntity){
+        //查询管理员列表
+        if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblInfo,null,null);
+        }
+        Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
+        Integer maxpage = pageListEntity.getLimit();
+        pageListEntity.setPage(minpage);
+        pageListEntity.setLimit(maxpage);
+
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblInfo.getInfoTitle()){
+            pageListEntity.setObjectOne(tblInfo.getInfoTitle());
+        }
+
+        List<TblInfo> tblInfoList = tblAdminMapper.findALLInfoList(pageListEntity);
+        log.info("******查询的管理员列表是: "+tblInfoList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblInfoList.size()) {
+            return new CommonResult(0, "亲，暂无相关数据", null,null, tblInfoList,null);
+        }
+        Integer count = tblAdminMapper.findALLInfoListCount(pageListEntity).intValue();
+        return new CommonResult(0, null, count,null, tblInfoList,null);
+    }
+
+    @Transactional
+    public CommonResult protectInfoList(TblInfo tblInfo){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblInfo.getMethod()){
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblInfo, null,null);
+        }
+        if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblInfo.getMethod())){
+            tblInfo.setCrtPsnId(getAdminAccount());
+            tblInfo.setCrtTm(new Date());
+            tblInfo.setDelId("0");
+            Integer num = tblAdminMapper.addInfo(tblInfo);
+            log.info("******新增的资讯ID是: "+tblInfo.getInfoId());
+            if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
+                return new CommonResult(500,"新增资讯信息失败",null,tblInfo,null,null);
+            }
+            tblInfo.setInfoId(tblInfo.getInfoId());
+            return new CommonResult(200,"新增资讯信息成功",null,tblInfo,null,null);
+        }
+        if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblInfo.getMethod())){
+
+            tblInfo.setModPsnId(getAdminAccount());
+            Boolean flag = tblAdminMapper.updateInfo(tblInfo);
+            if (flag == false) {
+                return new CommonResult(500, "更新资讯信息失败", null,tblInfo, null,null);
+            }
+            return new CommonResult(200, "更新资讯信息成功！", null,tblInfo, null,null);
+        }
+        if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblInfo.getMethod())){
+            tblInfo.setModPsnId(getAdminAccount());
+            Boolean flag = tblAdminMapper.deleteInfo(tblInfo);
+            if (flag == false) {
+                return new CommonResult(500, "删除资讯信息失败", null,tblInfo, null,null);
+            }
+            return new CommonResult(200, "删除资讯信息成功", null,tblInfo, null,null);
+        }
+
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblInfo, null,null);
+    }
+
 
 
 }

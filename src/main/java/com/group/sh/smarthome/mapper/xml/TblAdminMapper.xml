@@ -712,7 +712,7 @@
         where ADMIN_ACCOUNT = #{adminAccount}
     </update>
 
-    <!--    逻辑删除用户-->
+    <!--    逻辑删除管理员用户-->
     <update id="deleteAdminInfo" parameterType="com.group.sh.smarthome.entity.TblAdmin">
         update tbl_admin
         <set>
@@ -724,5 +724,103 @@
         </set>
         where ADMIN_ID = #{adminId}
     </update>
+
+
+    <!--    查找平台资讯信息列表-->
+    <resultMap type="com.group.sh.smarthome.entity.TblInfo" id="infoListMap">
+        <result column="infoId" property="infoId"></result>
+        <result column="infoTitle" property="infoTitle"></result>
+        <result column="infoDetail" property="infoDetail"></result>
+        <result column="crtPsnId" property="crtPsnId"></result>
+        <result column="crtTm" property="crtTm"></result>
+        <result column="modPsnId" property="modPsnId"></result>
+        <result column="modTm" property="modTm"></result>
+    </resultMap>
+    <select id="findALLInfoList" resultMap="infoListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        SELECT
+        info.INFO_ID as infoId,
+        info.INFO_TITLE as infoTitle,
+        info.INFO_DETAIL as infoDetail,
+        admin1.ADMIN_NAME as crtPsnId,
+        info.CRT_TM as crtTm,
+        admin2.ADMIN_NAME as modPsnId,
+        info.MOD_TM as modTm
+        FROM tbl_info info
+        left join tbl_admin admin1 on info.CRT_PSN_ID = admin1.ADMIN_ACCOUNT
+        left join tbl_admin admin2 on info.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
+        <where>
+            and info.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  info.INFO_TITLE like concat('%',#{objectOne},'%')
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(info.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(info.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+        order by info.CRT_TM desc limit #{page},#{limit}
+    </select>
+
+    <!--    查找平台资讯信息列表记录条数-->
+    <select id="findALLInfoListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        select count(1)
+        FROM tbl_info info
+        <where>
+            and info.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  info.INFO_TITLE like concat('%',#{objectOne},'%')
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(info.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(info.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+    </select>
+
+    <!--    平台资讯资料新增-->
+    <insert id="addInfo" parameterType="com.group.sh.smarthome.entity.TblInfo" useGeneratedKeys="true" keyProperty="infoId">
+        insert into
+            tbl_info(INFO_TITLE,INFO_DETAIL,CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)
+        values
+        (#{infoTitle},#{infoDetail},#{crtPsnId},now(),#{modPsnId},#{modTm},'0')
+    </insert>
+
+
+    <!--    平台资讯资料修改-->
+    <update id="updateInfo" parameterType="com.group.sh.smarthome.entity.TblInfo">
+        update tbl_info
+        <set>
+            DEL_ID = '0',
+            MOD_TM = now(),
+            <if test="infoTitle != '' and infoTitle != null">
+                INFO_TITLE = #{infoTitle},
+            </if>
+            <if test="infoDetail != '' and infoDetail != null">
+                INFO_DETAIL = #{infoDetail},
+            </if>
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where INFO_ID = #{infoId}
+    </update>
+
+    <!--    逻辑删除平台资讯资料-->
+    <update id="deleteInfo" parameterType="com.group.sh.smarthome.entity.TblInfo">
+        update tbl_info
+        <set>
+            DEL_ID = '1',
+            MOD_TM = now(),
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where INFO_ID = #{infoId}
+    </update>
+
 
 </mapper>

@@ -278,7 +278,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 }
             });
         });
-    })
+    });
 
     //常规用法
     laydate.render({

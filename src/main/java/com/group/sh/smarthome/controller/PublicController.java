@@ -38,5 +38,17 @@ public class PublicController {
         return publicService.findAreaList(tblArea);
     }
 
+    /**
+     *
+     * 方法描述 后台主页及统计主页横向标签数量统计查询
+     * @date 2020-12-24
+     * @param
+     */
+    @GetMapping(value = "/findAllCount")
+    @ResponseBody
+    public CommonResult findAllCount(){
+        return publicService.findAllCount();
+    }
+
 }
 

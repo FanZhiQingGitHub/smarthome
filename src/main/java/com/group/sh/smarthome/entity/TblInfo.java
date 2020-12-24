@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 
+ *      资讯表信息类
  * </p>
  *
  * @author fzq
@@ -23,54 +23,27 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class TblSyslog implements Serializable {
+public class TblInfo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     /**
-     * 日志id
+     * 资讯id
      */
-    @TableId(value = "SYSLOG_ID", type = IdType.AUTO)
-    private Integer syslogId;
+    @TableId(value = "INFO_ID", type = IdType.AUTO)
+    private Integer infoId;
 
     /**
-     * 操作人
+     * 资讯标题
      */
-    @TableField("SYSLOG_OPERATOR")
-    private String syslogOperator;
+    @TableField("INFO_TITLE")
+    private String infoTitle;
 
     /**
-     * 操作详情
+     * 资讯内容
      */
-    @TableField("SYSLOG_DETAIL")
-    private String syslogDetail;
-
-    /**
-     * 操作类型
-     */
-    @TableField("SYSLOG_TYPE")
-    private String syslogType;//0新增，1修改，2删除
-
-    /**
-     * 操作结果
-     */
-    @TableField("SYSLOG_RESULT")
-    private String syslogResult;//0正常，1异常
-
-
-    /**
-     * 操作计算机ip
-     */
-    @TableField("SYSLOG_IP")
-    private String syslogIp;
-
-    /**
-     * 操作时间
-     */
-    @TableField("SYSLOG_TIME")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern ="yyyy-MM-dd")
-    private Date syslogTime;
+    @TableField("INFO_DETAIL")
+    private String infoDetail;
 
     /**
      * 创建人
@@ -105,6 +78,7 @@ public class TblSyslog implements Serializable {
      */
     @TableField("DEL_ID")
     private String delId;
+
 
     /*
      *用于区分查询菜单是查询列表还是下拉框

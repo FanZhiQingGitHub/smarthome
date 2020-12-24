@@ -110,7 +110,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $("input[name='menuLevel']").next().addClass('layui-radio-disbaled layui-disabled');
         $("#menuSubId").attr("disabled",true);
         $('#adminMenuSubmit').css("display","none");
-        $('#adminMenureset').css("display","none");
+        $('#adminMenuReset').css("display","none");
     }
 
 

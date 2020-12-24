@@ -9,7 +9,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload','c
     var $ = layui.jquery;
 
     //设置轮播主体高度
-    var login_height = $(window).height()/3.9;
+    var login_height = $(window).height()/3.42;
     var zyl_car_height = $(".login_height").css("cssText","height:" + login_height + "px!important");
 
 
@@ -38,6 +38,25 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload','c
         document.getElementById("sysTime").innerHTML = dateInfo.toLocaleDateString()+"&nbsp"+"&nbsp"+"&nbsp"+dateInfo.toLocaleTimeString();
     }
     setInterval(function() {timeTimer()},1000);
+
+    $.ajax({
+        url: "/smarthome/public/findAllCount",
+        async: true,
+        type: "get",
+        datatype: "text",
+        success: function (msg) {
+            if (msg.code == "200") {
+                $("#userCount").text(msg.mapData.userCount);
+                $("#adminCount").text(msg.mapData.adminCount);
+                $("#menuCount").text(msg.mapData.menuCount);
+                $("#infoCount").text(msg.mapData.infoCount);
+            }else if(msg.code == "500" || msg.code == "501"){
+                layer.msg(msg.message, {icon: 2});
+            }
+        }, error: function (msg) {
+            layer.msg("网络繁忙！", {icon: 2});
+        }
+    });
 
 
 });

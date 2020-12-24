@@ -210,6 +210,30 @@ public class TblAdminController {
         return tblAdminService.uploadAdminHeadInfo(tblAdmin,file);
     }
 
+    /**
+     *
+     * 方法描述 查找平台资讯列表
+     * @date 2020-12-24
+     * @param
+     */
+    @GetMapping(value = "/findALLInfoList")
+    @ResponseBody
+    public CommonResult findALLInfoList(TblInfo tblInfo, PageListEntity pageListEntity){
+        return tblAdminService.findALLInfoList(tblInfo,pageListEntity);
+    }
+
+    /**
+     *
+     * 方法描述 平台资讯信息维护方法
+     * @date 2020-12-24
+     * @param
+     */
+    @PostMapping(value = "/protectInfoList")
+    @ResponseBody
+    public CommonResult protectInfoList(TblInfo tblInfo){
+        return tblAdminService.protectInfoList(tblInfo);
+    }
+
 
 }
 

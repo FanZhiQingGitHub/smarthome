@@ -18,6 +18,64 @@
     <link rel="stylesheet" th:href="@{/css/admincss/systemLog.css}" media="all">
 </head>
 <body>
+    <form class="layui-form" id="systemLogForm">
+        <blockquote class="layui-elem-quote news_search" id="searchTable" >
+            <div class="layui-inline">
+                查询条件:
+            </div>
+            <div class="layui-inline">
+                <input type="text" class="layui-input search_input" name="syslogOperator" id="syslogOperator" placeholder="请输入操作人">
+            </div>
+            <div class="layui-inline">
+                操作结果:
+            </div>
+            <div class="layui-inline">
+                <select name="syslogResult" id="syslogResult">
+                    <option value="">请选择</option>
+                    <option value="0">正常</option>
+                    <option value="1">异常</option>
+                </select>
+            </div>
+            <div class="layui-inline">
+                操作类型:
+            </div>
+            <div class="layui-inline">
+                <select name="syslogResult" id="syslogType">
+                    <option value="">请选择</option>
+                    <option value="0">新增</option>
+                    <option value="1">修改</option>
+                    <option value="2">删除</option>
+                </select>
+            </div>
+            <div class="layui-inline">
+                操作时间:
+            </div>
+            <div class="layui-inline">
+                <input type="text" class="layui-input search_input" name="startTime" id="startTime"  placeholder="请选择起始日期">
+            </div>
+            <div class="layui-inline">
+                至
+            </div>
+            <div class="layui-inline">
+                <input type="text" class="layui-input search_input" name="endTime" id="endTime"  placeholder="请选择结束日期">
+            </div>
+            <button type="button" class="layui-btn layui-btn-primary" data-type="reload"><i class="layui-icon">&#xe615;</i>查询</button>
+            <button type="button" class="layui-btn layui-btn-normal" id="resetTable"><i class="layui-icon">&#xe669;</i>重置</button>
+        </blockquote>
+    </form>
+
+    <table class="layui-hide" id="logTable" lay-filter="logTable"></table>
+
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm layui-btn-warm" id="findSystemLogDetail" lay-event="findSystemLogDetail"><i class="layui-icon">&#xe63c;</i>查看详情</button>
+        </div>
+    </script>
+
+<!--    <script type="text/html" id="barDemo">-->
+<!--        <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>-->
+<!--        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>-->
+<!--    </script>-->
 
 </body>
 </html>

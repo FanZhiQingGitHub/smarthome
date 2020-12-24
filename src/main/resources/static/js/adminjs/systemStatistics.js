@@ -27,6 +27,26 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload','c
         //console.log(obj.item); //当前条目的元素对象
     });
 
+    $.ajax({
+        url: "/smarthome/public/findAllCount",
+        async: true,
+        type: "get",
+        datatype: "text",
+        success: function (msg) {
+            if (msg.code == "200") {
+                $("#userCount").text(msg.mapData.userCount);
+                $("#adminCount").text(msg.mapData.adminCount);
+                $("#menuCount").text(msg.mapData.menuCount);
+                $("#infoCount").text(msg.mapData.infoCount);
+            }else if(msg.code == "500" || msg.code == "501"){
+                layer.msg(msg.message, {icon: 2});
+            }
+        }, error: function (msg) {
+            layer.msg("网络繁忙！", {icon: 2});
+        }
+    });
+
+
 
 
 

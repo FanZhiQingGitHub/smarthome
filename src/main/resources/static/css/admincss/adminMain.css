@@ -101,7 +101,7 @@
 .background {
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(-45deg, #e5db09, #14f30c, #f4f5f6, #ec1155); background-size: 400% 400%; -webkit-animation: Gradient 15s ease infinite; -moz-animation: Gradient 15s ease infinite; animation: Gradient 15s ease infinite;
+    background: linear-gradient(-45deg, #9809e5, #fa8a00, #f4f5f6, #11ecb9); background-size: 400% 400%; -webkit-animation: Gradient 15s ease infinite; -moz-animation: Gradient 15s ease infinite; animation: Gradient 15s ease infinite;
 }
 @-webkit-keyframes Gradient {
     0% {
