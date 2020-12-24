@@ -28,6 +28,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
             ,{field:'roleId', title:'角色编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
             ,{field:'roleName', title:'角色名称', align: 'center'}
+            ,{field:'roleType', title:'角色类型', align: 'center',hidden:true}
             ,{field:'crtPsnId', title:'创建人', align: 'center',
                 templet:function(d){
                     return d.crtPsnId == "" || d.crtPsnId == null || d.crtPsnId == undefined ? '无':d.crtPsnId;
@@ -83,7 +84,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                             body.find("#method").val('3');
                             body.find("#roleId").val(data[0].roleId);
                             body.find("#roleName").val(data[0].roleName);
-                            body.find("#roleType").val(data.roleType);
+                            body.find("#roleType").val(data[0].roleType);
                         }
                     })
                     //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）

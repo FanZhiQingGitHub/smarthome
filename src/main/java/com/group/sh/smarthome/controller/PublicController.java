@@ -2,7 +2,9 @@ package com.group.sh.smarthome.controller;
 
 
 import com.group.sh.smarthome.entity.TblArea;
+import com.group.sh.smarthome.entity.TblSyslog;
 import com.group.sh.smarthome.resultbean.CommonResult;
+import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.PublicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +50,18 @@ public class PublicController {
     @ResponseBody
     public CommonResult findAllCount(){
         return publicService.findAllCount();
+    }
+
+    /**
+     *
+     * 方法描述 系统日志列表查询
+     * @date 2020-12-24
+     * @param
+     */
+    @GetMapping(value = "/findSystemLogInfoList")
+    @ResponseBody
+    public CommonResult findSystemLogInfoList(TblSyslog tblSyslog, PageListEntity pageListEntity){
+        return publicService.findSystemLogInfoList(tblSyslog,pageListEntity);
     }
 
 }

@@ -62,23 +62,27 @@
         SELECT
             syslog.SYSLOG_ID as syslogId,
             syslog.SYSLOG_OPERATOR as syslogOperator,
+            syslog.SYSLOG_OPERATOR_ACCOUNT as syslogOperatorAccount,
             syslog.SYSLOG_DETAIL as syslogDetail,
             syslog.SYSLOG_TYPE as syslogType,
             syslog.SYSLOG_RESULT as syslogResult,
             syslog.SYSLOG_IP as syslogIp,
             syslog.SYSLOG_TIME as syslogTime,
             syslog.CRT_TM as crtTm
-        FROM tbl_syslog syslog
+        FROM tbl_system_log syslog
         <where>
             and syslog.DEL_ID = 0
             <if test="objectOne != '' and objectOne != null ">
-                and  syslog.SYSLOG_OPERATOR like concat('%',#{objectOne},'%')
+                and  syslog.SYSLOG_ID = #{objectOne}
             </if>
             <if test="objectTwo != '' and objectTwo != null ">
-                and  syslog.SYSLOG_RESULT = #{objectTwo}
+                and  syslog.SYSLOG_OPERATOR like concat('%',#{objectTwo},'%')
             </if>
             <if test="objectThree != '' and objectThree != null ">
-                and  syslog.SYSLOG_TYPE = #{objectThree}
+                and  syslog.SYSLOG_RESULT = #{objectThree}
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  syslog.SYSLOG_TYPE = #{objectFour}
             </if>
             <if test=" startTime != '' and startTime != null">
                 <![CDATA[   and DATE_FORMAT(syslog.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
@@ -93,7 +97,7 @@
     <!--    查找系统日志列表条数-->
     <select id="findSystemLogInfoListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
         select count(1)
-        FROM tbl_syslog syslog
+        FROM tbl_system_log syslog
         <where>
             and syslog.DEL_ID = 0
             <if test="objectOne != '' and objectOne != null ">

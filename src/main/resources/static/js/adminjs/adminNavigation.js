@@ -188,6 +188,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
             }
         });
     }
+
 })
 
 //CustomRightClick(id); //给tab绑定右击事件

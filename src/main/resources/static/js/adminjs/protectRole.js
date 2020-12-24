@@ -14,10 +14,14 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             if (event.keyCode == 13) {
                 $("#roleSubmit").trigger("click");
             }
-        })
+        }),$("#returnPage").click(function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        });
     });
 
     if(method == '0' || method == '1'){
+        $('#returnPage').css("display","none");
         form.verify({
             roleName: function (value) {
                 if (value.length < 2) {
@@ -56,6 +60,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     }else if(method == '3'){
         $('#roleName').attr("readonly",true);
         $('#roleType').attr("disabled",true);
+        $('#returnPage').css("display","block");
         $('#roleSubmit').css("display","none");
         $('#roleReset').css("display","none");
     }

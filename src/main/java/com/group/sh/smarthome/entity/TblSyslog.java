@@ -40,6 +40,12 @@ public class TblSyslog implements Serializable {
     private String syslogOperator;
 
     /**
+     * 操作人账号
+     */
+    @TableField("SYSLOG_OPERATOR_ACCOUNT")
+    private String syslogOperatorAccount;
+
+    /**
      * 操作详情
      */
     @TableField("SYSLOG_DETAIL")
@@ -59,7 +65,7 @@ public class TblSyslog implements Serializable {
 
 
     /**
-     * 操作计算机ip
+     * 操作地址IP
      */
     @TableField("SYSLOG_IP")
     private String syslogIp;

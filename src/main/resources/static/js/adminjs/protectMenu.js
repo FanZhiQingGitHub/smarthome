@@ -52,10 +52,14 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             if (event.keyCode == 13) {
                 $("#adminMenuSubmit").trigger("click");
             }
-        })
+        }),$("#returnPage").click(function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        });
     });
 
     if(method == '0' || method == '1'){
+        $('#returnPage').css("display","none");
         if($('input[name="menuLevel"]:checked').val()=='0'){
             $("#urlDiv").css('display','none');
         }
@@ -109,11 +113,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $('#menuUrl').attr("readonly",true);
         $("input[name='menuLevel']").next().addClass('layui-radio-disbaled layui-disabled');
         $("#menuSubId").attr("disabled",true);
+        $('#returnPage').css("display","block");
         $('#adminMenuSubmit').css("display","none");
         $('#adminMenuReset').css("display","none");
     }
-
-
-
-
 })

@@ -22,30 +22,77 @@
     <div class="layui-form-item" style="display: none">
         <input type="hidden" id="method" name="method" value="">
     </div>
-    <div class="layui-form-item" style="display: none">
-        <input type="hidden" id="infoId" name="infoId" value="">
-    </div>
-
     <div class="layui-form-item">
-        <label class="layui-form-label">资讯标题:</label>
+        <label class="layui-form-label">日志编码:</label>
         <div class="layui-input-block">
-            <input type="text" id="infoTitle" name="infoTitle" class="layui-input" lay-verify="infoTitle" autocomplete="off" placeholder="请输入资讯标题(最多30个汉字字母)">
-        </div>
-    </div>
-
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">资讯内容:</label>
-        <div class="layui-input-block">
-            <textarea id="infoDetail" name="infoDetail"  lay-verify="infoDetail" autocomplete="off" placeholder="请输入资讯内容(最多1000个汉字字母)" class="layui-textarea" style="resize: none;height: 300px"></textarea>
+            <input type="text" id="syslogId" name="syslogId" class="layui-input" autocomplete="off" >
         </div>
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">操作人:</label>
         <div class="layui-input-block">
-            <button type="button" class="layui-btn" lay-submit lay-filter="infoSubmit" id="infoSubmit">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary" id="infoReset">重置</button>
+            <input type="text" id="syslogOperator" name="syslogOperator" class="layui-input" autocomplete="off" >
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作人账号:</label>
+        <div class="layui-input-block">
+            <input type="text" id="syslogOperatorAccount" name="syslogOperatorAccount" class="layui-input" autocomplete="off" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作内容:</label>
+        <div class="layui-input-block">
+            <input type="text" id="syslogDetail" name="syslogDetail" class="layui-input"  autocomplete="off" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作类型:</label>
+        <div class="layui-input-block">
+            <select name="syslogType" id="syslogType">
+                <option value=""></option>
+                <option value="0">新增</option>
+                <option value="1">修改</option>
+                <option value="2">删除</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作结果:</label>
+        <div class="layui-input-block">
+            <select name="syslogResult" id="syslogResult">
+                <option value=""></option>
+                <option value="0">正常</option>
+                <option value="1">异常</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作地址IP:</label>
+        <div class="layui-input-block">
+            <input type="text" id="syslogIp" name="syslogIp" class="layui-input"  autocomplete="off" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作时间:</label>
+        <div class="layui-input-block">
+            <input type="text" id="syslogTime" name="syslogTime" class="layui-input"  autocomplete="off" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn"  id="returnPage">返回</button>
+        </div>
+    </div>
+
 
 </form>
 </body>

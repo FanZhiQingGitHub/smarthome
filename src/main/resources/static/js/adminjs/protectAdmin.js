@@ -14,7 +14,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             if (event.keyCode == 13) {
                 $("#adminSubmit").trigger("click");
             }
-        })
+        }),$("#returnPage").click(function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        });
     });
 
     if(method == '0' || method == '1'){
@@ -23,8 +26,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $('#adminPhoneDiv').css("display","none");
         $('#adminStatusDiv').css("display","none");
         $('#adminRoleNameDiv').css("display","none");
-
-
+        $('#returnPage').css("display","none");
         form.verify({
             adminName: function (value) {
                 if (value.length < 2) {
@@ -82,6 +84,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $('#adminReset').css("display","none");
         $('#adminPwdDiv').css("display","none");
         $('#adminRoleDiv').css("display","none");
+        $('#returnPage').css("display","block");
     }
     layui.form.render("select");//重新渲染
 

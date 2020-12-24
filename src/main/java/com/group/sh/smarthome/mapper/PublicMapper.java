@@ -3,6 +3,7 @@ package com.group.sh.smarthome.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.group.sh.smarthome.entity.TblArea;
 import com.group.sh.smarthome.entity.TblSyslog;
+import com.group.sh.smarthome.resultbean.PageListEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -27,5 +28,10 @@ public interface PublicMapper extends BaseMapper<TblSyslog> {
     public Long findMenuCount();
 
     public Long findInfoCount();
+
+    public List<TblSyslog> findSystemLogInfoList(PageListEntity pageListEntity);
+
+    public Long findSystemLogInfoListCount(PageListEntity pageListEntity);
+
 
 }
