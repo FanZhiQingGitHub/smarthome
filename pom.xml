@@ -11,12 +11,14 @@
     <groupId>com.group.sh</groupId>
     <artifactId>smarthome</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>smarthome</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.0.4</thymeleaf-layout-dialect.version>
     </properties>
 
     <dependencies>
@@ -120,10 +122,20 @@
         </dependency>
 
         <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-            <version>1.9.22</version>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring5</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>net.sourceforge.nekohtml</groupId>-->
+<!--            <artifactId>nekohtml</artifactId>-->
+<!--            <version>1.9.22</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.baidu.aip/java-sdk -->
         <dependency>
@@ -156,16 +168,15 @@
                 <includes>
                     <include>**/*.*</include>
                 </includes>
-                <!-- <filtering>false</filtering>-->
+<!--                <filtering>false</filtering>-->
             </resource>
             <resource>
                 <directory>src/main/resources</directory><!--资源文件的路径-->
                 <includes>
                     <include>**/*.*</include>
                 </includes>
-                <!-- <filtering>false</filtering>-->
+<!--                <filtering>false</filtering>-->
             </resource>
         </resources>
     </build>
-
 </project>

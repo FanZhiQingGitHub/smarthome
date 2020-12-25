@@ -6,6 +6,7 @@ import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.TblAdminService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,11 +33,11 @@ public class TblAdminController {
      *
      * 方法描述 管理员功能界面跳转方法
      * @date 2020-12-5
-     * @param path
+     * @param
      */
-    @RequestMapping("/path/{url}")
-    public String showView(@PathVariable(value = "url") String path) {
-        return "adminPage/adminHtml/" + path;
+    @RequestMapping(value = "/path/{url}",method = RequestMethod.GET)
+    public String showView(@PathVariable(value = "url") String url) {
+        return "adminhtml/"+url;
     }
 
     /**
