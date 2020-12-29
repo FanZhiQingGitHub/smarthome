@@ -86,11 +86,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                 return '您好，账号至少得2个字符！';
             }
         }
-       /*, code :function (value) {
-            if (value.length != 4) {
-                return '您好，验证码是4位数！';
-            }
-        }*/, pass: [
+        // , code :function (value) {
+        //     if (value.length != 4) {
+        //         return '您好，验证码是4位数！';
+        //     }
+        // }
+        , pass: [
             /^[\S]{6,12}$/
             , '您好，密码必须6~12位，且不能出现空格！'
         ], content: function (value) {

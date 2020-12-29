@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="renderer" content="webkit"/>
@@ -11,14 +10,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <title>智慧家庭信息后台管理系统导航页</title>
-    <script type="text/javascript" src="/layui/layui.js"></script>
-    <link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all">
+    <link rel="icon" th:href="@{/publicimage/logo.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admincss/adminNavigation.css}" href="/css/admincss/adminNavigation.css" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admincss/fontStyle.css}" href="/css/admincss/fontStyle.css" media="all" />
     <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script type="text/javascript" src="/js/adminjs/adminNavigation.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/admincss/adminNavigation.css" media="all">
-    <link rel="icon" th:href="@{/publicimage/logo.png}">
-    <link rel="stylesheet" type="text/javascript" href="/css/admincss/fontStyle.css" media="all" />
+    <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js"></script>
+    <script type="text/javascript" th:src="@{/js/adminjs/adminNavigation.js}" src="/js/adminjs/adminNavigation.js"></script>
     <style rel="stylesheet" type="text/css">
         .layui-tab-title li:first-child > i {
             display: none;

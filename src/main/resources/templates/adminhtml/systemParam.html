@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8"/>
 	<meta name="renderer" content="webkit"/>
@@ -11,12 +10,12 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="format-detection" content="telephone=no"/>
 	<title>系统基本参数--layui后台管理模板</title>
-	<script type="text/javascript" src="/layui/layui.js"></script>
-	<link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all">
-	<link rel="stylesheet" type="text/css" href="/css/admincss/fontStyle.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="/css/admincss/systemParam.css" media="all">
-	<script type="text/javascript" src="/js/adminjs/systemParam.js"></script>
-	<style type="text/css">
+	<link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" href="/layui/css/layui.css" media="all"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/admincss/fontStyle.css}" href="/css/admincss/fontStyle.css" media="all"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/admincss/systemParam.css}" href="/css/admincss/systemParam.css" media="all"/>
+	<script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js"></script>
+	<script type="text/javascript" th:src="@{/js/adminjs/systemParam.js}" src="/js/adminjs/systemParam.js"></script>
+	<style rel="stylesheet" type="text/css">
 		.layui-table td, .layui-table th{ text-align: center; }
 		.layui-table td{ padding:5px; }
 	</style>

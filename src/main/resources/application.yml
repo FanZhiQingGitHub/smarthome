@@ -30,7 +30,7 @@ spring:
       use-global-data-source-stat: true #合并多个DruidDataSource的监控数据
 
 #  resources:
-#    static-locations: ["/templates/","/resources/","/static/","/public/"]
+#    static-locations: classpath:/static/
 
   servlet:
     multipart:

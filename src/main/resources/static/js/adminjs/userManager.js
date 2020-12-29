@@ -211,7 +211,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         })
         //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
         $(window).resize(function(){
-            layer.full(index);
+            // layer.full(index);
         })
         table.reload('searchTable');
         layer.full(index);

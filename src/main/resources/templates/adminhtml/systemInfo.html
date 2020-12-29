@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="renderer" content="webkit"/>
@@ -11,12 +10,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <title>系统资讯管理</title>
-    <script type="text/javascript" src="/layui/layui.js"></script>
-    <link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admincss/systemInfo.css}" href="/css/admincss/systemInfo.css" media="all"/>
     <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script type="text/javascript" src="/js/adminjs/systemInfo.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/admincss/systemInfo.css" media="all">
+    <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js"></script>
+    <script type="text/javascript" th:src="@{/js/adminjs/systemInfo.js}" src="/js/adminjs/systemInfo.js"></script>
 </head>
 <body>
     <form class="layui-form" id="infoForm">
