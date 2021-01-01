@@ -64,5 +64,53 @@ public class PublicController {
         return publicService.findSystemLogInfoList(tblSyslog,pageListEntity);
     }
 
+    /**
+     *
+     * 方法描述 查询用户统计（当前周）
+     * @date 2020-12-31
+     * @param
+     */
+    @GetMapping(value = "/userStatistics")
+    @ResponseBody
+    public CommonResult userStatistics(){
+       return publicService.userStatistics();
+    }
+
+    /**
+     *
+     * 方法描述 查询管理员统计（当前周）
+     * @date 2020-12-31
+     * @param
+     */
+    @GetMapping(value = "/adminStatistics")
+    @ResponseBody
+    public CommonResult adminStatistics(){
+        return publicService.adminStatistics();
+    }
+
+    /**
+     *
+     * 方法描述 查询菜单统计（所有）
+     * @date 2020-12-31
+     * @param
+     */
+    @GetMapping(value = "/menuStatistics")
+    @ResponseBody
+    public CommonResult menuStatistics(){
+        return publicService.menuStatistics();
+    }
+
+    /**
+     *
+     * 方法描述 查询资讯统计（当前周）
+     * @date 2020-12-31
+     * @param
+     */
+    @GetMapping(value = "/infoStatistics")
+    @ResponseBody
+    public CommonResult infoStatistics(){
+        return publicService.infoStatistics();
+    }
+
 }
 

@@ -28,6 +28,10 @@ public class MenuTreeInfo implements Serializable {
     private String title;
     private Integer id;
 
+    private String menuId;
+    private String menuName;
+    private String count;
+
     private List<MenuTreeInfo> children;
 
 }

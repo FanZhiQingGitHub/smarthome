@@ -1,6 +1,7 @@
 package com.group.sh.smarthome.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.group.sh.smarthome.annotation.AdminSystemLog;
 import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
 import com.group.sh.smarthome.resultbean.CommonResult;
@@ -69,6 +70,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
         ConstantEnum.ConstantEnumType.roleId = Integer.valueOf(Admin.getAdminRole());
         HttpSession session = getAdminRequest().getSession();
         session.setAttribute("adminAccount",Admin.getAdminAccount());
+        session.setAttribute("adminName",Admin.getAdminName());
         session.setMaxInactiveInterval(30 * 60);//session过期时间设置，以秒为单位，即在没有活动30分钟后，session将失效
         return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null,null);
     }
@@ -122,6 +124,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
 
 
     @Transactional
+    @AdminSystemLog(operationType = "登陆",operationName = "管理员登录")
     public CommonResult protectMenuList(TblMenu tblMenu){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblMenu.getMethod()){
             return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);

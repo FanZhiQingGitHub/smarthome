@@ -118,4 +118,57 @@
         </where>
     </select>
 
+    <!-- 用户数量统计（当前周）-->
+    <select id="userStatistics" resultType="java.lang.Long" parameterType="java.lang.String">
+        select count(*) as num
+        from tbl_user
+        where
+        DATE_FORMAT(CRT_TM,'%Y-%m-%d') = (select subdate(curdate(),date_format(curdate(),'%w')-#{num})) and DEL_ID = 0;
+    </select>
+
+    <!-- 管理员数量统计（当前周）-->
+    <select id="adminStatistics" resultType="java.lang.Long" parameterType="java.lang.String">
+        select count(*) as num
+        from tbl_admin
+        where
+        DATE_FORMAT(CRT_TM,'%Y-%m-%d') = (select subdate(curdate(),date_format(curdate(),'%w')-#{num})) and DEL_ID = 0;
+    </select>
+
+    <!-- 菜单数量统计（当前周）-->
+    <resultMap type="com.group.sh.smarthome.entity.MenuTreeInfo" id="menuS">
+        <result column="MENU_ID" property="menuId"></result>
+        <result column="MENU_NAME" property="menuName"></result>
+        <collection property="children" select="menuSCount" column="MENU_ID" ofType="com.group.sh.smarthome.entity.MenuTreeInfo"
+                    javaType="list">
+            <result column="count" property="count"></result>
+        </collection>
+    </resultMap>
+    <select id="menuStatistics" resultMap="menuS" parameterType="java.lang.String">
+        select MENU_ID,MENU_NAME from tbl_menu m1
+        where m1.MENU_LEVEL = 0 ;
+    </select>
+
+    <select id="menuSCount" resultType="java.lang.Long" parameterType="java.lang.String">
+        select COUNT(*) as count from tbl_menu where MENUSUB_ID = #{MENU_ID};
+    </select>
+
+
+
+    <!-- 资讯数量统计（当前周）-->
+    <select id="infoStatistics" resultType="java.lang.Long" parameterType="java.lang.String">
+        select count(*) as num
+        from tbl_info
+        where
+                DATE_FORMAT(CRT_TM,'%Y-%m-%d') = (select subdate(curdate(),date_format(curdate(),'%w')-#{num})) and DEL_ID = 0;
+    </select>
+
+    <!-- 新增系统日志-->
+    <insert id="addSysLogInfo" parameterType="com.group.sh.smarthome.entity.TblSyslog" useGeneratedKeys="true" keyProperty="syslogId">
+        insert into
+            tbl_system_log(SYSLOG_OPERATOR,SYSLOG_OPERATOR_ACCOUNT,SYSLOG_DETAIL,SYSLOG_TYPE,SYSLOG_RESULT,SYSLOG_IP,SYSLOG_TIME,
+                           CRT_PSN_ID,CRT_TM,DEL_ID)values
+        (#{syslogOperator},#{syslogOperatorAccount},#{syslogDetail},#{syslogType},#{syslogResult},#{syslogIp},#{syslogTime},
+         #{crtPsnId},now(),'0')
+    </insert>
+
 </mapper>

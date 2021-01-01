@@ -1,5 +1,6 @@
 package com.group.sh.smarthome.service;
 
+import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblArea;
 import com.group.sh.smarthome.entity.TblSyslog;
 import com.group.sh.smarthome.mapper.PublicMapper;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +105,63 @@ public class PublicService {
         }
         Integer count = publicMapper.findSystemLogInfoListCount(pageListEntity).intValue();
         return new CommonResult(0, null, count,null, tblSyslogList,null);
+    }
+
+    public CommonResult userStatistics(){
+        Map<String,ArrayList> userMap = new LinkedHashMap<>();
+        List list = new ArrayList();
+        Integer num = null;
+        Long count = null;
+        for(int i = 1;i<=7;i++){
+            num = i;
+            count = publicMapper.userStatistics(num.toString());
+            list.add(count);
+        }
+        userMap.put("userMap", (ArrayList) list);
+        return new CommonResult(0, null, null,null, null,userMap);
+    }
+
+    public CommonResult adminStatistics(){
+        Map<String,ArrayList> adminMap = new LinkedHashMap<>();
+        List list = new ArrayList();
+        Integer num = null;
+        Long count = null;
+        for(int i = 1;i<=7;i++){
+            num = i;
+            count = publicMapper.adminStatistics(num.toString());
+            list.add(count);
+        }
+        adminMap.put("adminMap", (ArrayList) list);
+        return new CommonResult(0, null, null,null, null,adminMap);
+    }
+
+    public CommonResult menuStatistics(){
+        List<MenuTreeInfo> menuTreeInfoList = publicMapper.menuStatistics();
+        System.out.println("menuTreeInfoList="+menuTreeInfoList);
+        return new CommonResult(0, null, null,null, menuTreeInfoList,null);
+    }
+
+    public CommonResult infoStatistics(){
+        Map<String,ArrayList> infoMap = new LinkedHashMap<>();
+        List list = new ArrayList();
+        Integer num = null;
+        Long count = null;
+        for(int i = 1;i<=7;i++){
+            num = i;
+            count = publicMapper.infoStatistics(num.toString());
+            list.add(count);
+        }
+        infoMap.put("infoMap", (ArrayList) list);
+        return new CommonResult(0, null, null,null, null,infoMap);
+    }
+
+    public void addSysLogInfo(TblSyslog tblSyslog) throws Exception {
+        Integer num = publicMapper.addSysLogInfo(tblSyslog);
+        if(num>0){
+            log.info("系统日志新增成功，新增的操作为="+tblSyslog.getSyslogType()+"&结果为="+tblSyslog.getSyslogResult()+"&操作人是="+tblSyslog.getSyslogOperator());
+        }else{
+            throw new Exception("系统日志记录失败");
+        }
     }
 
 }
