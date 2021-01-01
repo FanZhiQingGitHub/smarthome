@@ -1,7 +1,6 @@
 package com.group.sh.smarthome.controller;
 
 
-import com.group.sh.smarthome.annotation.AdminSystemLog;
 import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
@@ -87,7 +86,6 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectMenuList")
     @ResponseBody
-    @AdminSystemLog(operationType = "数据维护",operationName = "菜单数据维护")
     public CommonResult protectMenuList(TblMenu tblMenu){
         return tblAdminService.protectMenuList(tblMenu);
     }
@@ -112,7 +110,6 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectRoleList")
     @ResponseBody
-    @AdminSystemLog(operationType = "数据维护",operationName = "角色数据维护")
     public CommonResult protectRoleList(TblRole tblRole){
         return tblAdminService.protectRoleList(tblRole);
     }
@@ -138,7 +135,6 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectMenuPwr")
     @ResponseBody
-    @AdminSystemLog(operationType = "数据维护",operationName = "菜单权限维护")
     public CommonResult protectMenuPwr(TbleMenuRole tbleMenuRole){
         return tblAdminService.protectMenuPwr(tbleMenuRole);
     }
@@ -163,7 +159,6 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectUserList")
     @ResponseBody
-    @AdminSystemLog(operationType = "数据维护",operationName = "用户信息维护")
     public CommonResult protectUserList(TblUser tblUser){
         return tblAdminService.protectUserList(tblUser);
     }
@@ -188,7 +183,6 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectAdminList")
     @ResponseBody
-    @AdminSystemLog(operationType = "数据维护",operationName = "管理员信息维护")
     public CommonResult protectAdminList(TblAdmin tblAdmin){
         return tblAdminService.protectAdminList(tblAdmin);
     }
@@ -201,7 +195,6 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectAdminProInfo")
     @ResponseBody
-    @AdminSystemLog(operationType = "数据维护",operationName = "管理员信息维护")
     public CommonResult protectAdminProInfo(TblAdmin tblAdmin){
         return tblAdminService.protectAdminProInfo(tblAdmin);
     }
@@ -238,7 +231,6 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectInfoList")
     @ResponseBody
-    @AdminSystemLog(operationType = "数据维护",operationName = "平台资讯信息维护")
     public CommonResult protectInfoList(TblInfo tblInfo){
         return tblAdminService.protectInfoList(tblInfo);
     }

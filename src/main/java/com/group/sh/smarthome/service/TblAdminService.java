@@ -1,7 +1,6 @@
 package com.group.sh.smarthome.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.group.sh.smarthome.annotation.AdminSystemLog;
 import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
 import com.group.sh.smarthome.resultbean.CommonResult;
@@ -124,7 +123,6 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
 
 
     @Transactional
-    @AdminSystemLog(operationType = "登陆",operationName = "管理员登录")
     public CommonResult protectMenuList(TblMenu tblMenu){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblMenu.getMethod()){
             return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
