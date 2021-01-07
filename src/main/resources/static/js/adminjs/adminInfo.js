@@ -7,12 +7,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
         , upload = layui.upload
         , carousel = layui.carousel;
     var $ = layui.jquery;
+
     var adminAccount = window.sessionStorage.getItem("adminAccount");//获取session中当前登录的管理员用户
     var adminAddressProvince = window.sessionStorage.getItem("adminAddressProvince");//获取session中当前登录的管理员用户所在省份
     var adminAddressCity = window.sessionStorage.getItem("adminAddressCity");//获取session中当前登录的管理员用户所在城市
 
-
-    loadingProvince();//加载省市区下拉框
     form.on('select(adminAddressProvince)',function(data){
         $('select[name=adminAddressCity]').attr("disabled",false);
         layui.form.render("select");
@@ -30,9 +29,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     for(var i = 0;i<msg.data.length;i++){
                         html += '<option value="'+msg.data[i].areaCode+'">'+msg.data[i].areaName+'</option>';
                     }
-
                     $("#adminAddressCity").append(html);
-
                     layui.form.render("select");
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
                     layer.msg(msg.message, {icon: 2});
@@ -156,9 +153,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $('select[name=adminAddressCity]').attr("disabled",false);
                     loadingCity(adminAddressProvince);//加载城市
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
-                    loadingAdminInfo();//加载完省市区后加载个人信息
                     layer.msg(msg.message, {icon: 2});
                 }
+                loadingAdminInfo();//加载完省市区后加载个人信息
             }, error: function (msg) {
                 loadingAdminInfo();//加载完省市区后加载个人信息
                 layer.msg("网络繁忙！", {icon: 2});
@@ -167,8 +164,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
     }
 
     function loadingCity(areaCode) {
-        if(areaCode == null || areaCode == '' || areaCode == undefined){
-            areaCode = '110101';
+        if("null" == areaCode || null == areaCode || undefined == areaCode || "" == areaCode){
+            areaCode = '110100';
         }
         $.ajax({
             url: "/smarthome/public/findAreaList",
@@ -186,9 +183,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $('select[name=adminAddressArea]').attr("disabled",false);
                     loadingArea(adminAddressCity);
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
-                    loadingAdminInfo();//加载完省市区后加载个人信息
                     layer.msg(msg.message, {icon: 2});
                 }
+                loadingAdminInfo();//加载完省市区后加载个人信息
             }, error: function (msg) {
                 loadingAdminInfo();//加载完省市区后加载个人信息
                 layer.msg("网络繁忙！", {icon: 2});
@@ -197,7 +194,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
     }
 
     function loadingArea(areaCode) {
-        if(areaCode == null || areaCode == '' || areaCode == undefined){
+        if("null" == areaCode || null == areaCode || undefined == areaCode || "" == areaCode){
             areaCode = '110101';
         }
         $.ajax({
