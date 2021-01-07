@@ -12,6 +12,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
     var adminAddressProvince = window.sessionStorage.getItem("adminAddressProvince");//获取session中当前登录的管理员用户所在省份
     var adminAddressCity = window.sessionStorage.getItem("adminAddressCity");//获取session中当前登录的管理员用户所在城市
 
+    loadingProvince();
     form.on('select(adminAddressProvince)',function(data){
         $('select[name=adminAddressCity]').attr("disabled",false);
         layui.form.render("select");
@@ -105,7 +106,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
             }
         }, adminRealName: function (value) {
             if (value.length < 2 || value.length > 4) {
-                return '您好，真实姓名为2~4个字符！';
+                return '您好，真实姓名为2~4个中文字符！';
             }
         },
         content: function (value) {
@@ -143,7 +144,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
             data: {"areaLvl":'1',"method":'0'},
             datatype: "text",
             success: function (msg) {
-                if (msg.code == "200") {
+                // if (msg.code == "200") {
                     // var html = '<option value="">---- 选择省 ----</option>';
                     var html ;
                     for(var i = 0;i<msg.data.length;i++){
@@ -152,12 +153,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $("#adminAddressProvince").append(html);
                     $('select[name=adminAddressCity]').attr("disabled",false);
                     loadingCity(adminAddressProvince);//加载城市
-                }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
-                    layer.msg(msg.message, {icon: 2});
-                }
-                loadingAdminInfo();//加载完省市区后加载个人信息
+                // }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                //     layer.msg(msg.message, {icon: 2});
+                // }
             }, error: function (msg) {
-                loadingAdminInfo();//加载完省市区后加载个人信息
                 layer.msg("网络繁忙！", {icon: 2});
             }
         });
@@ -174,7 +173,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
             data: {"areaLvl":'2',"areaParentCode":areaCode,"method":'1'},
             datatype: "text",
             success: function (msg) {
-                if (msg.code == "200") {
+                // if (msg.code == "200") {
                     var html ;
                     for(var i = 0;i<msg.data.length;i++){
                         html += '<option value="'+msg.data[i].areaCode+'">'+msg.data[i].areaName+'</option>';
@@ -182,12 +181,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $("#adminAddressCity").append(html);
                     $('select[name=adminAddressArea]').attr("disabled",false);
                     loadingArea(adminAddressCity);
-                }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
-                    layer.msg(msg.message, {icon: 2});
-                }
-                loadingAdminInfo();//加载完省市区后加载个人信息
+                // }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                //     layer.msg(msg.message, {icon: 2});
+                // }
+                //loadingAdminInfo();//加载完省市区后加载个人信息
             }, error: function (msg) {
-                loadingAdminInfo();//加载完省市区后加载个人信息
                 layer.msg("网络繁忙！", {icon: 2});
             }
         });
@@ -204,19 +202,17 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
             data: {"areaLvl":'3',"areaParentCode":areaCode,"method":'2'},
             datatype: "text",
             success: function (msg) {
-                if (msg.code == "200") {
+                // if (msg.code == "200") {
                     var html ;
                     for(var i = 0;i<msg.data.length;i++){
                         html += '<option value="'+msg.data[i].areaCode+'">'+msg.data[i].areaName+'</option>';
                     }
                     $("#adminAddressArea").append(html);
-                    loadingAdminInfo();//加载完省市区后加载个人信息
-                }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
-                    loadingAdminInfo();//加载完省市区后加载个人信息
-                    layer.msg(msg.message, {icon: 2});
-                }
-            }, error: function (msg) {
+                // }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                //     layer.msg(msg.message, {icon: 2});
+                // }
                 loadingAdminInfo();//加载完省市区后加载个人信息
+            }, error: function (msg) {
                 layer.msg("网络繁忙！", {icon: 2});
             }
         });
@@ -238,12 +234,23 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $("#adminPhone").val(msg.entityData.adminPhone);
                     $("#adminWorkphone").val(msg.entityData.adminWorkphone);
                     $("#adminMail").val(msg.entityData.adminMail);
-                    $("#adminAddressProvince option[value='"+msg.entityData.adminAddressProvince+"']").attr("selected", true);
-                    $("#adminAddressCity option[value='"+msg.entityData.adminAddressCity+"']").attr("selected", true);
-                    $("#adminAddressArea option[value='"+msg.entityData.adminAddressArea+"']").attr("selected", true);
+                    if("null" == msg.entityData.adminAddressProvince || null == msg.entityData.adminAddressProvince || undefined == msg.entityData.adminAddressProvince || "" == msg.entityData.adminAddressProvince){
+                        $("#adminAddressProvince option[value='110000']").attr("selected", true);
+                    }else{
+                        $("#adminAddressProvince option[value='"+msg.entityData.adminAddressProvince+"']").attr("selected", true);
+                    }
+                    if("null" == msg.entityData.adminAddressCity || null == msg.entityData.adminAddressCity || undefined == msg.entityData.adminAddressCity || "" == msg.entityData.adminAddressCity){
+                        $("#adminAddressCity option[value='110101']").attr("selected", true);
+                    }else{
+                        $("#adminAddressCity option[value='"+msg.entityData.adminAddressCity+"']").attr("selected", true);
+                    }
+                    if("null" == msg.entityData.adminAddressArea || null == msg.entityData.adminAddressArea || undefined == msg.entityData.adminAddressArea || "" == msg.entityData.adminAddressArea){
+                        $("#adminAddressArea option[value='110101']").attr("selected", true);
+                    }else{
+                        $("#adminAddressArea option[value='"+msg.entityData.adminAddressArea+"']").attr("selected", true);
+                    }
                     // $("input[name=adminStatus][value='"+msg.entityData.adminStatus+"']").attr("checked", msg.entityData.adminStatus == msg.entityData.adminStatus ? true : false);
                     // $("#adminRole").val(msg.entityData.adminRole);
-
                     $('#adminAccount').attr("readonly",true);
                     $('#adminName').attr("readonly",true);
                     $('#adminRealName').attr("readonly",true);

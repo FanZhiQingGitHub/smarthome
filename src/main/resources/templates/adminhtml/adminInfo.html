@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/admincss/adminInfo.css}" href="/css/admincss/adminInfo.css" media="all"/>
     <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script type="text/javascript" src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/publicjs/jquery-3.5.1.min.js}" src="/js/publicjs/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js"></script>
     <script type="text/javascript" th:src="@{/js/adminjs/adminInfo.js}" src="/js/adminjs/adminInfo.js"></script>
 </head>
@@ -103,11 +103,11 @@
 
     </div>
     <div class="user_right">
-        <img src="" class="layui-circle" id="adminFace">
-        <button type="button" class="layui-btn layui-btn-normal" id="fileImport"><i class="layui-icon"></i>更换头像(只允许图片文件)</button>
-        <div class="layui-progress" id="fileProgress" lay-showpercent="true" lay-filter="fileProcess" style="margin-left: 28.5%;margin-top:5%;width:200px;display: none">
+        <img src="" class="layui-circle" id="adminFace"><br>
+        <div class="layui-progress" id="fileProgress" lay-showpercent="true" lay-filter="fileProcess" style="margin-left: 31%;margin-top:5%;width:220px;display: none">
             <div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
         </div>
+        <button type="button" class="layui-btn layui-btn-normal" id="fileImport"><i class="layui-icon"></i>更换头像(只允许图片文件)</button>
     </div>
     <div class="layui-form-item" style="margin-left: 5%;">
         <div class="layui-input-block">
