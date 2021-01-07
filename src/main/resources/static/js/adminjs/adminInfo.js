@@ -8,8 +8,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
         , carousel = layui.carousel;
     var $ = layui.jquery;
     var adminAccount = window.sessionStorage.getItem("adminAccount");//获取session中当前登录的管理员用户
-    var adminAddressProvince = window.sessionStorage.getItem("adminAddressProvince");//获取session中当前登录的管理员用户
-    var adminAddressCity = window.sessionStorage.getItem("adminAddressCity");//获取session中当前登录的管理员用户
+    var adminAddressProvince = window.sessionStorage.getItem("adminAddressProvince");//获取session中当前登录的管理员用户所在省份
+    var adminAddressCity = window.sessionStorage.getItem("adminAddressCity");//获取session中当前登录的管理员用户所在城市
 
 
     loadingProvince();//加载省市区下拉框
@@ -156,9 +156,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $('select[name=adminAddressCity]').attr("disabled",false);
                     loadingCity(adminAddressProvince);//加载城市
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                    loadingAdminInfo();//加载完省市区后加载个人信息
                     layer.msg(msg.message, {icon: 2});
                 }
             }, error: function (msg) {
+                loadingAdminInfo();//加载完省市区后加载个人信息
                 layer.msg("网络繁忙！", {icon: 2});
             }
         });
@@ -184,9 +186,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $('select[name=adminAddressArea]').attr("disabled",false);
                     loadingArea(adminAddressCity);
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                    loadingAdminInfo();//加载完省市区后加载个人信息
                     layer.msg(msg.message, {icon: 2});
                 }
             }, error: function (msg) {
+                loadingAdminInfo();//加载完省市区后加载个人信息
                 layer.msg("网络繁忙！", {icon: 2});
             }
         });
@@ -211,9 +215,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
                     $("#adminAddressArea").append(html);
                     loadingAdminInfo();//加载完省市区后加载个人信息
                 }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" || msg.code == "503"){
+                    loadingAdminInfo();//加载完省市区后加载个人信息
                     layer.msg(msg.message, {icon: 2});
                 }
             }, error: function (msg) {
+                loadingAdminInfo();//加载完省市区后加载个人信息
                 layer.msg("网络繁忙！", {icon: 2});
             }
         });

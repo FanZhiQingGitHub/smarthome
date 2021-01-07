@@ -6,10 +6,13 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
         , laydate = layui.laydate
         , element = layui.element;
     $ = layui.jquery;
-
     $("#adminName").text(window.sessionStorage.getItem("adminName"));
-    $("#adminFaceRight").attr("src",window.sessionStorage.getItem("adminHead"));
-    $("#adminFaceLeft").attr("src",window.sessionStorage.getItem("adminHead"));
+    var faceImgPath = window.sessionStorage.getItem("adminHead");
+    if( "null" != faceImgPath && null != faceImgPath && undefined != faceImgPath && "" != faceImgPath){
+        $("#adminFaceRight").attr("src",faceImgPath);
+        $("#adminFaceLeft").attr("src",faceImgPath);
+    }
+
     //手机设备的简单适配
     var treeMobile = $('.site-tree-mobile'),
         shadeMobile = $('.site-mobile-shade')
@@ -114,7 +117,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element'], function 
                 layer.msg(msg.message, {icon: 2});
             }
         }, error: function (msg) {
-            layer.close(loadingIndex);
             layer.msg("网络繁忙！", {icon: 2});
         }
     });

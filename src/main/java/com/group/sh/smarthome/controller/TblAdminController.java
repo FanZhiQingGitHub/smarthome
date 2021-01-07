@@ -6,7 +6,6 @@ import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.TblAdminService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,9 +34,12 @@ public class TblAdminController {
      * @date 2020-12-5
      * @param
      */
-    @RequestMapping(value = "/path/{url}",method = RequestMethod.GET)
+    @GetMapping(value = "/path/{url}")
     public String showView(@PathVariable(value = "url") String url) {
-        return "adminhtml/"+url;
+        if(null != url){
+            return "adminhtml/"+url;
+        }
+        return null;
     }
 
     /**
