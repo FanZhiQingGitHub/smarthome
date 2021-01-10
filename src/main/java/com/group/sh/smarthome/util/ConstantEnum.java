@@ -21,7 +21,9 @@ public class ConstantEnum {
         DELETE("2"),//用于增删改方法值区分
         PROVINCE("0"),//省
         CITY("1"),//市
-        AREA("2");//区
+        AREA("2"),//区
+        ADMINMOD("管理员模块"),
+        USERMOD("用户模块");
         private String value;
         private String desc;
         public static Integer roleId = null;

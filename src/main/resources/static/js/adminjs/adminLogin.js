@@ -136,7 +136,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                         var timer = setInterval(function () {
                             location.href = "/smarthome/admin/path/adminNavigation";
                             clearInterval(timer);
-                        }, 100);
+                        }, 1500);
                     }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" ){
                         layer.close(loadingIndex);
                         layer.msg(msg.message, {icon: 2});

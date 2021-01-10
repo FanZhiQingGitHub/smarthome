@@ -2,7 +2,6 @@ package com.group.sh.smarthome.controller;
 
 
 import com.group.sh.smarthome.entity.TblArea;
-import com.group.sh.smarthome.entity.TblSyslog;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.PublicService;
@@ -58,11 +57,11 @@ public class PublicController {
      * @date 2020-12-24
      * @param
      */
-    @GetMapping(value = "/findSystemLogInfoList")
-    @ResponseBody
-    public CommonResult findSystemLogInfoList(TblSyslog tblSyslog, PageListEntity pageListEntity){
-        return publicService.findSystemLogInfoList(tblSyslog,pageListEntity);
-    }
+//    @GetMapping(value = "/findSystemLogInfoList")
+//    @ResponseBody
+//    public CommonResult findSystemLogInfoList(TblSyslog tblSyslog, PageListEntity pageListEntity){
+//        return publicService.findSystemLogInfoList(tblSyslog,pageListEntity);
+//    }
 
     /**
      *

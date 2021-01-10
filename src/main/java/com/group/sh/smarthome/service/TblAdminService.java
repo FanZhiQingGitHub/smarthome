@@ -33,7 +33,7 @@ import java.util.*;
  */
 @Service
 @Slf4j
-public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
+public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
 
 
     private HttpServletRequest getAdminRequest() {
@@ -514,7 +514,5 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin> {
 
         return new CommonResult(501, "系统未能正确执行操作方法！", null,tblInfo, null,null);
     }
-
-
 
 }

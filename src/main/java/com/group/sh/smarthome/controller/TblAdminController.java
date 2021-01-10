@@ -1,6 +1,7 @@
 package com.group.sh.smarthome.controller;
 
 
+import com.group.sh.smarthome.annotation.OperateLog;
 import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
@@ -50,6 +51,7 @@ public class TblAdminController {
      */
     @GetMapping(value = "/adminLogin")
     @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "管理员登录")
     public CommonResult adminLogin(TblAdmin tblAdmin){
         return tblAdminService.adminLogin(tblAdmin);
     }
@@ -88,6 +90,7 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectMenuList")
     @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "菜单信息维护")
     public CommonResult protectMenuList(TblMenu tblMenu){
         return tblAdminService.protectMenuList(tblMenu);
     }
@@ -112,6 +115,7 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectRoleList")
     @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "角色信息维护")
     public CommonResult protectRoleList(TblRole tblRole){
         return tblAdminService.protectRoleList(tblRole);
     }
@@ -137,6 +141,7 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectMenuPwr")
     @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "权限配置维护")
     public CommonResult protectMenuPwr(TbleMenuRole tbleMenuRole){
         return tblAdminService.protectMenuPwr(tbleMenuRole);
     }
@@ -161,6 +166,7 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectUserList")
     @ResponseBody
+    @OperateLog(operateModule = "管理员模块", operateType = "POST", operateDesc = "用户信息维护")
     public CommonResult protectUserList(TblUser tblUser){
         return tblAdminService.protectUserList(tblUser);
     }
@@ -185,6 +191,7 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectAdminList")
     @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "管理员信息维护")
     public CommonResult protectAdminList(TblAdmin tblAdmin){
         return tblAdminService.protectAdminList(tblAdmin);
     }
@@ -197,6 +204,7 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectAdminProInfo")
     @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "管理员个人资料信息维护")
     public CommonResult protectAdminProInfo(TblAdmin tblAdmin){
         return tblAdminService.protectAdminProInfo(tblAdmin);
     }
@@ -233,6 +241,7 @@ public class TblAdminController {
      */
     @PostMapping(value = "/protectInfoList")
     @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "平台资讯信息维护")
     public CommonResult protectInfoList(TblInfo tblInfo){
         return tblAdminService.protectInfoList(tblInfo);
     }

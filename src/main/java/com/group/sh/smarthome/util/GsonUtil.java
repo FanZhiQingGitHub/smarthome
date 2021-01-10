@@ -4,17 +4,17 @@ import com.google.gson.Gson;
 /**
  * 懒汉是Gson单例工具类
  */
-public class GsonUtils {
-    public static GsonUtils gsonUtil;
+public class GsonUtil {
+    public static GsonUtil gsonUtil;
     private Gson g;
 
-    private GsonUtils() {
+    private GsonUtil() {
         g = new Gson();
     }
 
-    public synchronized static GsonUtils getgsonUtils() {
+    public synchronized static GsonUtil getgsonUtils() {
         if (gsonUtil == null) {
-            gsonUtil = new GsonUtils();
+            gsonUtil = new GsonUtil();
         }
         return gsonUtil;
     }

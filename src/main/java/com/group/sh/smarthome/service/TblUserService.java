@@ -60,7 +60,9 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser) {
             return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblUser, null,null);
         }
-        tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblUser.getUserPwd()) {
+            tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));
+        }
         TblUser User = tblUserMapper.userLogin(tblUser);
         log.info("******查询的结果是: " + User);
         if(ConstantEnum.ConstantEnumType.getENTITY() == User) {
@@ -72,6 +74,11 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(User.getDelId()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getDelId()){
             return new CommonResult(502, "该用户不存在，请先进行注册！", null,User, null,null);
         }
+        ConstantEnum.ConstantEnumType.roleId = Integer.valueOf(User.getUserRole());
+        HttpSession session = getUserRequest().getSession();
+        session.setAttribute("userAccount",User.getUserAccount());
+        session.setAttribute("userName",User.getUserName());
+        session.setMaxInactiveInterval(30 * 60);//session过期时间设置，以秒为单位，即在没有活动30分钟后，session将失效
         return new CommonResult(200, "欢迎您："+User.getUserName()+" ，登录成功！", null,User, null,null);
     }
 

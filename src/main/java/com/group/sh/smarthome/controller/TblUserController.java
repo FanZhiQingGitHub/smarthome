@@ -1,6 +1,7 @@
 package com.group.sh.smarthome.controller;
 
 
+import com.group.sh.smarthome.annotation.OperateLog;
 import com.group.sh.smarthome.entity.TblUser;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.service.TblUserService;
@@ -32,11 +33,14 @@ public class TblUserController {
      *
      * 方法描述 用户功能界面跳转方法
      * @date 2020-11-26
-     * @param path
+     * @param url
      */
-    @RequestMapping("/path/{url}")
-    public String showView(@PathVariable(value = "url") String path) {
-        return "userPage/userHtml/" + path;
+    @GetMapping(value = "/path/{url}")
+    public String showView(@PathVariable(value = "url") String url) {
+        if(null != url){
+            return "userHtml/"+url;
+        }
+        return null;
     }
 
     /**
@@ -47,6 +51,7 @@ public class TblUserController {
      */
     @GetMapping(value = "/userLogin")
     @ResponseBody
+    @OperateLog(operateModule = "用户模块 ", operateType = "GET", operateDesc = "用户登录")
     public CommonResult userLogin(TblUser tblUser){
         return tblUserService.userLogin(tblUser);
     }

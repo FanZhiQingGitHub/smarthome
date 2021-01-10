@@ -46,77 +46,7 @@
     <select id="findInfoCount" resultType="java.lang.Long">
         select count(1) FROM tbl_info where DEL_ID = '0'
     </select>
-
-    <!--    查找系统日志列表-->
-    <resultMap type="com.group.sh.smarthome.entity.TblSyslog" id="logListMap">
-        <result column="syslogId" property="syslogId"></result>
-        <result column="syslogOperator" property="syslogOperator"></result>
-        <result column="syslogDetail" property="syslogDetail"></result>
-        <result column="syslogType" property="syslogType"></result>
-        <result column="syslogResult" property="syslogResult"></result>
-        <result column="syslogIp" property="syslogIp"></result>
-        <result column="syslogTime" property="syslogTime"></result>
-        <result column="crtTm" property="crtTm"></result>
-    </resultMap>
-    <select id="findSystemLogInfoList" resultMap="logListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
-        SELECT
-            syslog.SYSLOG_ID as syslogId,
-            syslog.SYSLOG_OPERATOR as syslogOperator,
-            syslog.SYSLOG_OPERATOR_ACCOUNT as syslogOperatorAccount,
-            syslog.SYSLOG_DETAIL as syslogDetail,
-            syslog.SYSLOG_TYPE as syslogType,
-            syslog.SYSLOG_RESULT as syslogResult,
-            syslog.SYSLOG_IP as syslogIp,
-            syslog.SYSLOG_TIME as syslogTime,
-            syslog.CRT_TM as crtTm
-        FROM tbl_system_log syslog
-        <where>
-            and syslog.DEL_ID = 0
-            <if test="objectOne != '' and objectOne != null ">
-                and  syslog.SYSLOG_ID = #{objectOne}
-            </if>
-            <if test="objectTwo != '' and objectTwo != null ">
-                and  syslog.SYSLOG_OPERATOR like concat('%',#{objectTwo},'%')
-            </if>
-            <if test="objectThree != '' and objectThree != null ">
-                and  syslog.SYSLOG_RESULT = #{objectThree}
-            </if>
-            <if test="objectFour != '' and objectFour != null ">
-                and  syslog.SYSLOG_TYPE = #{objectFour}
-            </if>
-            <if test=" startTime != '' and startTime != null">
-                <![CDATA[   and DATE_FORMAT(syslog.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
-            </if>
-            <if test=" endTime != '' and endTime != null">
-                <![CDATA[   and DATE_FORMAT(syslog.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
-            </if>
-        </where>
-        order by syslog.CRT_TM desc limit #{page},#{limit}
-    </select>
-
-    <!--    查找系统日志列表条数-->
-    <select id="findSystemLogInfoListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
-        select count(1)
-        FROM tbl_system_log syslog
-        <where>
-            and syslog.DEL_ID = 0
-            <if test="objectOne != '' and objectOne != null ">
-                and  syslog.SYSLOG_OPERATOR like concat('%',#{objectOne},'%')
-            </if>
-            <if test="objectTwo != '' and objectTwo != null ">
-                and  syslog.SYSLOG_RESULT = #{objectTwo}
-            </if>
-            <if test="objectThree != '' and objectThree != null ">
-                and  syslog.SYSLOG_TYPE = #{objectThree}
-            </if>
-            <if test=" startTime != '' and startTime != null">
-                <![CDATA[   and DATE_FORMAT(syslog.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
-            </if>
-            <if test=" endTime != '' and endTime != null">
-                <![CDATA[   and DATE_FORMAT(syslog.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
-            </if>
-        </where>
-    </select>
+    
 
     <!-- 用户数量统计（当前周）-->
     <select id="userStatistics" resultType="java.lang.Long" parameterType="java.lang.String">
@@ -163,12 +93,13 @@
     </select>
 
     <!-- 新增系统日志-->
-    <insert id="addSysLogInfo" parameterType="com.group.sh.smarthome.entity.TblSyslog" useGeneratedKeys="true" keyProperty="syslogId">
+    <insert id="addOperationLogInfo" parameterType="com.group.sh.smarthome.annotation.OperationLog" useGeneratedKeys="true" keyProperty="operateId">
         insert into
-            tbl_system_log(SYSLOG_OPERATOR,SYSLOG_OPERATOR_ACCOUNT,SYSLOG_DETAIL,SYSLOG_TYPE,SYSLOG_RESULT,SYSLOG_IP,SYSLOG_TIME,
-                           CRT_PSN_ID,CRT_TM,DEL_ID)values
-        (#{syslogOperator},#{syslogOperatorAccount},#{syslogDetail},#{syslogType},#{syslogResult},#{syslogIp},#{syslogTime},
-         #{crtPsnId},now(),'0')
+            tbl_operate_log(REQUEST_PARAM,HEADER_PARAM,OPERATE_METHOD,OPERATE_USER_ID,OPERATE_USER_NAME,OPERATE_URI,OPERATE_IP,OPERATE_MODULE,
+                            OPERATE_TYPE,OPERATE_DESC,OPERATE_RESPONSE_PARAM,OPERATE_RESULT,NOR_MESSAGE,EXC_NAME,EXC_MESSAGE,CRT_TM,DEL_ID)values
+        (#{requestParam},#{headerParam},#{operateMethod},#{operateUserId},#{operateUserName},#{operateUri},#{operateIp},#{operateModule},
+         #{operateType},#{operateDesc},#{operateResponseParam},#{operateResult},#{norMessage},#{excName},#{excMessage},
+         now(),'0')
     </insert>
 
 </mapper>
