@@ -10,17 +10,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <title>系统资讯管理</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" href="/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admincss/systemInfo.css}" href="/css/admincss/systemInfo.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/admincss/systemInfo.css" media="all"/>
     <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/publicjs/jquery-3.5.1.min.js}" src="/js/publicjs/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js"></script>
-    <script type="text/javascript" th:src="@{/js/adminjs/systemInfo.js}" src="/js/adminjs/systemInfo.js"></script>
+    <script type="text/javascript" src="/layui/layui.js"></script>
+    <script type="text/javascript" src="/adminjs/systemInfo.js"></script>
 </head>
 <body>
     <form class="layui-form" id="infoForm">
-        <blockquote class="layui-elem-quote news_search" id="searchTable" >
+        <blockquote class="layui-elem-quote news_search">
             <div class="layui-inline">
                 查询条件:
             </div>
@@ -39,6 +38,8 @@
             <div class="layui-inline">
                 <input type="text" class="layui-input search_input" name="endTime" id="endTime"  placeholder="请选择结束日期">
             </div>
+        </blockquote>
+        <blockquote class="layui-elem-quote news_search" id="searchTable" >
             <button type="button" class="layui-btn layui-btn-primary" data-type="reload"><i class="layui-icon">&#xe615;</i>查询</button>
             <button type="button" class="layui-btn layui-btn-normal" id="resetTable"><i class="layui-icon">&#xe669;</i>重置</button>
         </blockquote>

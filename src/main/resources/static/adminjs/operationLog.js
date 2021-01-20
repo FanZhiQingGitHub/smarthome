@@ -11,7 +11,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
 
     table.render({
         elem: '#logTable'
-        , url: '/smarthome/public/findSystemLogInfoList' //数据接口
+        , url: '/smarthome/public/findOperationLogList' //数据接口
         , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
         , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             title: '提示'
@@ -26,29 +26,24 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , limits: [5,10, 15, 20]
         , cols: [[
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
-            ,{field:'syslogId', title:'日志编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
-            ,{field:'syslogOperator', title:'操作人', width:180,align: 'center'}
-            ,{field:'syslogOperatorAccount', title:'操作人账号', width:180,align: 'center'}
-            ,{field:'syslogDetail', title:'操作内容', align: 'center',}
-            ,{field:'syslogType', title:'操作类型', align: 'center',
+            ,{field:'operateId', title:'日志编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
+            ,{field:'operateUserName', title:'操作人', width:180,align: 'center'}
+            ,{field:'operateUserId', title:'操作人账号', width:180,align: 'center'}
+            ,{field:'operateModule', title:'操作模块', align: 'center',}
+            ,{field:'norMessage', title:'操作内容(正常)', width:250,align: 'center',}
+            ,{field:'excMessage', title:'操作内容(异常)', width:250,align: 'center',
                 templet:function(d){
-                    if(d.syslogType == '0'){
-                        return '新增';
-                    }else if(d.syslogType == '1'){
-                        return '修改';
-                    }else if(d.syslogType == '2'){
-                        return '删除';
-                    }
+                    return d.excMessage == null ? '无':d.excMessage;
                 }
             }
-            ,{field:'syslogResult', title:'操作结果', align: 'center',
+            ,{field:'operateType', title:'操作类型', align: 'center',}
+            ,{field:'operateResult', title:'操作结果', align: 'center',
                 templet:function(d){
-                    return d.syslogResult == '0' ? '正常':'异常';
+                    return d.operateResult == '0' ? '正常':'异常';
                 }
             }
-            ,{field:'syslogIp', title:'系统IP', align: 'center',}
-            ,{field:'syslogTime', title:'操作时间', width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.syslogTime,'yyyy-MM-dd HH:mm:ss')}}</div>"}
-            ,{field:'crtTm', title:'创建时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
+            ,{field:'operateIp', title:'操作IP', align: 'center',}
+            ,{field:'crtTm', title:'操作时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
         ]]
         ,page: true
     });
@@ -57,7 +52,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
     table.on('toolbar(logTable)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         switch(obj.event){
-            case 'findSystemLogDetail':
+            case 'findOperationLogDetail':
                 var arr = checkStatus.data;
                 if(arr.length == 0){
                     layer.msg('请选择一条数据');
@@ -66,19 +61,25 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     var index = layer.open({
                         title : "查看日志信息",
                         type : 2,
-                        content : "/smarthome/admin/path/protectSystemLog",
+                        content : "/smarthome/admin/path/protectOperationLog",
                         success : function(layero, index){
                             var body = layer.getChildFrame('body', index);
                             var iframeWin = layero.find('iframe')[0].contentWindow;//得到iframe页的窗口对象
                             body.find("#method").val('3');
-                            body.find("#syslogId").val(data[0].syslogId);
-                            body.find("#syslogOperator").val(data[0].syslogOperator);
-                            body.find("#syslogOperatorAccount").val(data[0].syslogOperatorAccount);
-                            body.find("#syslogDetail").val(data[0].syslogDetail);
-                            body.find("#syslogType").val(data[0].syslogType);
-                            body.find("#syslogResult").val(data[0].syslogResult);
-                            body.find("#syslogIp").val(data[0].syslogIp);
-                            body.find("#syslogTime").val(data[0].syslogTime);
+                            body.find("#operateId").val(data[0].operateId);
+                            body.find("#headerParam").val(data[0].headerParam);
+                            body.find("#operateMethod").val(data[0].operateMethod);
+                            body.find("#operateUserId").val(data[0].operateUserId);
+                            body.find("#operateUserName").val(data[0].operateUserName);
+                            body.find("#operateUri").val(data[0].operateUri);
+                            body.find("#operateIp").val(data[0].operateIp);
+                            body.find("#operateModule").val(data[0].operateModule);
+                            body.find("#operateType").val(data[0].operateType);
+                            body.find("#operateDesc").val(data[0].operateDesc);
+                            body.find("#operateResult").val(data[0].operateResult);
+                            body.find("#norMessage").val(data[0].norMessage);
+                            body.find("#excMessage").val(data[0].excMessage);
+                            body.find("#crtTm").val(data[0].crtTm);
                         }
                     })
                     //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -98,8 +99,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
     });
 
     $(function () {
-        $("#findSystemLogDetail").mouseover(function() {
-            layer.tips('您可以通过双击一条数据查看详情哦！', '#findSystemLogDetail', {
+        $("#findOperationLogDetail").mouseover(function() {
+            layer.tips('您可以通过双击一条数据查看详情哦！', '#findOperationLogDetail', {
                 tips: 2
             });
         });
@@ -111,19 +112,25 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         var index = layer.open({
             title : "查看日志信息",
             type : 2,
-            content : "/smarthome/admin/path/protectSystemLog",
+            content : "/smarthome/admin/path/protectOperationLog",
             success : function(layero, index){
                 var body = layer.getChildFrame('body', index);
                 var iframeWin = layero.find('iframe')[0].contentWindow;//得到iframe页的窗口对象
                 body.find("#method").val('3');
-                body.find("#syslogId").val(data.syslogId);
-                body.find("#syslogOperator").val(data.syslogOperator);
-                body.find("#syslogOperatorAccount").val(data.syslogOperatorAccount);
-                body.find("#syslogDetail").val(data.syslogDetail);
-                body.find("#syslogType").val(data.syslogType);
-                body.find("#syslogResult").val(data.syslogResult);
-                body.find("#syslogIp").val(data.syslogIp);
-                body.find("#syslogTime").val(data.syslogTime);
+                body.find("#operateId").val(data.operateId);
+                body.find("#headerParam").val(data.headerParam);
+                body.find("#operateMethod").val(data.operateMethod);
+                body.find("#operateUserId").val(data.operateUserId);
+                body.find("#operateUserName").val(data.operateUserName);
+                body.find("#operateUri").val(data.operateUri);
+                body.find("#operateIp").val(data.operateIp);
+                body.find("#operateModule").val(data.operateModule);
+                body.find("#operateType").val(data.operateType);
+                body.find("#operateDesc").val(data.operateDesc);
+                body.find("#operateResult").val(data.operateResult);
+                body.find("#norMessage").val(data.norMessage);
+                body.find("#excMessage").val(data.excMessage);
+                body.find("#crtTm").val(data.crtTm);
             }
         })
         //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -145,10 +152,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    syslogId: $("#syslogId").val(),
-                    syslogOperator: $("#syslogOperator").val(),
-                    syslogResult: $("#syslogResult").val(),
-                    syslogType: $("#syslogType").val(),
+                    operateId: $("#operateId").val(),
+                    operateUserId: $("#operateUserId").val(),
+                    operateUserName: $("#operateUserName").val(),
+                    operateModule: $("#operateModule").val(),
+                    operateType: $("#operateType").val(),
+                    operateResult: $("#operateResult").val(),
                     startTime: $("#startTime").val(),
                     endTime: $("#endTime").val()
                 }
@@ -158,15 +167,17 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
 
     $(function () {
         $("#resetTable").click(function () {
-            document.getElementById("systemLogForm").reset();
+            document.getElementById("operationForm").reset();
             table.reload('searchTable', {
                 page: {
                     curr: 1 //重新从第 1 页开始
                 }, where: {
-                    syslogId: $("#syslogId").val(),
-                    syslogOperator: $("#syslogOperator").val(),
-                    syslogResult: $("#syslogResult").val(),
-                    syslogType: $("#syslogType").val(),
+                    operateId: $("#operateId").val(),
+                    operateUserId: $("#operateUserId").val(),
+                    operateUserName: $("#operateUserName").val(),
+                    operateModule: $("#operateModule").val(),
+                    operateType: $("#operateType").val(),
+                    operateResult: $("#operateResult").val(),
                     startTime: $("#startTime").val(),
                     endTime: $("#endTime").val()
                 }

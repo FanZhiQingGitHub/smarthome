@@ -76,36 +76,41 @@ public class PublicService {
         return new CommonResult(200, null, null,null, null,countMap);
     }
 
-//    public CommonResult findSystemLogInfoList(TblSyslog tblSyslog, PageListEntity pageListEntity){
-//        //查询系统日志列表
-//        if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
-//            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblSyslog,null,null);
-//        }
-//        Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
-//        Integer maxpage = pageListEntity.getLimit();
-//        pageListEntity.setPage(minpage);
-//        pageListEntity.setLimit(maxpage);
-//
-//        if(ConstantEnum.ConstantEnumType.getENTITY() != tblSyslog.getSyslogId()){
-//            pageListEntity.setObjectOne(tblSyslog.getSyslogId().toString());
-//        }
-//        if(ConstantEnum.ConstantEnumType.getENTITY() != tblSyslog.getSyslogOperator()){
-//            pageListEntity.setObjectTwo(tblSyslog.getSyslogOperator());
-//        }
-//        if(ConstantEnum.ConstantEnumType.getENTITY() != tblSyslog.getSyslogResult()){
-//            pageListEntity.setObjectThree(tblSyslog.getSyslogResult());
-//        }
-//        if(ConstantEnum.ConstantEnumType.getENTITY() != tblSyslog.getSyslogType()){
-//            pageListEntity.setObjectFour(tblSyslog.getSyslogType());
-//        }
-//        List<TblSyslog> tblSyslogList = publicMapper.findSystemLogInfoList(pageListEntity);
-//        log.info("******查询的系统日志列表是: "+tblSyslogList);
-//        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblSyslogList.size()) {
-//            return new CommonResult(0, "亲，暂无相关数据", null,null, tblSyslogList,null);
-//        }
-//        Integer count = publicMapper.findSystemLogInfoListCount(pageListEntity).intValue();
-//        return new CommonResult(0, null, count,null, tblSyslogList,null);
-//    }
+    public CommonResult findOperationLogList(OperationLog operationLog, PageListEntity pageListEntity){
+        //查询系统操作日志列表
+        if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,operationLog,null,null);
+        }
+        Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
+        Integer maxpage = pageListEntity.getLimit();
+        pageListEntity.setPage(minpage);
+        pageListEntity.setLimit(maxpage);
+        if(ConstantEnum.ConstantEnumType.getENTITY() != operationLog.getOperateUserId()){
+            pageListEntity.setObjectOne(operationLog.getOperateUserId().toString());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != operationLog.getOperateUserName()){
+            pageListEntity.setObjectTwo(operationLog.getOperateUserName());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != operationLog.getOperateModule()){
+            pageListEntity.setObjectThree(operationLog.getOperateModule());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != operationLog.getOperateType()){
+            pageListEntity.setObjectFour(operationLog.getOperateType());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != operationLog.getOperateResult()){
+            pageListEntity.setObjectFive(operationLog.getOperateResult());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != operationLog.getOperateId()){
+            pageListEntity.setObjectSix(operationLog.getOperateId().toString());
+        }
+        List<OperationLog> operationLogList = publicMapper.findOperationLogList(pageListEntity);
+        log.info("******查询的系统操作日志列表是: "+operationLogList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == operationLogList.size()) {
+            return new CommonResult(0, "亲，暂无相关数据", null,null, operationLogList,null);
+        }
+        Integer count = publicMapper.findOperationLogListCount(pageListEntity).intValue();
+        return new CommonResult(0, null, count,null, operationLogList,null);
+    }
 
     public CommonResult userStatistics(){
         Map<String,ArrayList> userMap = new LinkedHashMap<>();

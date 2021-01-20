@@ -242,7 +242,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload','c
         datatype: "text",
         success: function (msg) {
             infoRegDate = msg.mapData.infoMap;
-            console.log(infoRegDate);
             createInfoEchars();
         }, error: function (msg) {
             layer.msg("网络繁忙！", {icon: 2});

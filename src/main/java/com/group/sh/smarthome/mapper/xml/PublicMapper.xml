@@ -92,7 +92,97 @@
                 DATE_FORMAT(CRT_TM,'%Y-%m-%d') = (select subdate(curdate(),date_format(curdate(),'%w')-#{num})) and DEL_ID = 0;
     </select>
 
-    <!-- 新增系统日志-->
+    <!--  查找系统操作日志列表-->
+    <resultMap type="com.group.sh.smarthome.annotation.OperationLog" id="logListMap">
+        <result column="OPERATE_ID" property="operateId"></result>
+        <result column="REQUEST_PARAM" property="requestParam"></result>
+        <result column="HEADER_PARAM" property="headerParam"></result>
+        <result column="OPERATE_METHOD" property="operateMethod"></result>
+        <result column="OPERATE_USER_ID" property="operateUserId"></result>
+        <result column="OPERATE_USER_NAME" property="operateUserName"></result>
+        <result column="OPERATE_URI" property="operateUri"></result>
+        <result column="OPERATE_IP" property="operateIp"></result>
+        <result column="OPERATE_MODULE" property="operateModule"></result>
+        <result column="OPERATE_TYPE" property="operateType"></result>
+        <result column="OPERATE_DESC" property="operateDesc"></result>
+        <result column="OPERATE_RESPONSE_PARAM" property="operateResponseParam"></result>
+        <result column="OPERATE_RESULT" property="operateResult"></result>
+        <result column="NOR_MESSAGE" property="norMessage"></result>
+        <result column="EXC_NAME" property="excName"></result>
+        <result column="EXC_MESSAGE" property="excMessage"></result>
+        <result column="CRT_TM" property="crtTm"></result>
+        <result column="DEL_ID" property="delId"></result>
+    </resultMap>
+    <select id="findOperationLogList" resultMap="logListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        SELECT
+        OPERATE_ID,REQUEST_PARAM,HEADER_PARAM,OPERATE_METHOD,OPERATE_USER_ID,OPERATE_USER_NAME,OPERATE_URI,OPERATE_IP,
+        OPERATE_MODULE,OPERATE_TYPE,OPERATE_DESC,OPERATE_RESPONSE_PARAM,OPERATE_RESULT,NOR_MESSAGE,EXC_NAME,EXC_MESSAGE,
+        CRT_TM,DEL_ID
+        FROM tbl_operate_log
+        <where>
+            and DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  OPERATE_USER_ID like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  OPERATE_USER_NAME like concat('%',#{objectTwo},'%')
+            </if>
+            <if test="objectThree != '' and objectThree != null ">
+                and  OPERATE_MODULE = like concat('%',#{objectThree},'%')
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  OPERATE_TYPE = #{objectFour}
+            </if>
+            <if test="objectFive != '' and objectFive != null ">
+                and  OPERATE_RESULT = #{objectFive}
+            </if>
+            <if test="objectSix != '' and objectSix != null ">
+                and  OPERATE_ID like concat('%',#{objectSix},'%')
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+        order by CRT_TM desc limit #{page},#{limit}
+    </select>
+
+    <!--    查找管理员信息列表记录条数-->
+    <select id="findOperationLogListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        select count(1)
+        FROM tbl_operate_log
+        <where>
+            and DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  OPERATE_USER_ID like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  OPERATE_USER_NAME like concat('%',#{objectTwo},'%')
+            </if>
+            <if test="objectThree != '' and objectThree != null ">
+                and  OPERATE_MODULE = like concat('%',#{objectThree},'%')
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  OPERATE_TYPE = #{objectFour}
+            </if>
+            <if test="objectFive != '' and objectFive != null ">
+                and  OPERATE_RESULT = #{objectFive}
+            </if>
+            <if test="objectSix != '' and objectSix != null ">
+                and  OPERATE_ID like concat('%',#{objectSix},'%')
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增系统操作日志-->
     <insert id="addOperationLogInfo" parameterType="com.group.sh.smarthome.annotation.OperationLog" useGeneratedKeys="true" keyProperty="operateId">
         insert into
             tbl_operate_log(REQUEST_PARAM,HEADER_PARAM,OPERATE_METHOD,OPERATE_USER_ID,OPERATE_USER_NAME,OPERATE_URI,OPERATE_IP,OPERATE_MODULE,

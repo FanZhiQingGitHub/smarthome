@@ -31,10 +31,6 @@ public interface PublicMapper {
 
     public Long findInfoCount();
 
-    //public List<TblSyslog> findSystemLogInfoList(PageListEntity pageListEntity);
-
-    public Long findSystemLogInfoListCount(PageListEntity pageListEntity);
-
     public Long userStatistics(String num);
 
     public Long adminStatistics(String num);
@@ -42,6 +38,10 @@ public interface PublicMapper {
     public List<MenuTreeInfo> menuStatistics();
 
     public Long infoStatistics(String num);
+
+    public List<OperationLog> findOperationLogList(PageListEntity pageListEntity);
+
+    public Long findOperationLogListCount(PageListEntity pageListEntity);
 
     public Integer addOperationLogInfo(OperationLog operationLog);
 

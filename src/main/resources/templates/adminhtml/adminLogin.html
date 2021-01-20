@@ -11,13 +11,12 @@
     <meta name="format-detection" content="telephone=no"/>
     <title>智慧家庭信息后台管理系统登陆首页</title>
     <link rel="icon" th:href="@{/publicimage/logo.png}">
-    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" href="/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admincss/adminLogin.css}" href="/css/admincss/adminLogin.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/admincss/adminLogin.css" media="all"/>
     <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/publicjs/jquery-3.5.1.min.js}" src="/js/publicjs/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js"></script>
-    <script type="text/javascript" th:src="@{/js/adminjs/adminLogin.js}" src="/js/adminjs/adminLogin.js"></script>
+    <script type="text/javascript" src="/layui/layui.js"></script>
+    <script type="text/javascript" src="/adminjs/adminLogin.js"></script>
     <style rel="stylesheet" type="text/css">
         /* 覆盖原框架样式 */
         .layui-elem-quote{background-color: inherit!important;}
@@ -66,13 +65,13 @@
         <form class="layui-form pad_01" action="" method="post" lay-filter="userLoginForm">
             <div class="layui-col-sm12 layui-col-md12">
                 <div class="layui-form-item">
-                    <input type="text" name="adminAccount" lay-verify="Account" autocomplete="off" placeholder="请输入用户账号" class="layui-input" value="100000001">
+                    <input type="text" name="adminAccount" lay-verify="Account" autocomplete="off" placeholder="请输入用户账号" class="layui-input" value="">
                     <i class="layui-icon layui-icon-username lofo_icon"></i>
                 </div>
             </div>
             <div class="layui-col-sm12 layui-col-md12">
                 <div class="layui-form-item">
-                    <input type="password" name="adminPwd" lay-verify="pass" autocomplete="off" placeholder="请输入6~12位密码" class="layui-input" value="123456">
+                    <input type="password" name="adminPwd" lay-verify="pass" autocomplete="off" placeholder="请输入6~12位密码" class="layui-input" value="">
                     <i class="layui-icon layui-icon-password lofo_icon"></i>
                 </div>
             </div>
