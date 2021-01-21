@@ -50,6 +50,7 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     mode: HTML
+    check-template-location: true
     cache: false
     encoding: UTF-8
     suffix: .html

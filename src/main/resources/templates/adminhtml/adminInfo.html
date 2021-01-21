@@ -10,13 +10,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <title>管理员基本信息页面</title>
-    <link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="/admincss/adminInfo.css" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/admincss/adminInfo.css}" media="all"/>
     <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <script type="text/javascript" src="/publicjs/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="/layui/layui.js"></script>
-    <script type="text/javascript" src="/adminjs/adminInfo.js"></script>
+    <script type="text/javascript" th:src="@{/publicjs/jquery-3.5.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}" ></script>
+    <script type="text/javascript" th:src="@{/adminjs/adminInfo.js}"></script>
 </head>
 <body class="childrenBody">
 <form class="layui-form" id="adminInfoFrom" accept-charset="UTF-8" enctype="multipart/form-data" method="post">
