@@ -77,8 +77,18 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                             body.find("#operateType").val(data[0].operateType);
                             body.find("#operateDesc").val(data[0].operateDesc);
                             body.find("#operateResult").val(data[0].operateResult);
-                            body.find("#norMessage").val(data[0].norMessage);
-                            body.find("#excMessage").val(data[0].excMessage);
+                            var norMsg = data[0].norMessage;
+                            if(norMsg != null && norMsg !='' && norMsg != undefined){
+                                body.find("#norMessage").val(norMsg);
+                            }else {
+                                body.find("#norMessage").val('无');
+                            }
+                            var excMsg = data[0].excMessage;
+                            if(excMsg != null && excMsg !='' && excMsg != undefined){
+                                body.find("#excMessage").val(excMsg);
+                            }else {
+                                body.find("#excMessage").val('无');
+                            }
                             body.find("#crtTm").val(data[0].crtTm);
                         }
                     })
@@ -128,8 +138,18 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 body.find("#operateType").val(data.operateType);
                 body.find("#operateDesc").val(data.operateDesc);
                 body.find("#operateResult").val(data.operateResult);
-                body.find("#norMessage").val(data.norMessage);
-                body.find("#excMessage").val(data.excMessage);
+                var norMsg = data.norMessage;
+                if(norMsg != null && norMsg !='' && norMsg != undefined){
+                    body.find("#norMessage").val(norMsg);
+                }else {
+                    body.find("#norMessage").val('无');
+                }
+                var excMsg = data.excMessage;
+                if(excMsg != null && excMsg !='' && excMsg != undefined){
+                    body.find("#excMessage").val(excMsg);
+                }else {
+                    body.find("#excMessage").val('无');
+                }
                 body.find("#crtTm").val(data.crtTm);
             }
         })

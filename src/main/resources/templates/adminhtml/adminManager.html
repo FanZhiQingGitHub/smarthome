@@ -19,7 +19,7 @@
 </head>
 <body>
     <form class="layui-form" id="adminForm">
-        <blockquote class="layui-elem-quote news_search" >
+        <blockquote class="layui-elem-quote news_search" id="searchTable">
             <div class="layui-inline">
                 查询条件:
             </div>
@@ -32,6 +32,7 @@
             <div class="layui-inline">
                 <input type="text" class="layui-input search_input" name="adminPhone" id="adminPhone" placeholder="请输入管理员手机">
             </div>
+            <hr class="layui-bg-gray">
             <div class="layui-inline">
                 新增时间:
             </div>
@@ -54,8 +55,7 @@
                     <option value="1">禁用</option>
                 </select>
             </div>
-        </blockquote>
-        <blockquote class="layui-elem-quote news_search" id="searchTable" >
+            <hr class="layui-bg-gray">
             <button type="button" class="layui-btn layui-btn-primary" data-type="reload"><i class="layui-icon">&#xe615;</i>查询</button>
             <button type="button" class="layui-btn layui-btn-normal" id="resetTable"><i class="layui-icon">&#xe669;</i>重置</button>
         </blockquote>

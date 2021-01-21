@@ -19,15 +19,14 @@
 </head>
 <body>
     <form class="layui-form" id="menuForm">
-        <blockquote class="layui-elem-quote news_search">
+        <blockquote class="layui-elem-quote news_search" id="searchTable">
             <div class="layui-inline">
                 查询条件:
             </div>
             <div class="layui-inline">
                 <input type="text" class="layui-input search_input" name="menuName" id="menuName" placeholder="请输入菜单标题" >
             </div>
-        </blockquote>
-        <blockquote class="layui-elem-quote news_search" id="searchTable">
+            <hr class="layui-bg-gray">
             <button type="button" class="layui-btn layui-btn-primary" data-type="reload"><i class="layui-icon">&#xe615;</i>查询</button>
             <button type="button" class="layui-btn layui-btn-normal" id="resetTable"><i class="layui-icon">&#xe669;</i>重置</button>
         </blockquote>

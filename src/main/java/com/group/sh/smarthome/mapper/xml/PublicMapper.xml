@@ -128,7 +128,7 @@
                 and  OPERATE_USER_NAME like concat('%',#{objectTwo},'%')
             </if>
             <if test="objectThree != '' and objectThree != null ">
-                and  OPERATE_MODULE = like concat('%',#{objectThree},'%')
+                and  OPERATE_MODULE like concat('%',#{objectThree},'%')
             </if>
             <if test="objectFour != '' and objectFour != null ">
                 and  OPERATE_TYPE = #{objectFour}
@@ -162,7 +162,7 @@
                 and  OPERATE_USER_NAME like concat('%',#{objectTwo},'%')
             </if>
             <if test="objectThree != '' and objectThree != null ">
-                and  OPERATE_MODULE = like concat('%',#{objectThree},'%')
+                and  OPERATE_MODULE like concat('%',#{objectThree},'%')
             </if>
             <if test="objectFour != '' and objectFour != null ">
                 and  OPERATE_TYPE = #{objectFour}

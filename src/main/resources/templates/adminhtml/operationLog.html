@@ -19,7 +19,7 @@
 </head>
 <body>
     <form class="layui-form" id="operationForm">
-        <blockquote class="layui-elem-quote news_search" >
+        <blockquote class="layui-elem-quote news_search" id="searchTable">
             <div class="layui-inline">
                 查询条件:
             </div>
@@ -32,6 +32,7 @@
             <div class="layui-inline">
                 <input type="text" class="layui-input search_input" name="operateUserName" id="operateUserName" placeholder="请输入操作人名称">
             </div>
+            <hr class="layui-bg-gray">
             <div class="layui-inline">
                 操作模块:
             </div>
@@ -76,8 +77,7 @@
             <div class="layui-inline">
                 <input type="text" class="layui-input search_input" name="endTime" id="endTime"  placeholder="请选择结束日期">
             </div>
-        </blockquote>
-        <blockquote class="layui-elem-quote news_search" id="searchTable" >
+            <hr class="layui-bg-gray">
             <button type="button" class="layui-btn layui-btn-primary" data-type="reload"><i class="layui-icon">&#xe615;</i>查询</button>
             <button type="button" class="layui-btn layui-btn-normal" id="resetTable"><i class="layui-icon">&#xe669;</i>重置</button>
         </blockquote>
