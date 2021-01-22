@@ -50,6 +50,25 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
     @Resource
     private TblAdminMapper tblAdminMapper;
 
+    public String returnUrl(String url){
+        if(null != url){
+            if("adminExit".equals(url)){
+                url = "adminLogin";
+                return "adminhtml/"+url;
+            }else {
+                return "adminhtml/"+url;
+            }
+        }
+        return null;
+    }
+
+    public void removeSessionAttributr(HttpServletRequest request){
+        Enumeration em = request.getSession().getAttributeNames();  //得到session中所有的属性名
+        while (em.hasMoreElements()) {
+            request.getSession().removeAttribute(em.nextElement().toString()); //遍历删除session中的值
+        }
+    }
+
     public CommonResult adminLogin(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin) {
             return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblAdmin, null,null);

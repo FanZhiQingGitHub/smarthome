@@ -1,30 +1,37 @@
 package com.group.sh.smarthome.interceptor;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class smartHomeConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
-
-    @SuppressWarnings("unused")
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+public class smartHomeConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new smartHomeInterceptor()).addPathPatterns("/**")
-        .excludePathPatterns("/smarthome/admin/path/adminLogin","/smarthome/admin/adminLogin","/favicon.ico"
-                ,"/admincss/**","/adminjs/**","/layui/**","/publicimage/**","/publicjs/**","/usercss/**"
-                ,"/userHeadImg/**","/userjs/**","/smarthome/admin/path/adminNavigation","/smarthome/admin/path/adminMain"
-                ,"/smarthome/public/path/adminMain"
-                );
+        // 注册拦截器
+        smartHomeInterceptor smartHomeInterceptor = new smartHomeInterceptor();
+        InterceptorRegistration loginRegistry = registry.addInterceptor(smartHomeInterceptor);
+        // 拦截路径
+        loginRegistry.addPathPatterns("/**");
+        // 排除路径
+        loginRegistry.excludePathPatterns("/smarthome/admin/path/adminLogin");
+        loginRegistry.excludePathPatterns("/smarthome/admin/adminLogin");
+        loginRegistry.excludePathPatterns("/smarthome/user/path/userLogin");
+        loginRegistry.excludePathPatterns("/smarthome/user/userLogin");
+        loginRegistry.excludePathPatterns("/favicon.ico");
+        loginRegistry.excludePathPatterns("/admincss/**");
+        loginRegistry.excludePathPatterns("/adminjs/**");
+        loginRegistry.excludePathPatterns("/layui/**");
+        loginRegistry.excludePathPatterns("/publicimage/**");
+        loginRegistry.excludePathPatterns("/publicjs/**");
+        loginRegistry.excludePathPatterns("/usercss/**");
+        loginRegistry.excludePathPatterns("/userHeadImg/**");
+        loginRegistry.excludePathPatterns("/userjs/**");
+        loginRegistry.excludePathPatterns("/adminhtml/**");
+        loginRegistry.excludePathPatterns("/userhtml/**");
+        loginRegistry.excludePathPatterns("/errorhtml/**");
+
     }
 }

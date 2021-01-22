@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Enumeration;
 
 /**
  * <pre>
@@ -37,11 +40,10 @@ public class TblAdminController {
      */
     @GetMapping(value = "/path/{url}")
     public String showView(@PathVariable(value = "url") String url) {
-        if(null != url){
-            return "adminhtml/"+url;
-        }
-        return null;
+        return tblAdminService.returnUrl(url);
     }
+
+
 
     /**
      *

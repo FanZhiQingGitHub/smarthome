@@ -37,10 +37,7 @@ public class TblUserController {
      */
     @GetMapping(value = "/path/{url}")
     public String showView(@PathVariable(value = "url") String url) {
-        if(null != url){
-            return "userHtml/"+url;
-        }
-        return null;
+        return tblUserService.returnUrl(url);
     }
 
     /**

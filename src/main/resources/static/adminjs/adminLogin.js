@@ -112,10 +112,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                 });
             }
         });
-        /*if(data.field.adminCode.toLowerCase() != verCode.toLowerCase()){
+        if(data.field.adminCode.toLowerCase() != verCode.toLowerCase()){
             layer.close(loadingIndex);
             layer.msg("验证码错误，请重新输入！", {icon: 2});
-        }else{*/
+        }else{
             $.ajax({
                 url: "/smarthome/admin/adminLogin",
                 async: true,
@@ -146,7 +146,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     layer.msg("网络繁忙！", {icon: 2});
                 }
             });
-       // }
+        }
     });
 
 });

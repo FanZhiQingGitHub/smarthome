@@ -40,6 +40,18 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
     @Resource
     private TblUserMapper tblUserMapper;
 
+    public String returnUrl(String url){
+        if(null != url){
+            if("userExit".equals(url)){
+                url = "userLogin";
+                return "userhtml/"+url;
+            }else {
+                return "userhtml/"+url;
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * 方法描述 获取下一个ID

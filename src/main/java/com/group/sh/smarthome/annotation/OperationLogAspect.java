@@ -18,7 +18,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 
@@ -147,7 +149,7 @@ public class OperationLogAspect {
             String adminName =  (String) session.getAttribute("adminName");//操作人姓名
             String adminAccount =  (String) session.getAttribute("adminAccount");//操作人ID
             if(ConstantEnum.ConstantEnumType.getENTITY() == adminName || ConstantEnum.ConstantEnumType.getENTITY() == adminAccount){
-                throw new Exception("session中不存在该管理员用户、账号");
+                operationLog.setNorMessage("session中不存在该管理员用户、账号");
             }
             // 比如请求用户的信息，可以通过一个工具类获取，从ThreadLocal里拿出来
             operationLog.setOperateUserId(Integer.valueOf(adminAccount));// 请求用户ID
@@ -156,7 +158,7 @@ public class OperationLogAspect {
             String userName =  (String) session.getAttribute("userName");//操作人姓名
             String userAccount =  (String) session.getAttribute("userAccount");//操作人ID
             if(ConstantEnum.ConstantEnumType.getENTITY() == userName || ConstantEnum.ConstantEnumType.getENTITY() == userAccount){
-                throw new Exception("session中不存在该用户、账号");
+                operationLog.setNorMessage("session中不存在该用户、账号");
             }
             // 比如请求用户的信息，可以通过一个工具类获取，从ThreadLocal里拿出来
             operationLog.setOperateUserId(Integer.valueOf(userAccount));// 请求用户ID
