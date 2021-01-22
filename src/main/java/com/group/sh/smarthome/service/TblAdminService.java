@@ -1,5 +1,6 @@
 package com.group.sh.smarthome.service;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
@@ -7,6 +8,7 @@ import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.util.ConstantEnum;
 import com.group.sh.smarthome.util.EntryrionUtil;
+import com.group.sh.smarthome.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,6 +72,9 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         HttpSession session = getAdminRequest().getSession();
         session.setAttribute("adminAccount",Admin.getAdminAccount());
         session.setAttribute("adminName",Admin.getAdminName());
+        session.setAttribute("adminRole",Admin.getAdminRole());
+        List<MenuTreeInfo> tblMenuList = tblAdminMapper.findMenuIDByRoleId(Admin.getAdminRole());
+        session.setAttribute("tblMenuList",tblMenuList);
         session.setMaxInactiveInterval(30 * 60);//session过期时间设置，以秒为单位，即在没有活动30分钟后，session将失效
         return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null,null);
     }

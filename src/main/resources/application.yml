@@ -3,8 +3,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://121.196.166.171:3306/smarthome?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
-    #url: jdbc:mysql://127.0.0.1:3306/smarthome?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    #url: jdbc:mysql://121.196.166.171:3306/smarthome?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/smarthome?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: ..690097FzQ///
     type: com.alibaba.druid.pool.DruidDataSource
@@ -66,8 +66,8 @@ mybatis-plus:
   global-config:
     #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
     field-strategy: 1
-  configuration:
+  #configuration:
     # 是否将sql打印到控制面板(该配置会将sql语句和查询的结果都打印到控制台)
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 

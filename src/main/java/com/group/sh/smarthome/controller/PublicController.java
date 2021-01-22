@@ -8,6 +8,7 @@ import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.PublicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +28,20 @@ public class PublicController {
 
     @Resource
     private PublicService publicService;
+
+    /**
+     *
+     * 方法描述 404页面跳转方法
+     * @date 2021-01-22
+     * @param
+     */
+    @GetMapping(value = "/path/{url}")
+    public String showView(@PathVariable(value = "url") String url) {
+        if(null != url){
+            return "errohtml/"+url;
+        }
+        return null;
+    }
 
     /**
      *
