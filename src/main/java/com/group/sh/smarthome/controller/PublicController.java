@@ -127,5 +127,17 @@ public class PublicController {
         return publicService.infoStatistics();
     }
 
+    /**
+     *
+     * 方法描述 获取资讯详情
+     * @date 2021-1-23
+     * @param
+     */
+    @GetMapping(value = "/findAllInfo")
+    @ResponseBody
+    public CommonResult findAllInfo(){
+        return publicService.findAllInfo();
+    }
+
 }
 

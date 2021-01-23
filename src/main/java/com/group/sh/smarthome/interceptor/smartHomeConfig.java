@@ -32,6 +32,7 @@ public class smartHomeConfig implements WebMvcConfigurer {
         loginRegistry.excludePathPatterns("/adminhtml/**");
         loginRegistry.excludePathPatterns("/userhtml/**");
         loginRegistry.excludePathPatterns("/errorhtml/**");
+        loginRegistry.excludePathPatterns("/publicvideo/**");
 
     }
 }

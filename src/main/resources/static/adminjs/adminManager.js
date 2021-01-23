@@ -41,7 +41,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     }
                 }
             }
-            ,{field:'adminPhone', title:'手机', width:150,align: 'center',}
+            ,{field:'adminPhone', title:'手机', width:150,align: 'center',
+                templet:function(d){
+                    return d.adminPhone == "" || d.adminPhone == null || d.adminPhone == undefined ? '无':d.adminPhone;
+                }
+            }
             ,{field:'adminRoleName', title:'管理员角色', align: 'center',}
             ,{field:'adminStatus', title:'管理员状态', align: 'center',
                 templet:function(d){
@@ -73,6 +77,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 var index = layer.open({
                     title : "新增管理员信息",
                     type : 2,
+                    anim: 3,
                     content : "/smarthome/admin/path/protectAdmin",
                     success : function(layero, index){
                         var body = layer.getChildFrame('body', index);
@@ -86,7 +91,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 })
                 table.reload('searchTable');
                 layer.full(index);
-
                 break;
             case 'findAdminDetailInfo':
                 var arr = checkStatus.data;
@@ -97,6 +101,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     var index = layer.open({
                         title : "查看管理员信息",
                         type : 2,
+                        anim: 3,
                         content : "/smarthome/admin/path/protectAdmin",
                         success : function(layero, index){
                             var body = layer.getChildFrame('body', index);
@@ -219,6 +224,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         var index = layer.open({
             title : "查看管理员信息",
             type : 2,
+            anim: 3,
             content : "/smarthome/admin/path/protectAdmin",
             success : function(layero, index){
                 var body = layer.getChildFrame('body', index);

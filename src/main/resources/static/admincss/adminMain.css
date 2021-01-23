@@ -335,3 +335,12 @@
         transform: translate3d(0, 0, 1px) rotate(360deg);
     }
 }
+
+.info-item:link {
+    color: #3c3c3c;
+    text-decoration:underline;
+}
+.info-item:hover {
+    color: #009688;
+    text-decoration:none;
+}

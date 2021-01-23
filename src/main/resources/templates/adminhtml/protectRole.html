@@ -19,7 +19,7 @@
 </head>
 <body class="childrenBody">
 <hr class="layui-bg-gray">
-<form class="layui-form" style="width:80%;">
+<form class="layui-form" style="width:80%;top:0%">
     <div class="layui-form-item" style="display: none">
         <input type="hidden" id="method" name="method" value="">
     </div>
@@ -49,9 +49,9 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="button" class="layui-btn"  id="returnPage">返回</button>
             <button type="button" class="layui-btn" lay-submit lay-filter="roleSubmit" id="roleSubmit">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary" id="roleReset">重置</button>
+            <button type="reset" class="layui-btn layui-btn-danger" id="roleReset">重置</button>
+            <button type="button" class="layui-btn layui-btn-primary"  id="returnPage">返回</button>
         </div>
     </div>
 </form>

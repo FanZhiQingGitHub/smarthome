@@ -30,10 +30,14 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             ,{field:'operateUserName', title:'操作人', width:180,align: 'center'}
             ,{field:'operateUserId', title:'操作人账号', width:180,align: 'center'}
             ,{field:'operateModule', title:'操作模块', align: 'center',}
-            ,{field:'norMessage', title:'操作内容(正常)', width:250,align: 'center',}
+            ,{field:'norMessage', title:'操作内容(正常)', width:250,align: 'center',
+                templet:function(d){
+                    return d.norMessage == null || d.norMessage =='' || d.norMessage ==undefined ? '无':d.norMessage;
+                }
+            }
             ,{field:'excMessage', title:'操作内容(异常)', width:250,align: 'center',
                 templet:function(d){
-                    return d.excMessage == null ? '无':d.excMessage;
+                    return d.excMessage == null || d.excMessage =='' || d.excMessage ==undefined ? '无':d.excMessage;
                 }
             }
             ,{field:'operateType', title:'操作类型', align: 'center',}
@@ -61,6 +65,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     var index = layer.open({
                         title : "查看日志信息",
                         type : 2,
+                        anim: 3,
                         content : "/smarthome/admin/path/protectOperationLog",
                         success : function(layero, index){
                             var body = layer.getChildFrame('body', index);
@@ -122,6 +127,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         var index = layer.open({
             title : "查看日志信息",
             type : 2,
+            anim: 3,
             content : "/smarthome/admin/path/protectOperationLog",
             success : function(layero, index){
                 var body = layer.getChildFrame('body', index);

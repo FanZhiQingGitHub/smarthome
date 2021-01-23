@@ -69,6 +69,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 var index = layer.open({
                     title : "添加菜单信息",
                     type : 2,
+                    anim: 3,
                     content : "/smarthome/admin/path/protectMenu",
                     success : function(layero, index){
                         var body = layer.getChildFrame("body", index);
@@ -92,6 +93,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     var index = layer.open({
                         title : "查看菜单信息",
                         type : 2,
+                        anim: 3,
                         content : "/smarthome/admin/path/protectMenu",
                         success : function(layero, index){
                             var body = layer.getChildFrame('body', index);
@@ -162,6 +164,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             var index = layer.open({
                 title : "修改菜单信息",
                 type : 2,
+                anim: 2,
                 content : "/smarthome/admin/path/protectMenu",
                 success : function(layero, index){
                     var body = layer.getChildFrame('body', index);
@@ -195,6 +198,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         var index = layer.open({
             title : "查看菜单信息",
             type : 2,
+            anim: 3,
             content : "/smarthome/admin/path/protectMenu",
             success : function(layero, index){
                 var body = layer.getChildFrame('body', index);

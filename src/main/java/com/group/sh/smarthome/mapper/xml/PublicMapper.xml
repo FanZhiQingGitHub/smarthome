@@ -192,4 +192,28 @@
          now(),'0')
     </insert>
 
+    <!-- 查询资讯-->
+    <resultMap type="com.group.sh.smarthome.entity.TblInfo" id="infoListMap">
+        <result column="infoId" property="infoId"></result>
+        <result column="infoTitle" property="infoTitle"></result>
+        <result column="infoDetail" property="infoDetail"></result>
+        <result column="crtPsnId" property="crtPsnId"></result>
+        <result column="crtTm" property="crtTm"></result>
+        <result column="modPsnId" property="modPsnId"></result>
+        <result column="modTm" property="modTm"></result>
+    </resultMap>
+    <select id="findAllInfo" resultMap="infoListMap">
+        SELECT
+            info.INFO_ID as infoId,
+            info.INFO_TITLE as infoTitle,
+            info.INFO_DETAIL as infoDetail,
+            admin1.ADMIN_NAME as crtPsnId,
+            DATE_FORMAT(info.CRT_TM,'%Y-%m-%d %T') as crtTm,
+            admin2.ADMIN_NAME as modPsnId,
+            DATE_FORMAT(info.MOD_TM,'%Y-%m-%d %T') as modTm
+        FROM tbl_info info
+                 left join tbl_admin admin1 on info.CRT_PSN_ID = admin1.ADMIN_ACCOUNT
+                 left join tbl_admin admin2 on info.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
+    </select>
+
 </mapper>

@@ -45,7 +45,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             ,{field:'userQq', title:'QQ号码', align: 'center',}
             ,{field:'userWechat', title:'微信号码', align: 'center',}
             ,{field:'userRoleName', title:'用户角色', align: 'center',}
-            ,{field:'userStatus', title:'用户状态', align: 'center',
+            ,{field:'userStatus', title:'用户状态', align: 'center',width:130,
                 templet:function(d){
                     return d.userStatus == '0' ? '启用':'禁用';
                 }
@@ -80,6 +80,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     var index = layer.open({
                         title : "查看用户信息",
                         type : 2,
+                        anim: 3,
                         content : "/smarthome/admin/path/protectUser",
                         success : function(layero, index){
                             var body = layer.getChildFrame('body', index);
@@ -193,6 +194,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         var index = layer.open({
             title : "查看用户信息",
             type : 2,
+            anim: 3,
             content : "/smarthome/admin/path/protectUser",
             success : function(layero, index){
                 var body = layer.getChildFrame('body', index);

@@ -59,7 +59,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
-        $('#returnPage').css("display","none");
         if($('input[name="menuLevel"]:checked').val()=='0'){
             $("#urlDiv").css('display','none');
         }
@@ -113,7 +112,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $('#menuUrl').attr("readonly",true);
         $("input[name='menuLevel']").next().addClass('layui-radio-disbaled layui-disabled');
         $("#menuSubId").attr("disabled",true);
-        $('#returnPage').css("display","block");
         $('#adminMenuSubmit').css("display","none");
         $('#adminMenuReset').css("display","none");
     }

@@ -3,6 +3,7 @@ package com.group.sh.smarthome.service;
 import com.group.sh.smarthome.annotation.OperationLog;
 import com.group.sh.smarthome.entity.MenuTreeInfo;
 import com.group.sh.smarthome.entity.TblArea;
+import com.group.sh.smarthome.entity.TblInfo;
 import com.group.sh.smarthome.mapper.PublicMapper;
 import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
@@ -142,7 +143,6 @@ public class PublicService {
 
     public CommonResult menuStatistics(){
         List<MenuTreeInfo> menuTreeInfoList = publicMapper.menuStatistics();
-        System.out.println("menuTreeInfoList="+menuTreeInfoList);
         return new CommonResult(0, null, null,null, menuTreeInfoList,null);
     }
 
@@ -163,6 +163,15 @@ public class PublicService {
     public CommonResult addOperationLogInfo(OperationLog operationLog) throws Exception {
         Integer num = publicMapper.addOperationLogInfo(operationLog);
         return new CommonResult(0, null, num,operationLog, null,null);
+    }
+
+    public CommonResult findAllInfo(){
+        List<TblInfo> infoList = publicMapper.findAllInfo();
+        log.info("******查询的资讯列表是: "+infoList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == infoList.size()) {
+            return new CommonResult(500, "亲，暂无相关数据", null,null, infoList,null);
+        }
+        return new CommonResult(200, null, null,null, infoList,null);
     }
 
 }

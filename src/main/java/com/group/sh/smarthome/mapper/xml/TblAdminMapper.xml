@@ -786,7 +786,7 @@
         insert into
             tbl_info(INFO_TITLE,INFO_DETAIL,CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)
         values
-        (#{infoTitle},#{infoDetail},#{crtPsnId},now(),#{modPsnId},#{modTm},'0')
+        (#{infoTitle},#{infoDetail},#{crtPsnId},now(),#{modPsnId},now(),'0')
     </insert>
 
 

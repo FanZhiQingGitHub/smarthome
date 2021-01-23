@@ -56,12 +56,18 @@ public class smartHomeInterceptor implements HandlerInterceptor {
             if(!uri.contains("path")){
                 return true;//如果uri地址不存在path则放行请求
             }
+            if(uri.contains("protect")){
+                return true;
+            }
             request.getSession().invalidate();
             response.sendRedirect(basePath + "/smarthome/admin/path/adminLogin");//未登陆，返回登陆页面
             return false;
         }else if(userInfoMap.get("adminAccount") != null || !userInfoMap.get("adminAccount").equals("") ){
             if(!uri.contains("path")){
                 return true;//如果uri地址不存在path则放行请求
+            }
+            if(uri.contains("protect")){
+                return true;
             }
             if(uri.contains("adminExit")){
                 request.getSession().invalidate();

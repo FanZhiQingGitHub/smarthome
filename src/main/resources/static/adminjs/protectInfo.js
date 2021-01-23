@@ -20,7 +20,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
-        $('#returnPage').css("display","none");
         form.verify({
             infoTitle: function (value) {
                 if (value.length < 2) {
@@ -63,7 +62,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     }else if(method == '3'){
         $('#infoTitle').attr("readonly",true);
         $('#infoDetail').attr("readonly",true);
-        $('#returnPage').css("display","block");
+        $('#crtPsnId').attr("readonly",true);
+        $('#crtTm').attr("readonly",true);
         $('#infoSubmit').css("display","none");
         $('#infoReset').css("display","none");
     }

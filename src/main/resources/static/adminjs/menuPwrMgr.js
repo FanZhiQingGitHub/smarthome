@@ -54,6 +54,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 var index = layer.open({
                     title : "添加角色信息",
                     type : 2,
+                    anim: 3,
                     content : "/smarthome/admin/path/protectRole",
                     success : function(layero, index){
                         var body = layer.getChildFrame("body", index);
@@ -77,6 +78,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     var index = layer.open({
                         title : "查看角色信息",
                         type : 2,
+                        anim: 3,
                         content : "/smarthome/admin/path/protectRole",
                         success : function(layero, index){
                             var body = layer.getChildFrame('body', index);
@@ -145,6 +147,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 var index = layer.open({
                     title : "修改角色信息",
                     type : 2,
+                    anim: 2,
                     content : "/smarthome/admin/path/protectRole",
                     success : function(layero, index){
                         var body = layer.getChildFrame('body', index);
@@ -169,6 +172,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 var index = layer.open({
                     title : "菜单权限配置",
                     type : 2,
+                    anim: 2,
                     area: ['420px', '550px'],
                     offset: ['0px', '0px'],
                     content : "/smarthome/admin/path/menuPortion",
@@ -190,6 +194,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         var index = layer.open({
             title : "查看角色信息",
             type : 2,
+            anim: 3,
             content : "/smarthome/admin/path/protectRole",
             success : function(layero, index){
                 var body = layer.getChildFrame('body', index);

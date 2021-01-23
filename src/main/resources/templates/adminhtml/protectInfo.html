@@ -19,7 +19,7 @@
 </head>
 <body class="childrenBody">
 <hr class="layui-bg-gray">
-<form class="layui-form" style="width:80%;">
+<form class="layui-form" style="width:80%;top:0%">
     <div class="layui-form-item" style="display: none">
         <input type="hidden" id="method" name="method" value="">
     </div>
@@ -42,10 +42,24 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">发布人:</label>
         <div class="layui-input-block">
-            <button type="button" class="layui-btn"  id="returnPage">返回</button>
+            <input type="text" id="crtPsnId" name="crtPsnId" class="layui-input" lay-verify="infoTitle" autocomplete="off" >
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">发布时间:</label>
+        <div class="layui-input-block">
+            <input type="text" id="crtTm" name="crtTm" class="layui-input" lay-verify="infoTitle" autocomplete="off" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
             <button type="button" class="layui-btn" lay-submit lay-filter="infoSubmit" id="infoSubmit">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary" id="infoReset">重置</button>
+            <button type="reset" class="layui-btn layui-btn-danger" id="infoReset">重置</button>
+            <button type="button" class="layui-btn layui-btn-primary"  id="returnPage">返回</button>
         </div>
     </div>
 

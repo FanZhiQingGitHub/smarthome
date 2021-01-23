@@ -21,7 +21,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
-        $('#returnPage').css("display","none");
         form.verify({
             roleName: function (value) {
                 if (value.length < 2) {
@@ -60,7 +59,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     }else if(method == '3'){
         $('#roleName').attr("readonly",true);
         $('#roleType').attr("disabled",true);
-        $('#returnPage').css("display","block");
         $('#roleSubmit').css("display","none");
         $('#roleReset').css("display","none");
     }

@@ -61,6 +61,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         });
     });
 
+
+
     creatVerCode();//初始化生成随机数
     //生成随机数
     function creatVerCode(){
@@ -148,6 +150,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             });
         }
     });
+
+    //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
+    $(window).resize(function(){
+        layer.full();
+    })
 
 });
 

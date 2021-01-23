@@ -54,6 +54,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 var index = layer.open({
                     title : "添加资讯信息",
                     type : 2,
+                    anim: 3,
                     content : "/smarthome/admin/path/protectInfo",
                     success : function(layero, index){
                         var body = layer.getChildFrame("body", index);
@@ -85,6 +86,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                             body.find("#infoId").val(data[0].infoId);
                             body.find("#infoTitle").val(data[0].infoTitle);
                             body.find("#infoDetail").val(data[0].infoDetail);
+                            body.find("#crtPsnId").val(data[0].crtPsnId);
+                            body.find("#crtTm").val(data[0].crtTm);
                         }
                     })
                     //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -139,6 +142,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             var index = layer.open({
                 title : "修改资讯信息",
                 type : 2,
+                anim: 2,
                 content : "/smarthome/admin/path/protectInfo",
                 success : function(layero, index){
                     var body = layer.getChildFrame('body', index);
@@ -147,6 +151,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     body.find("#infoId").val(data.infoId);
                     body.find("#infoTitle").val(data.infoTitle);
                     body.find("#infoDetail").val(data.infoDetail);
+                    body.find("#crtPsnId").val(data.crtPsnId);
+                    body.find("#crtTm").val(data.crtTm);
                 }
             })
             //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -162,8 +168,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
     table.on('rowDouble(infoTable)', function(obj){
         var data = obj.data;
         var index = layer.open({
-            title : "查看菜单信息",
+            title : "查看资讯信息",
             type : 2,
+            anim: 3,
             content : "/smarthome/admin/path/protectInfo",
             success : function(layero, index){
                 var body = layer.getChildFrame('body', index);
@@ -172,6 +179,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 body.find("#infoId").val(data.infoId);
                 body.find("#infoTitle").val(data.infoTitle);
                 body.find("#infoDetail").val(data.infoDetail);
+                body.find("#crtPsnId").val(data.crtPsnId);
+                body.find("#crtTm").val(data.crtTm);
             }
         })
         //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
@@ -179,7 +188,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             layer.full(index);
         })
         table.reload('searchTable');
-        layer.full(index);
         //标注选中样式
         obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
     });
