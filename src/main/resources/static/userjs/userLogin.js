@@ -40,6 +40,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             creatVerCode();
         }),$("#userReg").click(function () {
             location.href = "/smarthome/user/path/userReg";
+        }),$("#returnHomePage").click(function () {
+            location.href = "/smarthome/user/path/homePage";
         }),$("#a1").click(function () {
             layer.open({
                 title: '使用条款'

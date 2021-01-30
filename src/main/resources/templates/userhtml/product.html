@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>产品首页</title>
+    <link rel="icon" th:href="@{/publicimage/logo.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/usercss/homePage.css}" media="all"/>
+    <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" th:src="@{/publicjs/jquery-3.5.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js"></script>
+    <script type="text/javascript" th:src="@{/userjs/homePage.js}"></script>
+</head>
+<body>
+<!-- nav部分 -->
+<div class="nav">
+    <div class="layui-container">
+        <!-- 公司logo -->
+        <div class="nav-logo">
+            <a href="/smarthome/user/path/homePage">
+                <img th:src="@{/publicimage/logo.png}" alt="网络公司">
+            </a>
+        </div>
+        <div class="nav-list">
+            <button>
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="layui-nav" lay-filter="">
+                <li class="layui-nav-item"><a href="/smarthome/user/path/product">产品</a></li>
+                <li class="layui-nav-item"><a href="/smarthome/user/path/news">动态</a></li>
+                <li class="layui-nav-item"><a href="/smarthome/user/path/about">关于</a></li>
+                <li class="layui-nav-item"><a href="javascript:void(0);" id="userLogin">Sign in</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- banner部分 -->
+<div class="banner product">
+    <div class="title">
+        <p>产品展示</p>
+        <p class="en">Product Display</p>
+    </div>
+</div>
+<!-- main部分 -->
+<div class="main product">
+    <div class="layui-container">
+        <div class="content layui-row">
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md7 layui-col-lg6 content-img"><img th:src="@{/homeImg/Product_img1.jpg}"></div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md5 layui-col-lg6 right">
+                <p class="label">JS基础库</p>
+                <p class="detail">从小屏逐步扩展到大屏，最终实现所有屏幕适配，最终实现所有屏幕适配，适应移动互联潮流。最终实现所有屏幕适配，适应移动互联潮流。最终实现所有屏幕适配，适应移动互联潮流。</p>
+                <div><a href="javascript:;">查看产品 ></a></div>
+            </div>
+        </div>
+        <div class="content layui-row">
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md7 layui-col-lg6 content-img"><img th:src="@{/homeImg/Product_img2.jpg}"></div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md5 layui-col-lg6 right">
+                <p class="label">CSS处理</p>
+                <p class="detail">从小屏逐步扩展到大屏，最终实现所有屏幕适配，最终实现所有屏幕适配，适应移动互联潮流。最终实现所有屏幕适配，适应移动互联潮流。最终实现所有屏幕适配，适应移动互联潮流。</p>
+                <div><a href="javascript:;">查看产品 ></a></div>
+            </div>
+        </div>
+        <div class="content layui-row">
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md7 layui-col-lg6 content-img"><img th:src="@{/homeImg/Product_img3.jpg}"></div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md5 layui-col-lg6 right">
+                <p class="label">兼容性</p>
+                <p class="detail">从小屏逐步扩展到大屏，最终实现所有屏幕适配，最终实现所有屏幕适配，适应移动互联潮流。最终实现所有屏幕适配，适应移动互联潮流。最终实现所有屏幕适配，适应移动互联潮流。</p>
+                <div><a href="javascript:;">查看产品 ></a></div>
+            </div>
+        </div>
+        <div class="content layui-row">
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md7 layui-col-lg6 content-img"><img th:src="@{/homeImg/Product_img4.jpg}"></div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md5 layui-col-lg6 right">
+                <p class="label">响应式</p>
+                <p class="detail">从小屏逐步扩展到大屏，最终实现所有屏幕适配，最终实现所有屏幕适配，适应移动互联潮流。最终实现所有屏幕适配，适应移动互联潮流。最终实现所有屏幕适配，适应移动互联潮流。</p>
+                <div><a href="javascript:;">查看产品 ></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer部分 -->
+<div class="footer">
+    <div class="layui-container">
+        <p class="footer-web">
+            <a href="javascript:;">合作伙伴</a>
+            <a href="javascript:;">企业画报</a>
+            <a href="javascript:;">JS网</a>
+            <a href="javascript:;">千图网</a>
+            <a href="javascript:;">昵图网</a>
+            <a href="javascript:;">素材网</a>
+            <a href="javascript:;">花瓣网</a>
+        </p>
+        <div class="layui-row footer-contact">
+            <div class="layui-col-sm2 layui-col-lg1"><img th:src="@{/homeImg/erweima.jpg}"></div>
+            <div class="layui-col-sm10 layui-col-lg11">
+                <div class="layui-row">
+                    <div class="layui-col-sm6 layui-col-md8 layui-col-lg9">
+                        <p class="contact-top"><i class="layui-icon layui-icon-cellphone"></i>&nbsp;400-8888888&nbsp;&nbsp;&nbsp;(9:00-18:00)</p>
+                        <p class="contact-bottom"><i class="layui-icon layui-icon-home"></i>&nbsp;88888888@163.com</span></p>
+                    </div>
+                    <div class="layui-col-sm6 layui-col-md4 layui-col-lg3">
+                        <p class="contact-top"><span class="right">该模板由 <a href="https://www.layui.com/" target="_blank">layui.com</a> 官方出品</span></p>
+                        <p class="contact-bottom"><span class="right">Copyright&nbsp;©&nbsp;2016-2018&nbsp;&nbsp;ICP&nbsp;备888888号</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
