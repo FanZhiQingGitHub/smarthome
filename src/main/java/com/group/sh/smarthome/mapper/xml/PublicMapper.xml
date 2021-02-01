@@ -107,16 +107,13 @@
         <result column="OPERATE_DESC" property="operateDesc"></result>
         <result column="OPERATE_RESPONSE_PARAM" property="operateResponseParam"></result>
         <result column="OPERATE_RESULT" property="operateResult"></result>
-        <result column="NOR_MESSAGE" property="norMessage"></result>
-        <result column="EXC_NAME" property="excName"></result>
-        <result column="EXC_MESSAGE" property="excMessage"></result>
         <result column="CRT_TM" property="crtTm"></result>
         <result column="DEL_ID" property="delId"></result>
     </resultMap>
     <select id="findOperationLogList" resultMap="logListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
         SELECT
         OPERATE_ID,REQUEST_PARAM,HEADER_PARAM,OPERATE_METHOD,OPERATE_USER_ID,OPERATE_USER_NAME,OPERATE_URI,OPERATE_IP,
-        OPERATE_MODULE,OPERATE_TYPE,OPERATE_DESC,OPERATE_RESPONSE_PARAM,OPERATE_RESULT,NOR_MESSAGE,EXC_NAME,EXC_MESSAGE,
+        OPERATE_MODULE,OPERATE_TYPE,OPERATE_DESC,OPERATE_RESPONSE_PARAM,OPERATE_RESULT,
         CRT_TM,DEL_ID
         FROM tbl_operate_log
         <where>
@@ -186,9 +183,9 @@
     <insert id="addOperationLogInfo" parameterType="com.group.sh.smarthome.annotation.OperationLog" useGeneratedKeys="true" keyProperty="operateId">
         insert into
             tbl_operate_log(REQUEST_PARAM,HEADER_PARAM,OPERATE_METHOD,OPERATE_USER_ID,OPERATE_USER_NAME,OPERATE_URI,OPERATE_IP,OPERATE_MODULE,
-                            OPERATE_TYPE,OPERATE_DESC,OPERATE_RESPONSE_PARAM,OPERATE_RESULT,NOR_MESSAGE,EXC_NAME,EXC_MESSAGE,CRT_TM,DEL_ID)values
+                            OPERATE_TYPE,OPERATE_DESC,OPERATE_RESPONSE_PARAM,OPERATE_RESULT,CRT_TM,DEL_ID)values
         (#{requestParam},#{headerParam},#{operateMethod},#{operateUserId},#{operateUserName},#{operateUri},#{operateIp},#{operateModule},
-         #{operateType},#{operateDesc},#{operateResponseParam},#{operateResult},#{norMessage},#{excName},#{excMessage},
+         #{operateType},#{operateDesc},#{operateResponseParam},#{operateResult},
          now(),'0')
     </insert>
 

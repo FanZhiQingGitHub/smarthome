@@ -40,6 +40,12 @@ public class TblHisbill implements Serializable {
     private String hisbillName;
 
     /**
+     * 账款描述
+     */
+    @TableField("HISBILL_DETAIL")
+    private String hisbillDetail;
+
+    /**
      * 借款时间
      */
     @TableField("HISBILL_BEGINTIME")
@@ -86,6 +92,12 @@ public class TblHisbill implements Serializable {
      */
     @TableField("HISBILL_TYPE")
     private String hisbillType;
+
+    /**
+     * 账款状态（0-已结，1-未结）
+     */
+    @TableField("HISBILL_STATUS")
+    private String hisbillStatus;
 
     /**
      * 创建人

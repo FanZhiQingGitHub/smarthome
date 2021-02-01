@@ -66,15 +66,7 @@ public class OperationLog implements Serializable {
     /** 日记记录是否正常（0-正常，1-异常） */
     @TableField("OPERATE_RESULT")
     private String operateResult;
-    /** 日记记录正常信息 */
-    @TableField("NOR_MESSAGE")
-    private String norMessage;
-    /** 日记记录异常名 */
-    @TableField("EXC_NAME")
-    private String excName;
-    /** 日记记录异常信息 */
-    @TableField("EXC_MESSAGE")
-    private String excMessage;
+
     /** 创建时间*/
     @TableField("CRT_TM")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

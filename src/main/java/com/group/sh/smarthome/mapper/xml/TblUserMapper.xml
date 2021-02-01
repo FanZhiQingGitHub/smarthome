@@ -141,4 +141,176 @@
         where USER_ID = #{userId}
     </update>
 
+    <!--    查找账单信息列表-->
+    <resultMap type="com.group.sh.smarthome.entity.TblHisbill" id="BillListMap">
+        <result column="hisbillId" property="hisbillId"></result>
+        <result column="hisbillName" property="hisbillName"></result>
+        <result column="hisbillDetail" property="hisbillDetail"></result>
+        <result column="hisbillBegintime" property="hisbillBegintime"></result>
+        <result column="hisbillEstreptm" property="hisbillEstreptm"></result>
+        <result column="hisbillEndtime" property="hisbillEndtime"></result>
+        <result column="hisbillAmount" property="hisbillAmount"></result>
+        <result column="hisbillMen" property="hisbillMen"></result>
+        <result column="hisbillMenphone" property="hisbillMenphone"></result>
+        <result column="hisbillType" property="hisbillType"></result>
+        <result column="hisbillStatus" property="hisbillStatus"></result>
+        <result column="crtPsnId" property="crtPsnId"></result>
+        <result column="crtTm" property="crtTm"></result>
+    </resultMap>
+    <select id="findALLBillList" resultMap="BillListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        SELECT
+            bill.HISBILL_ID as hisbillId,
+            bill.HISBILL_NAME as hisbillName,
+            bill.HISBILL_DETAIL as hisbillDetail,
+            bill.HISBILL_BEGINTIME as hisbillBegintime,
+            bill.HISBILL_ESTREPTM as hisbillEstreptm,
+            bill.HISBILL_ENDTIME as hisbillEndtime,
+            bill.HISBILL_AMOUNT as hisbillAmount,
+            bill.HISBILL_MEN as hisbillMen,
+            bill.HISBILL_MENPHONE as hisbillMenphone,
+            bill.HISBILL_TYPE as hisbillType,
+            bill.HISBILL_STATUS as hisbillStatus,
+            user.USER_NAME as crtPsnId,
+            bill.CRT_TM as crtTm
+        FROM tbl_hisbill bill
+        left join tbl_user user on bill.CRT_PSN_ID = user.USER_ACCOUNT
+        <where>
+            and bill.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  bill.HISBILL_ID like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  bill.HISBILL_NAME like concat('%',#{objectTwo},'%')
+            </if>
+            <if test="objectThree != '' and objectThree != null ">
+                and  bill.HISBILL_MEN like concat('%',#{objectThree},'%')
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  bill.HISBILL_MENPHONE = #{objectFour}
+            </if>
+            <if test="objectFive != '' and objectFive != null ">
+                and  bill.HISBILL_TYPE = #{objectFive}
+            </if>
+            <if test="findDate != '' and findDate != null ">
+                <![CDATA[   and DATE_FORMAT(bill.HISBILL_ENDTIME, '%Y-%m-%d')=  DATE_FORMAT(#{findDate}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(bill.HISBILL_BEGINTIME, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(bill.HISBILL_BEGINTIME, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+        order by bill.CRT_TM desc,bill.MOD_TM desc limit #{page},#{limit}
+
+    </select>
+
+    <!--    查找账单信息列表记录条数-->
+    <select id="findALLBillListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        select count(1)
+        FROM tbl_hisbill bill
+        left join tbl_user user on bill.CRT_PSN_ID = user.USER_ACCOUNT
+        <where>
+            and bill.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  bill.HISBILL_ID like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  bill.HISBILL_NAME like concat('%',#{objectTwo},'%')
+            </if>
+            <if test="objectThree != '' and objectThree != null ">
+                and  bill.HISBILL_MEN like concat('%',#{objectThree},'%')
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  bill.HISBILL_MENPHONE = #{objectFour}
+            </if>
+            <if test="objectFive != '' and objectFive != null ">
+                and  bill.HISBILL_TYPE = #{objectFive}
+            </if>
+            <if test="findDate != '' and findDate != null ">
+                <![CDATA[   and DATE_FORMAT(bill.HISBILL_ENDTIME, '%Y-%m-%d')=  DATE_FORMAT(#{findDate}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(bill.HISBILL_BEGINTIME, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(bill.HISBILL_BEGINTIME, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增账单信息-->
+    <insert id="addBillInfo" parameterType="com.group.sh.smarthome.entity.TblHisbill" useGeneratedKeys="true" keyProperty="hisbillId">
+        insert into
+            tbl_hisbill(HISBILL_NAME,HISBILL_DETAIL,HISBILL_BEGINTIME,HISBILL_ESTREPTM,HISBILL_ENDTIME,HISBILL_AMOUNT,
+                        HISBILL_MEN,HISBILL_MENPHONE,HISBILL_TYPE,HISBILL_STATUS,
+                     CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)
+        values
+        (#{hisbillName},#{hisbillDetail},#{hisbillBegintime},#{hisbillEstreptm},#{hisbillEndtime},
+         #{hisbillAmount},#{hisbillMen},#{hisbillMenphone},#{hisbillType},#{hisbillStatus},
+         #{crtPsnId},now(),#{modPsnId},#{modTm},'0')
+    </insert>
+
+    <update id="updateBillInfo" parameterType="com.group.sh.smarthome.entity.TblHisbill">
+        update tbl_hisbill
+        <set>
+            DEL_ID = '0',
+            MOD_TM = now(),
+            HISBILL_BEGINTIME = #{hisbillBegintime},
+            HISBILL_ESTREPTM = #{hisbillEstreptm},
+            <if test="hisbillName != '' and hisbillName != null">
+                HISBILL_NAME = #{hisbillName},
+            </if>
+            <if test="hisbillDetail != '' and hisbillDetail != null">
+                HISBILL_DETAIL = #{hisbillDetail},
+            </if>
+            <if test="hisbillAmount != '' and hisbillAmount != null">
+                HISBILL_AMOUNT = #{hisbillAmount},
+            </if>
+            <if test="hisbillMen != '' and hisbillMen != null">
+                HISBILL_MEN = #{hisbillMen},
+            </if>
+            <if test="hisbillMenphone != '' and hisbillMenphone != null">
+                HISBILL_MENPHONE = #{hisbillMenphone},
+            </if>
+            <if test="hisbillType != '' and hisbillType != null">
+                HISBILL_TYPE = #{hisbillType},
+            </if>
+            <if test="hisbillStatus != '' and hisbillStatus != null">
+                HISBILL_STATUS = #{hisbillStatus},
+            </if>
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where HISBILL_ID = #{hisbillId}
+    </update>
+
+    <update id="updateBillEndTime" parameterType="com.group.sh.smarthome.entity.TblHisbill">
+        update tbl_hisbill
+        <set>
+            DEL_ID = '0',
+            MOD_TM = now(),
+            HISBILL_ENDTIME = now(),
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where HISBILL_ID = #{hisbillId}
+    </update>
+
+    <update id="deleteBillInfo" parameterType="com.group.sh.smarthome.entity.TblHisbill">
+        update tbl_hisbill
+        <set>
+            DEL_ID = '1',
+            MOD_TM = now(),
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where HISBILL_ID = #{hisbillId}
+    </update>
+
+
+
 </mapper>

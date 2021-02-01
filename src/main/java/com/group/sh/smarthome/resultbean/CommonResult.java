@@ -18,8 +18,9 @@ public class CommonResult<T> {
     private T      entityData;
     private List<?> data;
     private Map<?,?> mapData;
+    private String sysCode;//0---正常，1---异常
 
     public CommonResult(Integer code, String message,Integer count) {
-        this(code,message,count,null,null,null);
+        this(code,message,count,null,null,null,null);
     }
 }

@@ -19,6 +19,7 @@ public class PageListEntity {
     private String objectFive;
     private String objectSix;
 
+    private String findDate;
     private String startTime;
     private String endTime;
 

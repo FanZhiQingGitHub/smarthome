@@ -1,6 +1,5 @@
 package com.group.sh.smarthome.service;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.sh.smarthome.entity.*;
 import com.group.sh.smarthome.mapper.TblAdminMapper;
@@ -8,7 +7,6 @@ import com.group.sh.smarthome.resultbean.CommonResult;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.util.ConstantEnum;
 import com.group.sh.smarthome.util.EntryrionUtil;
-import com.group.sh.smarthome.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,7 +69,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
 
     public CommonResult adminLogin(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin) {
-            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblAdmin, null,null);
+            return new CommonResult(500, "请求参数为null，请联系开发商！", null,tblAdmin, null,null,"1");
         }
         if(ConstantEnum.ConstantEnumType.getENTITY() != tblAdmin.getAdminPwd()) {
             tblAdmin.setAdminPwd(EntryrionUtil.getHash3(tblAdmin.getAdminPwd(),"SHA"));
@@ -79,13 +77,13 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         TblAdmin Admin = tblAdminMapper.adminLogin(tblAdmin);
         log.info("******查询的结果是: " + Admin);
         if(ConstantEnum.ConstantEnumType.getENTITY() == Admin) {
-            return new CommonResult(500, "账号或密码错误，请重新输入！多次输入不正确，请联系管理员处理！", null,tblAdmin, null,null);
+            return new CommonResult(500, "账号或密码错误，请重新输入！多次输入不正确，请联系管理员处理！", null,tblAdmin, null,null,"1");
         }
         if(ConstantEnum.ConstantEnumType.STATUSNUM.getValue().equals(Admin.getAdminStatus()) || ConstantEnum.ConstantEnumType.CONSTANT == Admin.getAdminStatus()){
-            return new CommonResult(501, "该用户禁止登录，请联系管理员处理！", null,Admin, null,null);
+            return new CommonResult(501, "该用户禁止登录，请联系管理员处理！", null,Admin, null,null,"1");
         }
         if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(Admin.getDelId()) || ConstantEnum.ConstantEnumType.CONSTANT == Admin.getDelId()){
-            return new CommonResult(502, "该用户不存在，请先进行注册！", null,Admin, null,null);
+            return new CommonResult(502, "该用户不存在，请先进行注册！", null,Admin, null,null,"1");
         }
         ConstantEnum.ConstantEnumType.roleId = Integer.valueOf(Admin.getAdminRole());
         HttpSession session = getAdminRequest().getSession();
@@ -95,21 +93,21 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         List<MenuTreeInfo> tblMenuList = tblAdminMapper.findMenuIDByRoleId(Admin.getAdminRole());
         session.setAttribute("tblMenuList",tblMenuList);
         session.setMaxInactiveInterval(30 * 60);//session过期时间设置，以秒为单位，即在没有活动30分钟后，session将失效
-        return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null,null);
+        return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null,null,"0");
     }
 
 
 
     public CommonResult findMenuIDByRoleId(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null,"1");
         }
         List<MenuTreeInfo> tblMenuList = tblAdminMapper.findMenuIDByRoleId(tblAdmin.getAdminRole());
         log.info("******查询的菜单是: "+tblMenuList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
-            return new CommonResult(501, "查询数据失败", null,null, tblMenuList,null);
+            return new CommonResult(501, "查询数据失败", null,tblAdmin, tblMenuList,null,"1");
         }
-        return new CommonResult(200, "查询数据成功", null,null, tblMenuList,null);
+        return new CommonResult(200, "查询数据成功", null,tblAdmin, tblMenuList,null,"0");
     }
 
 
@@ -118,13 +116,13 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         if(ConstantEnum.ConstantEnumType.FINDMENUSELECT.getValue().equals(tblMenu.getMethod())){
             List<TblMenu> tblMenuList = tblAdminMapper.findParentMenu();
             if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
-                return new CommonResult(501, "亲，暂无相关数据", null,null, tblMenuList,null);
+                return new CommonResult(501, "亲，暂无相关数据", null,tblMenu, tblMenuList,null,"1");
             }
-            return new CommonResult(200, null, null,null, tblMenuList,null);
+            return new CommonResult(200, null, null,tblMenu, tblMenuList,null,"0");
         }
         //查询菜单列表
         if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblMenu,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblMenu,null,null,"1");
         }
         Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
         Integer maxpage = pageListEntity.getLimit();
@@ -137,10 +135,10 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         List<TblMenu> tblMenuList = tblAdminMapper.findALLMenuList(pageListEntity);
         log.info("******查询的菜单列表是: "+tblMenuList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblMenuList.size()) {
-            return new CommonResult(501, "亲，暂无相关数据", null,null, tblMenuList,null);
+            return new CommonResult(501, "亲，暂无相关数据", null,tblMenu, tblMenuList,null,"1");
         }
         Integer count = tblAdminMapper.findALLMenuListCount(pageListEntity).intValue();
-        return new CommonResult(0, null, count,null, tblMenuList,null);
+        return new CommonResult(0, null, count,tblMenu, tblMenuList,null,"0");
     }
 
 
@@ -149,7 +147,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
     @Transactional
     public CommonResult protectMenuList(TblMenu tblMenu){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblMenu.getMethod()){
-            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblMenu, null,null,"1");
         }
         if(!"0".equals(tblMenu.getMenuLevel())){
             if(ConstantEnum.ConstantEnumType.getENTITY() != tblMenu.getMenuUrl()){
@@ -166,10 +164,10 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
             tblMenu.setModPsnId(getAdminAccount());
             Integer count = tblAdminMapper.addMenuInfo(tblMenu);
             if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == count) {
-                return new CommonResult(500, "新增菜单失败", count,null, null,null);
+                return new CommonResult(500, "新增菜单失败", count,null, null,null,"1");
             }
             tblMenu.setMenuId(tblMenu.getMenuId());
-            return new CommonResult(200, "新增菜单成功,您需要重新登录生效！", count,tblMenu, null,null);
+            return new CommonResult(200, "新增菜单成功,您需要重新登录生效！", count,tblMenu, null,null,"0");
         }
 
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblMenu.getMethod())){
@@ -179,28 +177,28 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
             tblMenu.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.updateMenuInfo(tblMenu);
             if (flag == false) {
-                return new CommonResult(500, "更新菜单失败", null,null, null,null);
+                return new CommonResult(500, "更新菜单失败", null,tblMenu, null,null,"1");
             }
-            return new CommonResult(200, "更新菜单成功,您需要重新登录生效！", null,null, null,null);
+            return new CommonResult(200, "更新菜单成功,您需要重新登录生效！", null,tblMenu, null,null,"0");
         }
 
         if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblMenu.getMethod())){
             tblMenu.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.deleteMenuInfo(tblMenu);
             if (flag == false) {
-                return new CommonResult(500, "删除菜单失败", null,null, null,null);
+                return new CommonResult(500, "删除菜单失败", null,tblMenu, null,null,"1");
             }
-            return new CommonResult(200, "删除菜单成功", null,null, null,null);
+            return new CommonResult(200, "删除菜单成功", null,tblMenu, null,null,"0");
         }
 
-        return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null,null);
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblMenu, null,null,"1");
 
     }
 
     public CommonResult findALLRoleList(TblRole tblRole, PageListEntity pageListEntity){
         //查询角色列表
         if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblRole,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblRole,null,null,"1");
         }
         Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
         Integer maxpage = pageListEntity.getLimit();
@@ -212,16 +210,16 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         List<TblRole> tblRoleList = tblAdminMapper.findALLRoleList(pageListEntity);
         log.info("******查询的菜单列表是: "+tblRoleList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblRoleList.size()) {
-            return new CommonResult(501, "亲，暂无相关数据", null,null, tblRoleList,null);
+            return new CommonResult(501, "亲，暂无相关数据", null,tblRole, tblRoleList,null,"1");
         }
         Integer count = tblAdminMapper.findALLRoleListCount(pageListEntity).intValue();
-        return new CommonResult(0, null, count,null, tblRoleList,null);
+        return new CommonResult(0, null, count,null, tblRoleList,null,"0");
     }
 
     @Transactional
     public CommonResult protectRoleList(TblRole tblRole){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblRole.getMethod()){
-            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblRole, null,null,"1");
         }
 
         if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblRole.getMethod())){
@@ -229,48 +227,48 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
             tblRole.setModPsnId(getAdminAccount());
             Integer count = tblAdminMapper.addRoleInfo(tblRole);
             if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == count) {
-                return new CommonResult(500, "新增角色失败", count,null, null,null);
+                return new CommonResult(500, "新增角色失败", count,tblRole, null,null,"1");
             }
             tblRole.setRoleId(tblRole.getRoleId());
-            return new CommonResult(200, "新增角色成功！", count,tblRole, null,null);
+            return new CommonResult(200, "新增角色成功！", count,tblRole, null,null,"0");
         }
 
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblRole.getMethod())){
             tblRole.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.updateRoleInfo(tblRole);
             if (flag == false) {
-                return new CommonResult(500, "更新角色信息失败", null,null, null,null);
+                return new CommonResult(500, "更新角色信息失败", null,tblRole, null,null,"1");
             }
-            return new CommonResult(200, "更新角色信息成功！", null,null, null,null);
+            return new CommonResult(200, "更新角色信息成功！", null,tblRole, null,null,"0");
         }
 
         if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblRole.getMethod())){
             tblRole.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.deleteRoleInfo(tblRole);
             if (flag == false) {
-                return new CommonResult(500, "删除角色信息失败", null,null, null,null);
+                return new CommonResult(500, "删除角色信息失败", null,tblRole, null,null,"1");
             }
-            return new CommonResult(200, "删除角色信息成功", null,null, null,null);
+            return new CommonResult(200, "删除角色信息成功", null,tblRole, null,null,"0");
         }
-        return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null,null);
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblRole, null,null,"1");
     }
 
     public CommonResult findMenuPwr(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin.getAdminRole() && ConstantEnum.ConstantEnumType.getENTITY() ==  tblAdmin.getAdminRole()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null,"1");
         }
         List<MenuTreeInfo> menuTreeInfoList1 = tblAdminMapper.findMenuPwr();
         List<MenuTreeInfo> menuTreeInfoList2 = tblAdminMapper.findTreeMenuByRoleID(tblAdmin);
         Map menuMap = new LinkedHashMap();
         menuMap.put("menu", menuTreeInfoList1);
         menuMap.put("mid", menuTreeInfoList2);
-        return new CommonResult(200, "查询菜单成功", null,null,null,menuMap);
+        return new CommonResult(200, "查询菜单成功", null,tblAdmin,null,menuMap,"0");
     }
 
     @Transactional
     public CommonResult protectMenuPwr(TbleMenuRole tbleMenuRole){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tbleMenuRole.getAdminRole() && ConstantEnum.ConstantEnumType.getENTITY() ==  tbleMenuRole.getAdminRole()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tbleMenuRole,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tbleMenuRole,null,null,"1");
         }
         Boolean flag = null;
         List fatherNodeId = tbleMenuRole.getFatherNodeId();//父菜单id
@@ -291,15 +289,15 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         tblAdminMapper.updateMenuId(Integer.valueOf(tbleMenuRole.getAdminRole()));
         flag = tblAdminMapper.updateMenuPwr(list);
         if(!flag){
-            return new CommonResult(501,"权限配置失败！",null,tbleMenuRole,null,null);
+            return new CommonResult(501,"权限配置失败！",null,tbleMenuRole,null,null,"1");
         }
-        return new CommonResult(200,"权限配置成功，请重新登录系统后生效！",null,tbleMenuRole,null,null);
+        return new CommonResult(200,"权限配置成功，请重新登录系统后生效！",null,tbleMenuRole,null,null,"0");
     }
 
     public CommonResult findALLUserList(TblUser tblUser, PageListEntity pageListEntity){
         //查询角色列表
         if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblUser,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblUser,null,null,"1");
         }
         Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
         Integer maxpage = pageListEntity.getLimit();
@@ -321,16 +319,16 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         List<TblUser> tblUserList = tblAdminMapper.findALLUserList(pageListEntity);
         log.info("******查询的用户列表是: "+tblUserList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblUserList.size()) {
-            return new CommonResult(0, "亲，暂无相关数据", null,null, tblUserList,null);
+            return new CommonResult(0, "亲，暂无相关数据", null,tblUser, tblUserList,null,"1");
         }
         Integer count = tblAdminMapper.findALLUserListCount(pageListEntity).intValue();
-        return new CommonResult(0, null, count,null, tblUserList,null);
+        return new CommonResult(0, null, count,tblUser, tblUserList,null,"0");
     }
 
     @Transactional
     public CommonResult protectUserList(TblUser tblUser){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser.getMethod()){
-            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblUser, null,null,"1");
         }
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblUser.getMethod())){
             if("0".equals(tblUser.getUserStatus())){
@@ -341,27 +339,27 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
             tblUser.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.updateUserInfo(tblUser);
             if (flag == false) {
-                return new CommonResult(500, "更新用户信息失败", null,null, null,null);
+                return new CommonResult(500, "更新用户信息失败", null,tblUser, null,null,"1");
             }
-            return new CommonResult(200, "更新用户信息成功！", null,null, null,null);
+            return new CommonResult(200, "更新用户信息成功！", null,tblUser, null,null,"0");
         }
 
         if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblUser.getMethod())){
             tblUser.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.deleteUserInfo(tblUser);
             if (flag == false) {
-                return new CommonResult(500, "删除用户信息失败", null,null, null,null);
+                return new CommonResult(500, "删除用户信息失败", null,tblUser, null,null,"1");
             }
-            return new CommonResult(200, "删除用户信息成功", null,null, null,null);
+            return new CommonResult(200, "删除用户信息成功", null,tblUser, null,null,"0");
         }
 
-        return new CommonResult(501, "系统未能正确执行操作方法！", null,null, null,null);
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblUser, null,null,"1");
     }
 
     public CommonResult findALLAdminList(TblAdmin tblAdmin, PageListEntity pageListEntity){
         //查询管理员列表
         if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAdmin,null,null,"1");
         }
         Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
         Integer maxpage = pageListEntity.getLimit();
@@ -383,16 +381,16 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         List<TblAdmin> tblAdminList = tblAdminMapper.findALLAdminList(pageListEntity);
         log.info("******查询的管理员列表是: "+tblAdminList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAdminList.size()) {
-            return new CommonResult(0, "亲，暂无相关数据", null,null, tblAdminList,null);
+            return new CommonResult(0, "亲，暂无相关数据", null,tblAdmin, tblAdminList,null,"1");
         }
         Integer count = tblAdminMapper.findALLAdminListCount(pageListEntity).intValue();
-        return new CommonResult(0, null, count,null, tblAdminList,null);
+        return new CommonResult(0, null, count,tblAdmin, tblAdminList,null,"0");
     }
 
     @Transactional
     public CommonResult protectAdminList(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin.getMethod()){
-            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblAdmin, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblAdmin, null,null,"1");
         }
 
         if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblAdmin.getMethod())){
@@ -410,10 +408,10 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
             Integer num = tblAdminMapper.addAdminInfo(tblAdmin);
             log.info("******新增的管理员ID是: "+tblAdmin.getAdminId());
             if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
-                return new CommonResult(500,"新增管理员信息失败",null,tblAdmin,null,null);
+                return new CommonResult(500,"新增管理员信息失败",null,tblAdmin,null,null,"1");
             }
             tblAdmin.setAdminId(tblAdmin.getAdminId());
-            return new CommonResult(200,"恭喜您，新增成功！请记好您的管理员账号："+tblAdmin.getAdminAccount()+"",null,tblAdmin,null,null);
+            return new CommonResult(200,"恭喜您，新增成功！请记好您的管理员账号："+tblAdmin.getAdminAccount()+"",null,tblAdmin,null,null,"0");
         }
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblAdmin.getMethod())){
             if("0".equals(tblAdmin.getAdminStatus())){
@@ -424,27 +422,27 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
             tblAdmin.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.updateAdminInfo(tblAdmin);
             if (flag == false) {
-                return new CommonResult(500, "更新管理员信息失败", null,tblAdmin, null,null);
+                return new CommonResult(500, "更新管理员信息失败", null,tblAdmin, null,null,"1");
             }
-            return new CommonResult(200, "更新管理员信息成功！", null,tblAdmin, null,null);
+            return new CommonResult(200, "更新管理员信息成功！", null,tblAdmin, null,null,"0");
         }
 
         if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblAdmin.getMethod())){
             tblAdmin.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.deleteAdminInfo(tblAdmin);
             if (flag == false) {
-                return new CommonResult(500, "删除管理员信息失败", null,tblAdmin, null,null);
+                return new CommonResult(500, "删除管理员信息失败", null,tblAdmin, null,null,"1");
             }
-            return new CommonResult(200, "删除管理员信息成功", null,tblAdmin, null,null);
+            return new CommonResult(200, "删除管理员信息成功", null,tblAdmin, null,null,"0");
         }
 
-        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null);
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null,"1");
     }
 
     @Transactional
     public CommonResult protectAdminProInfo(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin.getAdminAccount()){
-            return new CommonResult(500, "更新条件不能为空，请联系开发商处理！", null,tblAdmin, null,null);
+            return new CommonResult(500, "更新条件不能为空，请联系开发商处理！", null,tblAdmin, null,null,"1");
         }
         if(ConstantEnum.ConstantEnumType.getENTITY() != tblAdmin.getAdminPwd()){
             tblAdmin.setAdminPwd(EntryrionUtil.getHash3(tblAdmin.getAdminPwd(),"SHA"));//密码加密
@@ -452,9 +450,9 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         tblAdmin.setModPsnId(getAdminAccount());
         Boolean flag = tblAdminMapper.updateAdminProInfo(tblAdmin);
         if (flag == true) {
-            return new CommonResult(200, "更新管理员信息成功", null,tblAdmin, null,null);
+            return new CommonResult(200, "更新管理员信息成功", null,tblAdmin, null,null,"0");
         }
-        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null);
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null,"0");
     }
 
     @Transactional
@@ -464,7 +462,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         Long size = file.getSize();
         Long maxsize = 512000L;
         if(size > maxsize) {
-            return new CommonResult(500, "上传文件大小超过最大限制，请重新上传！", null,tblAdmin, null,null);
+            return new CommonResult(500, "上传文件大小超过最大限制，请重新上传！", null,tblAdmin, null,null,"1");
         }
         file.transferTo(new File("D:\\Java\\smarthome\\src\\main\\resources\\static\\userHeadImg\\" + filename));//文件存放位置
         tblAdmin.setAdminHead("/userHeadImg/"+filename);
@@ -472,16 +470,16 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         tblAdmin.setAdminAccount(getAdminAccount());
         Boolean flag = tblAdminMapper.uploadAdminHeadInfo(tblAdmin);
         if(flag == true){
-            return new CommonResult(200, "上传成功,重新登录后生效！", null,tblAdmin, null,null);
+            return new CommonResult(200, "上传成功,重新登录后生效！", null,tblAdmin, null,null,"0");
         }
 
-        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null);
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAdmin, null,null,"1");
     }
 
     public CommonResult findALLInfoList(TblInfo tblInfo, PageListEntity pageListEntity){
         //查询管理员列表
         if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblInfo,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblInfo,null,null,"1");
         }
         Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
         Integer maxpage = pageListEntity.getLimit();
@@ -495,16 +493,16 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         List<TblInfo> tblInfoList = tblAdminMapper.findALLInfoList(pageListEntity);
         log.info("******查询的管理员列表是: "+tblInfoList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblInfoList.size()) {
-            return new CommonResult(0, "亲，暂无相关数据", null,null, tblInfoList,null);
+            return new CommonResult(0, "亲，暂无相关数据", null,tblInfo, tblInfoList,null,"1");
         }
         Integer count = tblAdminMapper.findALLInfoListCount(pageListEntity).intValue();
-        return new CommonResult(0, null, count,null, tblInfoList,null);
+        return new CommonResult(0, null, count,tblInfo, tblInfoList,null,"0");
     }
 
     @Transactional
     public CommonResult protectInfoList(TblInfo tblInfo){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblInfo.getMethod()){
-            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblInfo, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblInfo, null,null,"1");
         }
         if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblInfo.getMethod())){
             tblInfo.setCrtPsnId(getAdminAccount());
@@ -513,30 +511,30 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
             Integer num = tblAdminMapper.addInfo(tblInfo);
             log.info("******新增的资讯ID是: "+tblInfo.getInfoId());
             if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
-                return new CommonResult(500,"新增资讯信息失败",null,tblInfo,null,null);
+                return new CommonResult(500,"新增资讯信息失败",null,tblInfo,null,null,"1");
             }
             tblInfo.setInfoId(tblInfo.getInfoId());
-            return new CommonResult(200,"新增资讯信息成功",null,tblInfo,null,null);
+            return new CommonResult(200,"新增资讯信息成功",null,tblInfo,null,null,"0");
         }
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblInfo.getMethod())){
 
             tblInfo.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.updateInfo(tblInfo);
             if (flag == false) {
-                return new CommonResult(500, "更新资讯信息失败", null,tblInfo, null,null);
+                return new CommonResult(500, "更新资讯信息失败", null,tblInfo, null,null,"1");
             }
-            return new CommonResult(200, "更新资讯信息成功！", null,tblInfo, null,null);
+            return new CommonResult(200, "更新资讯信息成功！", null,tblInfo, null,null,"0");
         }
         if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblInfo.getMethod())){
             tblInfo.setModPsnId(getAdminAccount());
             Boolean flag = tblAdminMapper.deleteInfo(tblInfo);
             if (flag == false) {
-                return new CommonResult(500, "删除资讯信息失败", null,tblInfo, null,null);
+                return new CommonResult(500, "删除资讯信息失败", null,tblInfo, null,null,"1");
             }
-            return new CommonResult(200, "删除资讯信息成功", null,tblInfo, null,null);
+            return new CommonResult(200, "删除资讯信息成功", null,tblInfo, null,null,"0");
         }
 
-        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblInfo, null,null);
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblInfo, null,null,"1");
     }
 
 }

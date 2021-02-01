@@ -119,8 +119,8 @@
             <if test="objectTwo != '' and objectTwo != null ">
                 and  admin1.ADMIN_ROLE = #{objectTwo}
             </if>
-            <if test="objectTwo != '' and objectTwo != null ">
-                and  admin2.ADMIN_ROLE = #{objectTwo}
+            <if test="objectThree != '' and objectThree != null ">
+                and  admin2.ADMIN_ROLE = #{objectThree}
             </if>
         </where>
         order by menu.CRT_TM desc,menu.MOD_TM desc limit #{page},#{limit}
@@ -141,8 +141,8 @@
             <if test="objectTwo != '' and objectTwo != null ">
                 and  admin1.ADMIN_ROLE = #{objectTwo}
             </if>
-            <if test="objectTwo != '' and objectTwo != null ">
-                and  admin2.ADMIN_ROLE = #{objectTwo}
+            <if test="objectThree != '' and objectThree != null ">
+                and  admin2.ADMIN_ROLE = #{objectThree}
             </if>
         </where>
     </select>

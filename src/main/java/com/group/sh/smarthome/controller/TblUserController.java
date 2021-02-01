@@ -2,14 +2,13 @@ package com.group.sh.smarthome.controller;
 
 
 import com.group.sh.smarthome.annotation.OperateLog;
+import com.group.sh.smarthome.entity.TblHisbill;
 import com.group.sh.smarthome.entity.TblUser;
 import com.group.sh.smarthome.resultbean.CommonResult;
+import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.TblUserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -51,6 +50,31 @@ public class TblUserController {
     @OperateLog(operateModule = "用户模块 ", operateType = "GET", operateDesc = "用户登录")
     public CommonResult userLogin(TblUser tblUser){
         return tblUserService.userLogin(tblUser);
+    }
+
+    /**
+     *
+     * 方法描述 查找账单信息列表
+     * @date 2021-02-01
+     * @param
+     */
+    @GetMapping(value = "/findALLBillList")
+    @ResponseBody
+    public CommonResult findALLBillList(TblHisbill tblHisbill, PageListEntity pageListEntity){
+        return tblUserService.findALLBillList(tblHisbill,pageListEntity);
+    }
+
+    /**
+     *
+     * 方法描述 账单信息列表维护方法
+     * @date 2021-02-01
+     * @param
+     */
+    @PostMapping(value = "/protectBillList")
+    @ResponseBody
+    @OperateLog(operateModule = "用户模块 ", operateType = "POST", operateDesc = "账单信息维护")
+    public CommonResult protectBillList(TblHisbill tblHisbill){
+        return tblUserService.protectBillList(tblHisbill);
     }
 
 }

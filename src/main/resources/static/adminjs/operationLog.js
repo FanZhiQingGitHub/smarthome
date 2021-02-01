@@ -30,14 +30,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             ,{field:'operateUserName', title:'操作人', width:180,align: 'center'}
             ,{field:'operateUserId', title:'操作人账号', width:180,align: 'center'}
             ,{field:'operateModule', title:'操作模块', align: 'center',}
-            ,{field:'norMessage', title:'操作内容(正常)', width:250,align: 'center',
+            ,{field:'operateDesc', title:'操作内容', width:250,align: 'center',
                 templet:function(d){
-                    return d.norMessage == null || d.norMessage =='' || d.norMessage ==undefined ? '无':d.norMessage;
-                }
-            }
-            ,{field:'excMessage', title:'操作内容(异常)', width:250,align: 'center',
-                templet:function(d){
-                    return d.excMessage == null || d.excMessage =='' || d.excMessage ==undefined ? '无':d.excMessage;
+                    return d.operateDesc == null || d.operateDesc =='' || d.operateDesc ==undefined ? '无':d.operateDesc;
                 }
             }
             ,{field:'operateType', title:'操作类型', align: 'center',}

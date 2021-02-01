@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>账单信息维护</title>
+    <link rel="icon" th:href="@{/publicimage/logo.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/usercss/protectBill.css}" media="all"/>
+    <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js"></script>
+    <script type="text/javascript" th:src="@{/userjs/protectBill.js}"></script>
+</head>
+<body class="childrenBody">
+<hr class="layui-bg-gray">
+<form class="layui-form" style="width:80%;top:0%">
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="method" name="method" value="">
+    </div>
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="hisbillId" name="hisbillId" value="">
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账单名称:</label>
+        <div class="layui-input-block">
+            <input type="text" id="hisbillName" name="hisbillName" class="layui-input " lay-verify="hisbillName" autocomplete="off" placeholder="请输入账单名称">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">账单描述:</label>
+        <div class="layui-input-block">
+            <textarea id="hisbillDetail" name="hisbillDetail"  lay-verify="hisbillDetail" autocomplete="off" placeholder="请输入账单描述(最多1000个汉字字母)" class="layui-textarea" style="resize: none;height: 200px"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">金额(元):</label>
+        <div class="layui-input-block">
+            <input type="text" id="hisbillAmount" name="hisbillAmount" class="layui-input " lay-verify="hisbillAmount" autocomplete="off" placeholder="请输入账单金额">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">借款人:</label>
+        <div class="layui-input-block">
+            <input type="text" id="hisbillMen" name="hisbillMen" class="layui-input " lay-verify="hisbillMen" autocomplete="off" placeholder="请输入借款人">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">借款人手机:</label>
+        <div class="layui-input-block">
+            <input type="text" id="hisbillMenphone" name="hisbillMenphone" class="layui-input " lay-verify="phone" autocomplete="off" placeholder="请输入借款人手机号码">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">借款时间:</label>
+        <div class="layui-input-block">
+            <input type="text" id="hisbillBegintime" name="hisbillBegintime" class="layui-input search_input" lay-verify="required" placeholder="请选择借款日期">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">预计还款时间:</label>
+        <div class="layui-input-block">
+            <input type="text" id="hisbillEstreptm" name="hisbillEstreptm" class="layui-input search_input" lay-verify="required" placeholder="请选择预计还款日期">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="hisbillEndtimeDiv" style="display: none">
+        <label class="layui-form-label">还款时间:</label>
+        <div class="layui-input-block">
+            <input type="text" id="hisbillEndtime" name="hisbillEndtime" class="layui-input " autocomplete="off" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账单类型</label>
+        <div class="layui-input-block">
+            <select id="hisbillType" name="hisbillType" lay-verify="required">
+                <option value="">请选择</option>
+                <option value="1">借款</option>
+                <option value="2">鱼款</option>
+                <option value="3">菜款</option>
+                <option value="4">药草款</option>
+                <option value="5">稻谷款</option>
+                <option value="6">其它款</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账单状态:</label>
+        <div class="layui-input-block">
+            <input type="radio" name="hisbillStatus" lay-filter= "hisbillStatus" value="0" title="已结">
+            <input type="radio" name="hisbillStatus" lay-filter= "hisbillStatus" value="1" title="未结" checked>
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="crtDiv"style="display: none">
+        <label class="layui-form-label">创建人:</label>
+        <div class="layui-input-block">
+            <input type="text" id="crtPsnId" name="crtPsnId" class="layui-input " autocomplete="off" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit lay-filter="billSubmit" id="billSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-danger" id="billReset">重置</button>
+            <button type="button" class="layui-btn layui-btn-primary"  id="returnPage">返回</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

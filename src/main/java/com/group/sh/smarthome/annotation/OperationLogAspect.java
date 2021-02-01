@@ -7,25 +7,23 @@ import com.group.sh.smarthome.util.ConstantEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
-
 import java.net.UnknownHostException;
-import java.util.*;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Objects;
 
 @Aspect
 @Component
@@ -84,7 +82,7 @@ public class OperationLogAspect {
 
 
     /**
-     * 正常返回通知，拦截用户操作日志，连接点正常执行完成后执行，如果连接点抛出异常，则不会执行
+     * 正常返回通知，拦截用户操作日志，连接点正常执行完成后执行
      * @param joinPoint 切入点
      * @param keys      返回结果
      */
@@ -95,38 +93,15 @@ public class OperationLogAspect {
             setBaseLog(joinPoint, operationLog);
             operationLog.setOperateResponseParam(JSON.toJSONString(keys));
             CommonResult commonResult = (CommonResult) keys;
-            operationLog.setOperateResult("0");
-            operationLog.setNorMessage(commonResult.getMessage());
-            log.info("系统日志操作正常，新增的正常操作="+operationLog.getNorMessage()+"&操作人是="+operationLog.getOperateUserName());
+            operationLog.setOperateResult(commonResult.getSysCode());
+            operationLog.setOperateDesc(commonResult.getMessage());
+            log.info("系统日志="+operationLog.getOperateDesc()+"&操作人是="+operationLog.getOperateUserName());
             // 插入数据库
             publicService.addOperationLogInfo(operationLog);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-    /**
-     * 异常返回通知，拦截用户操作日志，连接点抛出异常，则执行
-     * @param joinPoint 切入点
-     * @param e      返回结果
-     */
-    @AfterThrowing(pointcut = "operateExcLogPointCut()", throwing = "e")
-    public void saveExceptionLog(JoinPoint joinPoint, Throwable e) {
-        OperationLog operationLog = new OperationLog();
-        try {
-            setBaseLog(joinPoint, operationLog);
-            operationLog.setOperateResult("1");
-            operationLog.setExcName(e.getClass().getName());
-            operationLog.setExcMessage(stackTraceToString(e.getClass().getName(), e.getMessage(), e.getStackTrace()));
-            log.info("系统日志操作异常，新增的异常操作名为："+operationLog.getExcName()+"&操作详情是："+operationLog.getExcMessage()+"&操作人是="+operationLog.getOperateUserName());
-            // 插入数据库
-            publicService.addOperationLogInfo(operationLog);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
 
     /**
      * 设置基础的参数
@@ -148,18 +123,12 @@ public class OperationLogAspect {
         if(ConstantEnum.ConstantEnumType.ADMINMOD.getValue().equals(operationLog.getOperateModule().trim())){
             String adminName =  (String) session.getAttribute("adminName");//操作人姓名
             String adminAccount =  (String) session.getAttribute("adminAccount");//操作人ID
-            if(ConstantEnum.ConstantEnumType.getENTITY() == adminName || ConstantEnum.ConstantEnumType.getENTITY() == adminAccount){
-                operationLog.setNorMessage("session中不存在该管理员用户、账号");
-            }
             // 比如请求用户的信息，可以通过一个工具类获取，从ThreadLocal里拿出来
             operationLog.setOperateUserId(Integer.valueOf(adminAccount));// 请求用户ID
             operationLog.setOperateUserName(adminName);// 请求用户名称
         }else if(ConstantEnum.ConstantEnumType.USERMOD.getValue().equals(operationLog.getOperateModule().trim())){
             String userName =  (String) session.getAttribute("userName");//操作人姓名
             String userAccount =  (String) session.getAttribute("userAccount");//操作人ID
-            if(ConstantEnum.ConstantEnumType.getENTITY() == userName || ConstantEnum.ConstantEnumType.getENTITY() == userAccount){
-                operationLog.setNorMessage("session中不存在该用户、账号");
-            }
             // 比如请求用户的信息，可以通过一个工具类获取，从ThreadLocal里拿出来
             operationLog.setOperateUserId(Integer.valueOf(userAccount));// 请求用户ID
             operationLog.setOperateUserName(userName);// 请求用户名称

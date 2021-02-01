@@ -34,33 +34,33 @@ public class PublicService {
 
     public CommonResult findAreaList(TblArea tblArea){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblArea.getMethod()){
-            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblArea, null,null);
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblArea, null,null,"1");
         }
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblArea.getAreaLvl()){
-            return new CommonResult(501, "省市区层级类型不能为空，请联系开发商处理！", null,tblArea, null,null);
+            return new CommonResult(501, "省市区层级类型不能为空，请联系开发商处理！", null,tblArea, null,null,"1");
         }
         if(ConstantEnum.ConstantEnumType.PROVINCE.getValue().equals(tblArea.getMethod())){
             List<TblArea> tblAreaList = publicMapper.findAreaList(tblArea);
 //            if(Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAreaList.size()){
 //                return new CommonResult(503, "未查到该省级行政区划", null,tblArea, tblAreaList,null);
 //            }
-            return new CommonResult(200, null, null,tblArea, tblAreaList,null);
+            return new CommonResult(200, null, null,tblArea, tblAreaList,null,"0");
         }
         if(ConstantEnum.ConstantEnumType.CITY.getValue().equals(tblArea.getMethod())){
             List<TblArea> tblAreaList = publicMapper.findAreaList(tblArea);
 //            if(Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAreaList.size()){
 //                return new CommonResult(503, "未查到该市级行政区划", null,tblArea, tblAreaList,null);
 //            }
-            return new CommonResult(200, null, null,tblArea, tblAreaList,null);
+            return new CommonResult(200, null, null,tblArea, tblAreaList,null,"0");
         }
         if(ConstantEnum.ConstantEnumType.AREA.getValue().equals(tblArea.getMethod())){
             List<TblArea> tblAreaList = publicMapper.findAreaList(tblArea);
 //            if(Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAreaList.size()){
 //                return new CommonResult(503, "未查到该县/区级行政区划", null,tblArea, tblAreaList,null);
 //            }
-            return new CommonResult(200, null, null,tblArea, tblAreaList,null);
+            return new CommonResult(200, null, null,tblArea, tblAreaList,null,"0");
         }
-        return new CommonResult(502, "系统未能正确执行操作方法！", null,tblArea, null,null);
+        return new CommonResult(502, "系统未能正确执行操作方法！", null,tblArea, null,null,"0");
     }
 
     public CommonResult findAllCount(){
@@ -74,13 +74,13 @@ public class PublicService {
         countMap.put("menuCount",menuCount.toString());
         countMap.put("infoCount",infoCount.toString());
         log.info("所查到的个统计数量为="+countMap);
-        return new CommonResult(200, null, null,null, null,countMap);
+        return new CommonResult(200, null, null,null, null,countMap,"0");
     }
 
     public CommonResult findOperationLogList(OperationLog operationLog, PageListEntity pageListEntity){
         //查询系统操作日志列表
         if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
-            return new CommonResult(500,"请求参数为null，请联系开发商！",null,operationLog,null,null);
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,operationLog,null,null,"1");
         }
         Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
         Integer maxpage = pageListEntity.getLimit();
@@ -107,10 +107,10 @@ public class PublicService {
         List<OperationLog> operationLogList = publicMapper.findOperationLogList(pageListEntity);
         log.info("******查询的系统操作日志列表是: "+operationLogList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == operationLogList.size()) {
-            return new CommonResult(0, "亲，暂无相关数据", null,null, operationLogList,null);
+            return new CommonResult(0, "亲，暂无相关数据", null,operationLog, operationLogList,null,"1");
         }
         Integer count = publicMapper.findOperationLogListCount(pageListEntity).intValue();
-        return new CommonResult(0, null, count,null, operationLogList,null);
+        return new CommonResult(0, null, count,operationLog, operationLogList,null,"0");
     }
 
     public CommonResult userStatistics(){
@@ -124,7 +124,7 @@ public class PublicService {
             list.add(count);
         }
         userMap.put("userMap", (ArrayList) list);
-        return new CommonResult(0, null, null,null, null,userMap);
+        return new CommonResult(0, null, null,null, null,userMap,"0");
     }
 
     public CommonResult adminStatistics(){
@@ -138,12 +138,12 @@ public class PublicService {
             list.add(count);
         }
         adminMap.put("adminMap", (ArrayList) list);
-        return new CommonResult(0, null, null,null, null,adminMap);
+        return new CommonResult(0, null, null,null, null,adminMap,"0");
     }
 
     public CommonResult menuStatistics(){
         List<MenuTreeInfo> menuTreeInfoList = publicMapper.menuStatistics();
-        return new CommonResult(0, null, null,null, menuTreeInfoList,null);
+        return new CommonResult(0, null, null,null, menuTreeInfoList,null,"0");
     }
 
     public CommonResult infoStatistics(){
@@ -157,21 +157,21 @@ public class PublicService {
             list.add(count);
         }
         infoMap.put("infoMap", (ArrayList) list);
-        return new CommonResult(0, null, null,null, null,infoMap);
+        return new CommonResult(0, null, null,null, null,infoMap,"0");
     }
 
     public CommonResult addOperationLogInfo(OperationLog operationLog) throws Exception {
         Integer num = publicMapper.addOperationLogInfo(operationLog);
-        return new CommonResult(0, null, num,operationLog, null,null);
+        return new CommonResult(0, null, num,operationLog, null,null,"0");
     }
 
     public CommonResult findAllInfo(){
         List<TblInfo> infoList = publicMapper.findAllInfo();
         log.info("******查询的资讯列表是: "+infoList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == infoList.size()) {
-            return new CommonResult(500, "亲，暂无相关数据", null,null, infoList,null);
+            return new CommonResult(500, "亲，暂无相关数据", null,null, infoList,null,"1");
         }
-        return new CommonResult(200, null, null,null, infoList,null);
+        return new CommonResult(200, null, null,null, infoList,null,"0");
     }
 
 }
