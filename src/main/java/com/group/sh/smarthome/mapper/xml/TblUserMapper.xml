@@ -9,7 +9,7 @@
     <select id="userLogin" resultType="com.group.sh.smarthome.entity.TblUser" parameterType="com.group.sh.smarthome.entity.TblUser">
         select
             USER_ACCOUNT,USER_PWD,USER_NAME,USER_SEX,USER_AGE,USER_PHONE,
-            USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS,USER_QQ,USER_WECHAT,
+            USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS_PROVINCE,USER_ADDRESS_CITY,USER_ADDRESS_AREA,USER_ADDRESS_DETAIL,USER_QQ,USER_WECHAT,
             USER_IDCARDTYPE,USER_IDCARDNUM,USER_HEADURL,USER_RESUME,USER_EDDGRCD,
             USER_DGRCD,USER_GRDT_SCHCD,USER_MJR,USER_GRDTM,USER_STATUS,
             CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,USER_ROLE
@@ -25,33 +25,16 @@
 
     </select>
 
-    <select id="getUserInfoList" resultType="com.group.sh.smarthome.entity.TblUser" parameterType="com.group.sh.smarthome.entity.TblUser">
-        select
-            USER_ACCOUNT,USER_PWD,USER_NAME,USER_SEX,USER_AGE,USER_PHONE,
-            USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS,USER_QQ,USER_WECHAT,
-            USER_IDCARDTYPE,USER_IDCARDNUM,USER_HEADURL,USER_RESUME,USER_EDDGRCD,
-            USER_DGRCD,USER_GRDT_SCHCD,USER_MJR,USER_GRDTM,USER_STATUS,
-            CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,USER_ROLE
-        from tbl_user
-        <where>
-            and DEL_ID = '0'
-            <if test="userAccount != '' and userAccount != null ">
-                and USER_ACCOUNT = #{userAccount}
-            </if>
-        </where>
-        order by CRT_TM desc ,MOD_TM desc
-    </select>
-
     <insert id="addUserInfo" parameterType="com.group.sh.smarthome.entity.TblUser" useGeneratedKeys="true" keyProperty="userId">
         insert into
         tbl_user(USER_ACCOUNT,USER_PWD,USER_NAME,USER_SEX,USER_AGE,USER_PHONE,
-                 USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS,USER_QQ,USER_WECHAT,
+                 USER_WORKPHONE,USER_JOB,USER_MAIL,USER_ADDRESS_PROVINCE,USER_ADDRESS_CITY,USER_ADDRESS_AREA,USER_ADDRESS_DETAIL,USER_QQ,USER_WECHAT,
                  USER_IDCARDTYPE,USER_IDCARDNUM,USER_HEADURL,USER_RESUME,USER_EDDGRCD,
                  USER_DGRCD,USER_GRDT_SCHCD,USER_MJR,USER_GRDTM,USER_STATUS,
                  CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID,USER_ROLE)
         values
             (#{userAccount},#{userPwd},#{userName},#{userSex},#{userAge},#{userPhone},
-             #{userWorkphone},#{userJob},#{userMail},#{userAddress},#{userQq},#{userWechat},
+             #{userWorkphone},#{userJob},#{userMail},#{userAddressProvince},#{userAddressCity},#{userAddressArea},#{userAddressDetail},#{userQq},#{userWechat},
              #{userIdcardtype},#{userIdcardnum},#{userHeadurl},#{userResume},#{userEddgrcd},
              #{userDgrcd},#{userGrdtSchcd},#{userMjr},#{userGrdtm},#{userStatus},
              #{crtPsnId},now(),#{modPsnId},#{modTm},'0',#{userRole})
@@ -83,13 +66,20 @@
             <if test="userJob != '' and userJob != null">
                 USER_JOB = #{userJob},
             </if>
-
-
             <if test="userMail != '' and userMail != null">
                 USER_MAIL = #{userMail},
             </if>
-            <if test="userAddress != '' and userAddress != null">
-                USER_ADDRESS = #{userAddress},
+            <if test="userAddressProvince != '' and userAddressProvince != null">
+                USER_ADDRESS_PROVINCE = #{userAddressProvince},
+            </if>
+            <if test="userAddressCity != '' and userAddressCity != null">
+                USER_ADDRESS_CITY = #{userAddressCity},
+            </if>
+            <if test="userAddressArea != '' and userAddressArea != null">
+                USER_ADDRESS_AREA = #{userAddressArea},
+            </if>
+            <if test="userAddressDetail != '' and userAddressDetail != null">
+                USER_ADDRESS_DETAIL = #{userAddressDetail},
             </if>
             <if test="userQq != '' and userQq != null">
                 USER_QQ = #{userQq},
@@ -126,20 +116,25 @@
                 MOD_PSN_ID = #{modPsnId},
             </if>
         </set>
-        where USER_ID = #{userId}
+        where USER_ACCOUNT = #{userAccount}
     </update>
 
-    <update id="deleteUserInfo" parameterType="com.group.sh.smarthome.entity.TblUser">
+    <!--    用户个人头像修改-->
+    <update id="uploadUserHeadInfo" parameterType="com.group.sh.smarthome.entity.TblUser">
         update tbl_user
         <set>
-            DEL_ID = '1',
+            DEL_ID = '0',
             MOD_TM = now(),
+            <if test="userHeadurl != '' and userHeadurl != null">
+                USER_HEADURL = #{userHeadurl},
+            </if>
             <if test="modPsnId != '' and modPsnId != null">
                 MOD_PSN_ID = #{modPsnId},
             </if>
         </set>
-        where USER_ID = #{userId}
+        where USER_ACCOUNT = #{userAccount}
     </update>
+
 
     <!--    查找账单信息列表-->
     <resultMap type="com.group.sh.smarthome.entity.TblHisbill" id="BillListMap">
@@ -191,6 +186,9 @@
             <if test="objectFive != '' and objectFive != null ">
                 and  bill.HISBILL_TYPE = #{objectFive}
             </if>
+            <if test="account != '' and account != null ">
+                and  user.USER_ACCOUNT = #{account}
+            </if>
             <if test="findDate != '' and findDate != null ">
                 <![CDATA[   and DATE_FORMAT(bill.HISBILL_ENDTIME, '%Y-%m-%d')=  DATE_FORMAT(#{findDate}, '%Y-%m-%d')   ]]>
             </if>
@@ -226,6 +224,9 @@
             </if>
             <if test="objectFive != '' and objectFive != null ">
                 and  bill.HISBILL_TYPE = #{objectFive}
+            </if>
+            <if test="account != '' and account != null ">
+                and  user.USER_ACCOUNT = #{account}
             </if>
             <if test="findDate != '' and findDate != null ">
                 <![CDATA[   and DATE_FORMAT(bill.HISBILL_ENDTIME, '%Y-%m-%d')=  DATE_FORMAT(#{findDate}, '%Y-%m-%d')   ]]>

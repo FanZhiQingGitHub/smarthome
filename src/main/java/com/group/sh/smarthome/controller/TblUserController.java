@@ -9,8 +9,10 @@ import com.group.sh.smarthome.resultbean.PageListEntity;
 import com.group.sh.smarthome.service.TblUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * <pre>
@@ -54,6 +56,31 @@ public class TblUserController {
 
     /**
      *
+     * 方法描述 用户信息注册及维护
+     * @date 2021-02-01
+     * @param
+     */
+    @PostMapping(value = "/protectUserInfo")
+    @ResponseBody
+    @OperateLog(operateModule = "用户模块 ", operateType = "POST", operateDesc = "用户信息维护")
+    public CommonResult protectUserInfo(TblUser tblUser){
+        return tblUserService.protectUserInfo(tblUser);
+    }
+
+    /**
+     *
+     * 方法描述 管理员个人资料信息维护头像上传
+     * @date 2020-12-19
+     * @param
+     */
+    @PostMapping(value = "/uploadUserHeadInfo")
+    @ResponseBody
+    public CommonResult uploadUserHeadInfo(TblUser tblUser, @RequestParam("file") MultipartFile file) throws IOException {
+        return tblUserService.uploadUserHeadInfo(tblUser,file);
+    }
+
+    /**
+     *
      * 方法描述 查找账单信息列表
      * @date 2021-02-01
      * @param
@@ -76,6 +103,8 @@ public class TblUserController {
     public CommonResult protectBillList(TblHisbill tblHisbill){
         return tblUserService.protectBillList(tblHisbill);
     }
+
+
 
 }
 

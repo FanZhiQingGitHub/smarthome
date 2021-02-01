@@ -23,6 +23,8 @@ public class PageListEntity {
     private String startTime;
     private String endTime;
 
+    private String account;
+
     private Integer page;//从第几条开始
     private Integer limit;//显示几条数据
 

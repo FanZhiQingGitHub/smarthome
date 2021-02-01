@@ -88,10 +88,29 @@ public class TblUser implements Serializable {
     private String userMail;
 
     /**
-     * 用户地址
+     * 用户地址(省)
      */
-    @TableField("USER_ADDRESS")
-    private String userAddress;
+    @TableField("USER_ADDRESS_PROVINCE")
+    private String userAddressProvince;
+
+    /**
+     * 用户地址(市)
+     */
+    @TableField("USER_ADDRESS_CITY")
+    private String userAddressCity;
+
+    /**
+     * 用户地址(区)
+     */
+    @TableField("USER_ADDRESS_AREA")
+    private String userAddressArea;
+
+    /**
+     * 用户地址(详细门牌号)
+     */
+    @TableField("USER_ADDRESS_DETAIL")
+    private String userAddressDetail;
+
 
     /**
      * 用户QQ号码
@@ -112,7 +131,7 @@ public class TblUser implements Serializable {
     private String userIdcardtype;
 
     /**
-     * 用户身份证号码
+     * 用户证件号码
      */
     @TableField("USER_IDCARDNUM")
     private String userIdcardnum;

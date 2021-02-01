@@ -133,8 +133,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                         window.sessionStorage.setItem("userName",msg.entityData.userName);
                         window.sessionStorage.setItem("userRole",msg.entityData.userRole);
                         window.sessionStorage.setItem("userHeadurl",msg.entityData.userHeadurl);
-                        //window.sessionStorage.setItem("userAddressProvince",msg.entityData.userAddressProvince);
-                        //window.sessionStorage.setItem("userAddressCity",msg.entityData.userAddressCity);
+                        window.sessionStorage.setItem("userAddressProvince",msg.entityData.userAddressProvince);
+                        window.sessionStorage.setItem("userAddressCity",msg.entityData.userAddressCity);
                         var timer = setInterval(function () {
                             location.href = "/smarthome/user/path/userNavigation";
                             clearInterval(timer);

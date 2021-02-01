@@ -74,9 +74,10 @@
     </fieldset>
     <div class="layui-row layui-col-space15">
         <form class="layui-form pad_01" action="" method="post" lay-filter="userLoginForm">
+            <input type="hidden" id="method" name="method" value="0">
             <div class="layui-col-sm12 layui-col-md12">
                 <div class="layui-form-item">
-                    <input type="text" name="userName" lay-verify="Name" autocomplete="off" placeholder="请输入用户昵称" class="layui-input" value="">
+                    <input type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="请输入用户昵称" class="layui-input" value="">
                     <i class="layui-icon layui-icon-username lofo_icon"></i>
                 </div>
             </div>

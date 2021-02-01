@@ -78,9 +78,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     }
 
     form.verify({
-        Name: function (value) {
+        userName: function (value) {
             if (value.length < 2) {
                 return '您好，用户名至少得2个字符！';
+            }else if (value.length > 16) {
+                return '您好，用户名最多16个字符！';
             }
         }, code :function (value) {
             if (value.length != 4) {
@@ -152,7 +154,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     form.on('submit(userRegSubmit)', function (data) {
         var loadingIndex = layer.load(3, {
             shade: [0.2, 'gray'], //0.5透明度的灰色背景
-            content: '登录中，请稍后......',
+            content: '注册中，请稍后......',
             success: function (layero) {
                 layero.find('.layui-layer-content').css({
                     'padding-top': '39px',
@@ -166,7 +168,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             layer.msg("验证码错误，请重新输入！", {icon: 2});
         }else {
             $.ajax({
-                url: "/smarthome/user/addUserInfo",
+                url: "/smarthome/user/protectUserInfo",
                 async: true,
                 type: "post",
                 data: data.field,
@@ -197,11 +199,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                 }
             });
         }
-    });
-
-    //执行一个laydate实例
-    laydate.render({
-        elem: '#userGrdtm' //指定元素
     });
 
 });

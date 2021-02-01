@@ -11,12 +11,18 @@ import com.group.sh.smarthome.util.EntryrionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,16 +64,6 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
 
     /**
      *
-     * 方法描述 获取下一个ID
-     * @date 2020-11-26
-     * @param
-     */
-    public String getNextUserID() {
-        return tblUserMapper.getNextUserID();
-    }
-
-    /**
-     *
      * 方法描述 用户登录方法
      * @date 2020-11-26
      * @param tblUser
@@ -90,12 +86,74 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         if(ConstantEnum.ConstantEnumType.DELETENUM.getValue().equals(User.getDelId()) || ConstantEnum.ConstantEnumType.CONSTANT == User.getDelId()){
             return new CommonResult(502, "该用户不存在，请先进行注册！", null,User, null,null,"1");
         }
-        ConstantEnum.ConstantEnumType.roleId = Integer.valueOf(User.getUserRole());
         HttpSession session = getUserRequest().getSession();
         session.setAttribute("userAccount",User.getUserAccount());
         session.setAttribute("userName",User.getUserName());
         session.setMaxInactiveInterval(30 * 60);//session过期时间设置，以秒为单位，即在没有活动30分钟后，session将失效
         return new CommonResult(200, "欢迎您："+User.getUserName()+" ，登录成功！", null,User, null,null,"0");
+    }
+
+    /**
+     *
+     * 方法描述 用户信息维护方法
+     * @date 2021-02-01
+     * @param tblUser
+     */
+    @Transactional
+    public CommonResult protectUserInfo(TblUser tblUser){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser.getMethod()){
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblUser, null,null,"1");
+        }
+        if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblUser.getMethod())){
+            SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+            tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));//密码加密
+            tblUser.setUserAccount("30000000"+tblUserMapper.getNextUserID());
+            tblUser.setUserStatus("0");
+            tblUser.setCrtPsnId(tblUser.getUserAccount());
+            tblUser.setCrtTm(new Date());
+            tblUser.setDelId("0");
+            tblUser.setUserHeadurl("/userHeadImg/userface4.jpg");
+            tblUser.setUserSex("2");
+            Integer num = tblUserMapper.addUserInfo(tblUser);
+            log.info("******新增的管理员ID是: "+tblUser.getUserId());
+            if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
+                return new CommonResult(500,"新增用户信息失败",null,tblUser,null,null,"1");
+            }
+            tblUser.setUserId(tblUser.getUserId());
+            return new CommonResult(200,"恭喜您，注册成功！请记好您的用户账号："+tblUser.getUserAccount()+"",null,tblUser,null,null,"0");
+        }
+        if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblUser.getMethod())){
+            tblUser.setModPsnId(getUserAccount());
+            if(ConstantEnum.ConstantEnumType.getENTITY() != tblUser.getUserPwd()){
+                tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));//密码加密
+            }
+            Boolean flag = tblUserMapper.updateUserInfo(tblUser);
+            if (flag == false) {
+                return new CommonResult(500, "更新用户信息失败", null,tblUser, null,null,"1");
+            }
+            return new CommonResult(200, "更新用户信息成功", null,tblUser, null,null,"0");
+        }
+
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblUser, null,null,"1");
+    }
+
+    @Transactional
+    public CommonResult uploadUserHeadInfo(TblUser tblUser, @RequestParam("file") MultipartFile file) throws IOException {
+        String filename = file.getOriginalFilename().toString();//得到上传时的文件名。
+        Long size = file.getSize();
+        Long maxsize = 512000L;
+        if(size > maxsize) {
+            return new CommonResult(500, "上传文件大小超过最大限制，请重新上传！", null,tblUser, null,null,"1");
+        }
+        file.transferTo(new File("D:\\Java\\smarthome\\src\\main\\resources\\static\\userHeadImg\\" + filename));//文件存放位置
+        tblUser.setUserHeadurl("/userHeadImg/"+filename);
+        tblUser.setModPsnId(getUserAccount());
+        tblUser.setUserAccount(getUserAccount());
+        Boolean flag = tblUserMapper.uploadUserHeadInfo(tblUser);
+        if(flag == true){
+            return new CommonResult(200, "上传成功,重新登录后生效！", null,tblUser, null,null,"0");
+        }
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblUser, null,null,"1");
     }
 
     /**
@@ -127,6 +185,7 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         if(ConstantEnum.ConstantEnumType.getENTITY() != tblHisbill.getHisbillType()){
             pageListEntity.setObjectFive(tblHisbill.getHisbillType());
         }
+        pageListEntity.setAccount(getUserAccount());
         List<TblHisbill> tblHisbillList = tblUserMapper.findALLBillList(pageListEntity);
         log.info("******查询的账单列表是: "+tblHisbillList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblHisbillList.size()) {
@@ -137,10 +196,16 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
     }
 
 
+    /**
+     *
+     * 方法描述 账单信息维护方法
+     * @date 2021-02-01
+     * @param tblHisbill
+     */
     @Transactional
     public CommonResult protectBillList(TblHisbill tblHisbill){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblHisbill.getMethod()){
-            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,null, null,null,"1");
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblHisbill, null,null,"1");
         }
 
         if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblHisbill.getMethod())){

@@ -23,8 +23,6 @@ public interface TblUserMapper extends BaseMapper<TblUser> {
 
     public TblUser userLogin(TblUser tblUser);
 
-    public List<TblUser> getUserInfoList(TblUser tblUser);
-
     public Integer addUserInfo(TblUser tblUser);
 
     public Boolean updateUserInfo(TblUser tblUser);
@@ -40,5 +38,7 @@ public interface TblUserMapper extends BaseMapper<TblUser> {
     public Boolean updateBillEndTime(TblHisbill tblHisbill);
 
     public Boolean deleteBillInfo(TblHisbill tblHisbill);
+
+    public Boolean uploadUserHeadInfo(TblUser tblUser);
 
 }
