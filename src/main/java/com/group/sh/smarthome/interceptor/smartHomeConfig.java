@@ -20,11 +20,14 @@ public class smartHomeConfig implements WebMvcConfigurer {
         loginRegistry.excludePathPatterns("/smarthome/admin/adminLogin");
         loginRegistry.excludePathPatterns("/smarthome/user/path/homePage");
         loginRegistry.excludePathPatterns("/smarthome/user/path/userLogin");
+        loginRegistry.excludePathPatterns("/smarthome/user/userLogin");
         loginRegistry.excludePathPatterns("/smarthome/user/path/userReg");
+        loginRegistry.excludePathPatterns("/smarthome/user/userReg");
+
         loginRegistry.excludePathPatterns("/smarthome/user/path/product");
         loginRegistry.excludePathPatterns("/smarthome/user/path/news");
         loginRegistry.excludePathPatterns("/smarthome/user/path/about");
-        loginRegistry.excludePathPatterns("/smarthome/user/userLogin");
+
         loginRegistry.excludePathPatterns("/favicon.ico");
         loginRegistry.excludePathPatterns("/admincss/**");
         loginRegistry.excludePathPatterns("/adminjs/**");
@@ -39,6 +42,7 @@ public class smartHomeConfig implements WebMvcConfigurer {
         loginRegistry.excludePathPatterns("/errorhtml/**");
         loginRegistry.excludePathPatterns("/publicvideo/**");
         loginRegistry.excludePathPatterns("/homeImg/**");
+        loginRegistry.excludePathPatterns("/publiccss/**");
 
     }
 }

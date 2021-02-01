@@ -1,13 +1,9 @@
 package com.group.sh.smarthome.interceptor;
 
 import com.group.sh.smarthome.entity.MenuTreeInfo;
-import com.group.sh.smarthome.mapper.TblAdminMapper;
-import com.group.sh.smarthome.service.TblAdminService;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -41,17 +37,25 @@ public class smartHomeInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();//拿到拦截的页面
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         System.out.println("uri=" + uri);
+        Object adminNum = request.getSession().getAttribute("adminAccount");
+        Object userNum = request.getSession().getAttribute("userAccount");
         Map<String,Object> userInfoMap = new LinkedHashMap<>();
-        return findUserPow(userInfoMap,uri,basePath,request,response);
+        Boolean flag = null;
+//        if(adminNum != null && !adminNum.toString().equals("")){
+//            userInfoMap.put("adminAccount",request.getSession().getAttribute("adminAccount"));
+//            userInfoMap.put("adminName",request.getSession().getAttribute("adminName"));
+//            userInfoMap.put("adminRole",request.getSession().getAttribute("adminRole"));
+//            userInfoMap.put("tblMenuList",request.getSession().getAttribute("tblMenuList"));
+//            flag = findAdminUsePow(userInfoMap,uri,basePath,request,response);
+//        }else if(userNum != null && !userNum.toString().equals("") ){
+//            userInfoMap.put("userAccount",request.getSession().getAttribute("userAccount"));
+//            userInfoMap.put("userName",request.getSession().getAttribute("userName"));
+//            flag = findUserUsePow(userInfoMap,uri,basePath,request,response);
+//        }
+        return true;
     }
 
-    private Boolean findUserPow(Map<String,Object> userInfoMap,String uri,String basePath,HttpServletRequest request, HttpServletResponse response) throws IOException {
-        userInfoMap.put("adminAccount",request.getSession().getAttribute("adminAccount"));
-        userInfoMap.put("adminName",request.getSession().getAttribute("adminName"));
-        userInfoMap.put("adminRole",request.getSession().getAttribute("adminRole"));
-        userInfoMap.put("tblMenuList",request.getSession().getAttribute("tblMenuList"));
-        userInfoMap.put("userAccount",request.getSession().getAttribute("userAccount"));
-        userInfoMap.put("userName",request.getSession().getAttribute("userName"));
+    private Boolean findAdminUsePow(Map<String,Object> userInfoMap,String uri,String basePath,HttpServletRequest request, HttpServletResponse response) throws IOException {
         if(userInfoMap.get("adminAccount") == null || userInfoMap.get("adminAccount").equals("")){
             if(!uri.contains("path")){
                 return true;//如果uri地址不存在path则放行请求
@@ -74,19 +78,14 @@ public class smartHomeInterceptor implements HandlerInterceptor {
                 response.sendRedirect(basePath + "/smarthome/admin/path/adminLogin");//返回登陆页面
                 return true;//如果uri地址存在管理员退出请求则放行请求
             }
-            if(uri.contains("userExit")){
-                request.getSession().invalidate();
-                response.sendRedirect(basePath + "/smarthome/user/path/userLogin");//返回登陆页面
-                return true;//如果uri地址存在管理员退出请求则放行请求
-            }
             if(uri.contains("adminInfo")){
-                return true;//如果uri地址存在管理员退出请求则放行请求
+                return true;//如果uri地址存在查看管理员个人信息请求则放行请求
             }
             if(uri.contains("changeAdminPwd")){
-                return true;//如果uri地址存在管理员退出请求则放行请求
+                return true;//如果uri地址存在修改管理员登录密码请求则放行请求
             }
             if(uri.contains("adminNavigation") || uri.contains("adminMain")){
-                return true;//如果uri地址存在管理员退出请求则放行请求
+                return true;
             }
 
             /*
@@ -103,10 +102,38 @@ public class smartHomeInterceptor implements HandlerInterceptor {
                 }
             }
         }
-        if(userInfoMap.get("userAccount") == null || userInfoMap.get("userAccount").equals("")) {
+        return false;
+    }
+
+    private Boolean findUserUsePow(Map<String,Object> userInfoMap,String uri,String basePath,HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if(userInfoMap.get("userAccount") == null || userInfoMap.get("userAccount").equals("")){
+            if(!uri.contains("path")){
+                return true;//如果uri地址不存在path则放行请求
+            }
             request.getSession().invalidate();
             response.sendRedirect(basePath + "/smarthome/user/path/userLogin");//未登陆，返回登陆页面
             return false;
+        }else if(userInfoMap.get("userAccount") != null || !userInfoMap.get("userAccount").equals("") ){
+            if(!uri.contains("path")){
+                return true;//如果uri地址不存在path则放行请求
+            }
+            if(uri.contains("protect")){
+                return true;
+            }
+            if(uri.contains("userExit")){
+                request.getSession().invalidate();
+                response.sendRedirect(basePath + "/smarthome/user/path/userLogin");//返回登陆页面
+                return true;//如果uri地址存在管理员退出请求则放行请求
+            }
+            if(uri.contains("userInfo")){
+                return true;
+            }
+            if(uri.contains("changeAdminPwd")){
+                return true;
+            }
+            if(uri.contains("userNavigation") || uri.contains("userMain")){
+                return true;
+            }
         }
         return false;
     }

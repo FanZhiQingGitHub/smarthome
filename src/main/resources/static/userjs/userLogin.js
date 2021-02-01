@@ -128,12 +128,17 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     if (msg.code == "200") {
                         layer.close(loadingIndex);
                         layer.msg(msg.message, {icon: 6});
-                        /*
+                        window.sessionStorage.setItem("userAccount",msg.entityData.userAccount);
+                        window.sessionStorage.setItem("userPwd",msg.entityData.userPwd);
                         window.sessionStorage.setItem("userName",msg.entityData.userName);
+                        window.sessionStorage.setItem("userRole",msg.entityData.userRole);
+                        window.sessionStorage.setItem("userHeadurl",msg.entityData.userHeadurl);
+                        //window.sessionStorage.setItem("userAddressProvince",msg.entityData.userAddressProvince);
+                        //window.sessionStorage.setItem("userAddressCity",msg.entityData.userAddressCity);
                         var timer = setInterval(function () {
-                            location.href = "/smarthome/user/path/userMain";
+                            location.href = "/smarthome/user/path/userNavigation";
                             clearInterval(timer);
-                        }, 1800);*/
+                        }, 1500);
                     }else if(msg.code == "500" || msg.code == "501" || msg.code == "502" ){
                         layer.close(loadingIndex);
                         layer.msg(msg.message, {icon: 2});

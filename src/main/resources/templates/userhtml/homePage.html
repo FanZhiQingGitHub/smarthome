@@ -25,7 +25,7 @@
         <!-- 公司logo -->
         <div class="nav-logo">
             <a href="/smarthome/user/path/homePage">
-                <img th:src="@{/publicimage/logo.png}" alt="网络公司">
+                <img th:src="@{/publicimage/logo.png}" alt="智慧家庭">
             </a>
         </div>
         <div class="nav-list">
@@ -34,7 +34,7 @@
             </button>
             <ul class="layui-nav" lay-filter="">
                 <li class="layui-nav-item"><a href="/smarthome/user/path/product">产品</a></li>
-                <li class="layui-nav-item"><a href="/smarthome/user/path/news">动态</a></li>
+<!--                <li class="layui-nav-item"><a href="/smarthome/user/path/news">动态</a></li>-->
                 <li class="layui-nav-item"><a href="/smarthome/user/path/about">关于</a></li>
                 <li class="layui-nav-item"><a href="javascript:void(0);" id="userLogin">Sign in</a></li>
             </ul>
@@ -51,52 +51,55 @@
             <div>
                 <img th:src="@{/homeImg/banner2.jpg}">
             </div>
+            <div>
+                <img th:src="@{/homeImg/banner3.jpg}">
+            </div>
         </div>
     </div>
 </div>
 <!-- main部分 -->
 <div class="main-product">
     <div class="layui-container">
-        <p class="title">专为前端而研制的<span>核心产品</span></p>
+        <p class="title">专为家庭信息安全开发的<span>核心产品</span></p>
         <div class="layui-row layui-col-space25">
             <div class="layui-col-sm6 layui-col-md3">
                 <div class="content">
                     <div><img th:src="@{/homeImg/Big_icon1.png}"></div>
                     <div>
-                        <p class="label">JS基础库</p>
-                        <p>从小屏逐步扩展到大屏，最终实现所有屏幕适配，适应移动互联潮流。</p>
+                        <p class="label" id="p1">家庭信息</p>
+                        <p id="p2">为家庭信息资料提供安全的保障。</p>
                     </div>
-                    <a href="javascript:;">查看产品 ></a>
+                    <a href="javascript:void(0);" id="a5">查看更多 ></a>
                 </div>
             </div>
             <div class="layui-col-sm6 layui-col-md3 ">
                 <div class="content">
                     <div><img th:src="@{/homeImg/Big_icon2.png}"></div>
                     <div>
-                        <p class="label">CSS处理</p>
-                        <p>从小屏逐步扩展到大屏，最终实现所有屏幕适配，适应移动互联潮流。</p>
+                        <p class="label" id="p3">简易使用</p>
+                        <p id="p4">系统采用简易化设计，让使用者轻松驾驭。</p>
                     </div>
-                    <a href="javascript:;">查看产品 ></a>
+                    <a href="javascript:void(0);" id="a6">查看更多 ></a>
                 </div>
             </div>
             <div class="layui-col-sm6 layui-col-md3 ">
                 <div class="content">
                     <div><img th:src="@{/homeImg/Big_icon3.png}"></div>
                     <div>
-                        <p class="label">兼容性</p>
-                        <p>从小屏逐步扩展到大屏，最终实现所有屏幕适配，适应移动互联潮流。</p>
+                        <p class="label" id="p5">账单管理</p>
+                        <p id="p6">提供账单管理功能，实现家庭式收入支出管理。</p>
                     </div>
-                    <a href="javascript:;">查看产品 ></a>
+                    <a href="javascript:void(0);" id="a7">查看更多 ></a>
                 </div>
             </div>
             <div class="layui-col-sm6 layui-col-md3 ">
                 <div class="content">
                     <div><img th:src="@{/homeImg/Big_icon4.png}"></div>
                     <div>
-                        <p class="label">响应式</p>
-                        <p>从小屏逐步扩展到大屏，最终实现所有屏幕适配，适应移动互联潮流。</p>
+                        <p class="label" id="p7">数据统计</p>
+                        <p id="p8">为客户提供清晰明了的统计汇总，轻松掌握一切信息。</p>
                     </div>
-                    <a href="javascript:;">查看产品 ></a>
+                    <a href="javascript:void(0);" id="a8">查看更多 ></a>
                 </div>
             </div>
         </div>
@@ -110,9 +113,9 @@
                 <div class="content">
                     <div class="content-left"><img th:src="@{/homeImg/home_img1.jpg}"></div>
                     <div class="content-right">
-                        <p class="label">1 对 1 前端指导</p>
+                        <p class="label">1 对 1 上手指导</p>
                         <span></span>
-                        <p>更有多个包含不同主题的Web组件，可快速构建界面出色、体验优秀的跨屏页面，大幅提升开发效率。</p>
+                        <p>通过对使用人员进行1对1指导，从而实现快速掌握。</p>
                     </div>
                 </div>
             </div>
@@ -120,9 +123,9 @@
                 <div class="content">
                     <div class="content-left"><img th:src="@{/homeImg/home_img2.jpg}"></div>
                     <div class="content-right">
-                        <p class="label">1 对 1 前端指导</p>
+                        <p class="label">快速响应的服务</p>
                         <span></span>
-                        <p>更有多个包含不同主题的Web组件，可快速构建界面出色、体验优秀的跨屏页面，大幅提升开发效率。</p>
+                        <p>我司提供更快更便捷的专业服务，为客户排忧解难。</p>
                     </div>
                 </div>
             </div>
@@ -130,9 +133,9 @@
                 <div class="content">
                     <div class="content-left"><img th:src="@{/homeImg/home_img3.jpg}"></div>
                     <div class="content-right">
-                        <p class="label">1 对 1 前端指导</p>
+                        <p class="label">功能使用便捷</p>
                         <span></span>
-                        <p>更有多个包含不同主题的Web组件，可快速构建界面出色、体验优秀的跨屏页面，大幅提升开发效率。</p>
+                        <p>该系统提供更为人性化的功能使用界面，简单易懂。</p>
                     </div>
                 </div>
             </div>
@@ -140,39 +143,37 @@
                 <div class="content">
                     <div class="content-left"><img th:src="@{/homeImg/home_img4.jpg}"></div>
                     <div class="content-right">
-                        <p class="label">1 对 1 前端指导</p>
+                        <p class="label">系统升级</p>
                         <span></span>
-                        <p>更有多个包含不同主题的Web组件，可快速构建界面出色、体验优秀的跨屏页面，大幅提升开发效率。</p>
+                        <p>为客户提供完善的系统功能定制，一切以客户为主。</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="service-more"><a href="">查看更多</a></div>
+        <div class="service-more"></div>
     </div>
 </div>
 <!-- footer部分 -->
 <div class="footer">
     <div class="layui-container">
         <p class="footer-web">
-            <a href="javascript:;">合作伙伴</a>
-            <a href="javascript:;">企业画报</a>
-            <a href="javascript:;">JS网</a>
-            <a href="javascript:;">千图网</a>
-            <a href="javascript:;">昵图网</a>
-            <a href="javascript:;">素材网</a>
-            <a href="javascript:;">花瓣网</a>
+            <a href="/smarthome/user/path/homePage">首页</a>
+            <a href="javascript:void(0);" id="a1">百度</a>
+            <a href="javascript:void(0);" id="a2">哔哩哔哩</a>
+            <a href="javascript:void(0);" id="a3">使用条款</a>
+            <a href="javascript:void(0);" id="a4">隐私保护</a>
         </p>
         <div class="layui-row footer-contact">
             <div class="layui-col-sm2 layui-col-lg1"><img th:src="@{/homeImg/erweima.jpg}"></div>
             <div class="layui-col-sm10 layui-col-lg11">
                 <div class="layui-row">
                     <div class="layui-col-sm6 layui-col-md8 layui-col-lg9">
-                        <p class="contact-top"><i class="layui-icon layui-icon-cellphone"></i>&nbsp;400-8888888&nbsp;&nbsp;(9:00-18:00)</p>
-                        <p class="contact-bottom"><i class="layui-icon layui-icon-home"></i>&nbsp;88888888@163.com</span></p>
+                        <p class="contact-top"><i class="layui-icon layui-icon-cellphone"></i>&nbsp;400-888-888&nbsp;&nbsp;(9:00-18:00)</p>
+                        <p class="contact-bottom"><i class="layui-icon layui-icon-home"></i>&nbsp;smarthome@outlook.com</span></p>
                     </div>
                     <div class="layui-col-sm6 layui-col-md4 layui-col-lg3">
-                        <p class="contact-top"><span class="right">该模板版权归 <a href="https://www.layui.com/" target="_blank">layui.com</a> 所有</span></p>
-                        <p class="contact-bottom"><span class="right">Copyright&nbsp;©&nbsp;2016-2018&nbsp;&nbsp;ICP&nbsp;备888888号</span></p>
+                        <p class="contact-top"><span class="right">© 2020 - 智慧家庭信息管理平台</span></p>
+                        <p class="contact-bottom"><span class="right">Copyright&nbsp;©&nbsp;2020-2021&nbsp;&nbsp;Mr.Fan 版权所有</span></p>
                     </div>
                 </div>
             </div>

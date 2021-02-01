@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <title>智慧家庭信息用户界面导航页</title>
+    <link rel="icon" th:href="@{/publicimage/logo.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/usercss/userNavigation.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/publiccss/fontStyle.css}" media="all" />
+    <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/userjs/userNavigation.js}"></script>
+    <style rel="stylesheet" type="text/css">
+        .layui-tab-title li:first-child > i {
+            display: none;
+        }
+    </style>
+</head>
+<body class="main_body">
+    <div class="layui-layout layui-layout-admin">
+        <!-- 顶部 -->
+        <div class="layui-header header">
+            <div class="layui-main">
+                <a href="#" class="logo">智慧家庭用户界面</a>
+
+                <!-- 顶部右侧菜单 -->
+                <ul class="layui-nav top_menu">
+                    <li class="layui-nav-item showNotice" id="showNotice" pc>
+                        <a href="javascript:;" id="systemInfo"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a>
+                    </li>
+                    <li class="layui-nav-item" mobile>
+                        <a href="javascript:;" data-url=""><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="#" data-url="/smarthome/user/path/userInfo" data-title="个人资料" data-id="10001" class="site-admin-active" data-type="tabAdd">个人资料</a></dd>
+                            <dd><a href="#" data-url="/smarthome/user/path/changeUserPwd" data-title="修改密码" data-id="10002" class="site-admin-active" data-type="tabAdd">修改密码</a></dd>
+                            <dd><a href="javascript:void(0);" id="exitPageMobile">退出</a></dd>
+                        </dl>
+                    </li>
+<!--                    <li class="layui-nav-item lockcms" pc>-->
+<!--                        <a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a>-->
+<!--                    </li>-->
+                    <li class="layui-nav-item" pc>
+                        <a href="javascript:;">
+                            <img src="" class="layui-circle" width="35" height="35" id="userFaceRight">
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="#" data-url="/smarthome/user/path/userInfo" data-title="个人资料" data-id="10001" class="site-admin-active" data-type="tabAdd">个人资料</a></dd>
+                            <dd><a href="#" data-url="/smarthome/user/path/changeUserPwd" data-title="修改密码" data-id="10002" class="site-admin-active" data-type="tabAdd">修改密码</a></dd>
+                            <dd><a href="javascript:void(0);" id="exitPagePc">退出</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 左侧导航 -->
+        <div class="layui-side layui-bg-black">
+            <div class="user-photo">
+                <a class="img" title="我的头像" ><img src="" id="userFaceLeft"></a>
+                <p>你好！<span id="userName"></span>, 欢迎登录</p>
+            </div>
+            <div class="layui-side-scroll backMenu">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree"  lay-filter="left-menu">
+                    <li class="layui-nav-item">
+                        <a href="#" data-url="/smarthome/user/path/userMain" data-title="用户首页" data-id="11" class="site-admin-active" data-type="tabChange">用户首页</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">账单管理</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="#" data-url="/smarthome/user/path/billInfo" data-title="账单信息" data-id="22" class="site-admin-active" data-type="tabAdd">账单信息</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#" data-url="/smarthome/admin/path/systemParam" data-title="系统基本参数"  data-id="33" class="site-admin-active" data-type="tabAdd">系统基本参数</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- 右侧内容 -->
+        <div class="layui-body layui-form">
+            <div class="layui-tab marg0" lay-filter="adminBodyTab" lay-allowclose="true" >
+                <ul class="layui-tab-title top_tab">
+                    <li class="layui-this" lay-id="11"><i class="iconfont icon-computer"></i><cite>用户首页</cite></li>
+                </ul>
+                <div class="layui-tab-content clildFrame" style="height: 150px;">
+                    <div class="layui-tab-item layui-show">
+                        <iframe data-frameid="11" scrolling="auto" frameborder="0" src="/smarthome/user/path/userMain" style="width:100%;height:100%;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部 -->
+        <div class="layui-footer footer">
+            <p> © 2020 - 智慧家庭信息用户界面 || Mr.Fan 版权所有&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.baidu.com/" target="_blank">百度一下</a></p>
+        </div>
+    </div>
+
+    <!-- 移动导航 -->
+    <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
+    <div class="site-mobile-shade"></div>
+</body>
+</html>
