@@ -2,6 +2,7 @@ package com.group.sh.smarthome.service;
 
 import com.group.sh.smarthome.annotation.OperationLog;
 import com.group.sh.smarthome.entity.MenuTreeInfo;
+import com.group.sh.smarthome.entity.TblAccountType;
 import com.group.sh.smarthome.entity.TblArea;
 import com.group.sh.smarthome.entity.TblInfo;
 import com.group.sh.smarthome.mapper.PublicMapper;
@@ -172,6 +173,15 @@ public class PublicService {
             return new CommonResult(500, "亲，暂无相关数据", null,null, infoList,null,"1");
         }
         return new CommonResult(200, null, null,null, infoList,null,"0");
+    }
+
+    public CommonResult findAllAccountTypeInfo(){
+        List<TblAccountType> tblAccountTypeList = publicMapper.findAllAccountTypeInfo();
+        log.info("******查询的账号密码类型下拉框数据是: "+tblAccountTypeList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAccountTypeList.size()) {
+            return new CommonResult(500, "亲，暂无相关数据", null,null, tblAccountTypeList,null,"1");
+        }
+        return new CommonResult(200, null, null,null, tblAccountTypeList,null,"0");
     }
 
 }

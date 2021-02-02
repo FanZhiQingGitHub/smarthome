@@ -213,4 +213,26 @@
                  left join tbl_admin admin2 on info.MOD_PSN_ID = admin2.ADMIN_ACCOUNT
     </select>
 
+    <!-- 查询账号类型下拉框-->
+    <resultMap type="com.group.sh.smarthome.entity.TblAccountType" id="accountInfoListMap">
+        <result column="accountTypeId" property="accountTypeId"></result>
+        <result column="accountTypeNm" property="accountTypeNm"></result>
+        <result column="crtPsnId" property="crtPsnId"></result>
+        <result column="crtTm" property="crtTm"></result>
+        <result column="modPsnId" property="modPsnId"></result>
+        <result column="modTm" property="modTm"></result>
+    </resultMap>
+    <select id="findAllAccountTypeInfo" resultMap="accountInfoListMap">
+        SELECT
+            type.ACCOUNT_TYPE_ID as accountTypeId,
+            type.ACCOUNT_TYPE_NM as accountTypeNm,
+            type.CRT_TM as crtTm,
+            type.MOD_TM as modTm,
+            admin.ADMIN_NAME as crtPsnId,
+            admin.ADMIN_NAME as modPsnId
+        FROM tbl_account_type type
+                 left join tbl_admin admin on type.CRT_PSN_ID = admin.ADMIN_ACCOUNT
+        where type.DEL_ID = '0'
+    </select>
+
 </mapper>

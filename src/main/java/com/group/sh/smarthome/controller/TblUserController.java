@@ -2,6 +2,7 @@ package com.group.sh.smarthome.controller;
 
 
 import com.group.sh.smarthome.annotation.OperateLog;
+import com.group.sh.smarthome.entity.TblAccountInfo;
 import com.group.sh.smarthome.entity.TblHisbill;
 import com.group.sh.smarthome.entity.TblUser;
 import com.group.sh.smarthome.resultbean.CommonResult;
@@ -102,6 +103,31 @@ public class TblUserController {
     @OperateLog(operateModule = "用户模块 ", operateType = "POST", operateDesc = "账单信息维护")
     public CommonResult protectBillList(TblHisbill tblHisbill){
         return tblUserService.protectBillList(tblHisbill);
+    }
+
+    /**
+     *
+     * 方法描述 用户账账号密码列表查询
+     * @date 2021-02-02
+     * @param
+     */
+    @GetMapping(value = "/findALLAccountList")
+    @ResponseBody
+    public CommonResult findALLAccountList(TblAccountInfo tblAccountInfo, PageListEntity pageListEntity){
+        return tblUserService.findALLAccountList(tblAccountInfo,pageListEntity);
+    }
+
+    /**
+     *
+     * 方法描述 用户账号密码信息维护方法
+     * @date 2021-02-02
+     * @param
+     */
+    @PostMapping(value = "/protectAccountList")
+    @ResponseBody
+    @OperateLog(operateModule = "用户模块 ", operateType = "POST", operateDesc = "用户账号密码信息维护")
+    public CommonResult protectAccountList(TblAccountInfo tblAccountInfo){
+        return tblUserService.protectAccountList(tblAccountInfo);
     }
 
 

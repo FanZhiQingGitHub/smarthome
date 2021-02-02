@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Enumeration;
 
 /**
  * <pre>
@@ -246,6 +243,31 @@ public class TblAdminController {
     @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "平台资讯信息维护")
     public CommonResult protectInfoList(TblInfo tblInfo){
         return tblAdminService.protectInfoList(tblInfo);
+    }
+
+    /**
+     *
+     * 方法描述 查找账号类型列表
+     * @date 2021-02-02
+     * @param
+     */
+    @GetMapping(value = "/findAllAccountTypeInfo")
+    @ResponseBody
+    public CommonResult findAllAccountTypeInfo(TblAccountType tblAccountType, PageListEntity pageListEntity){
+        return tblAdminService.findAllAccountTypeInfo(tblAccountType,pageListEntity);
+    }
+
+    /**
+     *
+     * 方法描述 平台资讯信息维护方法
+     * @date 2020-12-24
+     * @param
+     */
+    @PostMapping(value = "/protectAccountTypeList")
+    @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "GET", operateDesc = "平台资讯信息维护")
+    public CommonResult protectAccountTypeList(TblAccountType tblAccountType){
+        return tblAdminService.protectAccountTypeList(tblAccountType);
     }
 
 

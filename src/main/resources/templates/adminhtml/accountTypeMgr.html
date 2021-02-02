@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>账号类型管理</title>
+    <link rel="icon" th:href="@{/publicimage/logo.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/admincss/accountTypeMgr.css}" media="all"/>
+    <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/adminjs/accountTypeMgr.js}"></script>
+</head>
+<body>
+<form class="layui-form" id="accountTypeForm">
+    <blockquote class="layui-elem-quote news_search" id="searchTable">
+        <div class="layui-inline">
+            查询条件:
+        </div>
+        <div class="layui-inline">
+            <input type="text" class="layui-input search_input" name="accountTypeId" id="accountTypeId" placeholder="请输入账号类型编码">
+        </div>
+        <div class="layui-inline">
+            <input type="text" class="layui-input search_input" name="accountTypeNm" id="accountTypeNm" placeholder="请输入账号类型名称">
+        </div>
+        <div class="layui-inline">
+            创建时间:
+        </div>
+        <div class="layui-inline">
+            <input type="text" class="layui-input search_input" name="startTime" id="startTime"  placeholder="请选择起始日期">
+        </div>
+        <div class="layui-inline">
+            至
+        </div>
+        <div class="layui-inline">
+            <input type="text" class="layui-input search_input" name="endTime" id="endTime"  placeholder="请选择结束日期">
+        </div>
+        <hr class="layui-bg-gray">
+        <button type="button" class="layui-btn layui-btn-primary" data-type="reload"><i class="layui-icon">&#xe615;</i>查询</button>
+        <button type="button" class="layui-btn layui-btn-normal" id="resetTable"><i class="layui-icon">&#xe669;</i>重置</button>
+    </blockquote>
+</form>
+
+
+<table class="layui-hide" id="accountTypeTable" lay-filter="accountTypeTable"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addAccountType"><i class="layui-icon">&#xe624;</i>新增类型</button>
+        <button class="layui-btn layui-btn-sm layui-btn-warm" id="findAccountTypeInfo" lay-event="findAccountTypeInfo"><i class="layui-icon">&#xe63c;</i>查看详情</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+</body>
+</html>

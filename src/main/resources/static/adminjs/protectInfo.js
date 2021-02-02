@@ -20,6 +20,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
+        $('#infoReset').css("display","none");
         form.verify({
             infoTitle: function (value) {
                 if (value.length < 2) {

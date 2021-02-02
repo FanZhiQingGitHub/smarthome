@@ -537,4 +537,69 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         return new CommonResult(501, "系统未能正确执行操作方法！", null,tblInfo, null,null,"1");
     }
 
+
+    public CommonResult findAllAccountTypeInfo(TblAccountType tblAccountType, PageListEntity pageListEntity){
+        //查询账号类型列表
+        if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAccountType,null,null,"1");
+        }
+        Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
+        Integer maxpage = pageListEntity.getLimit();
+        pageListEntity.setPage(minpage);
+        pageListEntity.setLimit(maxpage);
+
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountType.getAccountTypeId()){
+            pageListEntity.setObjectOne(tblAccountType.getAccountTypeId().toString());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountType.getAccountTypeNm()){
+            pageListEntity.setObjectTwo(tblAccountType.getAccountTypeNm());
+        }
+
+        List<TblAccountType> tblAccountTypeList = tblAdminMapper.findAllAccountTypeInfo(pageListEntity);
+        log.info("******查询的账号类型列表是: "+tblAccountTypeList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAccountTypeList.size()) {
+            return new CommonResult(0, "亲，暂无相关数据", null,tblAccountType, tblAccountTypeList,null,"1");
+        }
+        Integer count = tblAdminMapper.findAllAccountTypeInfoCount(pageListEntity).intValue();
+        return new CommonResult(0, null, count,tblAccountType, tblAccountTypeList,null,"0");
+    }
+
+    @Transactional
+    public CommonResult protectAccountTypeList(TblAccountType tblAccountType){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblAccountType.getMethod()){
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblAccountType, null,null,"1");
+        }
+        if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblAccountType.getMethod())){
+            tblAccountType.setCrtPsnId(getAdminAccount());
+            tblAccountType.setCrtTm(new Date());
+            tblAccountType.setDelId("0");
+            Integer num = tblAdminMapper.addAccountType(tblAccountType);
+            log.info("******新增的账号类型ID是: "+tblAccountType.getAccountTypeId());
+            if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
+                return new CommonResult(500,"新增账号类型信息失败",null,tblAccountType,null,null,"1");
+            }
+            tblAccountType.setAccountTypeId(tblAccountType.getAccountTypeId());
+            return new CommonResult(200,"新增账号类型信息成功",null,tblAccountType,null,null,"0");
+        }
+        if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblAccountType.getMethod())){
+            tblAccountType.setModPsnId(getAdminAccount());
+            Boolean flag = tblAdminMapper.updateAccountType(tblAccountType);
+            if (flag == false) {
+                return new CommonResult(500, "更新账号类型信息失败", null,tblAccountType, null,null,"1");
+            }
+            return new CommonResult(200, "更新账号类型信息成功！", null,tblAccountType, null,null,"0");
+        }
+        if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblAccountType.getMethod())){
+            tblAccountType.setModPsnId(getAdminAccount());
+            Boolean flag = tblAdminMapper.deleteAccountType(tblAccountType);
+            if (flag == false) {
+                return new CommonResult(500, "删除账号类型信息失败", null,tblAccountType, null,null,"1");
+            }
+            return new CommonResult(200, "删除账号类型信息成功", null,tblAccountType, null,null,"0");
+        }
+
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAccountType, null,null,"1");
+    }
+
+
 }

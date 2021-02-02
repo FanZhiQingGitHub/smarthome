@@ -313,5 +313,166 @@
     </update>
 
 
+    <!--    查找账户信息列表-->
+    <resultMap type="com.group.sh.smarthome.entity.TblAccountInfo" id="AccountListMap">
+        <result column="accountId" property="accountId"></result>
+        <result column="accountNum" property="accountNum"></result>
+        <result column="accountNm" property="accountNm"></result>
+        <result column="accountPhone" property="accountPhone"></result>
+        <result column="accountPwdOne" property="accountPwdOne"></result>
+        <result column="accountPwdTwo" property="accountPwdTwo"></result>
+        <result column="accountPwdThree" property="accountPwdThree"></result>
+        <result column="accountPwdSeu" property="accountPwdSeu"></result>
+        <result column="accountMail" property="accountMail"></result>
+        <result column="accountUrl" property="accountUrl"></result>
+        <result column="accountType" property="accountType"></result>
+        <result column="accountTypeNm" property="accountTypeNm"></result>
+        <result column="crtPsnId" property="crtPsnId"></result>
+        <result column="crtTm" property="crtTm"></result>
+    </resultMap>
+    <select id="findALLAccountList" resultMap="AccountListMap" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        SELECT
+        info.ACCOUNT_ID as accountId,
+        info.ACCOUNT_NUM as accountNum,
+        info.ACCOUNT_NM as accountNm,
+        info.ACCOUNT_PHONE as accountPhone,
+        info.ACCOUNT_PWD_ONE as accountPwdOne,
+        info.ACCOUNT_PWD_TWO as accountPwdTwo,
+        info.ACCOUNT_PWD_THREE as accountPwdThree,
+        info.ACCOUNT_PWD_SEU as accountPwdSeu,
+        info.ACCOUNT_MAIL as accountMail,
+        info.ACCOUNT_URL as accountUrl,
+        info.ACCOUNT_TYPE as accountType,
+        type.ACCOUNT_TYPE_NM as accountTypeNm,
+        user.USER_NAME as crtPsnId,
+        info.CRT_TM as crtTm
+        FROM tbl_account_info info
+        left join tbl_user user on info.CRT_PSN_ID = user.USER_ACCOUNT
+        left join tbl_account_type type on info.ACCOUNT_TYPE = type.ACCOUNT_TYPE_ID
+        <where>
+            and info.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  info.ACCOUNT_NUM like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  info.ACCOUNT_NM like concat('%',#{objectTwo},'%')
+            </if>
+            <if test="objectThree != '' and objectThree != null ">
+                and  info.ACCOUNT_PHONE like concat('%',#{objectThree},'%')
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  info.ACCOUNT_TYPE = #{objectFour}
+            </if>
+            <if test="account != '' and account != null ">
+                and  info.CRT_PSN_ID = #{account}
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(info.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(info.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+        order by info.MOD_TM desc limit #{page},#{limit}
+
+    </select>
+
+    <!--    查找账户信息列表记录条数-->
+    <select id="findALLAccountListCount" resultType="java.lang.Long" parameterType="com.group.sh.smarthome.resultbean.PageListEntity">
+        SELECT count(1)
+        FROM tbl_account_info info
+        left join tbl_user user on info.CRT_PSN_ID = user.USER_ACCOUNT
+        left join tbl_account_type type on info.ACCOUNT_TYPE = type.ACCOUNT_TYPE_ID
+        <where>
+            and info.DEL_ID = 0
+            <if test="objectOne != '' and objectOne != null ">
+                and  info.ACCOUNT_NUM like concat('%',#{objectOne},'%')
+            </if>
+            <if test="objectTwo != '' and objectTwo != null ">
+                and  info.ACCOUNT_NM like concat('%',#{objectTwo},'%')
+            </if>
+            <if test="objectThree != '' and objectThree != null ">
+                and  info.ACCOUNT_PHONE like concat('%',#{objectThree},'%')
+            </if>
+            <if test="objectFour != '' and objectFour != null ">
+                and  info.ACCOUNT_TYPE = #{objectFour}
+            </if>
+            <if test="account != '' and account != null ">
+                and  info.CRT_PSN_ID = #{account}
+            </if>
+            <if test=" startTime != '' and startTime != null">
+                <![CDATA[   and DATE_FORMAT(info.CRT_TM, '%Y-%m-%d')>=  DATE_FORMAT(#{startTime}, '%Y-%m-%d')   ]]>
+            </if>
+            <if test=" endTime != '' and endTime != null">
+                <![CDATA[   and DATE_FORMAT(info.CRT_TM, '%Y-%m-%d')<=  DATE_FORMAT(#{endTime}, '%Y-%m-%d')   ]]>
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增账户密码信息-->
+    <insert id="addAccountInfo" parameterType="com.group.sh.smarthome.entity.TblAccountInfo" useGeneratedKeys="true" keyProperty="accountId">
+        insert into
+            tbl_account_info(ACCOUNT_NUM,ACCOUNT_NM,ACCOUNT_PHONE,ACCOUNT_PWD_ONE,ACCOUNT_PWD_TWO,ACCOUNT_PWD_THREE,
+                             ACCOUNT_PWD_SEU,ACCOUNT_MAIL,ACCOUNT_URL,ACCOUNT_TYPE,
+                        CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)
+        values
+        (#{accountNum},#{accountNm},#{accountPhone},#{accountPwdOne},#{accountPwdTwo},
+         #{accountPwdThree},#{accountPwdSeu},#{accountMail},#{accountUrl},#{accountType},
+         #{crtPsnId},now(),#{modPsnId},#{modTm},'0')
+    </insert>
+
+    <update id="updateAccountInfo" parameterType="com.group.sh.smarthome.entity.TblAccountInfo">
+        update tbl_account_info
+        <set>
+            DEL_ID = '0',
+            MOD_TM = now(),
+            <if test="accountNum != '' and accountNum != null">
+                ACCOUNT_NUM = #{accountNum},
+            </if>
+            <if test="accountNm != '' and accountNm != null">
+                ACCOUNT_NM = #{accountNm},
+            </if>
+            <if test="accountPhone != '' and accountPhone != null">
+                ACCOUNT_PHONE = #{accountPhone},
+            </if>
+            <if test="accountPwdOne != '' and accountPwdOne != null">
+                ACCOUNT_PWD_ONE = #{accountPwdOne},
+            </if>
+            <if test="accountPwdTwo != '' and accountPwdTwo != null">
+                ACCOUNT_PWD_TWO = #{accountPwdTwo},
+            </if>
+            <if test="accountPwdThree != '' and accountPwdThree != null">
+                ACCOUNT_PWD_THREE = #{accountPwdThree},
+            </if>
+            <if test="accountPwdSeu != '' and accountPwdSeu != null">
+                ACCOUNT_PWD_SEU = #{accountPwdSeu},
+            </if>
+            <if test="accountMail != '' and accountMail != null">
+                ACCOUNT_MAIL = #{accountMail},
+            </if>
+            <if test="accountUrl != '' and accountUrl != null">
+                ACCOUNT_URL = #{accountUrl},
+            </if>
+            <if test="accountType != '' and accountType != null">
+                ACCOUNT_TYPE = #{accountType},
+            </if>
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where ACCOUNT_ID = #{accountId}
+    </update>
+
+    <update id="deleteAccountInfo" parameterType="com.group.sh.smarthome.entity.TblAccountInfo">
+        update tbl_account_info
+        <set>
+            DEL_ID = '1',
+            MOD_TM = now(),
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where ACCOUNT_ID = #{accountId}
+    </update>
 
 </mapper>

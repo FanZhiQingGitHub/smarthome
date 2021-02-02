@@ -1,6 +1,7 @@
 package com.group.sh.smarthome.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.group.sh.smarthome.entity.TblAccountInfo;
 import com.group.sh.smarthome.entity.TblHisbill;
 import com.group.sh.smarthome.entity.TblUser;
 import com.group.sh.smarthome.mapper.TblUserMapper;
@@ -240,6 +241,86 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
             return new CommonResult(200, "删除账单成功", null,tblHisbill, null,null,"0");
         }
         return new CommonResult(501, "系统未能正确执行操作方法！", null,tblHisbill, null,null,"1");
+    }
+
+    /**
+     *
+     * 方法描述 用户账账号密码列表查询
+     * @date 2021-02-02
+     * @param tblAccountInfo
+     */
+    public CommonResult findALLAccountList(TblAccountInfo tblAccountInfo, PageListEntity pageListEntity){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == pageListEntity.getPage() && ConstantEnum.ConstantEnumType.getENTITY() ==  pageListEntity.getLimit()){
+            return new CommonResult(500,"请求参数为null，请联系开发商！",null,tblAccountInfo,null,null,"1");
+        }
+        Integer minpage = (pageListEntity.getPage() - 1) * pageListEntity.getLimit();
+        Integer maxpage = pageListEntity.getLimit();
+        pageListEntity.setPage(minpage);
+        pageListEntity.setLimit(maxpage);
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountInfo.getAccountNum()){
+            pageListEntity.setObjectOne(tblAccountInfo.getAccountNum());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountInfo.getAccountNm()){
+            pageListEntity.setObjectTwo(tblAccountInfo.getAccountNm());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountInfo.getAccountPhone()){
+            pageListEntity.setObjectThree(tblAccountInfo.getAccountPhone());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountInfo.getAccountType()){
+            pageListEntity.setObjectFour(tblAccountInfo.getAccountType());
+        }
+        pageListEntity.setAccount(getUserAccount());
+        List<TblAccountInfo> tblAccountInfoList = tblUserMapper.findALLAccountList(pageListEntity);
+        log.info("******查询的账号密码列表是: "+tblAccountInfoList);
+        if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == tblAccountInfoList.size()) {
+            return new CommonResult(0, "亲，暂无相关数据", null,tblAccountInfo, tblAccountInfoList,null,"1");
+        }
+        Integer count = tblUserMapper.findALLAccountListCount(pageListEntity).intValue();
+        return new CommonResult(0, null, count,tblAccountInfo, tblAccountInfoList,null,"0");
+    }
+
+
+    /**
+     *
+     * 方法描述 用户账号密码信息维护方法
+     * @date 2021-02-02
+     * @param tblAccountInfo
+     */
+    @Transactional
+    public CommonResult protectAccountList(TblAccountInfo tblAccountInfo){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblAccountInfo.getMethod()){
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblAccountInfo, null,null,"1");
+        }
+
+        if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblAccountInfo.getMethod())){
+            tblAccountInfo.setCrtPsnId(getUserAccount());
+            tblAccountInfo.setModPsnId(getUserAccount());
+            Integer count = tblUserMapper.addAccountInfo(tblAccountInfo);
+            if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == count) {
+                return new CommonResult(500, "新增账号数据失败", count,tblAccountInfo, null,null,"1");
+            }
+            tblAccountInfo.setAccountId(tblAccountInfo.getAccountId());
+            return new CommonResult(200, "新增账号数据成功！", count,tblAccountInfo, null,null,"0");
+        }
+
+        if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblAccountInfo.getMethod())){
+            tblAccountInfo.setModPsnId(getUserAccount());
+            Boolean flag = tblUserMapper.updateAccountInfo(tblAccountInfo);
+            if (flag == false) {
+                return new CommonResult(500, "更新账号密码信息失败", null,tblAccountInfo, null,null,"1");
+            }
+            return new CommonResult(200, "更新账号密码信息成功", null,tblAccountInfo, null,null,"0");
+        }
+
+        if(ConstantEnum.ConstantEnumType.DELETE.getValue().equals(tblAccountInfo.getMethod())){
+            tblAccountInfo.setModPsnId(getUserAccount());
+            Boolean flag = tblUserMapper.deleteAccountInfo(tblAccountInfo);
+            if (flag == false) {
+                return new CommonResult(500, "删除账号密码信息失败", null,tblAccountInfo, null,null,"1");
+            }
+            return new CommonResult(200, "删除账号密码信息成功", null,tblAccountInfo, null,null,"0");
+        }
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAccountInfo, null,null,"1");
     }
 
 }

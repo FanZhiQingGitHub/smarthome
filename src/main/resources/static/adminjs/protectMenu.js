@@ -59,6 +59,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
+        $('#adminMenuReset').css("display","none");
         if($('input[name="menuLevel"]:checked').val()=='0'){
             $("#urlDiv").css('display','none');
         }
@@ -66,6 +67,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             menuName: function (value) {
                 if (value.length < 2) {
                     return '您好，菜单名称至少得2个字符！';
+                }else if(value.length > 2){
+                    return '您好，菜单名称最多6个字符！';
                 }
             }
             , content: function (value) {

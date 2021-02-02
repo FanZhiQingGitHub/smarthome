@@ -26,6 +26,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $('#adminPhoneDiv').css("display","none");
         $('#adminStatusDiv').css("display","none");
         $('#adminRoleNameDiv').css("display","none");
+        $('#adminReset').css("display","none");
         form.verify({
             adminName: function (value) {
                 if (value.length < 2) {

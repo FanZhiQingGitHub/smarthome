@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>维护账号类型</title>
+    <link rel="icon" th:href="@{/publicimage/logo.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/admincss/protectAccountType.css}" media="all"/>
+    <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/adminjs/protectAccountType.js}"></script>
+</head>
+<body class="childrenBody">
+<hr class="layui-bg-gray">
+<form class="layui-form" style="width:80%;top:0%">
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="method" name="method" value="">
+    </div>
+
+    <div class="layui-form-item" id="numDiv">
+        <label class="layui-form-label">类型编号:</label>
+        <div class="layui-input-block">
+            <input type="text" id="accountTypeId" name="accountTypeId" class="layui-input " readonly autocomplete="off" placeholder="请输入类型编号">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">类型名称:</label>
+        <div class="layui-input-block">
+            <input type="text" id="accountTypeNm" name="accountTypeNm" class="layui-input " lay-verify="accountTypeNm" autocomplete="off" placeholder="请输入类型名称">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit lay-filter="accountTypeSubmit" id="accountTypeSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-danger" id="accountTypeReset">重置</button>
+            <button type="button" class="layui-btn layui-btn-primary"  id="returnPage">返回</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

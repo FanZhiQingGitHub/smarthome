@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- *      资讯表信息类
+ *
  * </p>
  *
  * @author fzq
@@ -18,24 +18,18 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class TblInfo extends GenericClass {
+public class TblAccountType extends GenericClass {
 
     /**
-     * 资讯id
+     * 账户类型id
      */
-    @TableId(value = "INFO_ID", type = IdType.AUTO)
-    private Integer infoId;
+    @TableId(value = "ACCOUNT_TYPE_ID", type = IdType.AUTO)
+    private Integer accountTypeId;
 
     /**
-     * 资讯标题
+     * 账户类型名称
      */
-    @TableField("INFO_TITLE")
-    private String infoTitle;
-
-    /**
-     * 资讯内容
-     */
-    @TableField("INFO_DETAIL")
-    private String infoDetail;
+    @TableField("ACCOUNT_TYPE_NM")
+    private String accountTypeNm;
 
 }

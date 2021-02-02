@@ -87,4 +87,16 @@ public interface TblAdminMapper extends BaseMapper<TblAdmin> {
     public Boolean deleteInfo(TblInfo tblInfo);
 
 
+
+    public List<TblAccountType> findAllAccountTypeInfo(PageListEntity pageListEntity);
+
+    public Long findAllAccountTypeInfoCount(PageListEntity pageListEntity);
+
+    public Integer addAccountType(TblAccountType tblAccountType);
+
+    public Boolean updateAccountType(TblAccountType tblAccountType);
+
+    public Boolean deleteAccountType(TblAccountType tblAccountType);
+
+
 }

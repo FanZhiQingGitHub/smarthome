@@ -41,17 +41,17 @@ public class smartHomeInterceptor implements HandlerInterceptor {
         Object userNum = request.getSession().getAttribute("userAccount");
         Map<String,Object> userInfoMap = new LinkedHashMap<>();
         Boolean flag = null;
-//        if(adminNum != null && !adminNum.toString().equals("")){
-//            userInfoMap.put("adminAccount",request.getSession().getAttribute("adminAccount"));
-//            userInfoMap.put("adminName",request.getSession().getAttribute("adminName"));
-//            userInfoMap.put("adminRole",request.getSession().getAttribute("adminRole"));
-//            userInfoMap.put("tblMenuList",request.getSession().getAttribute("tblMenuList"));
-//            flag = findAdminUsePow(userInfoMap,uri,basePath,request,response);
-//        }else if(userNum != null && !userNum.toString().equals("") ){
-//            userInfoMap.put("userAccount",request.getSession().getAttribute("userAccount"));
-//            userInfoMap.put("userName",request.getSession().getAttribute("userName"));
-//            flag = findUserUsePow(userInfoMap,uri,basePath,request,response);
-//        }
+        if(adminNum != null && !adminNum.toString().equals("")){
+            userInfoMap.put("adminAccount",request.getSession().getAttribute("adminAccount"));
+            userInfoMap.put("adminName",request.getSession().getAttribute("adminName"));
+            userInfoMap.put("adminRole",request.getSession().getAttribute("adminRole"));
+            userInfoMap.put("tblMenuList",request.getSession().getAttribute("tblMenuList"));
+            flag = findAdminUsePow(userInfoMap,uri,basePath,request,response);
+        }else if(userNum != null && !userNum.toString().equals("") ){
+            userInfoMap.put("userAccount",request.getSession().getAttribute("userAccount"));
+            userInfoMap.put("userName",request.getSession().getAttribute("userName"));
+            flag = findUserUsePow(userInfoMap,uri,basePath,request,response);
+        }
         return true;
     }
 

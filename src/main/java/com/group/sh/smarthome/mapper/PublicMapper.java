@@ -1,11 +1,10 @@
 package com.group.sh.smarthome.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.group.sh.smarthome.annotation.OperationLog;
 import com.group.sh.smarthome.entity.MenuTreeInfo;
+import com.group.sh.smarthome.entity.TblAccountType;
 import com.group.sh.smarthome.entity.TblArea;
 import com.group.sh.smarthome.entity.TblInfo;
-import com.group.sh.smarthome.entity.TblMenu;
 import com.group.sh.smarthome.resultbean.PageListEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -47,6 +46,8 @@ public interface PublicMapper {
     public Integer addOperationLogInfo(OperationLog operationLog);
 
     public List<TblInfo> findAllInfo();
+
+    public List<TblAccountType> findAllAccountTypeInfo();
 
 
 }

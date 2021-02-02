@@ -139,5 +139,17 @@ public class PublicController {
         return publicService.findAllInfo();
     }
 
+    /**
+     *
+     * 方法描述 获取账号密码下拉框数据
+     * @date 2021-02-02
+     * @param
+     */
+    @GetMapping(value = "/findAllAccountTypeInfo")
+    @ResponseBody
+    public CommonResult findAllAccountTypeInfo(){
+        return publicService.findAllAccountTypeInfo();
+    }
+
 }
 

@@ -12,7 +12,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     $(function () {
         $(document).on('keydown', function (event) {
             if (event.keyCode == 13) {
-                $("#roleSubmit").trigger("click");
+                $("#accountTypeSubmit").trigger("click");
             }
         }),$("#returnPage").click(function () {
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
@@ -21,24 +21,26 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
-        $('#roleReset').css("display","none");
+        $('#accountTypeReset').css("display","none");
+        if(method == '0'){
+            $("#numDiv").css('display','none');
+        }
         form.verify({
-            roleName: function (value) {
+            accountTypeNm: function (value) {
                 if (value.length < 2) {
-                    return '您好，角色名称至少得2个字符！';
+                    return '您好，类型名称至少得2个字符！';
+                }else if (value.length > 11) {
+                    return '您好，类型名称最多11个字符！';
                 }
-            }, content: function (value) {
+            }
+            , content: function (value) {
                 layedit.sync(editIndex);
             }
         });
 
-        form.on('submit(roleSubmit)', function (data) {
-            if(data.field.roleType == '0'){
-                layer.msg("您好，系统暂不支持新增超级管理员角色！",{icon: 2});
-                return;
-            }
+        form.on('submit(accountTypeSubmit)', function (data) {
             $.ajax({
-                url: "/smarthome/admin/protectRoleList",
+                url: "/smarthome/admin/protectAccountTypeList",
                 async: true,
                 type: "post",
                 data: data.field,
@@ -47,7 +49,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     if (msg.code == "200") {
                         layer.msg(msg.message, {icon: 6});
                         $("#method").val('1');//新增成功后method改为1，即修改
-                        $("#roleId").val(msg.entityData.roleId);
+                        $("#accountTypeId").val(msg.entityData.accountTypeId);
                         parent.layui.table.reload('searchTable');
                     }else if(msg.code == "500" || msg.code == "501"){
                         layer.msg(msg.message, {icon: 2});
@@ -58,11 +60,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             });
         });
     }else if(method == '3'){
-        $('#roleName').attr("readonly",true);
-        $('#roleType').attr("disabled",true);
-        $('#roleSubmit').css("display","none");
-        $('#roleReset').css("display","none");
+        $('#accountTypeNm').attr("readonly",true);
+        $('#accountTypeSubmit').css("display","none");
+        $('#accountTypeReset').css("display","none");
     }
-    layui.form.render("select");//重新渲染
-
 })

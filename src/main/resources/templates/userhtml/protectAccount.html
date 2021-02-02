@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>维护账号密码信息</title>
+    <link rel="icon" th:href="@{/publicimage/logo.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/usercss/protectAccount.css}" media="all"/>
+    <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/userjs/protectAccount.js}"></script>
+</head>
+<body class="childrenBody">
+<hr class="layui-bg-gray">
+<form class="layui-form" style="width:80%;top:0%">
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="method" name="method" value="">
+    </div>
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="accountId" name="accountId" value="">
+    </div>
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="accountTypeVal" name="accountTypeVal" value="">
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号:</label>
+        <div class="layui-input-block">
+            <input type="text" id="accountNum" name="accountNum" class="layui-input " value="" lay-verify="accountNum" autocomplete="off" placeholder="请输入账号">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号名称:</label>
+        <div class="layui-input-block">
+            <input type="text" id="accountNm" name="accountNm" class="layui-input " value="" autocomplete="off" placeholder="请输入账号名称">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">关联手机:</label>
+        <div class="layui-input-block">
+            <input type="text" id="accountPhone" name="accountPhone" class="layui-input " value="" lay-verify="phone" autocomplete="off" placeholder="请输入账号关联手机">
+        </div>
+    </div>
+    <div class="layui-form-item" id="pwdDiv" style="display: none">
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号密码一:</label>
+            <div class="layui-input-block">
+                <input type="text" id="accountPwdOne" name="accountPwdOne" class="layui-input " value="" lay-verify="required" autocomplete="off" placeholder="请输入账号密码">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号密码二:</label>
+            <div class="layui-input-block">
+                <input type="text" id="accountPwdTwo" name="accountPwdTwo" class="layui-input " value="" autocomplete="off" placeholder="请输入账号密码">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号密码三:</label>
+            <div class="layui-input-block">
+                <input type="text" id="accountPwdThree" name="accountPwdThree" class="layui-input " value="" autocomplete="off" placeholder="请输入账号密码">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="findPwdDiv" style="display: none">
+        <label class="layui-form-label">查看密码:</label>
+        <div class="layui-input-block">
+            <input type="password" id="accountPwdSeu" name="accountPwdSeu" class="layui-input " value="" lay-verify="pass" autocomplete="off" placeholder="请输入查看密码（该密码主要用在查看账号信息时显示密码时使用，请牢记！）">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="butPwdDiv" style="display: none">
+        <div class="layui-input-block">
+            <button type="button" id="lookPwd" name="lookPwd" class="layui-btn" style="background-color: #dc0606">显示密码</button>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">关联邮箱:</label>
+        <div class="layui-input-block">
+            <input type="text" id="accountMail" name="accountMail" class="layui-input search_input" value="" lay-verify="email" placeholder="请输入账号关联邮箱">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">关联URL:</label>
+        <div class="layui-input-block">
+            <input type="text" id="accountUrl" name="accountUrl" class="layui-input search_input" value="" placeholder="请输入账号关联URL">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号类型:</label>
+        <div class="layui-input-block">
+            <select id="accountType" name="accountType" lay-verify="required">
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit lay-filter="accountInfoSubmit" id="accountInfoSubmit">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-danger" id="accountReset">重置</button>
+            <button type="button" class="layui-btn layui-btn-primary" id="returnPage">返回</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

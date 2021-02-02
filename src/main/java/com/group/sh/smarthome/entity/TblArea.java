@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-
 /**
  * <p>
  *      省市县信息类
@@ -20,9 +18,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class TblArea implements Serializable {
-
-    private static final long serialVersionUID=1L;
+public class TblArea extends GenericClass {
 
     /**
      * 主键id
@@ -54,5 +50,4 @@ public class TblArea implements Serializable {
     @TableField("AREA_PARENT_CODE")
     private String areaParentCode;
 
-    private String method;
 }
