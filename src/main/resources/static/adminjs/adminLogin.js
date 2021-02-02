@@ -58,6 +58,18 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     '作者：最后#的小组\n' +
                     '著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。'
             });
+        }),$("#findAdminPwd").click(function () {
+            var indexDetail = layer.open({
+                title : "重置密码",
+                type : 2,
+                anim: 4,
+                area: ['20%', '18%'],
+                content : "/smarthome/admin/path/resetAdminPwd",
+                success : function(layero, index){
+                    var body = layer.getChildFrame('body', index);
+                    var iframeWin = layero.find('iframe')[0].contentWindow;//得到iframe页的窗口对象
+                }
+            })
         });
     });
 

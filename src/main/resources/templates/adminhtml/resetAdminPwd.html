@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>Title</title>
+    <link rel="icon" th:href="@{/publicimage/logo.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/admincss/resetAdminPwd.css}" media="all"/>
+    <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/adminjs/resetAdminPwd.js}"></script>
+</head>
+<body class="childrenBody">
+<hr class="layui-bg-gray">
+<form class="layui-form" style="width:80%;top:0%">
+    <div class="layui-form-item" style="display: none">
+        <input type="hidden" id="method" name="method" value="1">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">管理员账号:</label>
+        <div class="layui-input-block">
+            <input type="text" id="adminAccount" name="adminAccount" class="layui-input " value="" lay-verify="adminAccount" autocomplete="off" placeholder="请输入您的登录账号">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号码:</label>
+        <div class="layui-input-block">
+            <input type="text" id="adminPhone" name="adminPhone" class="layui-input " value="" lay-verify="phone" autocomplete="off" placeholder="请输入11位手机号码">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit lay-filter="resetAdminPwdSubmit" id="resetAdminPwdSubmit">重置</button>
+            <button type="button" class="layui-btn layui-btn-primary" id="returnPage">返回</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -52,7 +52,7 @@ public class smartHomeInterceptor implements HandlerInterceptor {
             userInfoMap.put("userName",request.getSession().getAttribute("userName"));
             flag = findUserUsePow(userInfoMap,uri,basePath,request,response);
         }
-        return true;
+        return flag;
     }
 
     private Boolean findAdminUsePow(Map<String,Object> userInfoMap,String uri,String basePath,HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -117,21 +117,12 @@ public class smartHomeInterceptor implements HandlerInterceptor {
             if(!uri.contains("path")){
                 return true;//如果uri地址不存在path则放行请求
             }
-            if(uri.contains("protect")){
-                return true;
-            }
             if(uri.contains("userExit")){
                 request.getSession().invalidate();
                 response.sendRedirect(basePath + "/smarthome/user/path/userLogin");//返回登陆页面
                 return true;//如果uri地址存在管理员退出请求则放行请求
             }
-            if(uri.contains("userInfo")){
-                return true;
-            }
-            if(uri.contains("changeAdminPwd")){
-                return true;
-            }
-            if(uri.contains("userNavigation") || uri.contains("userMain")){
+            if(uri.contains("userNavigation") || uri.contains("userMain") || uri.contains("changeAdminPwd") || uri.contains("userInfo") || uri.contains("protect") || uri.contains("billInfo") || uri.contains("accountInfo")){
                 return true;
             }
         }

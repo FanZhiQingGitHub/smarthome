@@ -475,4 +475,18 @@
         where ACCOUNT_ID = #{accountId}
     </update>
 
+    <update id="resetUserPassword" parameterType="com.group.sh.smarthome.entity.TblUser">
+        update tbl_user
+        <set>
+            MOD_TM = now(),
+            <if test="userPwd != '' and userPwd != null">
+                USER_PWD = #{userPwd},
+            </if>
+            <if test="modPsnId != '' and modPsnId != null">
+                MOD_PSN_ID = #{modPsnId},
+            </if>
+        </set>
+        where USER_ACCOUNT = #{userAccount} and USER_PHONE = #{userPhone}
+    </update>
+
 </mapper>

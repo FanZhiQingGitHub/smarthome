@@ -18,6 +18,8 @@ public class smartHomeConfig implements WebMvcConfigurer {
         // 排除路径
         loginRegistry.excludePathPatterns("/smarthome/admin/path/adminLogin");
         loginRegistry.excludePathPatterns("/smarthome/admin/adminLogin");
+        loginRegistry.excludePathPatterns("/smarthome/admin/path/resetAdminPwd");
+        loginRegistry.excludePathPatterns("/smarthome/admin/resetAdminPassword");
         loginRegistry.excludePathPatterns("/smarthome/user/path/homePage");
         loginRegistry.excludePathPatterns("/smarthome/user/path/userLogin");
         loginRegistry.excludePathPatterns("/smarthome/user/userLogin");
@@ -27,6 +29,8 @@ public class smartHomeConfig implements WebMvcConfigurer {
         loginRegistry.excludePathPatterns("/smarthome/user/path/product");
         loginRegistry.excludePathPatterns("/smarthome/user/path/news");
         loginRegistry.excludePathPatterns("/smarthome/user/path/about");
+        loginRegistry.excludePathPatterns("/smarthome/user/path/resetUserPwd");
+        loginRegistry.excludePathPatterns("/smarthome/user/resetUserPassword");
 
         loginRegistry.excludePathPatterns("/favicon.ico");
         loginRegistry.excludePathPatterns("/admincss/**");

@@ -48,6 +48,11 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         return (String) session.getAttribute("userAccount");
     }
 
+    public String getUserPhone() {
+        HttpSession session = getUserRequest().getSession();
+        return (String) session.getAttribute("userPhone");
+    }
+
     @Resource
     private TblUserMapper tblUserMapper;
 
@@ -90,8 +95,44 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         HttpSession session = getUserRequest().getSession();
         session.setAttribute("userAccount",User.getUserAccount());
         session.setAttribute("userName",User.getUserName());
+        session.setAttribute("userPhone",User.getUserPhone());
         session.setMaxInactiveInterval(30 * 60);//session过期时间设置，以秒为单位，即在没有活动30分钟后，session将失效
         return new CommonResult(200, "欢迎您："+User.getUserName()+" ，登录成功！", null,User, null,null,"0");
+    }
+
+    /**
+     *
+     * 方法描述 用户注册方法
+     * @date 2021-02-01
+     * @param tblUser
+     */
+    @Transactional
+    public CommonResult userReg(TblUser tblUser){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser.getMethod()){
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblUser, null,null,"1");
+        }
+        if(ConstantEnum.ConstantEnumType.INSERT.getValue().equals(tblUser.getMethod())){
+            SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+            tblUser.setUserPwd(EntryrionUtil.getHash3(tblUser.getUserPwd(),"SHA"));//密码加密
+            tblUser.setUserAccount("30000000"+tblUserMapper.getNextUserID());
+            tblUser.setUserStatus("0");
+            tblUser.setCrtPsnId(tblUser.getUserAccount());
+            tblUser.setCrtTm(new Date());
+            tblUser.setDelId("0");
+            tblUser.setUserHeadurl("/userHeadImg/userface4.jpg");
+            tblUser.setUserSex("2");
+            Integer num = tblUserMapper.addUserInfo(tblUser);
+            log.info("******新增的管理员ID是: "+tblUser.getUserId());
+            if(Integer.valueOf(ConstantEnum.ConstantEnumType.DATABASENUM.getValue()) == num){
+                return new CommonResult(500,"新增用户信息失败",null,tblUser,null,null,"1");
+            }
+            tblUser.setUserId(tblUser.getUserId());
+            HttpSession session = getUserRequest().getSession();
+            session.setAttribute("userAccount",tblUser.getUserAccount());
+            session.setAttribute("userName",tblUser.getUserName());
+            return new CommonResult(200,"恭喜您，注册成功！请记好您的用户账号："+tblUser.getUserAccount()+"",null,tblUser,null,null,"0");
+        }
+        return new CommonResult(501, "系统未能正确执行操作方法！", null,tblUser, null,null,"1");
     }
 
     /**
@@ -321,6 +362,28 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
             return new CommonResult(200, "删除账号密码信息成功", null,tblAccountInfo, null,null,"0");
         }
         return new CommonResult(501, "系统未能正确执行操作方法！", null,tblAccountInfo, null,null,"1");
+    }
+
+    /**
+     *
+     * 方法描述 重置用户密码
+     * @date 2021-02-02
+     * @param tblUser
+     */
+    @Transactional
+    public CommonResult resetUserPassword(TblUser tblUser){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblUser.getMethod()){
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblUser, null,null,"1");
+        }
+        tblUser.setModPsnId(tblUser.getUserAccount());
+        tblUser.setUserPwd(EntryrionUtil.getHash3("123456","SHA"));//密码加密
+        Boolean flag = tblUserMapper.resetUserPassword(tblUser);
+        if (flag == false) {
+            return new CommonResult(500, "重置失败，请确认所填写得账号及关联手机号码是否有误！", null,tblUser, null,null,"1");
+        }
+        HttpSession session = getUserRequest().getSession();
+        session.setAttribute("userAccount",tblUser.getUserAccount());
+        return new CommonResult(200, "您的密码重置成功，新密码为：'123456'", null,tblUser, null,null,"0");
     }
 
 }

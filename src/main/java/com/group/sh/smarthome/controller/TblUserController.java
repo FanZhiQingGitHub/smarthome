@@ -57,6 +57,19 @@ public class TblUserController {
 
     /**
      *
+     * 方法描述 用户注册方法
+     * @date 2021-02-02
+     * @param
+     */
+    @PostMapping(value = "/userReg")
+    @ResponseBody
+    @OperateLog(operateModule = "用户模块 ", operateType = "POST", operateDesc = "用户信息注册")
+    public CommonResult userReg(TblUser tblUser){
+        return tblUserService.userReg(tblUser);
+    }
+
+    /**
+     *
      * 方法描述 用户信息注册及维护
      * @date 2021-02-01
      * @param
@@ -128,6 +141,19 @@ public class TblUserController {
     @OperateLog(operateModule = "用户模块 ", operateType = "POST", operateDesc = "用户账号密码信息维护")
     public CommonResult protectAccountList(TblAccountInfo tblAccountInfo){
         return tblUserService.protectAccountList(tblAccountInfo);
+    }
+
+    /**
+     *
+     * 方法描述 重置用户密码
+     * @date 2021-02-02
+     * @param tblUser
+     */
+    @PostMapping(value = "/resetUserPassword")
+    @ResponseBody
+    @OperateLog(operateModule = "用户模块 ", operateType = "POST", operateDesc = "用户密码重置")
+    public CommonResult resetUserPassword(TblUser tblUser){
+        return tblUserService.resetUserPassword(tblUser);
     }
 
 

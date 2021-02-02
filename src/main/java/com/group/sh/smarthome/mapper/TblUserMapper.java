@@ -52,5 +52,7 @@ public interface TblUserMapper extends BaseMapper<TblUser> {
 
     public Boolean deleteAccountInfo(TblAccountInfo tblAccountInfo);
 
+    public Boolean resetUserPassword(TblUser tblUser);
+
 
 }

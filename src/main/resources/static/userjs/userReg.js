@@ -168,7 +168,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             layer.msg("验证码错误，请重新输入！", {icon: 2});
         }else {
             $.ajax({
-                url: "/smarthome/user/protectUserInfo",
+                url: "/smarthome/user/userReg",
                 async: true,
                 type: "post",
                 data: data.field,

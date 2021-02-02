@@ -96,7 +96,27 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
         return new CommonResult(200, "欢迎您："+Admin.getAdminName()+" ，登录成功！", null,Admin, null,null,"0");
     }
 
-
+    /**
+     *
+     * 方法描述 重置管理员密码
+     * @date 2021-02-02
+     * @param tblAdmin
+     */
+    @Transactional
+    public CommonResult resetAdminPassword(TblAdmin tblAdmin){
+        if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin.getMethod()){
+            return new CommonResult(500, "维护类型不能为空，请联系开发商处理！", null,tblAdmin, null,null,"1");
+        }
+        tblAdmin.setModPsnId(tblAdmin.getAdminAccount());
+        tblAdmin.setAdminPwd(EntryrionUtil.getHash3("123456","SHA"));//密码加密
+        Boolean flag = tblAdminMapper.resetAdminPassword(tblAdmin);
+        if (flag == false) {
+            return new CommonResult(500, "重置失败，请确认所填写得账号及关联手机号码是否有误！", null,tblAdmin, null,null,"1");
+        }
+        HttpSession session = getAdminRequest().getSession();
+        session.setAttribute("adminAccount",tblAdmin.getAdminAccount());
+        return new CommonResult(200, "您的密码重置成功，新密码为：'123456'", null,tblAdmin, null,null,"0");
+    }
 
     public CommonResult findMenuIDByRoleId(TblAdmin tblAdmin){
         if(ConstantEnum.ConstantEnumType.getENTITY() == tblAdmin){

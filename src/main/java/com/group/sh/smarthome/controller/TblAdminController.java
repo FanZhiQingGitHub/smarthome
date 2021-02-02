@@ -55,7 +55,18 @@ public class TblAdminController {
         return tblAdminService.adminLogin(tblAdmin);
     }
 
-
+    /**
+     *
+     * 方法描述 重置管理员密码
+     * @date 2021-02-02
+     * @param tblAdmin
+     */
+    @PostMapping(value = "/resetAdminPassword")
+    @ResponseBody
+    @OperateLog(operateModule = "管理员模块 ", operateType = "POST", operateDesc = "管理员密码重置")
+    public CommonResult resetAdminPassword(TblAdmin tblAdmin){
+        return tblAdminService.resetAdminPassword(tblAdmin);
+    }
 
     /**
      *

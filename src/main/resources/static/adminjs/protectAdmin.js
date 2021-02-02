@@ -23,7 +23,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     if(method == '0' || method == '1'){
         $('#adminAccountDiv').css("display","none");
         $('#adminSexDiv').css("display","none");
-        $('#adminPhoneDiv').css("display","none");
         $('#adminStatusDiv').css("display","none");
         $('#adminRoleNameDiv').css("display","none");
         $('#adminReset').css("display","none");
