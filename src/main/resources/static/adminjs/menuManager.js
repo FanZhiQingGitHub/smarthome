@@ -56,7 +56,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 }
             }
             ,{field:'modTm', title:'修改时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
-            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:200,align: 'center'}
+            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:300,align: 'center'}
         ]]
         ,page: true
     });

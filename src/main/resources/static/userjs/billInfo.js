@@ -73,7 +73,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 templet:function(d){return d.hisbillStatus == '0' ? '已结':'未结';}
             }
             ,{field:'crtPsnId', title:'创建人', width:100,align: 'center',}
-            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:260,align: 'center'}
+            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:300,align: 'center'}
         ]]
         ,page: true
     });

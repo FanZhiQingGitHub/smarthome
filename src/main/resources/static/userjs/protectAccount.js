@@ -73,6 +73,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             $("#pwdDiv").css('display','none');
             $("#butPwdDiv").css('display','block');
             $("#findPwdDiv").css('display','none');
+            $("#accountReset").css('display','none');
         }
         form.verify({
             accountNum: function (value) {

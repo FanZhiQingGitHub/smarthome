@@ -28,20 +28,20 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
             ,{field:'roleId', title:'角色编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
             ,{field:'roleName', title:'角色名称', align: 'center'}
-            ,{field:'roleType', title:'角色类型', align: 'center',hidden:true}
+            //,{field:'roleType', title:'角色类型', align: 'center',hidden:true}
             ,{field:'crtPsnId', title:'创建人', align: 'center',
                 templet:function(d){
                     return d.crtPsnId == "" || d.crtPsnId == null || d.crtPsnId == undefined ? '无':d.crtPsnId;
                 }
             }
-            ,{field:'crtTm', title:'创建时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
+            ,{field:'crtTm', title:'创建时间',width:230,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
             ,{field:'modPsnId', title:'修改人', align: 'center',
                 templet:function(d){
                     return d.modPsnId == "" || d.modPsnId == null || d.modPsnId == undefined ? '无':d.modPsnId;
                 }
             }
-            ,{field:'modTm', title:'修改时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
-            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:250,align: 'center'}
+            ,{field:'modTm', title:'修改时间',width:230,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
+            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:330,align: 'center'}
         ]]
         ,page: true
     });

@@ -7,6 +7,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         , carousel = layui.carousel;
     var $ = layui.jquery;
     var method = $("#method").val();
+    var accountTypeId = $("#accountTypeId").val();
 
 
     $(function () {
@@ -17,11 +18,15 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         }),$("#returnPage").click(function () {
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index); //再执行关闭
+        }),$("#accountTypeReset").click(function () {
+            $("#accountTypeId").val(accountTypeId);
         });
     });
 
     if(method == '0' || method == '1'){
-        $('#accountTypeReset').css("display","none");
+        if(method == '1'){
+            $('#accountTypeReset').css("display","none");
+        }
         if(method == '0'){
             $("#numDiv").css('display','none');
         }

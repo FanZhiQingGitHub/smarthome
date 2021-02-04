@@ -59,7 +59,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
-        $('#adminMenuReset').css("display","none");
+        if(method == '1'){
+            $('#adminMenuReset').css("display","none");
+        }
         if($('input[name="menuLevel"]:checked').val()=='0'){
             $("#urlDiv").css('display','none');
         }

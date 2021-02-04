@@ -32,7 +32,6 @@ public class smartHomeConfig implements WebMvcConfigurer {
         loginRegistry.excludePathPatterns("/smarthome/user/path/resetUserPwd");
         loginRegistry.excludePathPatterns("/smarthome/user/resetUserPassword");
 
-        loginRegistry.excludePathPatterns("/favicon.ico");
         loginRegistry.excludePathPatterns("/admincss/**");
         loginRegistry.excludePathPatterns("/adminjs/**");
         loginRegistry.excludePathPatterns("/layui/**");

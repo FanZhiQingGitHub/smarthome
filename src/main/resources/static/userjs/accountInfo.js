@@ -70,7 +70,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             ,{field:'accountTypeNm', title:'账号类型', width:150,align: 'center'}
             ,{field:'crtTm', title:'创建时间', width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
             ,{field:'crtPsnId', title:'创建人', width:200,align: 'center',}
-            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:200,align: 'center'}
+            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:300,align: 'center'}
         ]]
         ,page: true
     });

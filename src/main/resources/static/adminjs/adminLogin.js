@@ -63,7 +63,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                 title : "重置密码",
                 type : 2,
                 anim: 4,
-                area: ['20%', '18%'],
+                area: ['500px', '230px'],
                 content : "/smarthome/admin/path/resetAdminPwd",
                 success : function(layero, index){
                     var body = layer.getChildFrame('body', index);
@@ -99,12 +99,11 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
             if (value.length < 2) {
                 return '您好，账号至少得2个字符！';
             }
+        }, code :function (value) {
+            if (value.length != 4) {
+                return '您好，验证码是4位数！';
+            }
         }
-        // , code :function (value) {
-        //     if (value.length != 4) {
-        //         return '您好，验证码是4位数！';
-        //     }
-        // }
         , pass: [
             /^[\S]{6,12}$/
             , '您好，密码必须6~12位，且不能出现空格！'
@@ -126,10 +125,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                 });
             }
         });
-        /*if(data.field.adminCode.toLowerCase() != verCode.toLowerCase()){
+        if(data.field.adminCode.toLowerCase() != verCode.toLowerCase()){
             layer.close(loadingIndex);
             layer.msg("验证码错误，请重新输入！", {icon: 2});
-        }else{*/
+        }else{
             $.ajax({
                 url: "/smarthome/admin/adminLogin",
                 async: true,
@@ -160,13 +159,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     layer.msg("网络繁忙！", {icon: 2});
                 }
             });
-        //}
+        }
     });
-
-    //改变窗口大小时，重置弹窗的高度，防止超出可视区域（如F12调出debug的操作）
-    $(window).resize(function(){
-        layer.full();
-    })
 
 });
 

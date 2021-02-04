@@ -42,7 +42,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 }
             }
             ,{field:'operateIp', title:'操作IP', align: 'center',}
-            ,{field:'crtTm', title:'操作时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
+            ,{field:'crtTm', title:'操作时间',width:300,align: 'center',templet: "<div>{{layui.util.toDateString(d.crtTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
         ]]
         ,page: true
     });

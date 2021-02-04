@@ -21,6 +21,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
+        if(method == '1'){
+            $("#billReset").css('display','none');
+        }
         $("#crtDiv").css('display','none');
         $("#hisbillEndtimeDiv").css('display','none');
         $("input[name='hisbillStatus']").next().addClass('layui-radio-disbaled layui-disabled');

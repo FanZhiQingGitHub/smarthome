@@ -21,7 +21,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
-        $('#roleReset').css("display","none");
+        if(method == '1'){
+            $('#roleReset').css("display","none");
+        }
         form.verify({
             roleName: function (value) {
                 if (value.length < 2) {

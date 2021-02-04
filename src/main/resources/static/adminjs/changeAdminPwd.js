@@ -20,6 +20,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
             }
         }),$("#resetChangePwd").click(function () {
             $("#changePwdForm")[0].reset();
+            $("#adminAccount").val(adminAccount);
             $("#adminName").val(adminName);
         });
     });

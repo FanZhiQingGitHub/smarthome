@@ -27,7 +27,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , cols: [[
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
             ,{field:'infoId', title:'资讯编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
-            ,{field:'infoTitle', title:'资讯标题', width:180,align: 'center'}
+            ,{field:'infoTitle', title:'资讯标题', width:230,align: 'center'}
             ,{field:'infoDetail', title:'资讯内容', align: 'center',}
             ,{field:'crtPsnId', title:'创建人',width:100, align: 'center',
                 templet:function(d){
@@ -41,7 +41,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 }
             }
             ,{field:'modTm', title:'修改时间',width:200,align: 'center',templet: "<div>{{layui.util.toDateString(d.modTm,'yyyy-MM-dd HH:mm:ss')}}</div>"}
-            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:200,align: 'center'}
+            ,{fixed: '', title:'操作', toolbar: '#barDemo', width:300,align: 'center'}
         ]]
         ,page: true
     });
@@ -188,6 +188,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             layer.full(index);
         })
         table.reload('searchTable');
+        layer.full(index);
         //标注选中样式
         obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
     });

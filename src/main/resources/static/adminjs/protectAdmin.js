@@ -8,7 +8,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     var $ = layui.jquery;
     var method = $("#method").val();
 
-
     $(function () {
         $(document).on('keydown', function (event) {
             if (event.keyCode == 13) {
@@ -25,7 +24,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $('#adminSexDiv').css("display","none");
         $('#adminStatusDiv').css("display","none");
         $('#adminRoleNameDiv').css("display","none");
-        $('#adminReset').css("display","none");
         form.verify({
             adminName: function (value) {
                 if (value.length < 2) {
