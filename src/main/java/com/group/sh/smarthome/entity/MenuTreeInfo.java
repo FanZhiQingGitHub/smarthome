@@ -28,6 +28,7 @@ public class MenuTreeInfo extends GenericClass {
     private Integer id;
 
     private String menuId;
+    private String roleId;
     private String menuName;
     private String count;
 

@@ -61,7 +61,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload','c
         type: "get",
         datatype: "text",
         success: function (msg) {
+            debugger
             userRegDate = msg.mapData.userMap;
+
             createUserEchars();
         }, error: function (msg) {
             layer.msg("网络繁忙！", {icon: 2});

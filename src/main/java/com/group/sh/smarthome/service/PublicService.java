@@ -170,7 +170,7 @@ public class PublicService {
         List<TblInfo> infoList = publicMapper.findAllInfo();
         log.info("******查询的资讯列表是: "+infoList);
         if (Integer.valueOf(ConstantEnum.ConstantEnumType.LISTSIZENUM.getValue()) == infoList.size()) {
-            return new CommonResult(500, "亲，暂无相关数据", null,null, infoList,null,"1");
+            return new CommonResult(500, "亲，目前暂无相关资讯！", null,null, infoList,null,"1");
         }
         return new CommonResult(200, null, null,null, infoList,null,"0");
     }

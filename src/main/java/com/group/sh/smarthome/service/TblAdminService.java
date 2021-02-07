@@ -50,12 +50,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
 
     public String returnUrl(String url){
         if(null != url){
-            if("adminExit".equals(url)){
-                url = "adminLogin";
-                return "adminhtml/"+url;
-            }else {
-                return "adminhtml/"+url;
-            }
+            return "adminhtml/"+url;
         }
         return null;
     }
@@ -250,7 +245,7 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
                 return new CommonResult(500, "新增角色失败", count,tblRole, null,null,"1");
             }
             tblRole.setRoleId(tblRole.getRoleId());
-            return new CommonResult(200, "新增角色成功！", count,tblRole, null,null,"0");
+            return new CommonResult(200, "新增角色成功,请先分配好该角色权限再进行使用！", count,tblRole, null,null,"0");
         }
 
         if(ConstantEnum.ConstantEnumType.UPDATE.getValue().equals(tblRole.getMethod())){

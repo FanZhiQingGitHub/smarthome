@@ -1,11 +1,13 @@
 package com.group.sh.smarthome.interceptor;
 
 import com.group.sh.smarthome.entity.MenuTreeInfo;
+import com.group.sh.smarthome.util.FileUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -39,6 +41,40 @@ public class smartHomeInterceptor implements HandlerInterceptor {
         System.out.println("uri=" + uri);
         Object adminNum = request.getSession().getAttribute("adminAccount");
         Object userNum = request.getSession().getAttribute("userAccount");
+//        if (uri.endsWith("Login")||uri.endsWith("Exit")){
+//            //如果是访问登陆或者退出可以直接访问
+//            return true;
+//        }
+//        if (uri.contains("adminNavigation") || uri.contains("adminMain")
+//                ||uri.contains("adminInfo")||uri.contains("changeAdminPwd")||uri.contains("protect") ||uri.contains("userNavigation") || uri.contains("userMain")
+//                || uri.contains("changeUserPwd") || uri.contains("userInfo")
+//                || uri.contains("billInfo") || uri.contains("accountInfo")){
+//            //判断要访问的是主页的方法
+//            return true;
+//        }
+//        if (uri.contains("admin")){
+//            //判断管理员是否登录
+//            if (request.getSession().getAttribute("adminAccount") != null) {
+//                return true;
+//            }else {
+//                response.sendRedirect(basePath + "/smarthome/admin/path/adminLogin");
+//                //重定向之后放行
+//                return false;
+//            }
+//        }
+//        if (uri.contains("user")){
+//            //判断管理员是否登录
+//            if (request.getSession().getAttribute("userAccount") != null) {
+//                return true;
+//            }else {
+//                response.sendRedirect(basePath + "/smarthome/user/path/userLogin");
+//                //重定向之后放行
+//                return false;
+//            }
+//        }
+//        if (uri.contains("public")){
+//            return true;
+//        }
         Map<String,Object> userInfoMap = new LinkedHashMap<>();
         Boolean flag = null;
         if(adminNum != null && !adminNum.toString().equals("")){
@@ -53,7 +89,14 @@ public class smartHomeInterceptor implements HandlerInterceptor {
             userInfoMap.put("userName",request.getSession().getAttribute("userName"));
             flag = findUserUsePow(userInfoMap,uri,basePath,request,response);
         }
+        if(flag == null){
+            request.getSession().invalidate();
+            //response.sendRedirect(basePath + "/smarthome/public/path/404");//未登陆，返回登陆页面
+            return false;
+        }
         return flag;
+        //response.sendRedirect(basePath + "/public/path/404");
+        //return false;
     }
 
     private Boolean findAdminUsePow(Map<String,Object> userInfoMap,String uri,String basePath,HttpServletRequest request, HttpServletResponse response) throws IOException {

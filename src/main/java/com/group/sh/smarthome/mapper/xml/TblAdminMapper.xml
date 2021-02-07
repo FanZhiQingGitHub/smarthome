@@ -56,15 +56,16 @@
         <result column="MENU_URL" property="dataUrl"></result>
         <result column="MENU_ID" property="dataId"></result>
         <result column="MENU_TYPE" property="dataType"></result>
-        <collection property="children" select="childrenMenuByMenuId" column="MENU_ID" ofType="com.group.sh.smarthome.entity.MenuTreeInfo"
+        <result column="ROLE_ID" property="roleId"></result>
+        <association property="children" select="childrenMenuByMenuId" column="{ROLE_ID=ROLE_ID,MENU_ID=MENU_ID}"
                     javaType="list">
             <result column="MENU_NAME" property="dataTitle"></result>
             <result column="MENU_URL" property="dataUrl"></result>
             <result column="MENU_ID" property="dataId"></result>
             <result column="MENU_TYPE" property="dataType"></result>
-        </collection>
+        </association>
     </resultMap>
-    <select id="findMenuIDByRoleId" parameterType="java.lang.Integer" resultMap="loginMenuTree">
+    <select id="findMenuIDByRoleId" parameterType="java.util.HashMap" resultMap="loginMenuTree">
         select
             menu.MENU_ID as MENU_ID,
             menu.MENU_NAME as MENU_NAME,
@@ -84,7 +85,7 @@
         <result column="MENU_ID" property="dataId"></result>
         <result column="MENU_TYPE" property="dataType"></result>
     </resultMap>
-    <select id="childrenMenuByMenuId" resultMap="loginMenuSubTree" parameterType="java.lang.Integer">
+    <select id="childrenMenuByMenuId" resultMap="loginMenuSubTree" parameterType="java.util.HashMap">
         select
             menu.MENU_ID as MENU_ID,
             menu.MENU_NAME as MENU_NAME,
@@ -93,7 +94,16 @@
             menu.MENUSUB_ID as MENUSUB_ID
         from
             tbl_menu menu
-        where menu.MENUSUB_ID = #{MENU_ID} and menu.DEL_ID = 0
+        left join tbl_role_menu rolemenu on menu.MENU_ID = rolemenu.MENU_ID
+        <where>
+            and menu.DEL_ID = 0
+            <if test="MENU_ID != '' and MENU_ID != null ">
+                and menu.MENUSUB_ID = #{MENU_ID}
+            </if>
+            <if test="ROLE_ID != '' and ROLE_ID != null ">
+                and rolemenu.ROLE_ID = #{ROLE_ID}
+            </if>
+        </where>
     </select>
 
 
@@ -329,7 +339,12 @@
             rolemenu.MENU_ID as menuId
         from tbl_menu menu
                  left join tbl_role_menu rolemenu on menu.MENU_ID = rolemenu.MENU_ID
-        where rolemenu.ROLE_ID = #{adminRole} and menu.MENUSUB_ID != 0 and rolemenu.DEL_ID = 0 ;
+        <where>
+            and menu.MENUSUB_ID != 0 and rolemenu.DEL_ID = 0
+            <if test="adminRole != '' and adminRole != null ">
+                and  rolemenu.ROLE_ID = #{adminRole}
+            </if>
+        </where>
     </select>
 
 

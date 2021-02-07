@@ -99,6 +99,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                             layer.msg(msg.message, {icon: 6});
                             $("#method").val('1');//新增成功后method改为1，即修改
                             $("#menuId").val(msg.entityData.menuId);
+                            $('#adminMenuReset').css("display","none");
                             parent.layui.table.reload('searchTable');
                         }else if(msg.code == "500" || msg.code == "501"){
                             layer.msg(msg.message, {icon: 2});

@@ -72,9 +72,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload','c
                     html+='<button value="'+msg.data[i].infoId+'&'+msg.data[i].infoTitle+'&'+msg.data[i].infoDetail+'&'+msg.data[i].crtPsnId+'&'+msg.data[i].crtTm+'" class="info-item" style="border: none;background-color: transparent">'+num+'、'+msg.data[i].infoTitle+'</button><br />';
                 }
                 $("#infoDiv").html(html);
-
             }else if(msg.code == "500" || msg.code == "501"){
-                layer.msg(msg.message, {icon: 2});
+                layer.msg(msg.message, {icon: 6});
             }
         }, error: function (msg) {
             layer.msg("网络繁忙！", {icon: 2});

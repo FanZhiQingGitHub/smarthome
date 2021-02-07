@@ -7,7 +7,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         , carousel = layui.carousel;
     var $ = layui.jquery;
     var method = $("#method").val();
-
+    var adminName = window.sessionStorage.getItem("adminName");
     $(function () {
         $(document).on('keydown', function (event) {
             if (event.keyCode == 13) {
@@ -22,6 +22,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     if(method == '0' || method == '1'){
         if(method == '1'){
             $('#infoReset').css("display","none");
+            $('#crtDiv').css("display","block");
+        }
+        if(method == '0'){
+            $("#crtPsnId").val(adminName);
         }
         form.verify({
             infoTitle: function (value) {
@@ -52,6 +56,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                         layer.msg(msg.message, {icon: 6});
                         $("#method").val('1');//新增成功后method改为1，即修改
                         $("#infoId").val(msg.entityData.infoId);
+                        $('#infoReset').css("display","none");
                         parent.layui.table.reload('searchTable');
                     }else if(msg.code == "500" || msg.code == "501"){
                         layer.msg(msg.message, {icon: 2});
@@ -63,6 +68,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
 
         });
     }else if(method == '3'){
+        $('#crtDiv').css("display","block");
         $('#infoTitle').attr("readonly",true);
         $('#infoDetail').attr("readonly",true);
         $('#crtPsnId').attr("readonly",true);
@@ -70,5 +76,13 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $('#infoSubmit').css("display","none");
         $('#infoReset').css("display","none");
     }
+
+    laydate.render({
+        elem: '#crtTm'
+        //,range: true
+        //,format: 'yyyy-MM-dd HH:mm:ss'
+        ,calendar: true
+        //,value: new Date() //参数即为：2018-08-20 20:08:08 的时间戳
+    });
 
 })

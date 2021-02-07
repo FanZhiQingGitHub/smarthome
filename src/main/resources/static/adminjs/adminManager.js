@@ -289,11 +289,13 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
     //常规用法
     laydate.render({
         elem: '#startTime'
+        ,calendar: true
         //,range: true
         //,format: 'yyyy-MM-dd HH:mm:ss'
     });
     laydate.render({
         elem: '#endTime'
+        ,calendar: true
         //,range: true
         //,format: 'yyyy-MM-dd HH:mm:ss'
     });

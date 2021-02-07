@@ -108,11 +108,13 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     //常规用法
     laydate.render({
         elem: '#hisbillBegintime'
+        ,calendar: true
         //,range: true
         ,format: 'yyyy-MM-dd HH:mm:ss'
     });
     laydate.render({
         elem: '#hisbillEstreptm'
+        ,calendar: true
         //,range: true
         ,format: 'yyyy-MM-dd HH:mm:ss'
     });
