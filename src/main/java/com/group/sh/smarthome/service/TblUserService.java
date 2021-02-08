@@ -58,9 +58,13 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
 
     public String returnUrl(String url){
         if(null != url){
+            if(url.equals("adminExit")){
+                url = "adminLogin";
+                return "adminhtml/"+url;
+            }
             return "userhtml/"+url;
         }
-        return null;
+        return "userhtml/404";
     }
 
     /**

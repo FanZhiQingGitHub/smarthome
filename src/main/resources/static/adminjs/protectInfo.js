@@ -77,12 +77,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         $('#infoReset').css("display","none");
     }
 
-    laydate.render({
-        elem: '#crtTm'
-        //,range: true
-        //,format: 'yyyy-MM-dd HH:mm:ss'
-        ,calendar: true
-        //,value: new Date() //参数即为：2018-08-20 20:08:08 的时间戳
-    });
-
+    // laydate.render({
+    //     elem: '#crtTm'
+    //     //,range: true
+    //     ,format: 'yyyy-MM-dd HH:mm:ss'
+    //     ,calendar: true
+    //     //,value: new Date() //参数即为：2018-08-20 20:08:08 的时间戳
+    // });
+    layui.form.render();//重新渲染
 })

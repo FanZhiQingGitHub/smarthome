@@ -50,9 +50,13 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
 
     public String returnUrl(String url){
         if(null != url){
+            if(url.equals("adminExit")){
+                url = "adminLogin";
+                return "adminhtml/"+url;
+            }
             return "adminhtml/"+url;
         }
-        return null;
+        return "adminhtml/404";
     }
 
     public void removeSessionAttributr(HttpServletRequest request){
@@ -472,7 +476,6 @@ public class TblAdminService extends ServiceImpl<TblAdminMapper, TblAdmin>{
 
     @Transactional
     public CommonResult uploadAdminHeadInfo(TblAdmin tblAdmin,@RequestParam("file") MultipartFile file) throws IOException {
-
         String filename = file.getOriginalFilename().toString();//得到上传时的文件名。
         Long size = file.getSize();
         Long maxsize = 512000L;

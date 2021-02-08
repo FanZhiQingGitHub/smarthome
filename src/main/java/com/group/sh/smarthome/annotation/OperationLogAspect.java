@@ -95,7 +95,7 @@ public class OperationLogAspect {
             CommonResult commonResult = (CommonResult) keys;
             operationLog.setOperateResult(commonResult.getSysCode());
             operationLog.setOperateDesc(commonResult.getMessage());
-            log.info("系统日志="+operationLog.getOperateDesc()+"&操作人是="+operationLog.getOperateUserName());
+            log.info("系统日志记录："+operationLog.getOperateDesc()+"&操作人是="+operationLog.getOperateUserName());
             // 插入数据库
             publicService.addOperationLogInfo(operationLog);
         } catch (Exception e) {
