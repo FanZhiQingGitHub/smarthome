@@ -17,6 +17,13 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         }),$("#returnPage").click(function () {
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index); //再执行关闭
+        }),$("#billReset").click(function () {
+            $("#billForm")[0].reset();
+            $("#hisbillStatus").val("1");
+            $("input[name='hisbillStatus']").attr("disabled","true");
+            //$('input[name=hisbillStatus][value="1"]').attr("checked","1"=="1" ? true : false);
+            //$("input[name='hisbillStatus']").next().addClass('layui-radio-disbaled layui-disabled');
+            //layui.form.render();
         });
     });
 
@@ -78,6 +85,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                         layer.msg(msg.message, {icon: 6});
                         $("#method").val('1');//新增成功后method改为1，即修改
                         $("#hisbillId").val(msg.entityData.hisbillId);
+                        $('#billReset').css("display","none");
                         parent.layui.table.reload('searchTable');
                     }else if(msg.code == "500" || msg.code == "501"){
                         layer.msg(msg.message, {icon: 2});
@@ -109,14 +117,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     laydate.render({
         elem: '#hisbillBegintime'
         ,calendar: true
-        //,range: true
-        ,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
     laydate.render({
         elem: '#hisbillEstreptm'
         ,calendar: true
-        //,range: true
-        ,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
-    layui.form.render("select");
+
 })

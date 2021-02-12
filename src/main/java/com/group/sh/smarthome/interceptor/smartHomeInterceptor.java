@@ -149,7 +149,7 @@ public class smartHomeInterceptor implements HandlerInterceptor {
                 return true;//如果uri地址存在管理员退出请求则放行请求
             }
             if(!uri.contains("path")||uri.contains("userNavigation") || uri.contains("userMain")
-                    || uri.contains("changeAdminPwd") || uri.contains("userInfo") || uri.contains("protect")
+                    || uri.contains("changeUserPwd") || uri.contains("userInfo") || uri.contains("protect")
                     || uri.contains("billInfo") || uri.contains("accountInfo")){
                 return true;
             }

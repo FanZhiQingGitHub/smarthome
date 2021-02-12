@@ -58,9 +58,9 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
 
     public String returnUrl(String url){
         if(null != url){
-            if(url.equals("adminExit")){
-                url = "adminLogin";
-                return "adminhtml/"+url;
+            if(url.equals("userExit")){
+                url = "userLogin";
+                return "userhtml/"+url;
             }
             return "userhtml/"+url;
         }
@@ -225,6 +225,9 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         }
         if(ConstantEnum.ConstantEnumType.getENTITY() != tblHisbill.getHisbillType()){
             pageListEntity.setObjectFive(tblHisbill.getHisbillType());
+        }
+        if(ConstantEnum.ConstantEnumType.getENTITY() != tblHisbill.getHisbillStatus()){
+            pageListEntity.setObjectSix(tblHisbill.getHisbillStatus());
         }
         pageListEntity.setAccount(getUserAccount());
         List<TblHisbill> tblHisbillList = tblUserMapper.findALLBillList(pageListEntity);

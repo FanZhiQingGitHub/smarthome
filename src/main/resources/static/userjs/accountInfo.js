@@ -48,6 +48,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , cols: [[
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
             ,{field:'accountId', title:'账号编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
+            /*
             ,{field:'accountNm', title:'账号名称', align: 'center', width:150,
                 templet:function(d){
                     if(d.accountNm != null && d.accountNm !='' && d.accountNm !=undefined){
@@ -55,7 +56,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     }else{
                         return '无'
                     }
-                }}
+                }}*/
             ,{field:'accountNum', title:'账号', width:150,align: 'center'}
             ,{field:'accountPhone', title:'关联手机', width:150,align: 'center',}
             ,{field:'accountMail', title:'关联邮箱',align: 'center',}
@@ -283,14 +284,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
     laydate.render({
         elem: '#startTime'
         ,calendar: true
-        //,range: true
-        //,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
     laydate.render({
         elem: '#endTime'
         ,calendar: true
-        //,range: true
-        //,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
 
 });

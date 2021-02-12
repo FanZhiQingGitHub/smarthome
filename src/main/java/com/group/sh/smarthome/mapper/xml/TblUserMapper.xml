@@ -186,6 +186,9 @@
             <if test="objectFive != '' and objectFive != null ">
                 and  bill.HISBILL_TYPE = #{objectFive}
             </if>
+            <if test="objectSix != '' and objectSix != null ">
+                and  bill.HISBILL_STATUS = #{objectSix}
+            </if>
             <if test="account != '' and account != null ">
                 and  user.USER_ACCOUNT = #{account}
             </if>
@@ -224,6 +227,9 @@
             </if>
             <if test="objectFive != '' and objectFive != null ">
                 and  bill.HISBILL_TYPE = #{objectFive}
+            </if>
+            <if test="objectSix != '' and objectSix != null ">
+                and  bill.HISBILL_STATUS = #{objectSix}
             </if>
             <if test="account != '' and account != null ">
                 and  user.USER_ACCOUNT = #{account}

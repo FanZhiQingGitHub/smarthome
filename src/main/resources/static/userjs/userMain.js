@@ -100,6 +100,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload','c
         layer.full(index);
     });
 
+    /*
     var video = document.getElementById("myvideo");
     var vList = ['/publicvideo/周杰伦-以父之名.mp4', '/publicvideo/周杰伦-以父之名.mp4']; // 初始化播放列表，这里的url要用相对路径
     var vLen = vList.length;
@@ -119,6 +120,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload','c
         if(curr >= vLen){
             curr = 0; //重新循环播放
         }
-    }
+    }*/
 
 });

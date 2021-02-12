@@ -41,7 +41,7 @@ public class OperationLog implements Serializable {
     private String operateMethod;
     /** 操作用户ID */
     @TableField("OPERATE_USER_ID")
-    private Integer operateUserId;
+    private String operateUserId;
     /** 操作用户名 */
     @TableField("OPERATE_USER_NAME")
     private String operateUserName;

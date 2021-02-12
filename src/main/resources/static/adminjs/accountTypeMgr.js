@@ -216,7 +216,19 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 }
             });
         });
-    })
+    });
+
+    //常规用法
+    laydate.render({
+        elem: '#startTime'
+        ,calendar: true
+        ,type: 'datetime'
+    });
+    laydate.render({
+        elem: '#endTime'
+        ,calendar: true
+        ,type: 'datetime'
+    });
 
 });
 

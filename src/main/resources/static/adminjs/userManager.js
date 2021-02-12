@@ -44,7 +44,15 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
             ,{field:'userPhone', title:'手机', width:150,align: 'center',}
             ,{field:'userQq', title:'QQ号码', align: 'center',}
             ,{field:'userWechat', title:'微信号码', align: 'center',}
-            ,{field:'userRoleName', title:'用户角色', align: 'center',}
+            ,{field:'userRoleName', title:'用户角色', align: 'center',
+                templet:function(d){
+                    if(d.userRoleName != null && d.userRoleName !='' && d.userRoleName !=undefined){
+                        return d.userRoleName
+                    }else{
+                        return '普通用户'
+                    }
+                }
+            }
             ,{field:'userStatus', title:'用户状态', align: 'center',width:130,
                 templet:function(d){
                     return d.userStatus == '0' ? '启用':'禁用';
@@ -263,14 +271,12 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
     laydate.render({
         elem: '#startTime'
         ,calendar: true
-        //,range: true
-        //,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
     laydate.render({
         elem: '#endTime'
         ,calendar: true
-        //,range: true
-        //,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
 
 });

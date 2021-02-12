@@ -20,7 +20,7 @@
 </head>
 <body class="childrenBody">
 <hr class="layui-bg-gray">
-<form class="layui-form" style="width:80%;top:0%">
+<form class="layui-form" id="billForm" style="width:80%;top:0%">
     <div class="layui-form-item" style="display: none">
         <input type="hidden" id="method" name="method" value="">
     </div>
@@ -66,14 +66,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">借款时间:</label>
         <div class="layui-input-block">
-            <input type="text" id="hisbillBegintime" name="hisbillBegintime" class="layui-input search_input" lay-verify="required" placeholder="请选择借款日期">
+            <input type="text" id="hisbillBegintime" name="hisbillBegintime" class="layui-input search_input" AUTOCOMPLETE="OFF" lay-verify="required" placeholder="请选择借款日期">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">预计还款时间:</label>
         <div class="layui-input-block">
-            <input type="text" id="hisbillEstreptm" name="hisbillEstreptm" class="layui-input search_input" lay-verify="required" placeholder="请选择预计还款日期">
+            <input type="text" id="hisbillEstreptm" name="hisbillEstreptm" class="layui-input search_input" AUTOCOMPLETE="OFF" lay-verify="required" placeholder="请选择预计还款日期">
         </div>
     </div>
 
@@ -117,7 +117,7 @@
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button type="button" class="layui-btn" lay-submit lay-filter="billSubmit" id="billSubmit">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-danger" id="billReset">重置</button>
+            <button type="button" class="layui-btn layui-btn-danger" id="billReset">重置</button>
             <button type="button" class="layui-btn layui-btn-primary"  id="returnPage">返回</button>
         </div>
     </div>

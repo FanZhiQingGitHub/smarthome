@@ -315,6 +315,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     hisbillMen: $("#hisbillMen").val(),
                     hisbillMenphone: $("#hisbillMenphone").val(),
                     hisbillType: $("#hisbillType").val(),
+                    hisbillStatus: $("#hisbillStatus").val(),
                     startTime: $("#startTime").val(),
                     endTime: $("#endTime").val(),
                     findDate: $("#findDate").val()
@@ -335,6 +336,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     hisbillMen: $("#hisbillMen").val(),
                     hisbillMenphone: $("#hisbillMenphone").val(),
                     hisbillType: $("#hisbillType").val(),
+                    hisbillStatus: $("#hisbillStatus").val(),
                     startTime: $("#startTime").val(),
                     endTime: $("#endTime").val(),
                     findDate: $("#findDate").val()
@@ -347,20 +349,17 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
     laydate.render({
         elem: '#startTime'
         ,calendar: true
-        //,range: true
-        //,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
     laydate.render({
         elem: '#endTime'
         ,calendar: true
-        //,range: true
-        //,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
     laydate.render({
         elem: '#findDate'
         ,calendar: true
-        //,range: true
-        //,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
 
 });

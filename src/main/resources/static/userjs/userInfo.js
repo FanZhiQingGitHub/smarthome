@@ -396,9 +396,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
 
     laydate.render({
         elem: '#userGrdtm'
-        //,range: true
         ,calendar: true
-        ,format: 'yyyy-MM-dd HH:mm:ss'
+        ,type: 'datetime'
     });
 
 })

@@ -93,7 +93,11 @@ public class OperationLogAspect {
             setBaseLog(joinPoint, operationLog);
             operationLog.setOperateResponseParam(JSON.toJSONString(keys));
             CommonResult commonResult = (CommonResult) keys;
-            operationLog.setOperateResult(commonResult.getSysCode());
+            if(operationLog.getOperateUserId().equals("000000000")){
+                operationLog.setOperateResult("1");
+            }else {
+                operationLog.setOperateResult(commonResult.getSysCode());
+            }
             operationLog.setOperateDesc(commonResult.getMessage());
             log.info("系统日志记录："+operationLog.getOperateDesc()+"&操作人是="+operationLog.getOperateUserName());
             // 插入数据库
@@ -121,17 +125,25 @@ public class OperationLogAspect {
         Method method = signature.getMethod();
         operationLog = setOpLog(method, operationLog);
         if(ConstantEnum.ConstantEnumType.ADMINMOD.getValue().equals(operationLog.getOperateModule().trim())){
-            String adminName =  (String) session.getAttribute("adminName");//操作人姓名
-            String adminAccount =  (String) session.getAttribute("adminAccount");//操作人ID
+            Object adminName = session.getAttribute("adminName");//操作人姓名
+            Object adminAccount = session.getAttribute("adminAccount");//操作人ID
             // 比如请求用户的信息，可以通过一个工具类获取，从ThreadLocal里拿出来
-            operationLog.setOperateUserId(Integer.valueOf(adminAccount));// 请求用户ID
-            operationLog.setOperateUserName(adminName);// 请求用户名称
+            if(adminAccount != null){
+                operationLog.setOperateUserId(adminAccount.toString());// 请求用户ID
+            }else {
+                operationLog.setOperateUserId("000000000");// 请求用户ID
+            }
+            operationLog.setOperateUserName(adminName.toString());// 请求用户名称
         }else if(ConstantEnum.ConstantEnumType.USERMOD.getValue().equals(operationLog.getOperateModule().trim())){
-            String userName =  (String) session.getAttribute("userName");//操作人姓名
-            String userAccount =  (String) session.getAttribute("userAccount");//操作人ID
+            Object userName = session.getAttribute("userName");//操作人姓名
+            Object userAccount = session.getAttribute("userAccount");//操作人ID
             // 比如请求用户的信息，可以通过一个工具类获取，从ThreadLocal里拿出来
-            operationLog.setOperateUserId(Integer.valueOf(userAccount));// 请求用户ID
-            operationLog.setOperateUserName(userName);// 请求用户名称
+            if(userAccount != null){
+                operationLog.setOperateUserId(userAccount.toString());// 请求用户ID
+            }else {
+                operationLog.setOperateUserId("000000000");// 请求用户ID
+            }
+            operationLog.setOperateUserName(userName.toString());// 请求用户名称
         }
         String methodName = getMethodName(joinPoint, method);
         String params = getParams(joinPoint);
