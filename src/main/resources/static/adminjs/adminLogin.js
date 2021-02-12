@@ -63,7 +63,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                 title : "重置密码",
                 type : 2,
                 anim: 4,
-                area: ['500px', '230px'],
+                area: ['355px', '230px'],
                 content : "/smarthome/admin/path/resetAdminPwd",
                 success : function(layero, index){
                     var body = layer.getChildFrame('body', index);
