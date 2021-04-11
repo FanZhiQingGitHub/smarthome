@@ -173,6 +173,8 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','upload'],f
             datatype: "text",
             success: function (msg) {
                 if (msg.code == "200") {
+                    window.sessionStorage.setItem("userAddressProvince",msg.entityData.userAddressProvince);
+                    window.sessionStorage.setItem("userAddressCity",msg.entityData.userAddressCity);
                     layer.msg(msg.message, {icon: 6});
                     form.render();
                 }else if(msg.code == "500" || msg.code == "501"){

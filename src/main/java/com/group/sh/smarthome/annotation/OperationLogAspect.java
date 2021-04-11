@@ -128,22 +128,30 @@ public class OperationLogAspect {
             Object adminName = session.getAttribute("adminName");//操作人姓名
             Object adminAccount = session.getAttribute("adminAccount");//操作人ID
             // 比如请求用户的信息，可以通过一个工具类获取，从ThreadLocal里拿出来
+            if(adminName != null){
+                operationLog.setOperateUserName(adminName.toString());// 请求用户名称
+            }else{
+                operationLog.setOperateUserName("用户名错误");// 请求用户名称
+            }
             if(adminAccount != null){
                 operationLog.setOperateUserId(adminAccount.toString());// 请求用户ID
             }else {
                 operationLog.setOperateUserId("000000000");// 请求用户ID
             }
-            operationLog.setOperateUserName(adminName.toString());// 请求用户名称
         }else if(ConstantEnum.ConstantEnumType.USERMOD.getValue().equals(operationLog.getOperateModule().trim())){
             Object userName = session.getAttribute("userName");//操作人姓名
             Object userAccount = session.getAttribute("userAccount");//操作人ID
             // 比如请求用户的信息，可以通过一个工具类获取，从ThreadLocal里拿出来
+            if(userName != null){
+                operationLog.setOperateUserName(userName.toString());// 请求用户名称
+            }else{
+                operationLog.setOperateUserName("用户名错误");// 请求用户名称
+            }
             if(userAccount != null){
                 operationLog.setOperateUserId(userAccount.toString());// 请求用户ID
             }else {
                 operationLog.setOperateUserId("000000000");// 请求用户ID
             }
-            operationLog.setOperateUserName(userName.toString());// 请求用户名称
         }
         String methodName = getMethodName(joinPoint, method);
         String params = getParams(joinPoint);

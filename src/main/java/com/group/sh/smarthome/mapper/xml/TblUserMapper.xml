@@ -99,7 +99,6 @@
             <if test="userResume != '' and userResume != null">
                 USER_RESUME = #{userResume},
             </if>
-
             <if test="userEddgrcd != '' and userEddgrcd != null">
                 USER_EDDGRCD = #{userEddgrcd},
             </if>
@@ -108,6 +107,12 @@
             </if>
             <if test="userGrdtSchcd != '' and userGrdtSchcd != null">
                 USER_GRDT_SCHCD = #{userGrdtSchcd},
+            </if>
+            <if test="userMjr != '' and userMjr != null">
+                USER_MJR = #{userMjr},
+            </if>
+            <if test="userGrdtm != null">
+                USER_GRDTM = DATE_FORMAT(#{userGrdtm}, '%Y-%m-%d'),
             </if>
             <if test="userStatus != '' and userStatus != null">
                 USER_STATUS = #{userStatus},
