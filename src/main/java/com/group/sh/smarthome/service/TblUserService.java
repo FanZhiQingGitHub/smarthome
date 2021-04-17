@@ -303,9 +303,6 @@ public class TblUserService extends ServiceImpl<TblUserMapper, TblUser> {
         if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountInfo.getAccountNum()){
             pageListEntity.setObjectOne(tblAccountInfo.getAccountNum());
         }
-        if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountInfo.getAccountNm()){
-            pageListEntity.setObjectTwo(tblAccountInfo.getAccountNm());
-        }
         if(ConstantEnum.ConstantEnumType.getENTITY() != tblAccountInfo.getAccountPhone()){
             pageListEntity.setObjectThree(tblAccountInfo.getAccountPhone());
         }

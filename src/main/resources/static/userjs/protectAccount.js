@@ -7,7 +7,7 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
         , carousel = layui.carousel;
     var $ = layui.jquery;
     var method = $("#method").val();
-
+    var userPwd = window.sessionStorage.getItem("userPwd");
 
     $.ajax({
         url: "/smarthome/public/findAllAccountTypeInfo",
@@ -46,9 +46,9 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
                     formType: 1,
                     value: '',
                     offset: 'auto',
-                    title: '请输入查询密码',
+                    title: '请输入登录密码进行查看',
                 }, function(value, index, elem){
-                    if(value == $("#accountPwdSeu").val()){
+                    if(sha1(value) == userPwd){
                         $("#pwdDiv").css('display','block');
                         $("#lookPwd").text('隐藏密码');
                         $("#lookPwd").css('backgroundColor','#009688');
@@ -67,14 +67,14 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate','element','carousel']
     });
 
     if(method == '0' || method == '1'){
-        $("#findPwdDiv").css('display','block');
+        $("#findPwdDiv").css('display','none');
         $("#pwdDiv").css('display','block');
         if(method == '1'){
             $("#pwdDiv").css('display','none');
             $("#butPwdDiv").css('display','block');
-            $("#findPwdDiv").css('display','none');
             $("#accountReset").css('display','none');
         }
+
         form.verify({
             accountNum: function (value) {
                 if (value.length < 2) {

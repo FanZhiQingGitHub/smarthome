@@ -328,12 +328,10 @@
     <resultMap type="com.group.sh.smarthome.entity.TblAccountInfo" id="AccountListMap">
         <result column="accountId" property="accountId"></result>
         <result column="accountNum" property="accountNum"></result>
-        <result column="accountNm" property="accountNm"></result>
         <result column="accountPhone" property="accountPhone"></result>
         <result column="accountPwdOne" property="accountPwdOne"></result>
         <result column="accountPwdTwo" property="accountPwdTwo"></result>
         <result column="accountPwdThree" property="accountPwdThree"></result>
-        <result column="accountPwdSeu" property="accountPwdSeu"></result>
         <result column="accountMail" property="accountMail"></result>
         <result column="accountUrl" property="accountUrl"></result>
         <result column="accountType" property="accountType"></result>
@@ -345,12 +343,10 @@
         SELECT
         info.ACCOUNT_ID as accountId,
         info.ACCOUNT_NUM as accountNum,
-        info.ACCOUNT_NM as accountNm,
         info.ACCOUNT_PHONE as accountPhone,
         info.ACCOUNT_PWD_ONE as accountPwdOne,
         info.ACCOUNT_PWD_TWO as accountPwdTwo,
         info.ACCOUNT_PWD_THREE as accountPwdThree,
-        info.ACCOUNT_PWD_SEU as accountPwdSeu,
         info.ACCOUNT_MAIL as accountMail,
         info.ACCOUNT_URL as accountUrl,
         info.ACCOUNT_TYPE as accountType,
@@ -423,12 +419,12 @@
     <!-- 新增账户密码信息-->
     <insert id="addAccountInfo" parameterType="com.group.sh.smarthome.entity.TblAccountInfo" useGeneratedKeys="true" keyProperty="accountId">
         insert into
-            tbl_account_info(ACCOUNT_NUM,ACCOUNT_NM,ACCOUNT_PHONE,ACCOUNT_PWD_ONE,ACCOUNT_PWD_TWO,ACCOUNT_PWD_THREE,
-                             ACCOUNT_PWD_SEU,ACCOUNT_MAIL,ACCOUNT_URL,ACCOUNT_TYPE,
+            tbl_account_info(ACCOUNT_NUM,ACCOUNT_PHONE,ACCOUNT_PWD_ONE,ACCOUNT_PWD_TWO,ACCOUNT_PWD_THREE,
+                             ACCOUNT_MAIL,ACCOUNT_URL,ACCOUNT_TYPE,
                         CRT_PSN_ID,CRT_TM,MOD_PSN_ID,MOD_TM,DEL_ID)
         values
-        (#{accountNum},#{accountNm},#{accountPhone},#{accountPwdOne},#{accountPwdTwo},
-         #{accountPwdThree},#{accountPwdSeu},#{accountMail},#{accountUrl},#{accountType},
+        (#{accountNum},#{accountPhone},#{accountPwdOne},#{accountPwdTwo},
+         #{accountPwdThree},#{accountMail},#{accountUrl},#{accountType},
          #{crtPsnId},now(),#{modPsnId},#{modTm},'0')
     </insert>
 
@@ -439,9 +435,6 @@
             MOD_TM = now(),
             <if test="accountNum != '' and accountNum != null">
                 ACCOUNT_NUM = #{accountNum},
-            </if>
-            <if test="accountNm != '' and accountNm != null">
-                ACCOUNT_NM = #{accountNm},
             </if>
             <if test="accountPhone != '' and accountPhone != null">
                 ACCOUNT_PHONE = #{accountPhone},
@@ -454,9 +447,6 @@
             </if>
             <if test="accountPwdThree != '' and accountPwdThree != null">
                 ACCOUNT_PWD_THREE = #{accountPwdThree},
-            </if>
-            <if test="accountPwdSeu != '' and accountPwdSeu != null">
-                ACCOUNT_PWD_SEU = #{accountPwdSeu},
             </if>
             <if test="accountMail != '' and accountMail != null">
                 ACCOUNT_MAIL = #{accountMail},

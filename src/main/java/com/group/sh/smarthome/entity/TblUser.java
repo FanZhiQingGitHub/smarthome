@@ -190,6 +190,8 @@ public class TblUser extends GenericClass {
     @TableField("USER_ROLE")
     private Integer userRole;
 
+    private Integer userInfoPwd;
+
     private String userRoleName;
 
     /**

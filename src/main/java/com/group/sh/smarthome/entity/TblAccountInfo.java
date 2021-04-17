@@ -33,12 +33,6 @@ public class TblAccountInfo extends GenericClass {
     private String accountNum;
 
     /**
-     * 账户信息名称
-     */
-    @TableField("ACCOUNT_NM")
-    private String accountNm;
-
-    /**
      * 账户信息手机号码
      */
     @TableField("ACCOUNT_PHONE")
@@ -61,12 +55,6 @@ public class TblAccountInfo extends GenericClass {
      */
     @TableField("ACCOUNT_PWD_THREE")
     private String accountPwdThree;
-
-    /**
-     * 账户信息查看密码（安全保障）
-     */
-    @TableField("ACCOUNT_PWD_SEU")
-    private String accountPwdSeu;
 
 
     /**

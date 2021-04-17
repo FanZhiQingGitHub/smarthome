@@ -48,15 +48,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
         , cols: [[
             {type: 'radio', title:'单选',width:50,fixed: 'left'}
             ,{field:'accountId', title:'账号编号', width:120,fixed: '', unresize: true, sort: true,align: 'center',}
-            /*
-            ,{field:'accountNm', title:'账号名称', align: 'center', width:150,
-                templet:function(d){
-                    if(d.accountNm != null && d.accountNm !='' && d.accountNm !=undefined){
-                        return d.accountNm
-                    }else{
-                        return '无'
-                    }
-                }}*/
             ,{field:'accountNum', title:'账号', width:150,align: 'center'}
             ,{field:'accountPhone', title:'关联手机', width:150,align: 'center',}
             ,{field:'accountMail', title:'关联邮箱',align: 'center',}
@@ -116,12 +107,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                             body.find("#method").val('3');
                             body.find("#accountId").val(data[0].accountId);
                             body.find("#accountNum").val(data[0].accountNum);
-                            body.find("#accountNm").val(data[0].accountNm);
                             body.find("#accountPhone").val(data[0].accountPhone);
                             body.find("#accountPwdOne").val(data[0].accountPwdOne);
                             body.find("#accountPwdTwo").val(data[0].accountPwdTwo);
                             body.find("#accountPwdThree").val(data[0].accountPwdThree);
-                            body.find("#accountPwdSeu").val(data[0].accountPwdSeu);
                             body.find("#accountMail").val(data[0].accountMail);
                             body.find("#accountUrl").val(data[0].accountUrl);
                             body.find("#accountTypeVal").val(data[0].accountType);
@@ -166,12 +155,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     body.find("#method").val('1');
                     body.find("#accountId").val(data.accountId);
                     body.find("#accountNum").val(data.accountNum);
-                    body.find("#accountNm").val(data.accountNm);
                     body.find("#accountPhone").val(data.accountPhone);
                     body.find("#accountPwdOne").val(data.accountPwdOne);
                     body.find("#accountPwdTwo").val(data.accountPwdTwo);
                     body.find("#accountPwdThree").val(data.accountPwdThree);
-                    body.find("#accountPwdSeu").val(data.accountPwdSeu);
                     body.find("#accountMail").val(data.accountMail);
                     body.find("#accountUrl").val(data.accountUrl);
                     body.find("#accountTypeVal").val(data.accountType);
@@ -221,12 +208,10 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 body.find("#method").val('3');
                 body.find("#accountId").val(data.accountId);
                 body.find("#accountNum").val(data.accountNum);
-                body.find("#accountNm").val(data.accountNm);
                 body.find("#accountPhone").val(data.accountPhone);
                 body.find("#accountPwdOne").val(data.accountPwdOne);
                 body.find("#accountPwdTwo").val(data.accountPwdTwo);
                 body.find("#accountPwdThree").val(data.accountPwdThree);
-                body.find("#accountPwdSeu").val(data.accountPwdSeu);
                 body.find("#accountMail").val(data.accountMail);
                 body.find("#accountUrl").val(data.accountUrl);
                 body.find("#accountTypeVal").val(data.accountType);
@@ -252,7 +237,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                 }
                 , where: {
                     accountNum: $("#accountNum").val(),
-                    accountNm: $("#accountNm").val(),
                     accountPhone: $("#accountPhone").val(),
                     accountType: $("#accountType").val(),
                     startTime: $("#startTime").val(),
@@ -270,7 +254,6 @@ layui.use(['form', 'layer', 'jquery', 'layedit', 'laydate', 'element', 'tree','t
                     curr: 1 //重新从第 1 页开始
                 },where: {
                     accountNum: $("#accountNum").val(),
-                    accountNm: $("#accountNm").val(),
                     accountPhone: $("#accountPhone").val(),
                     accountType: $("#accountType").val(),
                     startTime: $("#startTime").val(),

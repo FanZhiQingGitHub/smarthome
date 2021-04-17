@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/usercss/protectAccount.css}" media="all"/>
     <script type="text/javascript" src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/js-sha1/0.6.0/sha1.js"></script>
     <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/userjs/protectAccount.js}"></script>
 </head>
@@ -37,14 +38,6 @@
             <input type="text" id="accountNum" name="accountNum" class="layui-input " value="" lay-verify="accountNum" autocomplete="off" placeholder="请输入账号">
         </div>
     </div>
-
-    <!--
-    <div class="layui-form-item">
-        <label class="layui-form-label">账号名称:</label>
-        <div class="layui-input-block">
-            <input type="text" id="accountNm" name="accountNm" class="layui-input " value="" autocomplete="off" placeholder="请输入账号名称">
-        </div>
-    </div>-->
 
     <div class="layui-form-item">
         <label class="layui-form-label">关联手机:</label>
@@ -72,13 +65,6 @@
             <div class="layui-input-block">
                 <input type="text" id="accountPwdThree" name="accountPwdThree" class="layui-input " value="" autocomplete="off" placeholder="请输入账号密码">
             </div>
-        </div>
-    </div>
-
-    <div class="layui-form-item" id="findPwdDiv" style="display: none">
-        <label class="layui-form-label">查看密码:</label>
-        <div class="layui-input-block">
-            <input type="password" id="accountPwdSeu" name="accountPwdSeu" class="layui-input " value="" lay-verify="pass" autocomplete="off" placeholder="请输入查看密码（该密码主要用在查看账号信息时显示密码时使用，请牢记！）">
         </div>
     </div>
 
